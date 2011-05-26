@@ -118,6 +118,13 @@ class TestNewTicketDialogGui(unittest.TestCase):
         QTest.mouseClick(checkboxWidget, Qt.LeftButton)
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
+    
+    def testTotalValueLineEditTextEntry(self):
+        testWidget = self.gui.totalValueLineEdit
+        testWidget.clear()
+        
+        QTest.keyClicks(testWidget, self.testString)
+        assert testWidget.text() == self.testString
 
     def tearDown(self):
         self.gui.deleteLater()
