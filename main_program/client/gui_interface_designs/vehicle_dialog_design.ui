@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>carWidget</class>
- <widget class="QWidget" name="carWidget">
+ <class>vehicleDialog</class>
+ <widget class="QDialog" name="vehicleDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
-    <height>180</height>
+    <width>279</width>
+    <height>221</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>carWidget</string>
+   <string>Dialog</string>
   </property>
+  <widget class="QDialogButtonBox" name="vehicleDialogButtonbox">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>180</y>
+     <width>161</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>11</x>
-     <y>11</y>
+     <x>10</x>
+     <y>10</y>
      <width>257</width>
      <height>152</height>
     </rect>
@@ -260,30 +276,53 @@
    </layout>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>makeLineEdit</tabstop>
-  <tabstop>modelLineEdit</tabstop>
-  <tabstop>colourLineEdit</tabstop>
-  <tabstop>registrationLineEdit</tabstop>
-  <tabstop>vinLineEdit</tabstop>
-  <tabstop>catalyticCheckbox</tabstop>
-  <tabstop>catalyticLineEdit</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
+   <sender>vehicleDialogButtonbox</sender>
+   <signal>accepted()</signal>
+   <receiver>vehicleDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>194</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vehicleDialogButtonbox</sender>
+   <signal>rejected()</signal>
+   <receiver>vehicleDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>200</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>278</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>catalyticCheckbox</sender>
-   <signal>toggled(bool)</signal>
+   <signal>clicked(bool)</signal>
    <receiver>catalyticLineEdit</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>152</y>
+     <x>106</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
-     <x>209</x>
-     <y>152</y>
+     <x>210</x>
+     <y>153</y>
     </hint>
    </hints>
   </connection>

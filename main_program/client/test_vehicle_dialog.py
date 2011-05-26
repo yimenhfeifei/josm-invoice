@@ -6,16 +6,16 @@ try:
     from PyQt4.QtGui import *
     from PyQt4.QtTest import *
     
-    from car_widget import CarWidget
+    from vehicle_dialog import VehicleDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class TestCarWidgetGui(unittest.TestCase):
+class TestVehicleDialogGui(unittest.TestCase):
     
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.widget = CarWidget()
+        self.widget = VehicleDialog()
         self.testString = "It works!"
       
     def testMakeLineEditTextEntry(self):
@@ -85,7 +85,7 @@ class TestCarWidgetGui(unittest.TestCase):
         self.widget.deleteLater()
         self.app.deleteLater()
 
-suite1 = unittest.makeSuite(TestCarWidgetGui, "test")
+suite1 = unittest.makeSuite(TestVehicleDialogGui, "test")
     
 if __name__ == '__main__':
     unittest.main()

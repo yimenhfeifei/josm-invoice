@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'car_widget_design.ui'
+# Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Tue May 17 13:54:08 2011
+# Created: Thu May 26 15:35:15 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,12 +14,17 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class Ui_carWidget(object):
-    def setupUi(self, carWidget):
-        carWidget.setObjectName(_fromUtf8("carWidget"))
-        carWidget.resize(309, 180)
-        self.layoutWidget = QtGui.QWidget(carWidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(11, 11, 257, 152))
+class Ui_vehicleDialog(object):
+    def setupUi(self, vehicleDialog):
+        vehicleDialog.setObjectName(_fromUtf8("vehicleDialog"))
+        vehicleDialog.resize(279, 221)
+        self.vehicleDialogButtonbox = QtGui.QDialogButtonBox(vehicleDialog)
+        self.vehicleDialogButtonbox.setGeometry(QtCore.QRect(100, 180, 161, 32))
+        self.vehicleDialogButtonbox.setOrientation(QtCore.Qt.Horizontal)
+        self.vehicleDialogButtonbox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
+        self.vehicleDialogButtonbox.setObjectName(_fromUtf8("vehicleDialogButtonbox"))
+        self.layoutWidget = QtGui.QWidget(vehicleDialog)
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 257, 152))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.gridLayout = QtGui.QGridLayout(self.layoutWidget)
         self.gridLayout.setMargin(0)
@@ -133,22 +138,18 @@ class Ui_carWidget(object):
         self.label_11.setBuddy(self.registrationLineEdit)
         self.label.setBuddy(self.vinLineEdit)
 
-        self.retranslateUi(carWidget)
-        QtCore.QObject.connect(self.catalyticCheckbox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.catalyticLineEdit.setEnabled)
-        QtCore.QMetaObject.connectSlotsByName(carWidget)
-        carWidget.setTabOrder(self.makeLineEdit, self.modelLineEdit)
-        carWidget.setTabOrder(self.modelLineEdit, self.colourLineEdit)
-        carWidget.setTabOrder(self.colourLineEdit, self.registrationLineEdit)
-        carWidget.setTabOrder(self.registrationLineEdit, self.vinLineEdit)
-        carWidget.setTabOrder(self.vinLineEdit, self.catalyticCheckbox)
-        carWidget.setTabOrder(self.catalyticCheckbox, self.catalyticLineEdit)
+        self.retranslateUi(vehicleDialog)
+        QtCore.QObject.connect(self.vehicleDialogButtonbox, QtCore.SIGNAL(_fromUtf8("accepted()")), vehicleDialog.accept)
+        QtCore.QObject.connect(self.vehicleDialogButtonbox, QtCore.SIGNAL(_fromUtf8("rejected()")), vehicleDialog.reject)
+        QtCore.QObject.connect(self.catalyticCheckbox, QtCore.SIGNAL(_fromUtf8("clicked(bool)")), self.catalyticLineEdit.setEnabled)
+        QtCore.QMetaObject.connectSlotsByName(vehicleDialog)
 
-    def retranslateUi(self, carWidget):
-        carWidget.setWindowTitle(QtGui.QApplication.translate("carWidget", "carWidget", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_8.setText(QtGui.QApplication.translate("carWidget", "Make", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_9.setText(QtGui.QApplication.translate("carWidget", "Model", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_10.setText(QtGui.QApplication.translate("carWidget", "Colour", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_11.setText(QtGui.QApplication.translate("carWidget", "Registration", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("carWidget", "VIN", None, QtGui.QApplication.UnicodeUTF8))
-        self.catalyticCheckbox.setText(QtGui.QApplication.translate("carWidget", "Catalytic Converter", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, vehicleDialog):
+        vehicleDialog.setWindowTitle(QtGui.QApplication.translate("vehicleDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_8.setText(QtGui.QApplication.translate("vehicleDialog", "Make", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("vehicleDialog", "Model", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_10.setText(QtGui.QApplication.translate("vehicleDialog", "Colour", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_11.setText(QtGui.QApplication.translate("vehicleDialog", "Registration", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("vehicleDialog", "VIN", None, QtGui.QApplication.UnicodeUTF8))
+        self.catalyticCheckbox.setText(QtGui.QApplication.translate("vehicleDialog", "Catalytic Converter", None, QtGui.QApplication.UnicodeUTF8))
 

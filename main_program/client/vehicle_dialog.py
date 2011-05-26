@@ -3,13 +3,13 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from gui_interface_designs import car_widget_generated
+    from gui_interface_designs import vehicle_dialog_generated
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class CarWidget(QDialog, car_widget_generated.Ui_carWidget):
+class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
 
     def __init__(self, parent=None):
-        super(CarWidget, self).__init__(parent)
+        super(VehicleDialog, self).__init__(parent)
         self.setupUi(self)
