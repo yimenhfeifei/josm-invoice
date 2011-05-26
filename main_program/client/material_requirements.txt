@@ -1,0 +1,23 @@
+View materials and their prices per unit.
+Add and remove materials.
+Update prices.
+Change units.
+Show which unit is in use.
+
+Materials object holds ferrous/non ferrous details.
+
+Materials:
+Mixed
+Shell
+Banger
+Car
+Aluminium
+Lead
+Copper
+Brass
+Heavy Iron
+Light Iron
+Gunmetal
+Batteries
+Bright wire
+Burnt wire

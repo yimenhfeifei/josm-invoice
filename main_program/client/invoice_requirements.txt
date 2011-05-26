@@ -1,0 +1,15 @@
+Store invoice objects.
+
+Show company header.
+Recipient details.
+Payload details.
+
+Add and remove payloads.
+
+Show subtotals.
+Show VAT.
+Show total.
+
+Print invoice.
+
+Search invoices.

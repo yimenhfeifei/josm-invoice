@@ -1,0 +1,28 @@
+Interface tweaks.
+Printing demo.
+Power socket network test.
+Auto generate all ui files. Batch or other method.
+
+Installer.
+Unit tests.
+Server machine setup.
+Network setup.
+Printing.
+Tooltips.
+Accelerator keys.
+Error handling.
+File logging.
+Options file reading and writing.
+Options dialog.
+Database interface.
+Database design.
+Server design.
+Main program design.
+Form validation.
+Regex design.
+Client/server design.
+Form designs.
+
+Options page chooses printers and backend.
+
+QSettings stores local settings.

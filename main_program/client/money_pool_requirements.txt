@@ -1,0 +1,18 @@
+Set the money pool at the start of each day.
+Add positive values to the pool during the day.
+Add negative values to the pool.
+Keep track of reasons for negative values (expenses).
+
+Show date and time.
+Show each transaction except scrap purchases.
+Show total in.
+Show expenses.
+Show scrap purchases.
+Show total remaining in pool.
+
+Keep records for each day.
+
+Store transaction objects.
+
+Search records by day.
+
