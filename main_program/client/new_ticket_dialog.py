@@ -14,7 +14,8 @@ class NewTicketDialog(QDialog, new_ticket_dialog_generated.Ui_newTicketDialog):
         super(NewTicketDialog, self).__init__(parent)
         self.setupUi(self)
         
-        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), self.togglePayloadValueReadOnly)
+        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), 
+                     self.payloadValueReadOnlyToggle)
     
-    def togglePayloadValueReadOnly(self, state):
+    def payloadValueReadOnlyToggle(self, state):
         self.payloadValueLineEdit.setReadOnly(not state)
