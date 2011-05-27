@@ -1,7 +1,6 @@
 Interface tweaks.
 Printing demo.
 Power socket network test.
-Auto generate all ui files. Batch or other method.
 
 Installer.
 Unit tests.
