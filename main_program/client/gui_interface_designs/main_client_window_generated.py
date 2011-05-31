@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_client_window_design.ui'
 #
-# Created: Tue May 31 14:07:02 2011
+# Created: Tue May 31 14:34:37 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,16 +38,16 @@ class Ui_mainClientWindow(object):
         self.verticalLayout = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.commandLinkButton_2 = QtGui.QCommandLinkButton(self.layoutWidget)
-        self.commandLinkButton_2.setMinimumSize(QtCore.QSize(121, 41))
-        self.commandLinkButton_2.setMaximumSize(QtCore.QSize(121, 41))
-        self.commandLinkButton_2.setObjectName(_fromUtf8("commandLinkButton_2"))
-        self.verticalLayout.addWidget(self.commandLinkButton_2)
-        self.commandLinkButton = QtGui.QCommandLinkButton(self.layoutWidget)
-        self.commandLinkButton.setMinimumSize(QtCore.QSize(141, 41))
-        self.commandLinkButton.setMaximumSize(QtCore.QSize(141, 41))
-        self.commandLinkButton.setObjectName(_fromUtf8("commandLinkButton"))
-        self.verticalLayout.addWidget(self.commandLinkButton)
+        self.newTicketButton = QtGui.QCommandLinkButton(self.layoutWidget)
+        self.newTicketButton.setMinimumSize(QtCore.QSize(121, 41))
+        self.newTicketButton.setMaximumSize(QtCore.QSize(121, 41))
+        self.newTicketButton.setObjectName(_fromUtf8("newTicketButton"))
+        self.verticalLayout.addWidget(self.newTicketButton)
+        self.searchTicketsButton = QtGui.QCommandLinkButton(self.layoutWidget)
+        self.searchTicketsButton.setMinimumSize(QtCore.QSize(141, 41))
+        self.searchTicketsButton.setMaximumSize(QtCore.QSize(141, 41))
+        self.searchTicketsButton.setObjectName(_fromUtf8("searchTicketsButton"))
+        self.verticalLayout.addWidget(self.searchTicketsButton)
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -106,8 +106,8 @@ class Ui_mainClientWindow(object):
 
     def retranslateUi(self, mainClientWindow):
         mainClientWindow.setWindowTitle(QtGui.QApplication.translate("mainClientWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton_2.setText(QtGui.QApplication.translate("mainClientWindow", "New Ticket", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton.setText(QtGui.QApplication.translate("mainClientWindow", "Search Tickets", None, QtGui.QApplication.UnicodeUTF8))
+        self.newTicketButton.setText(QtGui.QApplication.translate("mainClientWindow", "New Ticket", None, QtGui.QApplication.UnicodeUTF8))
+        self.searchTicketsButton.setText(QtGui.QApplication.translate("mainClientWindow", "Search Tickets", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("mainClientWindow", "Ticket", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("mainClientWindow", "Materials", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("mainClientWindow", "Money Pool", None, QtGui.QApplication.UnicodeUTF8))
