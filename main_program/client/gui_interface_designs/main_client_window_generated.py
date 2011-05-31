@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_client_window_design.ui'
 #
-# Created: Fri May 27 14:23:57 2011
+# Created: Tue May 31 14:07:02 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,11 +14,11 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(519, 528)
-        self.centralwidget = QtGui.QWidget(MainWindow)
+class Ui_mainClientWindow(object):
+    def setupUi(self, mainClientWindow):
+        mainClientWindow.setObjectName(_fromUtf8("mainClientWindow"))
+        mainClientWindow.resize(519, 528)
+        self.centralwidget = QtGui.QWidget(mainClientWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
         self.tabWidget.setEnabled(True)
@@ -64,8 +64,8 @@ class Ui_MainWindow(object):
         self.tab_5 = QtGui.QWidget()
         self.tab_5.setObjectName(_fromUtf8("tab_5"))
         self.tabWidget.addTab(self.tab_5, _fromUtf8(""))
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
+        mainClientWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtGui.QMenuBar(mainClientWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 519, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
@@ -76,19 +76,19 @@ class Ui_MainWindow(object):
         self.menuAbout.setObjectName(_fromUtf8("menuAbout"))
         self.menuServer = QtGui.QMenu(self.menubar)
         self.menuServer.setObjectName(_fromUtf8("menuServer"))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
+        mainClientWindow.setMenuBar(self.menubar)
+        self.statusbar = QtGui.QStatusBar(mainClientWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionOptions = QtGui.QAction(MainWindow)
+        mainClientWindow.setStatusBar(self.statusbar)
+        self.actionOptions = QtGui.QAction(mainClientWindow)
         self.actionOptions.setObjectName(_fromUtf8("actionOptions"))
-        self.actionExit = QtGui.QAction(MainWindow)
+        self.actionExit = QtGui.QAction(mainClientWindow)
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
-        self.actionAbout = QtGui.QAction(MainWindow)
+        self.actionAbout = QtGui.QAction(mainClientWindow)
         self.actionAbout.setObjectName(_fromUtf8("actionAbout"))
-        self.actionConnect = QtGui.QAction(MainWindow)
+        self.actionConnect = QtGui.QAction(mainClientWindow)
         self.actionConnect.setObjectName(_fromUtf8("actionConnect"))
-        self.actionDisconnect = QtGui.QAction(MainWindow)
+        self.actionDisconnect = QtGui.QAction(mainClientWindow)
         self.actionDisconnect.setObjectName(_fromUtf8("actionDisconnect"))
         self.menuFile.addAction(self.actionExit)
         self.menuEdit.addAction(self.actionOptions)
@@ -100,28 +100,28 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuServer.menuAction())
         self.menubar.addAction(self.menuAbout.menuAction())
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(mainClientWindow)
         self.tabWidget.setCurrentIndex(0)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(mainClientWindow)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton_2.setText(QtGui.QApplication.translate("MainWindow", "New Ticket", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton.setText(QtGui.QApplication.translate("MainWindow", "Search Tickets", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Ticket", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("MainWindow", "Materials", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("MainWindow", "Money Pool", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QtGui.QApplication.translate("MainWindow", "Stocks", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), QtGui.QApplication.translate("MainWindow", "Invoice", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QtGui.QApplication.translate("MainWindow", "Summary", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuEdit.setTitle(QtGui.QApplication.translate("MainWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuAbout.setTitle(QtGui.QApplication.translate("MainWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuServer.setTitle(QtGui.QApplication.translate("MainWindow", "Server", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOptions.setText(QtGui.QApplication.translate("MainWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionConnect.setText(QtGui.QApplication.translate("MainWindow", "Connect", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionDisconnect.setText(QtGui.QApplication.translate("MainWindow", "Disconnect", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, mainClientWindow):
+        mainClientWindow.setWindowTitle(QtGui.QApplication.translate("mainClientWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.commandLinkButton_2.setText(QtGui.QApplication.translate("mainClientWindow", "New Ticket", None, QtGui.QApplication.UnicodeUTF8))
+        self.commandLinkButton.setText(QtGui.QApplication.translate("mainClientWindow", "Search Tickets", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("mainClientWindow", "Ticket", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("mainClientWindow", "Materials", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("mainClientWindow", "Money Pool", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QtGui.QApplication.translate("mainClientWindow", "Stocks", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), QtGui.QApplication.translate("mainClientWindow", "Invoice", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QtGui.QApplication.translate("mainClientWindow", "Summary", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate("mainClientWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuEdit.setTitle(QtGui.QApplication.translate("mainClientWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuAbout.setTitle(QtGui.QApplication.translate("mainClientWindow", "Help", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuServer.setTitle(QtGui.QApplication.translate("mainClientWindow", "Server", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOptions.setText(QtGui.QApplication.translate("mainClientWindow", "Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExit.setText(QtGui.QApplication.translate("mainClientWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAbout.setText(QtGui.QApplication.translate("mainClientWindow", "About", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionConnect.setText(QtGui.QApplication.translate("mainClientWindow", "Connect", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDisconnect.setText(QtGui.QApplication.translate("mainClientWindow", "Disconnect", None, QtGui.QApplication.UnicodeUTF8))
 
 import dockwidgets_rc
