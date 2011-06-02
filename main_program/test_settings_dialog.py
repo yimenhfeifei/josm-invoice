@@ -16,7 +16,7 @@ class TestSettingsDialogGui(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = SettingsDialog()
-        self.testString = "It works!"
+        self.testString = "I"
       
     def testAddressLineEditsTextEntry(self):
         testWidgets = (self.gui.addressLineEditOctet1,

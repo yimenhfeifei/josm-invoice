@@ -16,7 +16,7 @@ class TestVehicleDialogGui(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.widget = VehicleDialog()
-        self.testString = "It works!"
+        self.testString = "I"
       
     def testMakeLineEditTextEntry(self):
         testWidget = self.widget.makeLineEdit

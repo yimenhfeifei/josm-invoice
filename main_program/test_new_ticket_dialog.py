@@ -16,7 +16,7 @@ class TestNewTicketDialogGui(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.testString = "It works!"
+        self.testString = "I"
     
     def testNameLineEditTextEntry(self):
         testWidget = self.gui.nameLineEdit
