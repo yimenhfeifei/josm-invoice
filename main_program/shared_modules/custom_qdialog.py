@@ -4,7 +4,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from regular_expressions import regexObjects
+    from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
