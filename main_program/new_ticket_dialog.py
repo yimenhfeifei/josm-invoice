@@ -25,20 +25,21 @@ class NewTicketDialog(CustomQDialog,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit)
         
-        self.widgetRegexStrings = ("Name", "Name", "HouseNumber", "Name", "Name",
-                             "Name", "Name")
+        self.widgetRegexStrings = ("Name", "Name", "HouseNumber", "Name",
+                                   "Name", "Name", "Name")
         
         self.widgetMinimumLengths = (10, 10, 5, 10, 10, 10, 10)
         
-        self.widgetMandatoryStatus = (True, True, True, True, True, True, True)
+        self.widgetMandatoryStatus = (True, True, True, True, True,
+                                      True, True)
         
-        self.setProperties("regexString", self.dialogWidgets,
+        self.setDynamicProperties("regexString", self.dialogWidgets,
                            self.widgetRegexStrings)
         
-        self.setProperties("minimumLength", self.dialogWidgets,
+        self.setDynamicProperties("minimumLength", self.dialogWidgets,
                            self.widgetMinimumLengths)
         
-        self.setProperties("mandatory", self.dialogWidgets,
+        self.setDynamicProperties("mandatory", self.dialogWidgets,
                            self.widgetMandatoryStatus)
         
         self.setValidators(self.dialogWidgets)
