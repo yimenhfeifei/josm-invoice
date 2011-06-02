@@ -11,13 +11,17 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class NewTicketDialog(CustomQDialog, new_ticket_dialog_generated.Ui_newTicketDialog):
+class NewTicketDialog(CustomQDialog,
+                      new_ticket_dialog_generated.Ui_newTicketDialog):
 
     def __init__(self, parent=None):
         super(NewTicketDialog, self).__init__(parent)
         self.setupUi(self)
         
-        self.widgetsAndPatterns = ((self.nameLineEdit, regexObjects["Name"]),)
+        self.widgetsAndPatterns = ((self.firstNameLineEdit, regexObjects["Name"]),
+                                   (self.lastNameLineEdit, regexObjects["Name"]),
+                                   (self.houseNumberLineEdit,
+                                    regexObjects["HouseNumber"]))
         self.setValidators(self.widgetsAndPatterns)
         
         self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), 

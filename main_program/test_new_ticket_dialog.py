@@ -16,70 +16,71 @@ class TestNewTicketDialogGui(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.testString = "I"
+        self.nameTestString = "I"
+        self.houseNumberTestString = "289"
     
-    def testNameLineEditTextEntry(self):
-        testWidget = self.gui.nameLineEdit
+    def testFirstNameLineEditTextEntry(self):
+        testWidget = self.gui.firstNameLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
     
     def testHouseNumberLineEditTextEntry(self):
         testWidget = self.gui.houseNumberLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.houseNumberTestString)
+        assert testWidget.text() == self.houseNumberTestString
         
     def testStreetLineEditTextEntry(self):
         testWidget = self.gui.streetLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
         
     def testTownLineEditTextEntry(self):
         testWidget = self.gui.townLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
         
     def testPostcodeLineEditTextEntry(self):
         testWidget = self.gui.postcodeLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
     
     def testVehicleRegistrationLineEditTextEntry(self):
         testWidget = self.gui.vehicleRegistrationLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
     
     def testGrossWeightLineEditTextEntry(self):
         testWidget = self.gui.grossWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
         
     def testTareWeightLineEditTextEntry(self):
         testWidget = self.gui.tareWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
         
     def testNetWeightLineEditTextEntry(self):
         testWidget = self.gui.netWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
     
     def testMaterialCombobox(self):
         assert self.gui.materialCombobox.isEnabled() == True
@@ -116,21 +117,75 @@ class TestNewTicketDialogGui(unittest.TestCase):
         assert checkboxWidget.isChecked() == False
         
         QTest.mouseClick(checkboxWidget, Qt.LeftButton)
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
     
     def testTotalValueLineEditTextEntry(self):
         testWidget = self.gui.totalValueLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.keyClicks(testWidget, self.nameTestString)
+        assert testWidget.text() == self.nameTestString
 
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
-
-suite1 = unittest.makeSuite(TestNewTicketDialogGui, "test")
+    
+class TestNewTicketDialogValidators(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.nameResult = "John"
+        self.nameTestStrings = ("John",
+                            "John  ",
+                            "  John",
+                            "  John  ",
+                            "Jo  hn",
+                            "28759John",
+                            ",./John@~",
+                            " 87898 7John89845  ",
+                            "[]'John#89080",
+                            "8783  *(John)&%  78")
+        
+        self.houseNumberResult = "289"
+        self.houseNumberTestStrings = ("289",
+                            " 289",
+                            " 289 ",
+                            "28 9",
+                            "289  ",
+                            "hello, 289!",
+                            ":2djeih_-8 9",
+                            "u_289_hello ",
+                            "^&289",
+                            "~2,.89")
+        
+    def testFirstNameLineEditValidate(self):
+        testWidget = self.gui.firstNameLineEdit
+        
+        for string in self.nameTestStrings:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, string)
+        assert testWidget.text() == self.nameResult
+        
+    def testLastNameLineEditValidate(self):
+        testWidget = self.gui.lastNameLineEdit
+        
+        for string in self.nameTestStrings:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, string)
+        assert testWidget.text() == self.nameResult
+    
+    def testHouseNumberLineEditValidate(self):
+        testWidget = self.gui.houseNumberLineEdit
+        
+        for string in self.houseNumberTestStrings:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, string)
+        assert testWidget.text() == self.houseNumberResult
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
     
 if __name__ == "__main__":
     unittest.main()
