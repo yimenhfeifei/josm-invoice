@@ -9,9 +9,6 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class DynamicPropertyMissing(Exception):
-    pass
-
 class CustomQDialog(QDialog):
     
     def __init__(self, parent=None):
