@@ -14,5 +14,7 @@ class CustomQDialog(QDialog):
     def __init__(self, parent=None):
         super(CustomQDialog, self).__init__(parent)
         
-    def setValidators(self, widget, Qregex):
-        pass
+    def setValidators(self, widgetsAndPatterns):
+        for pair in widgetsAndPatterns:
+            widget, pattern = pair[0], pair[1]
+            widget.setValidator(QRegExpValidator(pattern, self))
