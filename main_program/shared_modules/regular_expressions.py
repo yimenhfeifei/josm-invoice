@@ -9,5 +9,5 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-regexObjects = {"Name": QRegExp(r"^[a-z]+$", Qt.CaseInsensitive),
-                "HouseNumber": QRegExp(r"^[0-9]+$")}
+regexObjects = {"Name": QRegExp(r"^[a-z]{1,20}$", Qt.CaseInsensitive),
+                "HouseNumber": QRegExp(r"^[0-9]{1,5}$")}
