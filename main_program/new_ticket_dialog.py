@@ -25,22 +25,47 @@ class NewTicketDialog(CustomQDialog,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit)
         
-        self.widgetRegexStrings = ("Name", "Name", "HouseNumber", "Street",
-                                   "Name", "Postcode", "VehicleRegistration")
+        self.setDynamicProperties(self.firstNameLineEdit,
+                                  regexString="Name",
+                                  minimumLength=10,
+                                  mandatory=True,
+                                  validated=False)
         
-        self.widgetMinimumLengths = (10, 10, 5, 10, 10, 10, 10)
+        self.setDynamicProperties(self.lastNameLineEdit,
+                                  regexString="Name",
+                                  minimumLength=10,
+                                  mandatory=True,
+                                  validated=False)
         
-        self.widgetMandatoryStatus = (True, True, True, True, True,
-                                      True, True)
+        self.setDynamicProperties(self.houseNumberLineEdit,
+                                  regexString="HouseNumber",
+                                  minimumLength=5,
+                                  mandatory=True,
+                                  validated=False)
         
-        self.setDynamicProperties("regexString", self.dialogWidgets,
-                           self.widgetRegexStrings)
+        self.setDynamicProperties(self.streetLineEdit,
+                                  regexString="Street",
+                                  minimumLength=10,
+                                  mandatory=True,
+                                  validated=False)
         
-        self.setDynamicProperties("minimumLength", self.dialogWidgets,
-                           self.widgetMinimumLengths)
+        self.setDynamicProperties(self.townLineEdit,
+                                  regexString="Name",
+                                  minimumLength=10,
+                                  mandatory=True,
+                                  validated=False)
         
-        self.setDynamicProperties("mandatory", self.dialogWidgets,
-                           self.widgetMandatoryStatus)
+        self.setDynamicProperties(self.postcodeLineEdit,
+                                  regexString="Postcode",
+                                  minimumLength=5,
+                                  mandatory=True,
+                                  validated=False)
+        
+        self.setDynamicProperties(self.vehicleRegistrationLineEdit,
+                                  regexString="VehicleRegistration",
+                                  minimumLength=5,
+                                  mandatory=True,
+                                  validated=False)
         
         self.setValidators(self.dialogWidgets)
         

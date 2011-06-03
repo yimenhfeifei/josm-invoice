@@ -14,9 +14,8 @@ class CustomQDialog(QDialog):
     def __init__(self, parent=None):
         super(CustomQDialog, self).__init__(parent)
     
-    def setDynamicProperties(self, dynamicProperty, widgets, values):
-        for pair in zip(widgets, values):
-            widget, value = pair[0], pair[1]
+    def setDynamicProperties(self, widget, **dynamicProperties):
+        for dynamicProperty, value in dynamicProperties.items():
             widget.setProperty(dynamicProperty, value)
 
     def setValidators(self, widgets):
