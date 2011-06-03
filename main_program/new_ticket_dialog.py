@@ -27,31 +27,31 @@ class NewTicketDialog(CustomQDialog,
         
         self.setDynamicProperties(self.firstNameLineEdit,
                                   regexString="Name",
-                                  minimumLength=10,
+                                  minimumLength=1,
                                   mandatory=True,
                                   validated=False)
         
         self.setDynamicProperties(self.lastNameLineEdit,
                                   regexString="Name",
-                                  minimumLength=10,
+                                  minimumLength=1,
                                   mandatory=True,
                                   validated=False)
         
         self.setDynamicProperties(self.houseNumberLineEdit,
                                   regexString="HouseNumber",
-                                  minimumLength=5,
+                                  minimumLength=1,
                                   mandatory=True,
                                   validated=False)
         
         self.setDynamicProperties(self.streetLineEdit,
                                   regexString="Street",
-                                  minimumLength=10,
+                                  minimumLength=2,
                                   mandatory=True,
                                   validated=False)
         
         self.setDynamicProperties(self.townLineEdit,
                                   regexString="Name",
-                                  minimumLength=10,
+                                  minimumLength=2,
                                   mandatory=True,
                                   validated=False)
         
@@ -71,6 +71,20 @@ class NewTicketDialog(CustomQDialog,
         
         self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), 
                      self.payloadValueReadOnlyToggle)
+        
+        for widget in self.dialogWidgets:
+            self.connect(widget, SIGNAL("textChanged(QString)"),
+                     self.updateInterface)
+            
+        self.updateInterface()
     
     def payloadValueReadOnlyToggle(self, state):
         self.payloadValueLineEdit.setReadOnly(not state)
+    
+    def updateInterface(self):
+        self.validate(self.dialogWidgets)
+        self.updateStyleSheets(self.dialogWidgets)
+        if self.allWidgetsPassedValidation(self.dialogWidgets):
+            self.reviewTicketButton.setEnabled(True)
+        else:
+            self.reviewTicketButton.setEnabled(False)

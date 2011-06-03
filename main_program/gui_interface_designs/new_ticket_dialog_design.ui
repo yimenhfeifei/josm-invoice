@@ -193,6 +193,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="inputMask">
+           <string/>
+          </property>
          </widget>
         </item>
         <item row="6" column="0" colspan="2">
@@ -487,6 +490,9 @@
          </item>
          <item row="6" column="2" colspan="3">
           <widget class="QCommandLinkButton" name="reviewTicketButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="minimumSize">
             <size>
              <width>131</width>

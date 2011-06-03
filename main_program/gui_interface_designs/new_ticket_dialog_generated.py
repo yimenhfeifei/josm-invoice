@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Fri Jun  3 08:20:02 2011
+# Created: Fri Jun  3 14:07:09 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -79,6 +79,7 @@ class Ui_newTicketDialog(object):
         self.postcodeLineEdit = QtGui.QLineEdit(self.layoutWidget)
         self.postcodeLineEdit.setMinimumSize(QtCore.QSize(81, 0))
         self.postcodeLineEdit.setMaximumSize(QtCore.QSize(81, 16777215))
+        self.postcodeLineEdit.setInputMask(_fromUtf8(""))
         self.postcodeLineEdit.setObjectName(_fromUtf8("postcodeLineEdit"))
         self.gridLayout.addWidget(self.postcodeLineEdit, 5, 1, 1, 2)
         self.vehicleRegistrationLabel = QtGui.QLabel(self.layoutWidget)
@@ -193,6 +194,7 @@ class Ui_newTicketDialog(object):
         self.totalValueLineEdit.setObjectName(_fromUtf8("totalValueLineEdit"))
         self.gridLayout_2.addWidget(self.totalValueLineEdit, 5, 3, 1, 2)
         self.reviewTicketButton = QtGui.QCommandLinkButton(self.payloadTab)
+        self.reviewTicketButton.setEnabled(False)
         self.reviewTicketButton.setMinimumSize(QtCore.QSize(131, 0))
         self.reviewTicketButton.setMaximumSize(QtCore.QSize(131, 16777215))
         self.reviewTicketButton.setObjectName(_fromUtf8("reviewTicketButton"))

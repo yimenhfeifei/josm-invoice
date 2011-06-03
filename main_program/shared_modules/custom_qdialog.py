@@ -13,7 +13,30 @@ class CustomQDialog(QDialog):
     
     def __init__(self, parent=None):
         super(CustomQDialog, self).__init__(parent)
+        
+        self.validatedStyleSheet = ""
+        self.invalidatedStyleSheet = "QLineEdit {background-color: red;}"
     
+    def validate(self, widgets):
+        for widget in widgets:
+            if len(widget.text()) >= widget.property("minimumLength"):
+                widget.setProperty("validated", True)
+            else:
+                widget.setProperty("validated", False)
+
+    def updateStyleSheets(self, widgets):
+        for widget in widgets:
+            if widget.property("validated") == True:
+                widget.setStyleSheet(self.validatedStyleSheet)
+            else:
+                widget.setStyleSheet(self.invalidatedStyleSheet)
+    
+    def allWidgetsPassedValidation(self, widgets):
+        for widget in widgets:
+            if widget.property("validated") == False:
+                return False
+        return True
+                
     def setDynamicProperties(self, widget, **dynamicProperties):
         for dynamicProperty, value in dynamicProperties.items():
             widget.setProperty(dynamicProperty, value)

@@ -18,13 +18,50 @@ class TestCustomQDialog(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = CustomQDialog()
         self.testRegexString = "Name"
-        self.testMinimumLength = 10
+        self.testMinimumLength = 1
         self.testMandatory = True
         self.testValidated = False
         self.testWidget = QLineEdit(self.gui)
         self.testNameString = "1234John"
         self.testNameStringResult = "John"
     
+    def testvalidate(self):
+        self.gui.setDynamicProperties(self.testWidget,
+                                      regexString=self.testRegexString,
+                                      minimumLength=self.testMinimumLength,
+                                      mandatory=self.testMandatory,
+                                      validated=self.testValidated)
+        self.gui.setValidators((self.testWidget,))
+        
+        QTest.keyClicks(self.testWidget, self.testNameString)
+        self.gui.validate((self.testWidget,))
+        assert self.testWidget.property("validated") == True
+        
+    def testUpdateStyleSheets(self):
+        self.gui.setDynamicProperties(self.testWidget,
+                                      regexString=self.testRegexString,
+                                      minimumLength=self.testMinimumLength,
+                                      mandatory=self.testMandatory,
+                                      validated=self.testValidated)
+        self.gui.setValidators((self.testWidget,))
+        
+        QTest.keyClicks(self.testWidget, self.testNameString)
+        self.gui.validate((self.testWidget,))
+        self.gui.updateStyleSheets((self.testWidget,))
+        assert self.testWidget.styleSheet() == ""
+        
+    def testAllWidgetsPassedValidation(self):
+        self.gui.setDynamicProperties(self.testWidget,
+                                      regexString=self.testRegexString,
+                                      minimumLength=self.testMinimumLength,
+                                      mandatory=self.testMandatory,
+                                      validated=self.testValidated)
+        self.gui.setValidators((self.testWidget,))
+        
+        QTest.keyClicks(self.testWidget, self.testNameString)
+        self.gui.validate((self.testWidget,))
+        assert self.gui.allWidgetsPassedValidation((self.testWidget,)) == True
+        
     def testSetDynamicProperties(self):
         self.gui.setDynamicProperties(self.testWidget,
                                       regexString=self.testRegexString,
