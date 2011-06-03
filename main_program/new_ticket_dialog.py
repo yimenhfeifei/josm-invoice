@@ -25,8 +25,8 @@ class NewTicketDialog(CustomQDialog,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit)
         
-        self.widgetRegexStrings = ("Name", "Name", "HouseNumber", "Name",
-                                   "Name", "Name", "Name")
+        self.widgetRegexStrings = ("Name", "Name", "HouseNumber", "Street",
+                                   "Name", "Postcode", "VehicleRegistration")
         
         self.widgetMinimumLengths = (10, 10, 5, 10, 10, 10, 10)
         

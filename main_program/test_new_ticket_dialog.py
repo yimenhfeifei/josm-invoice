@@ -158,6 +158,68 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                             "u_289_hello ",
                             "^&289",
                             "~2,.89")
+        self.streetResult = "United Road"
+        self.streetTestStrings = ("United Road",
+                                 "789U783nited Road",
+                                 "  Unit89ed R90oad,",
+                                 " United Road ",
+                                 "United 890Road ",
+                                 " 5*United! Road",
+                                 " 7United ;R.,oad ",
+                                 "8)U*nited R432,.oad",
+                                 "%^United789 Road   ",
+                                 "78  United Road  89")
+        self.townResult = "Truro"
+        self.townTestStrings = ("Truro",
+                                " Truro ",
+                                "68Truro",
+                                "98Truro90",
+                                " 67Truro 90 ",
+                                "^&Truro&^%",
+                                "%$Truro 90&*",
+                                " &^Tru ro767",
+                                " Tr89 ^&ro &^",
+                                "   ^&Truro   &*   ")
+        self.postcodeResults = ("TR165QY",
+                                "TR165QY",
+                                "B17AW",
+                                "B109DS",
+                                "PL258DE",
+                                "PL257DS",
+                                "BA16AW",
+                                "TR165QY",
+                                "TR165QY",
+                                "N59LP")
+        self.postcodeTestStrings = ("TR165QY",
+                                " TR165QY ",
+                                " B17AW ",
+                                "B109DS",
+                                " PL258DE",
+                                "^& PL25 7DS *(",
+                                "  BA1   6AW",
+                                "TR16 5QY",
+                                "TR16   5QY  ",
+                                "N5 9LP")
+        self.vehicleRegistrationResults = ("WK55SWL",
+                                "WK55SWL",
+                                "WK55SWL",
+                                "B567SWL",
+                                "B567SWL",
+                                "WK55SWL",
+                                "WK55SWL1",
+                                "WK55SWL",
+                                "WK55SWL",
+                                "WK55SWL")
+        self.vehicleRegistrationTestStrings = ("WK55SWL",
+                                " WK55 SWL ",
+                                "^&WK 55  SWL",
+                                "B567SWL",
+                                " B567 SWL ",
+                                "7896WK55SWL",
+                                "7WK55 SWL 190",
+                                "&* WK55 &^SWL",
+                                "90WK 55 SWL",
+                                "7 WK55    SWL  ")
         
     def testFirstNameLineEditValidate(self):
         testWidget = self.gui.firstNameLineEdit
@@ -182,6 +244,42 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             QTest.keyClicks(testWidget, string)
         assert testWidget.text() == self.houseNumberResult
+
+    def testStreetLineEditValidate(self):
+        testWidget = self.gui.streetLineEdit
+        
+        for string in self.streetTestStrings:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, string)
+        assert testWidget.text() == self.streetResult
+    
+    def testTownLineEditValidate(self):
+        testWidget = self.gui.townLineEdit
+        
+        for string in self.townTestStrings:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, string)
+        assert testWidget.text() == self.townResult
+    
+    def testPostcodeLineEditValidate(self):
+        testWidget = self.gui.postcodeLineEdit
+        
+        for pair in zip(self.postcodeTestStrings, self.postcodeResults):
+            testWidget.clear()
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
+        
+    def testVehicleRegistrationLineEditValidate(self):
+        testWidget = self.gui.vehicleRegistrationLineEdit
+        
+        for pair in zip(self.vehicleRegistrationTestStrings, 
+                        self.vehicleRegistrationResults):
+            testWidget.clear()
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            print(testWidget.text())
+            assert testWidget.text() == resultString
         
     def tearDown(self):
         self.gui.deleteLater()
