@@ -26,10 +26,12 @@ class CustomQDialog(QDialog):
         widget.setValidator(QRegExpValidator(regex, self))
     
     def validate(self, widget):
-        if len(widget.text()) >= widget.property("minimumLength"):
+        widgetText = widget.text()
+        if len(widgetText) >= widget.property("minimumLength"):
             widget.setProperty("validated", True)
         else:
             widget.setProperty("validated", False)
+        widget.setText(widgetText.upper())
 
     def updateStyleSheet(self, widget):
         if widget.property("validated") == True:

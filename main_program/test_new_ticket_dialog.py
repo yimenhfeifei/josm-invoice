@@ -136,16 +136,16 @@ class TestNewTicketDialogValidators(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         
-        self.nameTestPairs = (("John", "John"),
-                              ("John  ", "John"),
-                              ("  John", "John"), 
-                              ("  John  ", "John"),
-                              ("Jo  hn", "John"),
-                              ("28759John", "John"),
-                              (",./John@~", "John"),
-                              (" 87898 7John89845  ", "John"),
-                              ("[]'John#89080", "John"),
-                              ("8783  *(John)&%  78", "John"))
+        self.nameTestPairs = (("John", "JOHN"),
+                              ("John  ", "JOHN"),
+                              ("  John", "JOHN"), 
+                              ("  John  ", "JOHN"),
+                              ("Jo  hn", "JOHN"),
+                              ("28759John", "JOHN"),
+                              (",./John@~", "JOHN"),
+                              (" 87898 7John89845  ", "JOHN"),
+                              ("[]'John#89080", "JOHN"),
+                              ("8783  *(John)&%  78", "JOHN"))
         
         self.houseNumberTestPairs = (("289", "289"),
                                      (" 289", "289"),
@@ -158,47 +158,47 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                                      ("^&289", "289"),
                                      ("~2,.89", "289"))
         
-        self.streetTestPairs = (("United Road", "United Road"),
-                                ("789U783nited Road", "United Road"),
-                                ("  Unit89ed R90oad,", "United Road"),
-                                (" Welcome Way ", "Welcome Way"),
-                                ("Summit", "Summit"),
-                                (" Summit ", "Summit "),
-                                ("678Summit87953", "Summit"),
-                                ("^&*Summit *&(&", "Summit "),
-                                (".Road", "Road"),
-                                ("78  United Road  89", "United Road"))
+        self.streetTestPairs = (("United Road", "UNITED ROAD"),
+                                ("789U783nited Road", "UNITED ROAD"),
+                                ("  Unit89ed R90oad,", "UNITED ROAD"),
+                                (" Welcome Way ", "WELCOME WAY"),
+                                ("Summit", "SUMMIT"),
+                                (" Summit ", "SUMMIT "),
+                                ("678Summit87953", "SUMMIT"),
+                                ("^&*Summit *&(&", "SUMMIT "),
+                                (".Road", "ROAD"),
+                                ("78  United Road  89", "UNITED ROAD"))
         
-        self.townTestPairs = (("Truro", "Truro"),
-                              (" Truro ", "Truro "),
-                              ("68Truro", "Truro"),
-                              ("98Redruth90", "Redruth"),
-                              (" 67St Ives 90 ", "St Ives"),
-                              (" St Ives ", "St Ives"),
-                              ("  St   Ives 90&*", "St Ives"),
-                              (" &^Tru ro767", "Tru ro"),
-                              (" Tr8u9 ^&ro &^", "Tru ro"),
-                              ("   ^&Truro   &*   ", "Truro "))
+        self.townTestPairs = (("Truro", "TRURO"),
+                              (" Truro ", "TRURO "),
+                              ("68Truro", "TRURO"),
+                              ("98Redruth90", "REDRUTH"),
+                              (" 67St Ives 90 ", "ST IVES"),
+                              (" St Ives ", "ST IVES"),
+                              ("  St   Ives 90&*", "ST IVES"),
+                              (" &^Tru ro767", "TRU RO"),
+                              (" Tr8u9 ^&ro &^", "TRU RO"),
+                              ("   ^&Truro   &*   ", "TRURO "))
         
         self.postcodeTestPairs = (("TR165QY", "TR165QY"),
-                                  (" TR165QY ", "TR165QY"),
-                                  (" B17AW ", "B17AW"),
+                                  (" Tr165QY ", "TR165QY"),
+                                  (" b17AW ", "B17AW"),
                                   ("B109DS", "B109DS"),
-                                  (" PL258DE", "PL258DE"),
-                                  ("^& PL25 7DS *(", "PL257DS"),
+                                  (" PL258de", "PL258DE"),
+                                  ("^& pl25 7DS *(", "PL257DS"),
                                   ("  BA1   6AW", "BA16AW"),
-                                  ("TR16 5QY", "TR165QY"),
+                                  ("Tr16 5QY", "TR165QY"),
                                   ("TR16   5QY  ", "TR165QY"),
-                                  ("N5 9LP", "N59LP"))
+                                  ("N5 9Lp", "N59LP"))
         
         self.vehicleRegistrationTestPairs = (("WK55SWL", "WK55SWL"),
                                              (" WK55 SWL ", "WK55SWL"),
-                                             ("^&WK 55  SWL", "WK55SWL"),
+                                             ("^&WK 55  swl", "WK55SWL"),
                                              ("B567SWL", "B567SWL"),
-                                             (" B567 SWL ", "B567SWL"),
-                                             ("7896WK55SWL", "WK55SWL"), 
+                                             (" b567 SWL ", "B567SWL"),
+                                             ("7896wK55SWL", "WK55SWL"), 
                                              ("7WK55 SWL 190", "WK55SWL1"),
-                                             ("&* WK55 &^SWL", "WK55SWL"),
+                                             ("&* wk55 &^SWL", "WK55SWL"),
                                              ("90WK 55 SWL", "WK55SWL"),
                                              ("7 WK55    SWL  ", "WK55SWL"))
         

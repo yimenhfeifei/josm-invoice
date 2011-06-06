@@ -23,7 +23,7 @@ class TestCustomQDialog(unittest.TestCase):
         self.testValidated = False
         self.testWidget = QLineEdit(self.gui)
         self.testNameString = "1234John"
-        self.testNameStringResult = "John"
+        self.testNameStringResult = "JOHN"
         
         self.gui.setDynamicProperties(self.testWidget,
                                       regexString=self.testRegexString,
