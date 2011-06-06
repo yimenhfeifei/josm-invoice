@@ -50,7 +50,7 @@ class NewTicketDialog(CustomQDialog,
                                   validated=False)
         
         self.setDynamicProperties(self.townLineEdit,
-                                  regexString="Name",
+                                  regexString="Town",
                                   minimumLength=2,
                                   mandatory=True,
                                   validated=False)
@@ -67,12 +67,11 @@ class NewTicketDialog(CustomQDialog,
                                   mandatory=True,
                                   validated=False)
         
-        self.setValidators(self.dialogWidgets)
-        
         self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), 
                      self.payloadValueReadOnlyToggle)
         
         for widget in self.dialogWidgets:
+            self.setValidator(widget)
             self.connect(widget, SIGNAL("textChanged(QString)"),
                      self.updateInterface)
             
@@ -82,8 +81,10 @@ class NewTicketDialog(CustomQDialog,
         self.payloadValueLineEdit.setReadOnly(not state)
     
     def updateInterface(self):
-        self.validate(self.dialogWidgets)
-        self.updateStyleSheets(self.dialogWidgets)
+        for widget in self.dialogWidgets:
+            self.validate(widget)
+            self.updateStyleSheet(widget)
+            
         if self.allWidgetsPassedValidation(self.dialogWidgets):
             self.reviewTicketButton.setEnabled(True)
         else:

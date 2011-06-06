@@ -135,136 +135,115 @@ class TestNewTicketDialogValidators(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.nameResult = "John"
-        self.nameTestStrings = ("John",
-                            "John  ",
-                            "  John",
-                            "  John  ",
-                            "Jo  hn",
-                            "28759John",
-                            ",./John@~",
-                            " 87898 7John89845  ",
-                            "[]'John#89080",
-                            "8783  *(John)&%  78")
         
-        self.houseNumberResult = "289"
-        self.houseNumberTestStrings = ("289",
-                            " 289",
-                            " 289 ",
-                            "28 9",
-                            "289  ",
-                            "hello, 289!",
-                            ":2djeih_-8 9",
-                            "u_289_hello ",
-                            "^&289",
-                            "~2,.89")
-        self.streetResult = "United Road"
-        self.streetTestStrings = ("United Road",
-                                 "789U783nited Road",
-                                 "  Unit89ed R90oad,",
-                                 " United Road ",
-                                 "United 890Road ",
-                                 " 5*United! Road",
-                                 " 7United ;R.,oad ",
-                                 "8)U*nited R432,.oad",
-                                 "%^United789 Road   ",
-                                 "78  United Road  89")
-        self.townResult = "Truro"
-        self.townTestStrings = ("Truro",
-                                " Truro ",
-                                "68Truro",
-                                "98Truro90",
-                                " 67Truro 90 ",
-                                "^&Truro&^%",
-                                "%$Truro 90&*",
-                                " &^Tru ro767",
-                                " Tr89 ^&ro &^",
-                                "   ^&Truro   &*   ")
-        self.postcodeResults = ("TR165QY",
-                                "TR165QY",
-                                "B17AW",
-                                "B109DS",
-                                "PL258DE",
-                                "PL257DS",
-                                "BA16AW",
-                                "TR165QY",
-                                "TR165QY",
-                                "N59LP")
-        self.postcodeTestStrings = ("TR165QY",
-                                " TR165QY ",
-                                " B17AW ",
-                                "B109DS",
-                                " PL258DE",
-                                "^& PL25 7DS *(",
-                                "  BA1   6AW",
-                                "TR16 5QY",
-                                "TR16   5QY  ",
-                                "N5 9LP")
-        self.vehicleRegistrationResults = ("WK55SWL",
-                                "WK55SWL",
-                                "WK55SWL",
-                                "B567SWL",
-                                "B567SWL",
-                                "WK55SWL",
-                                "WK55SWL1",
-                                "WK55SWL",
-                                "WK55SWL",
-                                "WK55SWL")
-        self.vehicleRegistrationTestStrings = ("WK55SWL",
-                                " WK55 SWL ",
-                                "^&WK 55  SWL",
-                                "B567SWL",
-                                " B567 SWL ",
-                                "7896WK55SWL",
-                                "7WK55 SWL 190",
-                                "&* WK55 &^SWL",
-                                "90WK 55 SWL",
-                                "7 WK55    SWL  ")
+        self.nameTestPairs = (("John", "John"),
+                              ("John  ", "John"),
+                              ("  John", "John"), 
+                              ("  John  ", "John"),
+                              ("Jo  hn", "John"),
+                              ("28759John", "John"),
+                              (",./John@~", "John"),
+                              (" 87898 7John89845  ", "John"),
+                              ("[]'John#89080", "John"),
+                              ("8783  *(John)&%  78", "John"))
         
-    def testFirstNameLineEditValidate(self):
-        testWidget = self.gui.firstNameLineEdit
+        self.houseNumberTestPairs = (("289", "289"),
+                                     (" 289", "289"),
+                                     (" 289 ", "289"),
+                                     ("28 9", "289"),
+                                     ("123456789", "12345"),
+                                     ("hello, 289!", "289"),
+                                     (":2djeih_-8 9", "289"),
+                                     ("u_289_hello ", "289"),
+                                     ("^&289", "289"),
+                                     ("~2,.89", "289"))
         
-        for string in self.nameTestStrings:
-            testWidget.clear()
-            QTest.keyClicks(testWidget, string)
-        assert testWidget.text() == self.nameResult
+        self.streetTestPairs = (("United Road", "United Road"),
+                                ("789U783nited Road", "United Road"),
+                                ("  Unit89ed R90oad,", "United Road"),
+                                (" Welcome Way ", "Welcome Way"),
+                                ("Summit", "Summit"),
+                                (" Summit ", "Summit "),
+                                ("678Summit87953", "Summit"),
+                                ("^&*Summit *&(&", "Summit "),
+                                (".Road", "Road"),
+                                ("78  United Road  89", "United Road"))
         
-    def testLastNameLineEditValidate(self):
-        testWidget = self.gui.lastNameLineEdit
+        self.townTestPairs = (("Truro", "Truro"),
+                              (" Truro ", "Truro "),
+                              ("68Truro", "Truro"),
+                              ("98Redruth90", "Redruth"),
+                              (" 67St Ives 90 ", "St Ives"),
+                              (" St Ives ", "St Ives"),
+                              ("  St   Ives 90&*", "St Ives"),
+                              (" &^Tru ro767", "Tru ro"),
+                              (" Tr8u9 ^&ro &^", "Tru ro"),
+                              ("   ^&Truro   &*   ", "Truro "))
         
-        for string in self.nameTestStrings:
-            testWidget.clear()
-            QTest.keyClicks(testWidget, string)
-        assert testWidget.text() == self.nameResult
+        self.postcodeTestPairs = (("TR165QY", "TR165QY"),
+                                  (" TR165QY ", "TR165QY"),
+                                  (" B17AW ", "B17AW"),
+                                  ("B109DS", "B109DS"),
+                                  (" PL258DE", "PL258DE"),
+                                  ("^& PL25 7DS *(", "PL257DS"),
+                                  ("  BA1   6AW", "BA16AW"),
+                                  ("TR16 5QY", "TR165QY"),
+                                  ("TR16   5QY  ", "TR165QY"),
+                                  ("N5 9LP", "N59LP"))
+        
+        self.vehicleRegistrationTestPairs = (("WK55SWL", "WK55SWL"),
+                                             (" WK55 SWL ", "WK55SWL"),
+                                             ("^&WK 55  SWL", "WK55SWL"),
+                                             ("B567SWL", "B567SWL"),
+                                             (" B567 SWL ", "B567SWL"),
+                                             ("7896WK55SWL", "WK55SWL"), 
+                                             ("7WK55 SWL 190", "WK55SWL1"),
+                                             ("&* WK55 &^SWL", "WK55SWL"),
+                                             ("90WK 55 SWL", "WK55SWL"),
+                                             ("7 WK55    SWL  ", "WK55SWL"))
+        
+    def testNameLineEditsValidate(self):
+        testWidgets = (self.gui.firstNameLineEdit,
+                       self.gui.lastNameLineEdit)
+        
+        for testWidget in testWidgets:
+            for pair in self.nameTestPairs:
+                testWidget.clear()
+                testString, resultString = pair[0], pair[1]
+                QTest.keyClicks(testWidget, testString)
+                assert testWidget.text() == resultString
     
     def testHouseNumberLineEditValidate(self):
         testWidget = self.gui.houseNumberLineEdit
         
-        for string in self.houseNumberTestStrings:
+        for pair in self.houseNumberTestPairs:
             testWidget.clear()
-            QTest.keyClicks(testWidget, string)
-        assert testWidget.text() == self.houseNumberResult
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
 
     def testStreetLineEditValidate(self):
         testWidget = self.gui.streetLineEdit
         
-        for string in self.streetTestStrings:
+        for pair in self.streetTestPairs:
             testWidget.clear()
-            QTest.keyClicks(testWidget, string)
-        assert testWidget.text() == self.streetResult
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
     
     def testTownLineEditValidate(self):
         testWidget = self.gui.townLineEdit
         
-        for string in self.townTestStrings:
+        for pair in self.townTestPairs:
             testWidget.clear()
-            QTest.keyClicks(testWidget, string)
-        assert testWidget.text() == self.townResult
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
     
     def testPostcodeLineEditValidate(self):
         testWidget = self.gui.postcodeLineEdit
         
-        for pair in zip(self.postcodeTestStrings, self.postcodeResults):
+        for pair in self.postcodeTestPairs:
             testWidget.clear()
             testString, resultString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
@@ -273,12 +252,10 @@ class TestNewTicketDialogValidators(unittest.TestCase):
     def testVehicleRegistrationLineEditValidate(self):
         testWidget = self.gui.vehicleRegistrationLineEdit
         
-        for pair in zip(self.vehicleRegistrationTestStrings, 
-                        self.vehicleRegistrationResults):
+        for pair in self.vehicleRegistrationTestPairs:
             testWidget.clear()
             testString, resultString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            print(testWidget.text())
             assert testWidget.text() == resultString
         
     def tearDown(self):

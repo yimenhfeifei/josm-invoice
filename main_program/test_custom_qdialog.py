@@ -24,65 +24,34 @@ class TestCustomQDialog(unittest.TestCase):
         self.testWidget = QLineEdit(self.gui)
         self.testNameString = "1234John"
         self.testNameStringResult = "John"
-    
-    def testvalidate(self):
+        
         self.gui.setDynamicProperties(self.testWidget,
                                       regexString=self.testRegexString,
                                       minimumLength=self.testMinimumLength,
                                       mandatory=self.testMandatory,
                                       validated=self.testValidated)
-        self.gui.setValidators((self.testWidget,))
+        self.gui.setValidator(self.testWidget)
         
         QTest.keyClicks(self.testWidget, self.testNameString)
-        self.gui.validate((self.testWidget,))
+        self.gui.validate(self.testWidget)
+        self.gui.updateStyleSheet(self.testWidget)
+    
+    def testvalidate(self):
         assert self.testWidget.property("validated") == True
         
     def testUpdateStyleSheets(self):
-        self.gui.setDynamicProperties(self.testWidget,
-                                      regexString=self.testRegexString,
-                                      minimumLength=self.testMinimumLength,
-                                      mandatory=self.testMandatory,
-                                      validated=self.testValidated)
-        self.gui.setValidators((self.testWidget,))
-        
-        QTest.keyClicks(self.testWidget, self.testNameString)
-        self.gui.validate((self.testWidget,))
-        self.gui.updateStyleSheets((self.testWidget,))
         assert self.testWidget.styleSheet() == ""
         
     def testAllWidgetsPassedValidation(self):
-        self.gui.setDynamicProperties(self.testWidget,
-                                      regexString=self.testRegexString,
-                                      minimumLength=self.testMinimumLength,
-                                      mandatory=self.testMandatory,
-                                      validated=self.testValidated)
-        self.gui.setValidators((self.testWidget,))
-        
-        QTest.keyClicks(self.testWidget, self.testNameString)
-        self.gui.validate((self.testWidget,))
         assert self.gui.allWidgetsPassedValidation((self.testWidget,)) == True
         
     def testSetDynamicProperties(self):
-        self.gui.setDynamicProperties(self.testWidget,
-                                      regexString=self.testRegexString,
-                                      minimumLength=self.testMinimumLength,
-                                      mandatory=self.testMandatory,
-                                      validated=self.testValidated)
-        
         assert self.testWidget.property("regexString") == self.testRegexString
         assert self.testWidget.property("minimumLength") == self.testMinimumLength
         assert self.testWidget.property("mandatory") == self.testMandatory
-        assert self.testWidget.property("validated") == self.testValidated
+        assert self.testWidget.property("validated") == True
     
     def testSetValidators(self):
-        self.gui.setDynamicProperties(self.testWidget,
-                                      regexString=self.testRegexString,
-                                      minimumLength=self.testMinimumLength,
-                                      mandatory=self.testMandatory,
-                                      validated=self.testValidated)
-        self.gui.setValidators((self.testWidget,))
-        
-        QTest.keyClicks(self.testWidget, self.testNameString)
         assert self.testWidget.text() == self.testNameStringResult
         
     def tearDown(self):

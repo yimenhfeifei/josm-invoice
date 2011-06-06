@@ -17,31 +17,28 @@ class CustomQDialog(QDialog):
         self.validatedStyleSheet = ""
         self.invalidatedStyleSheet = "QLineEdit {background-color: red;}"
     
-    def validate(self, widgets):
-        for widget in widgets:
-            if len(widget.text()) >= widget.property("minimumLength"):
-                widget.setProperty("validated", True)
-            else:
-                widget.setProperty("validated", False)
+    def setDynamicProperties(self, widget, **dynamicProperties):
+        for dynamicProperty, value in dynamicProperties.items():
+            widget.setProperty(dynamicProperty, value)
+    
+    def setValidator(self, widget):
+        regex = regexObjects[widget.property("regexString")]
+        widget.setValidator(QRegExpValidator(regex, self))
+    
+    def validate(self, widget):
+        if len(widget.text()) >= widget.property("minimumLength"):
+            widget.setProperty("validated", True)
+        else:
+            widget.setProperty("validated", False)
 
-    def updateStyleSheets(self, widgets):
-        for widget in widgets:
-            if widget.property("validated") == True:
-                widget.setStyleSheet(self.validatedStyleSheet)
-            else:
-                widget.setStyleSheet(self.invalidatedStyleSheet)
+    def updateStyleSheet(self, widget):
+        if widget.property("validated") == True:
+            widget.setStyleSheet(self.validatedStyleSheet)
+        else:
+            widget.setStyleSheet(self.invalidatedStyleSheet)
     
     def allWidgetsPassedValidation(self, widgets):
         for widget in widgets:
             if widget.property("validated") == False:
                 return False
         return True
-                
-    def setDynamicProperties(self, widget, **dynamicProperties):
-        for dynamicProperty, value in dynamicProperties.items():
-            widget.setProperty(dynamicProperty, value)
-
-    def setValidators(self, widgets):
-        for widget in widgets:
-            regex = regexObjects[widget.property("regexString")]
-            widget.setValidator(QRegExpValidator(regex, self))
