@@ -18,4 +18,5 @@ regexObjects = {"Name": QRegExp(r"^[a-z]{1,20}$",
                 "Postcode": QRegExp(r"^[a-z]{1,2}[0-9]{1,2}[0-9][a-z][a-z]$",
                                     Qt.CaseInsensitive),
                 "VehicleRegistration": QRegExp(r"^[a-z][a-z0-9]{1,7}$",
-                                               Qt.CaseInsensitive)}
+                                               Qt.CaseInsensitive),
+                "Weight": QRegExp(r"^[0-9]{1,5}\.(5|0)0$")}

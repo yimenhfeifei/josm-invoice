@@ -18,6 +18,7 @@ class TestNewTicketDialogGui(unittest.TestCase):
         self.gui = NewTicketDialog()
         self.nameTestString = "I"
         self.houseNumberTestString = "289"
+        self.weightTestString = "169.00"
     
     def testFirstNameLineEditTextEntry(self):
         testWidget = self.gui.firstNameLineEdit
@@ -65,23 +66,23 @@ class TestNewTicketDialogGui(unittest.TestCase):
         testWidget = self.gui.grossWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
+        QTest.keyClicks(testWidget, self.weightTestString)
+        assert testWidget.text() == self.weightTestString
         
     def testTareWeightLineEditTextEntry(self):
         testWidget = self.gui.tareWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
+        QTest.keyClicks(testWidget, self.weightTestString)
+        assert testWidget.text() == self.weightTestString
         
     def testNetWeightLineEditTextEntry(self):
         self.gui.grossWeightLineEdit.clear()
         testWidget = self.gui.netWeightLineEdit
         testWidget.clear()
         
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
+        QTest.keyClicks(testWidget, self.weightTestString)
+        assert testWidget.text() == self.weightTestString
     
     def testMaterialCombobox(self):
         assert self.gui.materialCombobox.isEnabled() == True
@@ -203,6 +204,39 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                                              ("90WK 55 SWL", "WK55SWL"),
                                              ("7 WK55    SWL  ", "WK55SWL"))
         
+        self.grossWeightTestPairs = (("120.00", "120.00"),
+                                             ("120.50", "120.50"),
+                                             (" 120.00", "120.00"),
+                                             ("  120.50  ", "120.50"),
+                                             ("^&hj120.50", "120.50"),
+                                             ("120", "120"), 
+                                             ("1.50", "1.50"),
+                                             ("23.00", "23.00"),
+                                             ("12 34.50", "1234.50"),
+                                             ("10000.00", "10000.00"))
+        
+        self.tareWeightTestPairs = (("120.00", "120.00"),
+                                             ("120.50", "120.50"),
+                                             (" 120.00", "120.00"),
+                                             ("  120.50  ", "120.50"),
+                                             ("^&hj120.50", "120.50"),
+                                             ("120", "120"), 
+                                             ("1.50", "1.50"),
+                                             ("23.00", "23.00"),
+                                             ("12 34.50", "1234.50"),
+                                             ("10000.00", "10000.00"))
+        
+        self.netWeightTestPairs = (("120.00", "120.00"),
+                                             ("120.50", "120.50"),
+                                             (" 120.00", "120.00"),
+                                             ("  120.50  ", "120.50"),
+                                             ("^&hj120.50", "120.50"),
+                                             ("120", "120"), 
+                                             ("1.50", "1.50"),
+                                             ("23.00", "23.00"),
+                                             ("12 34.50", "1234.50"),
+                                             ("10000.00", "10000.00"))
+        
     def testNameLineEditsValidate(self):
         testWidgets = (self.gui.firstNameLineEdit,
                        self.gui.lastNameLineEdit)
@@ -258,7 +292,50 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testString, resultString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
             assert testWidget.text() == resultString
+            
+    def testGrossWeightLineEditValidate(self):
+        testWidget = self.gui.grossWeightLineEdit
         
+        for pair in self.grossWeightTestPairs:
+            testWidget.clear()
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
+    
+    def testTareWeightLineEditValidate(self):
+        testWidget = self.gui.tareWeightLineEdit
+        
+        for pair in self.grossWeightTestPairs:
+            testWidget.clear()
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
+    
+    def testNetWeightLineEditValidate(self):
+        testWidget = self.gui.netWeightLineEdit
+        
+        for pair in self.grossWeightTestPairs:
+            testWidget.clear()
+            testString, resultString = pair[0], pair[1]
+            QTest.keyClicks(testWidget, testString)
+            assert testWidget.text() == resultString
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+
+class TestNewTicketDialogMethods(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+    
+    def testToggleWeightWidgets(self):
+        self.gui.toggleWeightWidgets()
+        assert self.gui.grossWeightLineEdit.property("mandatory") == False
+        assert self.gui.tareWeightLineEdit.property("mandatory") == False
+        assert self.gui.tareWeightLineEdit.isEnabled() == False
+        assert self.gui.netWeightLineEdit.isReadOnly() == False
+    
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()

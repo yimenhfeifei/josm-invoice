@@ -78,22 +78,22 @@ class NewTicketDialog(CustomQDialog,
                                   onEditCallback=self.validateWidgets)
         
         self.setDynamicProperties(self.grossWeightLineEdit,
-                                  regexString="Name",
-                                  minimumLength=5,
+                                  regexString="Weight",
+                                  minimumLength=4,
                                   mandatory=False,
                                   validated=False,
                                   onEditCallback=self.validateWidgets)
         
         self.setDynamicProperties(self.tareWeightLineEdit,
-                                  regexString="Name",
-                                  minimumLength=5,
+                                  regexString="Weight",
+                                  minimumLength=4,
                                   mandatory=False,
                                   validated=False,
                                   onEditCallback=self.validateWidgets)
         
         self.setDynamicProperties(self.netWeightLineEdit,
-                                  regexString="Name",
-                                  minimumLength=5,
+                                  regexString="Weight",
+                                  minimumLength=4,
                                   mandatory=True,
                                   validated=False,
                                   onEditCallback=self.validateWidgets)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Tue Jun  7 11:35:15 2011
+# Created: Tue Jun  7 15:03:24 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -105,6 +105,7 @@ class Ui_newTicketDialog(object):
         self.grossWeightLineEdit.setSizePolicy(sizePolicy)
         self.grossWeightLineEdit.setMinimumSize(QtCore.QSize(71, 0))
         self.grossWeightLineEdit.setMaximumSize(QtCore.QSize(71, 16777215))
+        self.grossWeightLineEdit.setText(_fromUtf8(""))
         self.grossWeightLineEdit.setObjectName(_fromUtf8("grossWeightLineEdit"))
         self.gridLayout_2.addWidget(self.grossWeightLineEdit, 0, 0, 1, 1)
         self.tareWeightLineEdit = QtGui.QLineEdit(self.payloadTab)
@@ -116,6 +117,7 @@ class Ui_newTicketDialog(object):
         self.tareWeightLineEdit.setSizePolicy(sizePolicy)
         self.tareWeightLineEdit.setMinimumSize(QtCore.QSize(71, 0))
         self.tareWeightLineEdit.setMaximumSize(QtCore.QSize(71, 16777215))
+        self.tareWeightLineEdit.setText(_fromUtf8(""))
         self.tareWeightLineEdit.setObjectName(_fromUtf8("tareWeightLineEdit"))
         self.gridLayout_2.addWidget(self.tareWeightLineEdit, 1, 0, 1, 1)
         self.netWeightLineEdit = QtGui.QLineEdit(self.payloadTab)
@@ -126,6 +128,7 @@ class Ui_newTicketDialog(object):
         self.netWeightLineEdit.setSizePolicy(sizePolicy)
         self.netWeightLineEdit.setMinimumSize(QtCore.QSize(71, 0))
         self.netWeightLineEdit.setMaximumSize(QtCore.QSize(71, 16777215))
+        self.netWeightLineEdit.setText(_fromUtf8(""))
         self.netWeightLineEdit.setObjectName(_fromUtf8("netWeightLineEdit"))
         self.gridLayout_2.addWidget(self.netWeightLineEdit, 2, 0, 1, 1)
         self.materialCombobox = QtGui.QComboBox(self.payloadTab)
@@ -226,9 +229,6 @@ class Ui_newTicketDialog(object):
         self.postcodeLabel.setText(QtGui.QApplication.translate("newTicketDialog", "Postcode", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationLabel.setText(QtGui.QApplication.translate("newTicketDialog", "Vehicle Registration", None, QtGui.QApplication.UnicodeUTF8))
         self.newTicketTabWidget.setTabText(self.newTicketTabWidget.indexOf(self.customerTab), QtGui.QApplication.translate("newTicketDialog", "Customer", None, QtGui.QApplication.UnicodeUTF8))
-        self.grossWeightLineEdit.setText(QtGui.QApplication.translate("newTicketDialog", "Gross", None, QtGui.QApplication.UnicodeUTF8))
-        self.tareWeightLineEdit.setText(QtGui.QApplication.translate("newTicketDialog", "Tare", None, QtGui.QApplication.UnicodeUTF8))
-        self.netWeightLineEdit.setText(QtGui.QApplication.translate("newTicketDialog", "Net", None, QtGui.QApplication.UnicodeUTF8))
         self.materialCombobox.setItemText(0, QtGui.QApplication.translate("newTicketDialog", "Copper", None, QtGui.QApplication.UnicodeUTF8))
         self.materialCombobox.setItemText(1, QtGui.QApplication.translate("newTicketDialog", "Car", None, QtGui.QApplication.UnicodeUTF8))
         self.materialCombobox.setItemText(2, QtGui.QApplication.translate("newTicketDialog", "Heavy Iron", None, QtGui.QApplication.UnicodeUTF8))
