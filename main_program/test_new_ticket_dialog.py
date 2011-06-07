@@ -76,6 +76,7 @@ class TestNewTicketDialogGui(unittest.TestCase):
         assert testWidget.text() == self.nameTestString
         
     def testNetWeightLineEditTextEntry(self):
+        self.gui.grossWeightLineEdit.clear()
         testWidget = self.gui.netWeightLineEdit
         testWidget.clear()
         

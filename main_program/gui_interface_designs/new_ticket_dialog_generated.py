@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Mon Jun  6 10:08:13 2011
+# Created: Tue Jun  7 11:35:15 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -108,6 +108,7 @@ class Ui_newTicketDialog(object):
         self.grossWeightLineEdit.setObjectName(_fromUtf8("grossWeightLineEdit"))
         self.gridLayout_2.addWidget(self.grossWeightLineEdit, 0, 0, 1, 1)
         self.tareWeightLineEdit = QtGui.QLineEdit(self.payloadTab)
+        self.tareWeightLineEdit.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -212,7 +213,7 @@ class Ui_newTicketDialog(object):
         self.totalValueLabel.setBuddy(self.totalValueLineEdit)
 
         self.retranslateUi(newTicketDialog)
-        self.newTicketTabWidget.setCurrentIndex(0)
+        self.newTicketTabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(newTicketDialog)
 
     def retranslateUi(self, newTicketDialog):
