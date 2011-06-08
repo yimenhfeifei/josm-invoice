@@ -329,12 +329,14 @@ class TestNewTicketDialogMethods(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
     
-    def testToggleWeightWidgets(self):
-        self.gui.toggleWeightWidgets()
+    def testSetGrossAndTareMandatory(self):
+        self.gui.setGrossAndTareMandatory(False)
         assert self.gui.grossWeightLineEdit.property("mandatory") == False
         assert self.gui.tareWeightLineEdit.property("mandatory") == False
-        assert self.gui.tareWeightLineEdit.isEnabled() == False
-        assert self.gui.netWeightLineEdit.isReadOnly() == False
+        
+        self.gui.setGrossAndTareMandatory(True)
+        assert self.gui.grossWeightLineEdit.property("mandatory") == True
+        assert self.gui.tareWeightLineEdit.property("mandatory") == True
     
     def tearDown(self):
         self.gui.deleteLater()
