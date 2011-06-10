@@ -14,6 +14,18 @@ except ImportError as err:
 
 class NewTicketDialog(CustomQDialog,
                       new_ticket_dialog_generated.Ui_newTicketDialog):
+    
+    grossWeightEmpty = pyqtSignal(name='grossWeightEmpty')
+    grossWeightNotEmpty = pyqtSignal(name='grossWeightNotEmpty')
+    checkForEmptyTareWeight = pyqtSignal(name='checkForEmptyTareWeight')
+    tareWeightEmpty = pyqtSignal(name='tareWeightEmpty')
+    tareWeightNotEmpty = pyqtSignal(name='tareWeightNotEmpty')
+    guiNeedsUpdate = pyqtSignal(name='guiNeedsUpdate')
+    grossWeightValid = pyqtSignal(name='grossWeightValid')
+    grossWeightInvalid= pyqtSignal(name='grossWeightInvalid')
+    tareWeightValid = pyqtSignal(name='tareWeightValid')
+    tareWeightInvalid= pyqtSignal(name='tareWeightInvalid')
+    tareAndGrossValid = pyqtSignal(name='tareAndGrossValid')
 
     def __init__(self, parent=None):
         super(NewTicketDialog, self).__init__(parent)
@@ -32,136 +44,187 @@ class NewTicketDialog(CustomQDialog,
         
         self.setDynamicProperties(self.firstNameLineEdit,
                                   regexString="Name",
-                                  minimumLength=1,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.lastNameLineEdit,
                                   regexString="Name",
-                                  minimumLength=1,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.houseNumberLineEdit,
                                   regexString="HouseNumber",
-                                  minimumLength=1,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.streetLineEdit,
                                   regexString="Street",
-                                  minimumLength=2,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.townLineEdit,
                                   regexString="Town",
-                                  minimumLength=2,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.postcodeLineEdit,
                                   regexString="Postcode",
-                                  minimumLength=5,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.vehicleRegistrationLineEdit,
                                   regexString="VehicleRegistration",
-                                  minimumLength=5,
-                                  mandatory=True,
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.setDynamicProperties(self.grossWeightLineEdit,
-                                  regexString="Weight",
-                                  minimumLength=1,
-                                  mandatory=False,
-                                  validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  regexString="optionalWeight",
+                                  validated=True,
+                                  onEditCallback=self.updateGrossWeight)
         
         self.setDynamicProperties(self.tareWeightLineEdit,
-                                  regexString="Weight",
-                                  minimumLength=1,
-                                  mandatory=False,
-                                  validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  regexString="optionalWeight",
+                                  validated=True,
+                                  onEditCallback=self.updateTareWeight)
         
         self.setDynamicProperties(self.netWeightLineEdit,
-                                  regexString="Weight",
-                                  minimumLength=1,
-                                  mandatory=True,
+                                  regexString="NetWeight",
                                   validated=False,
-                                  onEditCallback=self.validateWidgets)
+                                  onEditCallback=self.updateDialog)
         
         self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"), 
                      self.payloadValueReadOnlyToggle)
         
-        self.connect(self.grossWeightLineEdit, SIGNAL("textChanged(QString)"), 
-                     self.calculateNetWeight)
+        self.guiNeedsUpdate.connect(self.updateInterface)
         
-        self.connect(self.tareWeightLineEdit, SIGNAL("textChanged(QString)"), 
-                     self.calculateNetWeight)
+        self.grossWeightEmpty.connect(self.disableTareWeight)
+        
+        self.grossWeightEmpty.connect(self.enableNetWeight)
+        
+        self.grossWeightEmpty.connect(self.clearTareWeight)
+        
+        self.grossWeightEmpty.connect(self.validateTareWeight)
+        
+        self.grossWeightEmpty.connect(self.validateGrossWeight)
+        
+        self.grossWeightNotEmpty.connect(self.enableTareWeight)
+        
+        self.grossWeightNotEmpty.connect(self.disableNetWeight)
+        
+        self.grossWeightNotEmpty.connect(self.emitTareWeightEmptyStatus)
+        
+        self.grossWeightNotEmpty.connect(self.validateGrossWeight)
+        
+        self.tareWeightEmpty.connect(self.makeTareWeightInvalid)
+        
+        self.tareWeightNotEmpty.connect(self.validateTareWeight)
+        
+        self.tareWeightNotEmpty.connect(self.determineTareAndGrossStatus)
+        
+        self.tareAndGrossValid.connect(self.calculateNetWeight)
+        
+        self.grossWeightInvalid.connect(self.clearNetWeight)
+        
+        self.tareWeightInvalid.connect(self.clearNetWeight)
+        
+        self.tareWeightInvalid.connect(self.makeTareWeightInvalid)
+        
+        self.grossWeightValid.connect(self.determineTareAndGrossStatus)
         
         for widget in self.dialogWidgets:
-            self.setValidator(widget)
             self.connect(widget, SIGNAL("textChanged(QString)"),
                      widget.property("onEditCallback"))
-            
-        self.validateWidgets()
+        
+        self.updateInterface()
     
-    def payloadValueReadOnlyToggle(self, state):
-        self.payloadValueLineEdit.setReadOnly(not state)
+    def enableTareWeight(self):
+        self.tareWeightLineEdit.setEnabled(True)
     
-    def calculateNetWeight(self):
+    def disableTareWeight(self):
+        self.tareWeightLineEdit.setEnabled(False)
+    
+    def enableNetWeight(self):
+        self.netWeightLineEdit.setReadOnly(False)
+    
+    def disableNetWeight(self):
+        self.netWeightLineEdit.setReadOnly(True)
+    
+    def clearTareWeight(self):
+        self.tareWeightLineEdit.clear()
+        self.guiNeedsUpdate.emit()
+        
+    def clearNetWeight(self):
+        self.netWeightLineEdit.clear()
+        self.guiNeedsUpdate.emit()
+    
+    def emitTareWeightEmptyStatus(self):
+        if self.tareWeightLineEdit.text() == "":
+            self.tareWeightEmpty.emit()
+        else:
+            self.tareWeightNotEmpty.emit()
+        
+    def determineTareAndGrossStatus(self):
+        if self.allWidgetsPassedValidation((self.grossWeightLineEdit,
+                                            self.tareWeightLineEdit)) == False:
+            return
+        
         try:
             grossValue = Decimal(self.grossWeightLineEdit.text())
             tareValue = Decimal(self.tareWeightLineEdit.text())
         except InvalidOperation:
-            self.netWeightLineEdit.setText("00.00")
-            return    
-        
-        if tareValue >= grossValue:
-            self.tareWeightLineEdit.clear()
-            self.netWeightLineEdit.setText("00.00")
             return
         
-        netValue = Decimal(grossValue) - Decimal(tareValue)
-        
-        self.netWeightLineEdit.setText(str(netValue))
-        
-    def validateWidgets(self):
-        if self.grossWeightLineEdit.text() == "":
-            self.setGrossAndTareMandatory(False)
+        if tareValue >= grossValue:
+            self.tareWeightInvalid.emit()
         else:
-            self.setGrossAndTareMandatory(True)
+            self.tareAndGrossValid.emit()
         
-        for widget in self.dialogWidgets:
-            if widget.property("mandatory"):
-                self.validate(widget)
-            else:
-                if widget.text() == "":
-                    widget.setProperty("validated", True)
-        
-        self.updateInterface()
+    def makeTareWeightInvalid(self):
+        self.tareWeightLineEdit.setProperty("validated", False)
+        self.guiNeedsUpdate.emit()
     
-    def setGrossAndTareMandatory(self, manStatus):
-        self.grossWeightLineEdit.setProperty("mandatory", manStatus)
-        self.tareWeightLineEdit.setProperty("mandatory", manStatus)
+    def updateGrossWeight(self):
+        if self.grossWeightLineEdit.text() == "":
+            self.grossWeightEmpty.emit()
+        else:
+            self.grossWeightNotEmpty.emit()
+            
+    def updateTareWeight(self):
+        self.emitTareWeightEmptyStatus()
+        
+    def validateTareWeight(self):
+        self.validate(self.tareWeightLineEdit)
+        if self.tareWeightLineEdit.property("validated"):
+            self.tareWeightValid.emit()
+        else:
+            self.tareWeightInvalid.emit()
+        self.guiNeedsUpdate.emit()
+    
+    def validateGrossWeight(self):
+        self.validate(self.grossWeightLineEdit)
+        if self.grossWeightLineEdit.property("validated"):
+            self.grossWeightValid.emit()
+        else:
+            self.grossWeightInvalid.emit()
+        self.guiNeedsUpdate.emit()
+    
+    def payloadValueReadOnlyToggle(self, state):
+        self.payloadValueLineEdit.setReadOnly(not state)
+        
+    def updateDialog(self):
+        self.validate(self.sender())
+        self.guiNeedsUpdate.emit()
+    
+    def calculateNetWeight(self):
+        grossValue = Decimal(self.grossWeightLineEdit.text())
+        tareValue = Decimal(self.tareWeightLineEdit.text())
+    
+        netValue = grossValue - tareValue
+        self.netWeightLineEdit.setText(str(netValue))
     
     def updateInterface(self):
         for widget in self.dialogWidgets:
             self.updateStyleSheet(widget)
-        
-        weightFlag = self.grossWeightLineEdit.property("mandatory")
-        self.tareWeightLineEdit.setEnabled(weightFlag)
-        self.netWeightLineEdit.setReadOnly(weightFlag)
         
         if self.allWidgetsPassedValidation(self.dialogWidgets):
             self.reviewTicketButton.setEnabled(True)

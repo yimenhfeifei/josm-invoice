@@ -18,19 +18,14 @@ class TestCustomQDialog(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = CustomQDialog()
         self.testRegexString = "Name"
-        self.testMinimumLength = 1
-        self.testMandatory = True
         self.testValidated = False
         self.testWidget = QLineEdit(self.gui)
-        self.testNameString = "1234John"
+        self.testNameString = "John"
         self.testNameStringResult = "JOHN"
         
         self.gui.setDynamicProperties(self.testWidget,
                                       regexString=self.testRegexString,
-                                      minimumLength=self.testMinimumLength,
-                                      mandatory=self.testMandatory,
                                       validated=self.testValidated)
-        self.gui.setValidator(self.testWidget)
         
         QTest.keyClicks(self.testWidget, self.testNameString)
         self.gui.validate(self.testWidget)
@@ -46,13 +41,9 @@ class TestCustomQDialog(unittest.TestCase):
         assert self.gui.allWidgetsPassedValidation((self.testWidget,)) == True
         
     def testSetDynamicProperties(self):
+        print(self.testWidget.property("regexString"))
         assert self.testWidget.property("regexString") == self.testRegexString
-        assert self.testWidget.property("minimumLength") == self.testMinimumLength
-        assert self.testWidget.property("mandatory") == self.testMandatory
         assert self.testWidget.property("validated") == True
-    
-    def testSetValidators(self):
-        assert self.testWidget.text() == self.testNameStringResult
         
     def tearDown(self):
         self.gui.deleteLater()

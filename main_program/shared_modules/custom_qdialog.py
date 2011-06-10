@@ -21,18 +21,18 @@ class CustomQDialog(QDialog):
         for dynamicProperty, value in dynamicProperties.items():
             widget.setProperty(dynamicProperty, value)
     
-    def setValidator(self, widget):
-        regex = regexObjects[widget.property("regexString")]
-        widget.setValidator(QRegExpValidator(regex, self))
-    
     def validate(self, widget):
         widgetText = widget.text()
-        if len(widgetText) >= widget.property("minimumLength"):
+        widget.setText(widgetText.upper())
+        
+        regex = regexObjects[widget.property("regexString")]
+
+        regexMatch = regex.match(widgetText)
+        if regexMatch:
             widget.setProperty("validated", True)
         else:
             widget.setProperty("validated", False)
-        widget.setText(widgetText.upper())
-
+            
     def updateStyleSheet(self, widget):
         if widget.property("validated") == True:
             widget.setStyleSheet(self.validatedStyleSheet)

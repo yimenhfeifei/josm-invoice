@@ -138,104 +138,104 @@ class TestNewTicketDialogValidators(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         
-        self.nameTestPairs = (("John", "JOHN"),
-                              ("John  ", "JOHN"),
-                              ("  John", "JOHN"), 
-                              ("  John  ", "JOHN"),
-                              ("Jo  hn", "JOHN"),
-                              ("28759John", "JOHN"),
-                              (",./John@~", "JOHN"),
-                              (" 87898 7John89845  ", "JOHN"),
-                              ("[]'John#89080", "JOHN"),
-                              ("8783  *(John)&%  78", "JOHN"))
+        self.nameTestPairs = (("John", True),
+                              ("John  ", False),
+                              ("  John", False), 
+                              ("  John  ", False),
+                              ("Jo  hn", False),
+                              ("28759John", False),
+                              (",./John@~", False),
+                              (" 87898 7John89845  ", False),
+                              ("[]'John#89080", False),
+                              ("8783  *(John)&%  78", False))
         
-        self.houseNumberTestPairs = (("289", "289"),
-                                     (" 289", "289"),
-                                     (" 289 ", "289"),
-                                     ("28 9", "289"),
-                                     ("123456789", "12345"),
-                                     ("hello, 289!", "289"),
-                                     (":2djeih_-8 9", "289"),
-                                     ("u_289_hello ", "289"),
-                                     ("^&289", "289"),
-                                     ("~2,.89", "289"))
+        self.houseNumberTestPairs = (("289", True),
+                                     (" 289", False),
+                                     (" 289 ", False),
+                                     ("28 9", False),
+                                     ("123456789", False),
+                                     ("hello, 289!", False),
+                                     (":2djeih_-8 9", False),
+                                     ("u_289_hello ", False),
+                                     ("^&289", False),
+                                     ("~2,.89", False))
         
-        self.streetTestPairs = (("United Road", "UNITED ROAD"),
-                                ("789U783nited Road", "UNITED ROAD"),
-                                ("  Unit89ed R90oad,", "UNITED ROAD"),
-                                (" Welcome Way ", "WELCOME WAY"),
-                                ("Summit", "SUMMIT"),
-                                (" Summit ", "SUMMIT "),
-                                ("678Summit87953", "SUMMIT"),
-                                ("^&*Summit *&(&", "SUMMIT "),
-                                (".Road", "ROAD"),
-                                ("78  United Road  89", "UNITED ROAD"))
+        self.streetTestPairs = (("United Road", True),
+                                ("789U783nited Road", False),
+                                ("  Unit89ed R90oad,", False),
+                                (" Welcome Way ", False),
+                                ("Summit", True),
+                                (" Summit ", False),
+                                ("678Summit87953", False),
+                                ("^&*Summit *&(&", False),
+                                (".Road", False),
+                                ("78  United Road  89", False))
         
-        self.townTestPairs = (("Truro", "TRURO"),
-                              (" Truro ", "TRURO "),
-                              ("68Truro", "TRURO"),
-                              ("98Redruth90", "REDRUTH"),
-                              (" 67St Ives 90 ", "ST IVES"),
-                              (" St Ives ", "ST IVES"),
-                              ("  St   Ives 90&*", "ST IVES"),
-                              (" &^Tru ro767", "TRU RO"),
-                              (" Tr8u9 ^&ro &^", "TRU RO"),
-                              ("   ^&Truro   &*   ", "TRURO "))
+        self.townTestPairs = (("Truro", True),
+                              (" Truro ", False),
+                              ("68Truro", False),
+                              ("98Redruth90", False),
+                              (" 67St Ives 90 ", False),
+                              (" St Ives ", False),
+                              ("  St   Ives 90&*", False),
+                              (" &^Tru ro767", False),
+                              (" Tr8u9 ^&ro &^", False),
+                              ("   ^&Truro   &*   ", False))
         
-        self.postcodeTestPairs = (("TR165QY", "TR165QY"),
-                                  (" Tr165QY ", "TR165QY"),
-                                  (" b17AW ", "B17AW"),
-                                  ("B109DS", "B109DS"),
-                                  (" PL258de", "PL258DE"),
-                                  ("^& pl25 7DS *(", "PL257DS"),
-                                  ("  BA1   6AW", "BA16AW"),
-                                  ("Tr16 5QY", "TR165QY"),
-                                  ("TR16   5QY  ", "TR165QY"),
-                                  ("N5 9Lp", "N59LP"))
+        self.postcodeTestPairs = (("TR165QY", True),
+                                  ("Tr16 5QY", True),
+                                  (" b17AW ", False),
+                                  ("B109DS", True),
+                                  (" PL258de", False),
+                                  ("^& pl25 7DS *(", False),
+                                  ("  BA1   6AW", False),
+                                  ("TR16 5qy", True),
+                                  ("TR16   5QY  ", False),
+                                  ("N5 9Lp", True))
         
-        self.vehicleRegistrationTestPairs = (("WK55SWL", "WK55SWL"),
-                                             (" WK55 SWL ", "WK55SWL"),
-                                             ("^&WK 55  swl", "WK55SWL"),
-                                             ("B567SWL", "B567SWL"),
-                                             (" b567 SWL ", "B567SWL"),
-                                             ("7896wK55SWL", "WK55SWL"), 
-                                             ("7WK55 SWL 190", "WK55SWL1"),
-                                             ("&* wk55 &^SWL", "WK55SWL"),
-                                             ("90WK 55 SWL", "WK55SWL"),
-                                             ("7 WK55    SWL  ", "WK55SWL"))
+        self.vehicleRegistrationTestPairs = (("WK55SWL", True),
+                                             (" WK55 SWL ", False),
+                                             ("^&WK 55  swl", False),
+                                             ("B567SWL", True),
+                                             ("b567SWL", True),
+                                             ("7896wK55SWL", False), 
+                                             ("7WK55 SWL 190", False),
+                                             ("&* wk55 &^SWL", False),
+                                             ("90WK 55 SWL", False),
+                                             ("7 WK55    SWL  ", False))
         
-        self.grossWeightTestPairs = (("120.00", "120.00"),
-                                             ("120.50", "120.50"),
-                                             (" 120.00", "120.00"),
-                                             ("  120.50  ", "120.50"),
-                                             ("^&hj120.50", "120.50"),
-                                             ("120", "120"), 
-                                             ("1.50", "1.50"),
-                                             ("23.00", "23.00"),
-                                             ("12 34.50", "1234.50"),
-                                             ("10000.00", "10000.00"))
+        self.grossWeightTestPairs = (("120.00", True),
+                                             ("120.50", True),
+                                             (" 120.00", False),
+                                             ("  120.50  ", False),
+                                             ("^&hj120.50", False),
+                                             ("120", False), 
+                                             ("1.50", True),
+                                             ("23.00", True),
+                                             ("12 34.50", False),
+                                             ("10000.00", True))
         
-        self.tareWeightTestPairs = (("120.00", "120.00"),
-                                             ("120.50", "120.50"),
-                                             (" 120.00", "120.00"),
-                                             ("  120.50  ", "120.50"),
-                                             ("^&hj120.50", "120.50"),
-                                             ("120", "120"), 
-                                             ("1.50", "1.50"),
-                                             ("23.00", "23.00"),
-                                             ("12 34.50", "1234.50"),
-                                             ("10000.00", "10000.00"))
+        self.tareWeightTestPairs = (("120.00", True),
+                                             ("120.50", True),
+                                             (" 120.00", False),
+                                             ("  120.50  ", False),
+                                             ("^&hj120.50", False),
+                                             ("120", False), 
+                                             ("1.50", True),
+                                             ("23.00", True),
+                                             ("12 34.50", False),
+                                             ("10000.00", True))
         
-        self.netWeightTestPairs = (("120.00", "120.00"),
-                                             ("120.50", "120.50"),
-                                             (" 120.00", "120.00"),
-                                             ("  120.50  ", "120.50"),
-                                             ("^&hj120.50", "120.50"),
-                                             ("120", "120"), 
-                                             ("1.50", "1.50"),
-                                             ("23.00", "23.00"),
-                                             ("12 34.50", "1234.50"),
-                                             ("10000.00", "10000.00"))
+        self.netWeightTestPairs = (("120.00", True),
+                                             ("120.50", True),
+                                             (" 120.00", False),
+                                             ("  120.50  ", False),
+                                             ("^&hj120.50", False),
+                                             ("120", False), 
+                                             ("1.50", True),
+                                             ("23.00", True),
+                                             ("12 34.50", False),
+                                             ("10000.00", True))
         
     def testNameLineEditsValidate(self):
         testWidgets = (self.gui.firstNameLineEdit,
@@ -244,81 +244,90 @@ class TestNewTicketDialogValidators(unittest.TestCase):
         for testWidget in testWidgets:
             for pair in self.nameTestPairs:
                 testWidget.clear()
-                testString, resultString = pair[0], pair[1]
+                testString, validString = pair[0], pair[1]
                 QTest.keyClicks(testWidget, testString)
-                assert testWidget.text() == resultString
+                self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
     
     def testHouseNumberLineEditValidate(self):
         testWidget = self.gui.houseNumberLineEdit
         
         for pair in self.houseNumberTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
 
     def testStreetLineEditValidate(self):
         testWidget = self.gui.streetLineEdit
         
         for pair in self.streetTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
     
     def testTownLineEditValidate(self):
         testWidget = self.gui.townLineEdit
         
         for pair in self.townTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
     
     def testPostcodeLineEditValidate(self):
         testWidget = self.gui.postcodeLineEdit
         
         for pair in self.postcodeTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
         
     def testVehicleRegistrationLineEditValidate(self):
         testWidget = self.gui.vehicleRegistrationLineEdit
         
         for pair in self.vehicleRegistrationTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
             
     def testGrossWeightLineEditValidate(self):
         testWidget = self.gui.grossWeightLineEdit
         
         for pair in self.grossWeightTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
     
     def testTareWeightLineEditValidate(self):
         testWidget = self.gui.tareWeightLineEdit
         
         for pair in self.grossWeightTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
     
     def testNetWeightLineEditValidate(self):
         testWidget = self.gui.netWeightLineEdit
         
-        for pair in self.grossWeightTestPairs:
+        for pair in self.netWeightTestPairs:
             testWidget.clear()
-            testString, resultString = pair[0], pair[1]
+            testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            assert testWidget.text() == resultString
+            self.gui.validate(testWidget)
+            assert testWidget.property("validated") == validString
         
     def tearDown(self):
         self.gui.deleteLater()
@@ -328,15 +337,6 @@ class TestNewTicketDialogMethods(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-    
-    def testSetGrossAndTareMandatory(self):
-        self.gui.setGrossAndTareMandatory(False)
-        assert self.gui.grossWeightLineEdit.property("mandatory") == False
-        assert self.gui.tareWeightLineEdit.property("mandatory") == False
-        
-        self.gui.setGrossAndTareMandatory(True)
-        assert self.gui.grossWeightLineEdit.property("mandatory") == True
-        assert self.gui.tareWeightLineEdit.property("mandatory") == True
     
     def tearDown(self):
         self.gui.deleteLater()
