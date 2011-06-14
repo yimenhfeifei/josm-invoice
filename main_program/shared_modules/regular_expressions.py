@@ -23,6 +23,6 @@ regexObjects = {"Name": re.compile(r"^[a-z]{1,20}$", re.I),
                 "VehicleRegistration": re.compile(r"^[a-z][a-z0-9]{2,7}$",
                                                   re.I),
                 
-                "optionalWeight": re.compile(r"^(|[0-9]{1,5}\.(5|0)0*)$"),
+                "Weight": re.compile(r"^[0-9]{1,5}\.(5|0)0*$"),
                 
                 "NetWeight": re.compile(r"^[0-9]{1,5}\.(5|0)0*$")}

@@ -32,9 +32,9 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>12</y>
-         <width>201</width>
+         <x>42</x>
+         <y>13</y>
+         <width>234</width>
          <height>178</height>
         </rect>
        </property>
@@ -44,27 +44,33 @@
           <property name="text">
            <string>First name</string>
           </property>
-          <property name="buddy">
-           <cstring>firstNameLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="firstNameLineEdit">
+        <item row="0" column="1">
+         <widget class="ValidatingLineEdit" name="firstNameLineEdit">
           <property name="minimumSize">
            <size>
-            <width>111</width>
+            <width>133</width>
             <height>20</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>111</width>
+            <width>133</width>
             <height>20</height>
            </size>
           </property>
-          <property name="inputMask">
-           <string/>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Name</string>
           </property>
          </widget>
         </item>
@@ -73,27 +79,33 @@
           <property name="text">
            <string>Last name</string>
           </property>
-          <property name="buddy">
-           <cstring>lastNameLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QLineEdit" name="lastNameLineEdit">
+        <item row="1" column="1">
+         <widget class="ValidatingLineEdit" name="lastNameLineEdit">
           <property name="minimumSize">
            <size>
-            <width>111</width>
+            <width>133</width>
             <height>20</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>111</width>
+            <width>133</width>
             <height>20</height>
            </size>
           </property>
-          <property name="inputMask">
-           <string/>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Name</string>
           </property>
          </widget>
         </item>
@@ -102,30 +114,33 @@
           <property name="text">
            <string>House number</string>
           </property>
-          <property name="buddy">
-           <cstring>houseNumberLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="2">
-         <widget class="QLineEdit" name="houseNumberLineEdit">
+        <item row="2" column="1">
+         <widget class="ValidatingLineEdit" name="houseNumberLineEdit">
           <property name="minimumSize">
            <size>
             <width>51</width>
-            <height>0</height>
+            <height>20</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>51</width>
-            <height>16777215</height>
+            <height>20</height>
            </size>
           </property>
-          <property name="inputMask">
-           <string/>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
           </property>
-          <property name="maxLength">
-           <number>32767</number>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>HouseNumber</string>
           </property>
          </widget>
         </item>
@@ -134,18 +149,33 @@
           <property name="text">
            <string>Street</string>
           </property>
-          <property name="buddy">
-           <cstring>streetLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="QLineEdit" name="streetLineEdit">
+        <item row="3" column="1">
+         <widget class="ValidatingLineEdit" name="streetLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>133</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>133</width>
-            <height>16777215</height>
+            <height>20</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Street</string>
           </property>
          </widget>
         </item>
@@ -154,18 +184,33 @@
           <property name="text">
            <string>Town</string>
           </property>
-          <property name="buddy">
-           <cstring>townLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QLineEdit" name="townLineEdit">
+        <item row="4" column="1">
+         <widget class="ValidatingLineEdit" name="townLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>101</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
-            <width>133</width>
-            <height>16777215</height>
+            <width>101</width>
+            <height>20</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Town</string>
           </property>
          </widget>
         </item>
@@ -174,53 +219,68 @@
           <property name="text">
            <string>Postcode</string>
           </property>
-          <property name="buddy">
-           <cstring>postcodeLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="5" column="1" colspan="2">
-         <widget class="QLineEdit" name="postcodeLineEdit">
+        <item row="5" column="1">
+         <widget class="ValidatingLineEdit" name="postcodeLineEdit">
           <property name="minimumSize">
            <size>
-            <width>81</width>
-            <height>0</height>
+            <width>51</width>
+            <height>20</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>81</width>
-            <height>16777215</height>
+            <width>71</width>
+            <height>20</height>
            </size>
           </property>
-          <property name="inputMask">
-           <string/>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Postcode</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="2">
+        <item row="6" column="0">
          <widget class="QLabel" name="vehicleRegistrationLabel">
           <property name="text">
            <string>Vehicle Registration</string>
           </property>
-          <property name="buddy">
-           <cstring>vehicleRegistrationLineEdit</cstring>
-          </property>
          </widget>
         </item>
-        <item row="6" column="2">
-         <widget class="QLineEdit" name="vehicleRegistrationLineEdit">
+        <item row="6" column="1">
+         <widget class="ValidatingLineEdit" name="vehicleRegistrationLineEdit">
           <property name="minimumSize">
            <size>
-            <width>81</width>
-            <height>0</height>
+            <width>71</width>
+            <height>20</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>81</width>
-            <height>16777215</height>
+            <width>71</width>
+            <height>20</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>VehicleRegistration</string>
           </property>
          </widget>
         </item>
@@ -231,296 +291,1067 @@
       <attribute name="title">
        <string>Payload</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QLineEdit" name="grossWeightLineEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>16777215</height>
-            </size>
-           </property>
+      <widget class="QWidget" name="layoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>11</y>
+         <width>334</width>
+         <height>374</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="GrossWeightLineEdit" name="grossWeightLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="NetWeightLineEdit" name="netWeightLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="materialCombobox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>91</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>91</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <item>
            <property name="text">
-            <string/>
+            <string>Copper</string>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="tareWeightLineEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          </item>
+          <item>
            <property name="text">
-            <string/>
+            <string>Car</string>
            </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLineEdit" name="netWeightLineEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          </item>
+          <item>
            <property name="text">
-            <string/>
+            <string>Heavy Iron</string>
            </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QComboBox" name="materialCombobox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>Copper</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Car</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Heavy Iron</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="2" column="2" colspan="2">
-          <widget class="QLineEdit" name="payloadValueLineEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Value</string>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="4">
-          <widget class="QCheckBox" name="manualPriceCheckbox">
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Manual price</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="4">
-          <widget class="QPushButton" name="addPayloadButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Add payload</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0" colspan="5">
-          <widget class="QTableWidget" name="payloadTableWidget">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>341</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>341</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="rowCount">
-            <number>12</number>
-           </property>
-           <property name="columnCount">
-            <number>3</number>
-           </property>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>100</number>
-           </attribute>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <column/>
-           <column/>
-           <column/>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QLabel" name="totalValueLabel">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Total</string>
-           </property>
-           <property name="buddy">
-            <cstring>totalValueLineEdit</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="3" colspan="2">
-          <widget class="QLineEdit" name="totalValueLineEdit">
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2" colspan="3">
-          <widget class="QCommandLinkButton" name="reviewTicketButton">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>131</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>131</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Review ticket</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+          </item>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="2">
+         <widget class="ValidatingLineEdit" name="payloadValueLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>61</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>61</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QCheckBox" name="manualPriceCheckbox">
+          <property name="minimumSize">
+           <size>
+            <width>91</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Manual price</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QPushButton" name="addPayloadButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>81</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Add payload</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="5">
+         <widget class="QTableWidget" name="payloadTableWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>341</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>341</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="rowCount">
+           <number>12</number>
+          </property>
+          <property name="columnCount">
+           <number>3</number>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>100</number>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>25</number>
+          </attribute>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLabel" name="totalValueLabel">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Total</string>
+          </property>
+          <property name="buddy">
+           <cstring>totalValueLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3" colspan="2">
+         <widget class="QLineEdit" name="totalValueLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>101</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>101</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2" colspan="3">
+         <widget class="QCommandLinkButton" name="reviewTicketButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>131</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Review ticket</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GrossWeightLineEdit</class>
+   <extends>ValidatingLineEdit</extends>
+   <header>shared_modules.grossWeightLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>NetWeightLineEdit</class>
+   <extends>ValidatingLineEdit</extends>
+   <header>shared_modules.netWeightLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>TareWeightLineEdit</class>
+   <extends>ValidatingLineEdit</extends>
+   <header>shared_modules.tareWeightLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>ValidatingLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>shared_modules.validatingLineEdit</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>90</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>46</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>83</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>70</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>netWeightLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>74</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>netWeightLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>57</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>92</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>netWeightLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>68</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>enableNetWeight()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>enableNetWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>42</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>disableNetWeight()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>disableNetWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>netWeightLineEdit</sender>
+   <signal>enableGrossWeight()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>enableGrossWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>netWeightLineEdit</sender>
+   <signal>disableGrossWeight()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>disableGrossWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>44</x>
+     <y>57</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstNameLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>firstNameLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstNameLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>firstNameLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>firstNameLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>firstNameLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastNameLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>lastNameLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastNameLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>lastNameLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>179</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lastNameLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>lastNameLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>164</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>houseNumberLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>houseNumberLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>houseNumberLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>houseNumberLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>houseNumberLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>houseNumberLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>103</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>streetLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>streetLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>streetLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>streetLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>streetLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>streetLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>townLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>townLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>townLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>townLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>townLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>townLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>153</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>postcodeLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>postcodeLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>postcodeLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>postcodeLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>postcodeLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>postcodeLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vehicleRegistrationLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>vehicleRegistrationLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vehicleRegistrationLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>vehicleRegistrationLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>vehicleRegistrationLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>vehicleRegistrationLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>enableTare()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>enableTare()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>35</x>
+     <y>74</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>disableTare()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>disableTare()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>49</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>49</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>validReceived()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>75</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>invalidReceived()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>64</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>68</x>
+     <y>51</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>onTextEdited()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>72</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>80</x>
+     <y>78</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>setValidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>80</x>
+     <y>81</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>setInvalidStyleSheet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>77</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>81</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>valid()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>validReceieved()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>85</x>
+     <y>83</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>requestGrossValue()</signal>
+   <receiver>grossWeightLineEdit</receiver>
+   <slot>requestGrossValueReceived()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>81</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>65</x>
+     <y>54</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>sendGrossValue(QString)</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>grossValueReceived()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>55</x>
+     <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>calculateNetWeight(QString,QString)</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>calculateNetWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>31</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>invalid()</signal>
+   <receiver>tareWeightLineEdit</receiver>
+   <slot>invalidReceieved()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>86</x>
+     <y>81</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tareWeightLineEdit</sender>
+   <signal>clearNetWeight()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>clearNetWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>77</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>65</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>grossWeightLineEdit</sender>
+   <signal>clearNetWeight()</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>clearNetWeight()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>55</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>55</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>manualPriceCheckbox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>payloadValueLineEdit</receiver>
+   <slot>setReadOnlyInverted(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>102</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
