@@ -7,7 +7,6 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import new_ticket_dialog_generated
-    from shared_modules.custom_qdialog import CustomQDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -41,3 +40,7 @@ class NewTicketDialog(QDialog,
     
     def updateReviewTicketButton(self):
         self.reviewTicketButton.setEnabled(self.allWidgetsValid())
+        
+    def update(self):
+        self.updateReviewTicketButton()
+        super(NewTicketDialog, self).update()

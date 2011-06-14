@@ -36,10 +36,12 @@ class GrossWeightLineEdit(ValidatingLineEdit):
     def enableGrossWeight(self):
         self.setEnabled(True)
         super(GrossWeightLineEdit, self).validate()
+        self.show()
         
     @pyqtSlot()
     def disableGrossWeight(self):
         self.setEnabled(False)
+        self.hide()
             
     @pyqtSlot()
     def validReceived(self):

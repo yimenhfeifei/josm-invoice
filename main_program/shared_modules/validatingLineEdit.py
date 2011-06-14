@@ -58,7 +58,7 @@ class ValidatingLineEdit(QLineEdit):
         self.setStyleSheet(self.styleSheets["Invalid"])
         
     def getValidatedStatus(self):
-        if self.styleSheet() == self.styleSheets[True]:
+        if self.styleSheet() == self.styleSheets["Valid"]:
             return True
         else:
             return False

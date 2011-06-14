@@ -20,6 +20,7 @@ class TareWeightLineEdit(ValidatingLineEdit):
     
     def __init__(self, parent=None):
         super(TareWeightLineEdit, self).__init__(parent)
+        self.hide()
     
     @pyqtSlot()
     def onTextEdited(self):
@@ -43,9 +44,11 @@ class TareWeightLineEdit(ValidatingLineEdit):
     @pyqtSlot()
     def disableTare(self):
         self.setEnabled(False)
+        self.hide()
         self.clear()
     
     @pyqtSlot()
     def enableTare(self):
         self.setEnabled(True)
+        self.show()
         super(TareWeightLineEdit, self).validate()
