@@ -1,7 +1,10 @@
+Better test code.
+Rename signals and slots.
 Interface tweaks.
+New registration regex.
+
 Printing demo.
 Power socket network test.
-
 Installer.
 Unit tests.
 Server machine setup.
