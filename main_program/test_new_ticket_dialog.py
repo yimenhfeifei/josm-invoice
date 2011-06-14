@@ -18,7 +18,8 @@ class TestNewTicketDialogGui(unittest.TestCase):
         self.gui = NewTicketDialog()
         self.nameTestString = "I"
         self.houseNumberTestString = "289"
-        self.weightTestString = "169.00"
+        self.weightTestString = "179.00"
+        self.tareWeightTestString = "169.00"
     
     def testFirstNameLineEditTextEntry(self):
         testWidget = self.gui.firstNameLineEdit
@@ -72,9 +73,10 @@ class TestNewTicketDialogGui(unittest.TestCase):
     def testTareWeightLineEditTextEntry(self):
         testWidget = self.gui.tareWeightLineEdit
         testWidget.clear()
+        self.gui.grossWeightLineEdit.setText("12000.00")
         
-        QTest.keyClicks(testWidget, self.weightTestString)
-        assert testWidget.text() == self.weightTestString
+        QTest.keyClicks(testWidget, self.tareWeightTestString)
+        assert testWidget.text() == self.tareWeightTestString
         
     def testNetWeightLineEditTextEntry(self):
         self.gui.grossWeightLineEdit.clear()
@@ -215,16 +217,16 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                                              ("12 34.50", False),
                                              ("10000.00", True))
         
-        self.tareWeightTestPairs = (("120.00", True),
-                                             ("120.50", True),
-                                             (" 120.00", False),
-                                             ("  120.50  ", False),
-                                             ("^&hj120.50", False),
-                                             ("120", False), 
-                                             ("1.50", True),
-                                             ("23.00", True),
-                                             ("12 34.50", False),
-                                             ("10000.00", True))
+        self.tareWeightTestPairs = (("110.00", True),
+                                             ("110.50", True),
+                                             (" 110.00", False),
+                                             ("  110.50  ", False),
+                                             ("^&hj110.50", False),
+                                             ("110", False), 
+                                             ("1.00", True),
+                                             ("22.00", True),
+                                             ("12 33.50", False),
+                                             ("1000.00", True))
         
         self.netWeightTestPairs = (("120.00", True),
                                              ("120.50", True),
@@ -246,8 +248,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                 testWidget.clear()
                 testString, validString = pair[0], pair[1]
                 QTest.keyClicks(testWidget, testString)
-                self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+                testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
     
     def testHouseNumberLineEditValidate(self):
         testWidget = self.gui.houseNumberLineEdit
@@ -256,8 +258,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
 
     def testStreetLineEditValidate(self):
         testWidget = self.gui.streetLineEdit
@@ -266,8 +268,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
     
     def testTownLineEditValidate(self):
         testWidget = self.gui.townLineEdit
@@ -276,8 +278,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
     
     def testPostcodeLineEditValidate(self):
         testWidget = self.gui.postcodeLineEdit
@@ -286,8 +288,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
         
     def testVehicleRegistrationLineEditValidate(self):
         testWidget = self.gui.vehicleRegistrationLineEdit
@@ -296,8 +298,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
             
     def testGrossWeightLineEditValidate(self):
         testWidget = self.gui.grossWeightLineEdit
@@ -306,18 +308,19 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
     
     def testTareWeightLineEditValidate(self):
         testWidget = self.gui.tareWeightLineEdit
+        self.gui.grossWeightLineEdit.setText("12000.00")
         
-        for pair in self.grossWeightTestPairs:
+        for pair in self.tareWeightTestPairs:
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
     
     def testNetWeightLineEditValidate(self):
         testWidget = self.gui.netWeightLineEdit
@@ -326,8 +329,8 @@ class TestNewTicketDialogValidators(unittest.TestCase):
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
-            self.gui.validate(testWidget)
-            assert testWidget.property("validated") == validString
+            testWidget.validate()
+            assert testWidget.getValidatedStatus() == validString
         
     def tearDown(self):
         self.gui.deleteLater()
