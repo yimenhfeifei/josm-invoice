@@ -714,7 +714,7 @@
    <sender>grossWeightLineEdit</sender>
    <signal>enableNetWeight()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>enableNetWeight()</slot>
+   <slot>onEnableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>28</x>
@@ -730,7 +730,7 @@
    <sender>grossWeightLineEdit</sender>
    <signal>disableNetWeight()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>disableNetWeight()</slot>
+   <slot>onDisableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>53</x>
@@ -746,7 +746,7 @@
    <sender>netWeightLineEdit</sender>
    <signal>enableGrossWeight()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>enableGrossWeight()</slot>
+   <slot>onEnableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>85</x>
@@ -762,7 +762,7 @@
    <sender>netWeightLineEdit</sender>
    <signal>disableGrossWeight()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>disableGrossWeight()</slot>
+   <slot>onDisableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>55</x>
@@ -1112,9 +1112,9 @@
   </connection>
   <connection>
    <sender>grossWeightLineEdit</sender>
-   <signal>enableTare()</signal>
+   <signal>enableTareWeight()</signal>
    <receiver>tareWeightLineEdit</receiver>
-   <slot>enableTare()</slot>
+   <slot>onEnableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>35</x>
@@ -1128,9 +1128,9 @@
   </connection>
   <connection>
    <sender>grossWeightLineEdit</sender>
-   <signal>disableTare()</signal>
+   <signal>disableTareWeight()</signal>
    <receiver>tareWeightLineEdit</receiver>
-   <slot>disableTare()</slot>
+   <slot>onDisableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>49</x>
@@ -1146,7 +1146,7 @@
    <sender>grossWeightLineEdit</sender>
    <signal>valid()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>validReceived()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>71</x>
@@ -1162,7 +1162,7 @@
    <sender>grossWeightLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>invalidReceived()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>64</x>
@@ -1226,7 +1226,7 @@
    <sender>tareWeightLineEdit</sender>
    <signal>valid()</signal>
    <receiver>tareWeightLineEdit</receiver>
-   <slot>validReceieved()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>62</x>
@@ -1240,9 +1240,9 @@
   </connection>
   <connection>
    <sender>tareWeightLineEdit</sender>
-   <signal>requestGrossValue()</signal>
+   <signal>sendGrossWeightValue()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>requestGrossValueReceived()</slot>
+   <slot>onSendGrossWeighValue()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>72</x>
@@ -1256,9 +1256,9 @@
   </connection>
   <connection>
    <sender>grossWeightLineEdit</sender>
-   <signal>sendGrossValue(QString)</signal>
+   <signal>grossWeightValue(QString)</signal>
    <receiver>tareWeightLineEdit</receiver>
-   <slot>grossValueReceived()</slot>
+   <slot>onGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>55</x>
@@ -1274,7 +1274,7 @@
    <sender>tareWeightLineEdit</sender>
    <signal>calculateNetWeight(QString,QString)</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>calculateNetWeight()</slot>
+   <slot>onCalculateNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>31</x>
@@ -1290,7 +1290,7 @@
    <sender>tareWeightLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>tareWeightLineEdit</receiver>
-   <slot>invalidReceieved()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>81</x>
@@ -1306,7 +1306,7 @@
    <sender>tareWeightLineEdit</sender>
    <signal>clearNetWeight()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>clearNetWeight()</slot>
+   <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>68</x>
@@ -1322,7 +1322,7 @@
    <sender>grossWeightLineEdit</sender>
    <signal>clearNetWeight()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>clearNetWeight()</slot>
+   <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>55</x>

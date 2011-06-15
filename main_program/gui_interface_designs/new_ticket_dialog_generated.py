@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Tue Jun 14 13:45:43 2011
+# Created: Wed Jun 15 08:51:57 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,6 +22,7 @@ class Ui_newTicketDialog(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.newTicketTabWidget = QtGui.QTabWidget(newTicketDialog)
         self.newTicketTabWidget.setMinimumSize(QtCore.QSize(0, 431))
+        self.newTicketTabWidget.setStyleSheet(_fromUtf8(""))
         self.newTicketTabWidget.setObjectName(_fromUtf8("newTicketTabWidget"))
         self.customerTab = QtGui.QWidget()
         self.customerTab.setObjectName(_fromUtf8("customerTab"))
@@ -200,10 +201,10 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.netWeightLineEdit.onTextEdited)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.netWeightLineEdit.setValidStyleSheet)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.netWeightLineEdit.setInvalidStyleSheet)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableNetWeight()")), self.netWeightLineEdit.enableNetWeight)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableNetWeight()")), self.netWeightLineEdit.disableNetWeight)
-        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableGrossWeight()")), self.grossWeightLineEdit.enableGrossWeight)
-        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableGrossWeight()")), self.grossWeightLineEdit.disableGrossWeight)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableNetWeight()")), self.netWeightLineEdit.onEnableNetWeight)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableNetWeight()")), self.netWeightLineEdit.onDisableNetWeight)
+        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableGrossWeight()")), self.grossWeightLineEdit.onEnableGrossWeight)
+        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableGrossWeight()")), self.grossWeightLineEdit.onDisableGrossWeight)
         QtCore.QObject.connect(self.firstNameLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.firstNameLineEdit.onTextEdited)
         QtCore.QObject.connect(self.firstNameLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.firstNameLineEdit.setValidStyleSheet)
         QtCore.QObject.connect(self.firstNameLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.firstNameLineEdit.setInvalidStyleSheet)
@@ -225,20 +226,20 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.vehicleRegistrationLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.vehicleRegistrationLineEdit.onTextEdited)
         QtCore.QObject.connect(self.vehicleRegistrationLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.vehicleRegistrationLineEdit.setValidStyleSheet)
         QtCore.QObject.connect(self.vehicleRegistrationLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.vehicleRegistrationLineEdit.setInvalidStyleSheet)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableTare()")), self.tareWeightLineEdit.enableTare)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableTare()")), self.tareWeightLineEdit.disableTare)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.grossWeightLineEdit.validReceived)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.grossWeightLineEdit.invalidReceived)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("enableTareWeight()")), self.tareWeightLineEdit.onEnableTareWeight)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("disableTareWeight()")), self.tareWeightLineEdit.onDisableTareWeight)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.grossWeightLineEdit.onValid)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.grossWeightLineEdit.onInvalid)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.tareWeightLineEdit.onTextEdited)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.setValidStyleSheet)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.setInvalidStyleSheet)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.validReceieved)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("requestGrossValue()")), self.grossWeightLineEdit.requestGrossValueReceived)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("sendGrossValue(QString)")), self.tareWeightLineEdit.grossValueReceived)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculateNetWeight(QString,QString)")), self.netWeightLineEdit.calculateNetWeight)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.invalidReceieved)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.clearNetWeight)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.clearNetWeight)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.onValid)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("sendGrossWeightValue()")), self.grossWeightLineEdit.onSendGrossWeighValue)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("grossWeightValue(QString)")), self.tareWeightLineEdit.onGrossWeightValue)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculateNetWeight(QString,QString)")), self.netWeightLineEdit.onCalculateNetWeight)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.onInvalid)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.onClearNetWeight)
+        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.onClearNetWeight)
         QtCore.QObject.connect(self.manualPriceCheckbox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.payloadValueLineEdit.setReadOnlyInverted)
         QtCore.QObject.connect(self.firstNameLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.lastNameLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)

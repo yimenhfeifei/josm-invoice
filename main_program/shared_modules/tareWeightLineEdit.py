@@ -12,9 +12,7 @@ except ImportError as err:
 
 class TareWeightLineEdit(ValidatingLineEdit):
     
-    valid = pyqtSignal()
-    invalid = pyqtSignal()
-    requestGrossValue = pyqtSignal()
+    sendGrossWeightValue = pyqtSignal()
     calculateNetWeight = pyqtSignal(str, str)
     clearNetWeight = pyqtSignal()
     
@@ -27,28 +25,28 @@ class TareWeightLineEdit(ValidatingLineEdit):
         super(TareWeightLineEdit, self).validate()
     
     @pyqtSlot()
-    def validReceieved(self):
-        self.requestGrossValue.emit()
+    def onValid(self):
+        self.sendGrossWeightValue.emit()
         
     @pyqtSlot()
-    def invalidReceieved(self):
+    def onInvalid(self):
         self.clearNetWeight.emit()
     
     @pyqtSlot()
-    def grossValueReceived(self, grossValue):
+    def onGrossWeightValue(self, grossValue):
         if Decimal(self.text()) >= Decimal(grossValue):
             self.invalid.emit()
         else:
             self.calculateNetWeight.emit(grossValue, self.text())
     
     @pyqtSlot()
-    def disableTare(self):
+    def onDisableTareWeight(self):
         self.setEnabled(False)
         self.hide()
         self.clear()
     
     @pyqtSlot()
-    def enableTare(self):
+    def onEnableTareWeight(self):
         self.setEnabled(True)
         self.show()
         super(TareWeightLineEdit, self).validate()

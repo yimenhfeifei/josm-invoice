@@ -28,22 +28,22 @@ class NetWeightLineEdit(ValidatingLineEdit):
             super(NetWeightLineEdit, self).validate()
         
     @pyqtSlot()
-    def clearNetWeight(self):
+    def onClearNetWeight(self):
         self.clear()
         super(NetWeightLineEdit, self).validate()
 
     @pyqtSlot()
-    def enableNetWeight(self):
+    def onEnableNetWeight(self):
         self.setReadOnly(False)
         super(NetWeightLineEdit, self).validate()
         
     @pyqtSlot()
-    def disableNetWeight(self):
+    def onDisableNetWeight(self):
         self.setReadOnly(True)
         super(NetWeightLineEdit, self).validate()
         
     @pyqtSlot()
-    def calculateNetWeight(self, gross, tare):
+    def onCalculateNetWeight(self, gross, tare):
         net = str(Decimal(gross) - Decimal(tare))
         self.setText(net)
         super(NetWeightLineEdit, self).validate()

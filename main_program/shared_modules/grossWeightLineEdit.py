@@ -13,11 +13,9 @@ class GrossWeightLineEdit(ValidatingLineEdit):
     
     disableNetWeight = pyqtSignal()
     enableNetWeight = pyqtSignal()
-    valid = pyqtSignal()
-    invalid = pyqtSignal()
-    enableTare = pyqtSignal()
-    disableTare = pyqtSignal()
-    sendGrossValue = pyqtSignal(str)
+    enableTareWeight = pyqtSignal()
+    disableTareWeight = pyqtSignal()
+    grossWeightValue = pyqtSignal(str)
     clearNetWeight = pyqtSignal()
     
     def __init__(self, parent=None):
@@ -33,25 +31,25 @@ class GrossWeightLineEdit(ValidatingLineEdit):
             super(GrossWeightLineEdit, self).validate()
     
     @pyqtSlot()
-    def enableGrossWeight(self):
+    def onEnableGrossWeight(self):
         self.setEnabled(True)
         super(GrossWeightLineEdit, self).validate()
         self.show()
         
     @pyqtSlot()
-    def disableGrossWeight(self):
+    def onDisableGrossWeight(self):
         self.setEnabled(False)
         self.hide()
             
     @pyqtSlot()
-    def validReceived(self):
-        self.enableTare.emit()
+    def onValid(self):
+        self.enableTareWeight.emit()
     
     @pyqtSlot()
-    def invalidReceived(self):
-        self.disableTare.emit()
+    def onInvalid(self):
+        self.disableTareWeight.emit()
         self.clearNetWeight.emit()
         
     @pyqtSlot()
-    def requestGrossValueReceived(self):
-        self.sendGrossValue.emit(self.text())
+    def onSendGrossWeighValue(self):
+        self.grossWeightValue.emit(self.text())
