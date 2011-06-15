@@ -1,7 +1,5 @@
 try:
     import sys
-    from decimal import Decimal
-    from decimal import InvalidOperation
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -19,15 +17,15 @@ class NewTicketDialog(QDialog,
         self.setupUi(self)
         
         self.dialogWidgets = (self.firstNameLineEdit,
-                                    self.lastNameLineEdit,
-                                    self.houseNumberLineEdit,
-                                    self.streetLineEdit,
-                                    self.townLineEdit,
-                                    self.postcodeLineEdit,
-                                    self.vehicleRegistrationLineEdit,
-                                    self.grossWeightLineEdit,
-                                    self.tareWeightLineEdit,
-                                    self.netWeightLineEdit)
+                              self.lastNameLineEdit,
+                              self.houseNumberLineEdit,
+                              self.streetLineEdit,
+                              self.townLineEdit,
+                              self.postcodeLineEdit,
+                              self.vehicleRegistrationLineEdit,
+                              self.grossWeightLineEdit,
+                              self.tareWeightLineEdit,
+                              self.netWeightLineEdit)
         
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]
