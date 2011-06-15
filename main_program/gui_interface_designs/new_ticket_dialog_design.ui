@@ -594,22 +594,22 @@
   <customwidget>
    <class>GrossWeightLineEdit</class>
    <extends>ValidatingLineEdit</extends>
-   <header>shared_modules.grossWeightLineEdit</header>
+   <header>custom_widgets.grossWeightLineEdit</header>
   </customwidget>
   <customwidget>
    <class>NetWeightLineEdit</class>
    <extends>ValidatingLineEdit</extends>
-   <header>shared_modules.netWeightLineEdit</header>
+   <header>custom_widgets.netWeightLineEdit</header>
   </customwidget>
   <customwidget>
    <class>TareWeightLineEdit</class>
    <extends>ValidatingLineEdit</extends>
-   <header>shared_modules.tareWeightLineEdit</header>
+   <header>custom_widgets.tareWeightLineEdit</header>
   </customwidget>
   <customwidget>
    <class>ValidatingLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>shared_modules.validatingLineEdit</header>
+   <header>custom_widgets.validatingLineEdit</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -4,7 +4,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from shared_modules.validatingLineEdit import ValidatingLineEdit
+    from custom_widgets.validatingLineEdit import ValidatingLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)

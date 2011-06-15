@@ -6,7 +6,7 @@ try:
     from PyQt4 import QtDesigner
     
     
-    from shared_modules.netWeightLineEdit import NetWeightLineEdit
+    from custom_widgets.netWeightLineEdit import NetWeightLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -59,4 +59,4 @@ class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "shared_modules.netWeightLineEdit"
+        return "custom_widgets.netWeightLineEdit"

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Wed Jun 15 11:01:19 2011
+# Created: Wed Jun 15 16:55:29 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -304,7 +304,7 @@ class Ui_newTicketDialog(object):
         self.reviewTicketButton.setText(QtGui.QApplication.translate("newTicketDialog", "Review ticket", None, QtGui.QApplication.UnicodeUTF8))
         self.newTicketTabWidget.setTabText(self.newTicketTabWidget.indexOf(self.payloadTab), QtGui.QApplication.translate("newTicketDialog", "Payload", None, QtGui.QApplication.UnicodeUTF8))
 
-from shared_modules.tareWeightLineEdit import TareWeightLineEdit
-from shared_modules.grossWeightLineEdit import GrossWeightLineEdit
-from shared_modules.netWeightLineEdit import NetWeightLineEdit
-from shared_modules.validatingLineEdit import ValidatingLineEdit
+from custom_widgets.tareWeightLineEdit import TareWeightLineEdit
+from custom_widgets.grossWeightLineEdit import GrossWeightLineEdit
+from custom_widgets.netWeightLineEdit import NetWeightLineEdit
+from custom_widgets.validatingLineEdit import ValidatingLineEdit

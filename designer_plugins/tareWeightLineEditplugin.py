@@ -6,7 +6,7 @@ try:
     from PyQt4 import QtDesigner
     
     
-    from shared_modules.tareWeightLineEdit import TareWeightLineEdit
+    from custom_widgets.tareWeightLineEdit import TareWeightLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -59,4 +59,4 @@ class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "shared_modules.tareWeightLineEdit"
+        return "custom_widgets.tareWeightLineEdit"

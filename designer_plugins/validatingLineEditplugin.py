@@ -6,7 +6,7 @@ try:
     from PyQt4 import QtDesigner
     
     
-    from shared_modules.validatingLineEdit import ValidatingLineEdit
+    from custom_widgets.validatingLineEdit import ValidatingLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -59,4 +59,4 @@ class ValidatingLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "shared_modules.validatingLineEdit"
+        return "custom_widgets.validatingLineEdit"

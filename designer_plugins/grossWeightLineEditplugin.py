@@ -6,7 +6,7 @@ try:
     from PyQt4 import QtDesigner
     
     
-    from shared_modules.grossWeightLineEdit import GrossWeightLineEdit
+    from custom_widgets.grossWeightLineEdit import GrossWeightLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -59,4 +59,4 @@ class GrossWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "shared_modules.grossWeightLineEdit"
+        return "custom_widgets.grossWeightLineEdit"
