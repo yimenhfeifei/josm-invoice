@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Wed Jun 15 16:55:29 2011
+# Created: Thu Jun 16 09:07:52 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -196,8 +196,6 @@ class Ui_newTicketDialog(object):
         self.retranslateUi(newTicketDialog)
         self.newTicketTabWidget.setCurrentIndex(1)
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.grossWeightLineEdit.onTextEdited)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.grossWeightLineEdit.setValidStyleSheet)
-        QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.grossWeightLineEdit.setInvalidStyleSheet)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.netWeightLineEdit.onTextEdited)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.netWeightLineEdit.setValidStyleSheet)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.netWeightLineEdit.setInvalidStyleSheet)
@@ -231,8 +229,6 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.grossWeightLineEdit.onValid)
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.grossWeightLineEdit.onInvalid)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.tareWeightLineEdit.onTextEdited)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.setValidStyleSheet)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.setInvalidStyleSheet)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.onValid)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("sendGrossWeightValue()")), self.grossWeightLineEdit.onSendGrossWeighValue)
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("grossWeightValue(QString)")), self.tareWeightLineEdit.onGrossWeightValue)

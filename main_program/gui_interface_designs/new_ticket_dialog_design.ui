@@ -631,38 +631,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>grossWeightLineEdit</sender>
-   <signal>valid()</signal>
-   <receiver>grossWeightLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>89</x>
-     <y>46</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>83</x>
-     <y>54</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>grossWeightLineEdit</sender>
-   <signal>invalid()</signal>
-   <receiver>grossWeightLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>75</x>
-     <y>49</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>70</x>
-     <y>55</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>netWeightLineEdit</sender>
    <signal>textEdited(QString)</signal>
    <receiver>netWeightLineEdit</receiver>
@@ -1187,38 +1155,6 @@
     <hint type="destinationlabel">
      <x>80</x>
      <y>78</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tareWeightLineEdit</sender>
-   <signal>valid()</signal>
-   <receiver>tareWeightLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>68</x>
-     <y>80</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>80</x>
-     <y>81</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tareWeightLineEdit</sender>
-   <signal>invalid()</signal>
-   <receiver>tareWeightLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>84</x>
-     <y>77</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>71</x>
-     <y>81</y>
     </hint>
    </hints>
   </connection>
