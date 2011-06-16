@@ -338,10 +338,29 @@ class TestNewTicketDialogValidators(unittest.TestCase):
         self.gui.deleteLater()
         self.app.deleteLater()
 
-class TestNewTicketDialogMethods(unittest.TestCase):
+class TestNewTicketDialogUsage(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
+        
+    def testUsage(self):
+        QTest.keyClicks(self.gui.firstNameLineEdit, "John")
+        QTest.keyClicks(self.gui.lastNameLineEdit, "Orchard")
+        QTest.keyClicks(self.gui.houseNumberLineEdit, "8")
+        QTest.keyClicks(self.gui.streetLineEdit, "Kensington Place")
+        QTest.keyClicks(self.gui.townLineEdit, "Bath")
+        QTest.keyClicks(self.gui.postcodeLineEdit, "BA1 6AW")
+        QTest.keyClicks(self.gui.vehicleRegistrationLineEdit, "G678H9")
+        
+        QTest.keyClicks(self.gui.grossWeightLineEdit, "2500.00")
+        QTest.keyClicks(self.gui.tareWeightLineEdit, "1554.00")
+        
+        assert self.gui.netWeightLineEdit.text() == "946.00"
+        assert self.gui.reviewTicketButton.isEnabled() == True
+        
+        QTest.keyClicks(self.gui.tareWeightLineEdit, "1")
+        
+        assert self.gui.reviewTicketButton.isEnabled() == False
     
     def tearDown(self):
         self.gui.deleteLater()

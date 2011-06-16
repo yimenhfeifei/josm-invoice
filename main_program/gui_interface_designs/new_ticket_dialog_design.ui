@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
+    <width>400</width>
     <height>574</height>
    </rect>
   </property>
@@ -298,6 +298,16 @@
        <item>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Gross</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
           <widget class="GrossWeightLineEdit" name="grossWeightLineEdit">
            <property name="minimumSize">
             <size>
@@ -326,6 +336,16 @@
           </widget>
          </item>
          <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Tare</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
           <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
            <property name="enabled">
             <bool>false</bool>
@@ -357,6 +377,16 @@
           </widget>
          </item>
          <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Net</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
           <widget class="NetWeightLineEdit" name="netWeightLineEdit">
            <property name="minimumSize">
             <size>
@@ -384,7 +414,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="2" column="2">
           <widget class="QComboBox" name="materialCombobox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -421,7 +451,7 @@
            </item>
           </widget>
          </item>
-         <item row="2" column="2" colspan="2">
+         <item row="2" column="3" colspan="2">
           <widget class="ValidatingLineEdit" name="payloadValueLineEdit">
            <property name="minimumSize">
             <size>
@@ -446,7 +476,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="4">
+         <item row="2" column="5">
           <widget class="QCheckBox" name="manualPriceCheckbox">
            <property name="minimumSize">
             <size>
@@ -459,7 +489,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="4">
+         <item row="3" column="5">
           <widget class="QPushButton" name="addPayloadButton">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -478,7 +508,7 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0" colspan="5">
+         <item row="4" column="0" colspan="6">
           <widget class="QTableWidget" name="payloadTableWidget">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -488,14 +518,14 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>341</width>
-             <height>0</height>
+             <width>351</width>
+             <height>301</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>341</width>
-             <height>16777215</height>
+             <width>361</width>
+             <height>787787</height>
             </size>
            </property>
            <property name="rowCount">
@@ -527,7 +557,7 @@
            <column/>
           </widget>
          </item>
-         <item row="5" column="2">
+         <item row="5" column="3">
           <widget class="QLabel" name="totalValueLabel">
            <property name="font">
             <font>
@@ -544,7 +574,7 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="3" colspan="2">
+         <item row="5" column="4" colspan="2">
           <widget class="QLineEdit" name="totalValueLineEdit">
            <property name="minimumSize">
             <size>
@@ -560,7 +590,7 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="2" colspan="3">
+         <item row="6" column="3" colspan="3">
           <widget class="QCommandLinkButton" name="reviewTicketButton">
            <property name="enabled">
             <bool>false</bool>
