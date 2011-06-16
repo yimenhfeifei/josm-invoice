@@ -1,5 +1,5 @@
 Better test code.
-Rename signals and slots.
+Move test code.
 Interface tweaks.
 New registration regex.
 
