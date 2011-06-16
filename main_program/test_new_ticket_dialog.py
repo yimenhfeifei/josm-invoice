@@ -73,7 +73,7 @@ class TestNewTicketDialogGui(unittest.TestCase):
     def testTareWeightLineEditTextEntry(self):
         testWidget = self.gui.tareWeightLineEdit
         testWidget.clear()
-        self.gui.grossWeightLineEdit.setText("12000.00")
+        self.gui.grossWeightLineEdit.setText(self.weightTestString)
         
         QTest.keyClicks(testWidget, self.tareWeightTestString)
         assert testWidget.text() == self.tareWeightTestString
@@ -139,6 +139,7 @@ class TestNewTicketDialogValidators(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
+        self.weightTestString = "12000.00"
         
         self.nameTestPairs = (("John", True),
                               ("John  ", False),
@@ -313,13 +314,14 @@ class TestNewTicketDialogValidators(unittest.TestCase):
     
     def testTareWeightLineEditValidate(self):
         testWidget = self.gui.tareWeightLineEdit
-        self.gui.grossWeightLineEdit.setText("12000.00")
+        self.gui.grossWeightLineEdit.setText(self.weightTestString)
         
         for pair in self.tareWeightTestPairs:
             testWidget.clear()
             testString, validString = pair[0], pair[1]
             QTest.keyClicks(testWidget, testString)
             testWidget.validate()
+            print(testWidget.text())
             assert testWidget.getValidatedStatus() == validString
     
     def testNetWeightLineEditValidate(self):
