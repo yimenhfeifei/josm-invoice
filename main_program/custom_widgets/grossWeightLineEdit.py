@@ -53,5 +53,5 @@ class GrossWeightLineEdit(ValidatingLineEdit):
         super(GrossWeightLineEdit, self).onInvalid()
         
     @pyqtSlot()
-    def onSendGrossWeighValue(self):
+    def onSendGrossWeightValue(self):
         self.grossWeightValue.emit(self.text())

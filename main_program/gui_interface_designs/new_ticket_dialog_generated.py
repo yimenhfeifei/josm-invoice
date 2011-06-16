@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Thu Jun 16 09:49:17 2011
+# Created: Thu Jun 16 10:18:56 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -230,7 +230,7 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.grossWeightLineEdit.onInvalid)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.tareWeightLineEdit.onTextEdited)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.tareWeightLineEdit.onValid)
-        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("sendGrossWeightValue()")), self.grossWeightLineEdit.onSendGrossWeighValue)
+        QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("sendGrossWeightValue()")), self.grossWeightLineEdit.onSendGrossWeightValue)
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("grossWeightValue(QString)")), self.tareWeightLineEdit.onGrossWeightValue)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculateNetWeight(QString,QString)")), self.netWeightLineEdit.onCalculateNetWeight)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.onInvalid)

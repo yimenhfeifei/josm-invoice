@@ -1178,7 +1178,7 @@
    <sender>tareWeightLineEdit</sender>
    <signal>sendGrossWeightValue()</signal>
    <receiver>grossWeightLineEdit</receiver>
-   <slot>onSendGrossWeighValue()</slot>
+   <slot>onSendGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>72</x>
