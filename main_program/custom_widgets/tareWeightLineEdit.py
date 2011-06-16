@@ -26,13 +26,13 @@ class TareWeightLineEdit(ValidatingLineEdit):
     
     @pyqtSlot()
     def onValid(self):
-        self.sendGrossWeightValue.emit()
         super(TareWeightLineEdit, self).onValid()
+        self.sendGrossWeightValue.emit()
         
     @pyqtSlot()
     def onInvalid(self):
-        self.clearNetWeight.emit()
         super(TareWeightLineEdit, self).onInvalid()
+        self.clearNetWeight.emit()
     
     @pyqtSlot()
     def onGrossWeightValue(self, grossValue):
