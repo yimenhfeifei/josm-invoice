@@ -650,7 +650,7 @@
    <sender>netWeightLineEdit</sender>
    <signal>valid()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>56</x>
@@ -666,7 +666,7 @@
    <sender>netWeightLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>netWeightLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>49</x>
@@ -762,7 +762,7 @@
    <sender>firstNameLineEdit</sender>
    <signal>valid()</signal>
    <receiver>firstNameLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>185</x>
@@ -778,7 +778,7 @@
    <sender>firstNameLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>firstNameLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>185</x>
@@ -810,7 +810,7 @@
    <sender>lastNameLineEdit</sender>
    <signal>valid()</signal>
    <receiver>lastNameLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>285</x>
@@ -826,7 +826,7 @@
    <sender>lastNameLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>lastNameLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>285</x>
@@ -858,7 +858,7 @@
    <sender>houseNumberLineEdit</sender>
    <signal>valid()</signal>
    <receiver>houseNumberLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>203</x>
@@ -874,7 +874,7 @@
    <sender>houseNumberLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>houseNumberLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>203</x>
@@ -906,7 +906,7 @@
    <sender>streetLineEdit</sender>
    <signal>valid()</signal>
    <receiver>streetLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>285</x>
@@ -922,7 +922,7 @@
    <sender>streetLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>streetLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>285</x>
@@ -954,7 +954,7 @@
    <sender>townLineEdit</sender>
    <signal>valid()</signal>
    <receiver>townLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>253</x>
@@ -970,7 +970,7 @@
    <sender>townLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>townLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>253</x>
@@ -1002,7 +1002,7 @@
    <sender>postcodeLineEdit</sender>
    <signal>valid()</signal>
    <receiver>postcodeLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>
@@ -1018,7 +1018,7 @@
    <sender>postcodeLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>postcodeLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>
@@ -1050,7 +1050,7 @@
    <sender>vehicleRegistrationLineEdit</sender>
    <signal>valid()</signal>
    <receiver>vehicleRegistrationLineEdit</receiver>
-   <slot>setValidStyleSheet()</slot>
+   <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>
@@ -1066,7 +1066,7 @@
    <sender>vehicleRegistrationLineEdit</sender>
    <signal>invalid()</signal>
    <receiver>vehicleRegistrationLineEdit</receiver>
-   <slot>setInvalidStyleSheet()</slot>
+   <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>223</x>

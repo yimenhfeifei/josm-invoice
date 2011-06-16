@@ -50,11 +50,11 @@ class ValidatingLineEdit(QLineEdit):
         self.setReadOnly(not state)
             
     @pyqtSlot()
-    def setValidStyleSheet(self):
+    def onValid(self):
         self.setStyleSheet(self.styleSheets["Valid"])
     
     @pyqtSlot()
-    def setInvalidStyleSheet(self):
+    def onInvalid(self):
         self.setStyleSheet(self.styleSheets["Invalid"])
         
     def getValidatedStatus(self):
