@@ -16,75 +16,7 @@ class TestNewTicketDialogGui(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.nameTestString = "I"
-        self.houseNumberTestString = "289"
-        self.weightTestString = "179.00"
-        self.tareWeightTestString = "169.00"
-    
-    def testFirstNameLineEditTextEntry(self):
-        testWidget = self.gui.firstNameLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-    
-    def testHouseNumberLineEditTextEntry(self):
-        testWidget = self.gui.houseNumberLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.houseNumberTestString)
-        assert testWidget.text() == self.houseNumberTestString
-        
-    def testStreetLineEditTextEntry(self):
-        testWidget = self.gui.streetLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-        
-    def testTownLineEditTextEntry(self):
-        testWidget = self.gui.townLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-        
-    def testPostcodeLineEditTextEntry(self):
-        testWidget = self.gui.postcodeLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-    
-    def testVehicleRegistrationLineEditTextEntry(self):
-        testWidget = self.gui.vehicleRegistrationLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-    
-    def testGrossWeightLineEditTextEntry(self):
-        testWidget = self.gui.grossWeightLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.weightTestString)
-        assert testWidget.text() == self.weightTestString
-        
-    def testTareWeightLineEditTextEntry(self):
-        testWidget = self.gui.tareWeightLineEdit
-        testWidget.clear()
-        self.gui.grossWeightLineEdit.setText(self.weightTestString)
-        
-        QTest.keyClicks(testWidget, self.tareWeightTestString)
-        assert testWidget.text() == self.tareWeightTestString
-        
-    def testNetWeightLineEditTextEntry(self):
-        self.gui.grossWeightLineEdit.clear()
-        testWidget = self.gui.netWeightLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.weightTestString)
-        assert testWidget.text() == self.weightTestString
+        self.testString = "124.00"
     
     def testMaterialCombobox(self):
         assert self.gui.materialCombobox.isEnabled() == True
@@ -121,15 +53,8 @@ class TestNewTicketDialogGui(unittest.TestCase):
         assert checkboxWidget.isChecked() == False
         
         QTest.mouseClick(checkboxWidget, Qt.LeftButton)
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
-    
-    def testTotalValueLineEditTextEntry(self):
-        testWidget = self.gui.totalValueLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.nameTestString)
-        assert testWidget.text() == self.nameTestString
+        QTest.keyClicks(testWidget, self.testString)
+        assert testWidget.text() == self.testString
 
     def tearDown(self):
         self.gui.deleteLater()
