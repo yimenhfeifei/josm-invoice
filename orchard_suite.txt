@@ -1,5 +1,6 @@
 Better test code.
 Move test code.
+Use private variable naming scheme.
 Interface tweaks.
 New registration regex.
 
