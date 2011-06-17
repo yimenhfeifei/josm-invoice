@@ -11,71 +11,146 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class TestNewTicketDialogGui(unittest.TestCase):
+class TestManualPriceCheckbox(unittest.TestCase):
     
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.testString = "124.00"
+        self.testWidget = self.gui.manualPriceCheckbox
     
-    def testMaterialCombobox(self):
-        assert self.gui.materialCombobox.isEnabled() == True
-    
-    def testManualPriceCheckboxToggle(self):
-        testWidget = self.gui.manualPriceCheckbox
-        assert testWidget.isChecked() == False
+    def testToggleFalseToTrue(self):
+        """Unchecked checkbox should be checked when clicked."""
+        self.assertFalse(self.testWidget.isChecked())
         
-        QTest.mouseClick(testWidget, Qt.LeftButton)
-        assert testWidget.isChecked() == True
+        QTest.mouseClick(self.testWidget, Qt.LeftButton)
+        self.assertTrue(self.testWidget.isChecked())
         
-        QTest.mouseClick(testWidget, Qt.LeftButton)
-        assert testWidget.isChecked() == False
+    def testToggleTrueToFalse(self):
+        """Checked checkbox should be unchecked when clicked."""
+        self.testWidget.setChecked(True)
+        self.assertTrue(self.testWidget.isChecked())
         
-    def testPayloadValueLineEditToggle(self):
-        testWidget = self.gui.payloadValueLineEdit
-        checkboxWidget = self.gui.manualPriceCheckbox
-        assert testWidget.isReadOnly() == True
-        assert checkboxWidget.isChecked() == False
-        
-        QTest.mouseClick(checkboxWidget, Qt.LeftButton)
-        assert testWidget.isReadOnly() == False
-        assert checkboxWidget.isChecked() == True
-        
-        QTest.mouseClick(checkboxWidget, Qt.LeftButton)
-        assert testWidget.isReadOnly() == True
-        assert checkboxWidget.isChecked() == False
-    
-    def testPayloadValueLineEditTextEntry(self):
-        testWidget = self.gui.payloadValueLineEdit
-        testWidget.clear()
-        checkboxWidget = self.gui.manualPriceCheckbox
-        assert testWidget.isReadOnly() == True
-        assert checkboxWidget.isChecked() == False
-        
-        QTest.mouseClick(checkboxWidget, Qt.LeftButton)
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
+        QTest.mouseClick(self.testWidget, Qt.LeftButton)
+        self.assertFalse(self.testWidget.isChecked())
 
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
+        
+class TestManualPriceAndPayloadValue(unittest.TestCase):
     
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.manualPrice = self.gui.manualPriceCheckbox
+        self.payloadValue = self.gui.payloadValueLineEdit
+        
+    def testPayloadValueActivate(self):
+        """Payload value should be editable when checkbox is checked."""
+        self.assertFalse(self.manualPrice.isChecked())
+        self.assertTrue(self.payloadValue.isReadOnly())
+        
+        QTest.mouseClick(self.manualPrice, Qt.LeftButton)
+        
+        self.assertTrue(self.manualPrice.isChecked())
+        self.assertFalse(self.payloadValue.isReadOnly())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestFirstNameValidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.firstNameLineEdit
+        self.testWidget.clear()
+        
+        self.validText = ("JOHN",
+                          "MARK",
+                          "BOB",
+                          "John",
+                          "Mary",
+                          "Jessica",
+                          "juLIE",
+                          "tori",
+                          "LunA")
+
+    def testValidText(self):
+        """Valid text should appear valid and uppercase."""
+        for string in self.validText:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            self.assertEqual(self.testWidget.text(), string.upper())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestFirstNameInvalidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.firstNameLineEdit
+        self.testWidget.clear()
+        
+        self.invalidText = ("John  ",
+                            " john ",
+                            "jo hn",
+                            "    ",
+                            "John Orchard")
+        
+        self.invalidNumbers = ("234.00",
+                               "342545",
+                               "6478",
+                               "89024",
+                               "67  89")
+        
+        self.invalidPunctuation = ("!john",
+                                   "John!",
+                                   "John's text",
+                                   "JohN_OrcHARD",
+                                   "J(ohn){orchard}",
+                                   "john.orchard",
+                                   "john,orchard",
+                                   "j. orchard")
+    
+    def testInvalidText(self):
+        """Invalid text should appear invalid and uppercase."""
+        for string in self.invalidText:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            self.assertEqual(self.testWidget.text(), string.upper())
+            
+    def testInvalidNumbers(self):
+        """Invalid numbers should appear invalid."""
+        for string in self.invalidNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            
+    def testInvalidPunctuation(self):
+        """Invalid punctuation should appear invalid."""
+        for string in self.invalidPunctuation:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
 class TestNewTicketDialogValidators(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         self.weightTestString = "12000.00"
-        
-        self.nameTestPairs = (("John", True),
-                              ("John  ", False),
-                              ("  John", False), 
-                              ("  John  ", False),
-                              ("Jo  hn", False),
-                              ("28759John", False),
-                              (",./John@~", False),
-                              (" 87898 7John89845  ", False),
-                              ("[]'John#89080", False),
-                              ("8783  *(John)&%  78", False))
         
         self.houseNumberTestPairs = (("289", True),
                                      (" 289", False),
@@ -164,100 +239,6 @@ class TestNewTicketDialogValidators(unittest.TestCase):
                                              ("23.00", True),
                                              ("12 34.50", False),
                                              ("10000.00", True))
-        
-    def testNameLineEditsValidate(self):
-        testWidgets = (self.gui.firstNameLineEdit,
-                       self.gui.lastNameLineEdit)
-        
-        for testWidget in testWidgets:
-            for pair in self.nameTestPairs:
-                testWidget.clear()
-                testString, validString = pair[0], pair[1]
-                QTest.keyClicks(testWidget, testString)
-                testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-    
-    def testHouseNumberLineEditValidate(self):
-        testWidget = self.gui.houseNumberLineEdit
-        
-        for pair in self.houseNumberTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-
-    def testStreetLineEditValidate(self):
-        testWidget = self.gui.streetLineEdit
-        
-        for pair in self.streetTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-    
-    def testTownLineEditValidate(self):
-        testWidget = self.gui.townLineEdit
-        
-        for pair in self.townTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-    
-    def testPostcodeLineEditValidate(self):
-        testWidget = self.gui.postcodeLineEdit
-        
-        for pair in self.postcodeTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-        
-    def testVehicleRegistrationLineEditValidate(self):
-        testWidget = self.gui.vehicleRegistrationLineEdit
-        
-        for pair in self.vehicleRegistrationTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-            
-    def testGrossWeightLineEditValidate(self):
-        testWidget = self.gui.grossWeightLineEdit
-        
-        for pair in self.grossWeightTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
-    
-    def testTareWeightLineEditValidate(self):
-        testWidget = self.gui.tareWeightLineEdit
-        self.gui.grossWeightLineEdit.setText(self.weightTestString)
-        
-        for pair in self.tareWeightTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            print(testWidget.text())
-            assert testWidget.getValidatedStatus() == validString
-    
-    def testNetWeightLineEditValidate(self):
-        testWidget = self.gui.netWeightLineEdit
-        
-        for pair in self.netWeightTestPairs:
-            testWidget.clear()
-            testString, validString = pair[0], pair[1]
-            QTest.keyClicks(testWidget, testString)
-            testWidget.validate()
-            assert testWidget.getValidatedStatus() == validString
         
     def tearDown(self):
         self.gui.deleteLater()
