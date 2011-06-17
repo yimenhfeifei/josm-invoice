@@ -59,12 +59,12 @@ class TestManualPriceAndPayloadValue(unittest.TestCase):
         self.gui.deleteLater()
         self.app.deleteLater()
         
-class TestFirstNameValidInput(unittest.TestCase):
+class TestNamesValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.testWidget = self.gui.firstNameLineEdit
-        self.testWidget.clear()
+        self.testWidgets = (self.gui.firstNameLineEdit,
+                            self.gui.lastNameLineEdit)
         
         self.validText = ("JOHN",
                           "MARK",
@@ -75,26 +75,48 @@ class TestFirstNameValidInput(unittest.TestCase):
                           "juLIE",
                           "tori",
                           "LunA")
+        
+        self.maximumLength = "J" * 20
+        self.minimumLength = "J"
 
     def testValidText(self):
         """Valid text should appear valid and uppercase."""
-        for string in self.validText:
-            self.testWidget.clear()
-            QTest.keyClicks(self.testWidget, string)
-            self.testWidget.validate()
-            self.assertTrue(self.testWidget.getValidatedStatus())
-            self.assertEqual(self.testWidget.text(), string.upper())
+        for testWidget in self.testWidgets:
+            for string in self.validText:
+                testWidget.clear()
+                QTest.keyClicks(testWidget, string)
+                testWidget.validate()
+                self.assertTrue(testWidget.getValidatedStatus())
+                self.assertEqual(testWidget.text(), string.upper())
+        
+    def testMaximumLength(self):
+        """Maximum length string should appear valid and uppercase."""
+        for testWidget in self.testWidgets:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, self.maximumLength)
+            testWidget.validate()
+            self.assertTrue(testWidget.getValidatedStatus())
+            self.assertEqual(testWidget.text(), self.maximumLength.upper())
+            
+    def testMinimumLength(self):
+        """Minimum length string should appear valid and uppercase."""
+        for testWidget in self.testWidgets:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, self.minimumLength)
+            testWidget.validate()
+            self.assertTrue(testWidget.getValidatedStatus())
+            self.assertEqual(testWidget.text(), self.minimumLength.upper())
         
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
         
-class TestFirstNameInvalidInput(unittest.TestCase):
+class TestNamesInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.testWidget = self.gui.firstNameLineEdit
-        self.testWidget.clear()
+        self.testWidgets = (self.gui.firstNameLineEdit,
+                            self.gui.lastNameLineEdit)
         
         self.invalidText = ("John  ",
                             " john ",
@@ -116,36 +138,104 @@ class TestFirstNameInvalidInput(unittest.TestCase):
                                    "john.orchard",
                                    "john,orchard",
                                    "j. orchard")
+        
+        self.exceedsMaximumLength = "J" * 21
+        self.exceedsMinimumLength = ""
     
     def testInvalidText(self):
         """Invalid text should appear invalid and uppercase."""
-        for string in self.invalidText:
-            self.testWidget.clear()
-            QTest.keyClicks(self.testWidget, string)
-            self.testWidget.validate()
-            self.assertFalse(self.testWidget.getValidatedStatus())
-            self.assertEqual(self.testWidget.text(), string.upper())
+        for testWidget in self.testWidgets:
+            for string in self.invalidText:
+                testWidget.clear()
+                QTest.keyClicks(testWidget, string)
+                testWidget.validate()
+                self.assertFalse(testWidget.getValidatedStatus())
+                self.assertEqual(testWidget.text(), string.upper())
             
     def testInvalidNumbers(self):
         """Invalid numbers should appear invalid."""
-        for string in self.invalidNumbers:
-            self.testWidget.clear()
-            QTest.keyClicks(self.testWidget, string)
-            self.testWidget.validate()
-            self.assertFalse(self.testWidget.getValidatedStatus())
+        for testWidget in self.testWidgets:
+            for string in self.invalidNumbers:
+                testWidget.clear()
+                QTest.keyClicks(testWidget, string)
+                testWidget.validate()
+                self.assertFalse(testWidget.getValidatedStatus())
             
     def testInvalidPunctuation(self):
         """Invalid punctuation should appear invalid."""
-        for string in self.invalidPunctuation:
-            self.testWidget.clear()
-            QTest.keyClicks(self.testWidget, string)
-            self.testWidget.validate()
-            self.assertFalse(self.testWidget.getValidatedStatus())
+        for testWidget in self.testWidgets:
+            for string in self.invalidPunctuation:
+                testWidget.clear()
+                QTest.keyClicks(testWidget, string)
+                testWidget.validate()
+                self.assertFalse(testWidget.getValidatedStatus())
+                
+    def testExceedsMaximumLength(self):
+        """Text exceeding maximum length should appear invalid and uppercase."""
+        for testWidget in self.testWidgets:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, self.exceedsMaximumLength)
+            testWidget.validate()
+            self.assertFalse(testWidget.getValidatedStatus())
+            self.assertEqual(testWidget.text(),
+                             self.exceedsMaximumLength.upper())
         
+    def testExceedsMinimumLength(self):
+        """Text exceeding minimum length should appear invalid and uppercase."""
+        for testWidget in self.testWidgets:
+            testWidget.clear()
+            QTest.keyClicks(testWidget, self.exceedsMinimumLength)
+            testWidget.validate()
+            self.assertFalse(testWidget.getValidatedStatus())
+            self.assertEqual(testWidget.text(),
+                             self.exceedsMinimumLength.upper())
+            
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
         
+class TestHouseNumberValidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.houseNumberLineEdit
+        
+        self.validNumbers = ("12345",
+                             "20",
+                             "6",
+                             "09",
+                             "66",
+                             "320")
+        
+        self.maximumLength = "8" * 5
+        self.minimumLength = "8"
+    
+    def testValidNumbers(self):
+        """Valid numbers should appear valid."""
+        for number in self.validNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            
+    def testMaximumLength(self):
+        """Maximum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.maximumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def testMinimumLength(self):
+        """Minimum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.minimumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+
 class TestNewTicketDialogValidators(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
