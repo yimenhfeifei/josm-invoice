@@ -324,7 +324,6 @@ class TestStreetValidInput(unittest.TestCase):
         self.gui.deleteLater()
         self.app.deleteLater()
         
-        
 class TestStreetInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
@@ -512,7 +511,6 @@ class TestPostcodeValidInput(unittest.TestCase):
         self.gui.deleteLater()
         self.app.deleteLater()
         
-        
 class TestPostcodeInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
@@ -561,23 +559,106 @@ class TestPostcodeInvalidInput(unittest.TestCase):
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
+        
+class TestVehicleRegistrationValidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.vehicleRegistrationLineEdit
+        
+        self.validText = ("T67",
+                          "TUI89",
+                          "P107608",
+                          "U78IU9",
+                          "R45DE6")
+        
+        self.maximumLength = "Y32YU789"
+        self.minimumLength = "T68"
+    
+    def testValidText(self):
+        """Valid text should appear valid and uppercase."""
+        for string in self.validText:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            self.assertEqual(self.testWidget.text(), string.upper())
+            
+    def testMaximumLength(self):
+        """Maximum length strings should appear valid and uppercase."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.maximumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        self.assertEqual(self.testWidget.text(), self.maximumLength.upper())
+        
+    def testMinimumLength(self):
+        """Minimum length strings should appear valid and uppercase."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.minimumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        self.assertEqual(self.testWidget.text(), self.minimumLength.upper())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestVehicleRegistrationInvalidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.vehicleRegistrationLineEdit
+        
+        self.invalidText = ("",
+                            "T67 890",
+                            " T678UI",
+                            "!TY7890K",
+                            "T!is is not valid!",
+                            "T67 89097hJKI",
+                            "6YH89KI",
+                            "67HYwe45_90KO",
+                            "HU89_K98")
+        
+        self.exceedsMaximumLength = "WK78T8990"
+        self.exceedsMinimumLength = "T8"
+    
+    def testInvalidText(self):
+        """Invalid text should appear invalid and uppercase."""
+        for string in self.invalidText:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, string)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            self.assertEqual(self.testWidget.text(), string.upper())
+            
+    def testExceedsMaximumLength(self):
+        """Text exceeding maximum length should appear invalid and uppercase."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMaximumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        self.assertEqual(self.testWidget.text(),
+                         self.exceedsMaximumLength.upper())
+        
+    def testExceedsMinimumLength(self):
+        """Text exceeding minimum length should appear invalid and uppercase"""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMinimumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        self.assertEqual(self.testWidget.text(),
+                         self.exceedsMinimumLength.upper())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
 
 class TestNewTicketDialogValidators(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         self.weightTestString = "12000.00"
-        
-        self.vehicleRegistrationTestPairs = (("WK55SWL", True),
-                                             (" WK55 SWL ", False),
-                                             ("^&WK 55  swl", False),
-                                             ("B567SWL", True),
-                                             ("b567SWL", True),
-                                             ("7896wK55SWL", False), 
-                                             ("7WK55 SWL 190", False),
-                                             ("&* wk55 &^SWL", False),
-                                             ("90WK 55 SWL", False),
-                                             ("7 WK55    SWL  ", False))
         
         self.grossWeightTestPairs = (("120.00", True),
                                              ("120.50", True),
