@@ -653,45 +653,263 @@ class TestVehicleRegistrationInvalidInput(unittest.TestCase):
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
-
-class TestNewTicketDialogValidators(unittest.TestCase):
+        
+class TestGrossWeightValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
-        self.weightTestString = "12000.00"
+        self.testWidget = self.gui.grossWeightLineEdit
         
-        self.grossWeightTestPairs = (("120.00", True),
-                                             ("120.50", True),
-                                             (" 120.00", False),
-                                             ("  120.50  ", False),
-                                             ("^&hj120.50", False),
-                                             ("120", False), 
-                                             ("1.50", True),
-                                             ("23.00", True),
-                                             ("12 34.50", False),
-                                             ("10000.00", True))
+        self.validNumbers = ("120.00",
+                          "156.5",
+                          "10.00",
+                          "98.50",
+                          "4.0",
+                          "5000.50")
         
-        self.tareWeightTestPairs = (("110.00", True),
-                                             ("110.50", True),
-                                             (" 110.00", False),
-                                             ("  110.50  ", False),
-                                             ("^&hj110.50", False),
-                                             ("110", False), 
-                                             ("1.00", True),
-                                             ("22.00", True),
-                                             ("12 33.50", False),
-                                             ("1000.00", True))
+        self.maximumLength = "99999.50"
+        self.minimumLength = "1.0"
+    
+    def testValidNumbers(self):
+        """Valid numbers should appear valid."""
+        for number in self.validNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            
+    def testMaximumLength(self):
+        """Maximum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.maximumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
         
-        self.netWeightTestPairs = (("120.00", True),
-                                             ("120.50", True),
-                                             (" 120.00", False),
-                                             ("  120.50  ", False),
-                                             ("^&hj120.50", False),
-                                             ("120", False), 
-                                             ("1.50", True),
-                                             ("23.00", True),
-                                             ("12 34.50", False),
-                                             ("10000.00", True))
+    def testMinimumLength(self):
+        """Minimum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.minimumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestGrossWeightInvalidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.grossWeightLineEdit
+        
+        self.invalidNumbers = ("",
+                            "99999.89",
+                            "99999.5000000",
+                            "-78.90",
+                            "T!is is not valid!",
+                            "56.9",
+                            "12.2",
+                            "89_90",
+                            "864,50")
+        
+        self.exceedsMaximumLength = "99999.000"
+        self.exceedsMinimumLength = "2."
+    
+    def testInvalidNumbers(self):
+        """Invalid numbers should appear invalid."""
+        for number in self.invalidNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            
+    def testExceedsMaximumLength(self):
+        """Numbers exceeding maximum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMaximumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def testExceedsMinimumLength(self):
+        """Numbers exceeding minimum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMinimumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestTareWeightValidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.tareWeightLineEdit
+        
+        self.validNumbers = ("120.00",
+                          "156.5",
+                          "10.00",
+                          "98.50",
+                          "4.0",
+                          "5000.50")
+        
+        self.maximumLength = "99999.50"
+        self.minimumLength = "1.0"
+    
+    def testValidNumbers(self):
+        """Valid numbers should appear valid."""
+        for number in self.validNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            
+    def testMaximumLength(self):
+        """Maximum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.maximumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def testMinimumLength(self):
+        """Minimum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.minimumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestTareWeightInvalidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.tareWeightLineEdit
+        
+        self.invalidNumbers = ("",
+                            "99999.89",
+                            "99999.5000000",
+                            "-78.90",
+                            "T!is is not valid!",
+                            "56.9",
+                            "12.2",
+                            "89_90",
+                            "864,50")
+        
+        self.exceedsMaximumLength = "99999.000"
+        self.exceedsMinimumLength = "2."
+    
+    def testInvalidNumbers(self):
+        """Invalid numbers should appear invalid."""
+        for number in self.invalidNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            
+    def testExceedsMaximumLength(self):
+        """Numbers exceeding maximum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMaximumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def testExceedsMinimumLength(self):
+        """Numbers exceeding minimum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMinimumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestNetWeightValidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.netWeightLineEdit
+        
+        self.validNumbers = ("120.00",
+                          "156.5",
+                          "10.00",
+                          "98.50",
+                          "4.0",
+                          "5000.50")
+        
+        self.maximumLength = "99999.50"
+        self.minimumLength = "1.0"
+    
+    def testValidNumbers(self):
+        """Valid numbers should appear valid."""
+        for number in self.validNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertTrue(self.testWidget.getValidatedStatus())
+            
+    def testMaximumLength(self):
+        """Maximum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.maximumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def testMinimumLength(self):
+        """Minimum length numbers should appear valid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.minimumLength)
+        self.testWidget.validate()
+        self.assertTrue(self.testWidget.getValidatedStatus())
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
+        
+class TestNetWeightInvalidInput(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        self.testWidget = self.gui.netWeightLineEdit
+        
+        self.invalidNumbers = ("",
+                            "99999.89",
+                            "99999.5000000",
+                            "-78.90",
+                            "T!is is not valid!",
+                            "56.9",
+                            "12.2",
+                            "89_90",
+                            "864,50")
+        
+        self.exceedsMaximumLength = "99999.000"
+        self.exceedsMinimumLength = "2."
+    
+    def testInvalidNumbers(self):
+        """Invalid numbers should appear invalid."""
+        for number in self.invalidNumbers:
+            self.testWidget.clear()
+            QTest.keyClicks(self.testWidget, number)
+            self.testWidget.validate()
+            self.assertFalse(self.testWidget.getValidatedStatus())
+            
+    def testExceedsMaximumLength(self):
+        """Numbers exceeding maximum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMaximumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
+        
+    def testExceedsMinimumLength(self):
+        """Numbers exceeding minimum length should appear invalid."""
+        self.testWidget.clear()
+        QTest.keyClicks(self.testWidget, self.exceedsMinimumLength)
+        self.testWidget.validate()
+        self.assertFalse(self.testWidget.getValidatedStatus())
         
     def tearDown(self):
         self.gui.deleteLater()
