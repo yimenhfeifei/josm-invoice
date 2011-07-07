@@ -41,7 +41,7 @@ class TestSettingsDialogGui(unittest.TestCase):
         testWidget = self.gui.timeoutSpinbox
         minValue = testWidget.minimum()
         assert testWidget.value() == minValue
-        upArrow = QPoint(30, 2)
+        upArrow = QPoint(30, 4)
         downArrow = QPoint(30, 15)
         
         QTest.mouseClick(testWidget, Qt.LeftButton, pos=upArrow)

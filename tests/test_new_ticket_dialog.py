@@ -746,6 +746,7 @@ class TestTareWeightValidInput(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         self.testWidget = self.gui.tareWeightLineEdit
+        self.gui.grossWeightLineEdit.setText("99999.50")
         
         self.validNumbers = ("120.00",
                           "156.5",
@@ -754,7 +755,7 @@ class TestTareWeightValidInput(unittest.TestCase):
                           "4.0",
                           "5000.50")
         
-        self.maximumLength = "99999.50"
+        self.maximumLength = "99999.00"
         self.minimumLength = "1.0"
     
     def testValidNumbers(self):
@@ -788,6 +789,7 @@ class TestTareWeightInvalidInput(unittest.TestCase):
         self.app = QApplication(sys.argv)
         self.gui = NewTicketDialog()
         self.testWidget = self.gui.tareWeightLineEdit
+        self.gui.grossWeightLineEdit.setText("99999.50")
         
         self.invalidNumbers = ("",
                             "99999.89",
