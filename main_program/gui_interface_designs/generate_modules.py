@@ -30,8 +30,8 @@ parser.add_argument("-e", nargs="?", default=".ui", metavar="File extension",
                     help="Extension of files to process. Defaults to '.ui'.",
                     dest="fileExtension")
 
-parser.add_argument("-p", nargs="?", default="pyuic4.bat", metavar="Pyuic name",
-                    help="Name of pyuic program. Defaults to 'pyuic4.bat'.",
+parser.add_argument("-p", nargs="?", default="pyuic4", metavar="Pyuic name",
+                    help="Name of pyuic program. Defaults to 'pyuic4'.",
                     dest="pyuicName")
 
 commandLineArgs = vars(parser.parse_args())

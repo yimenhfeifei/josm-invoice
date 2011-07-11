@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_client_window_design.ui'
 #
-# Created: Thu Jun 16 15:43:24 2011
+# Created: Mon Jul 11 20:49:51 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!

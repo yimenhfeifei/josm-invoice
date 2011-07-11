@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Thu Jun 16 15:43:26 2011
+# Created: Mon Jul 11 20:49:51 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_newTicketDialog(object):
     def setupUi(self, newTicketDialog):
         newTicketDialog.setObjectName(_fromUtf8("newTicketDialog"))
-        newTicketDialog.resize(400, 574)
+        newTicketDialog.resize(414, 574)
         self.verticalLayout = QtGui.QVBoxLayout(newTicketDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.newTicketTabWidget = QtGui.QTabWidget(newTicketDialog)
@@ -27,7 +27,7 @@ class Ui_newTicketDialog(object):
         self.customerTab = QtGui.QWidget()
         self.customerTab.setObjectName(_fromUtf8("customerTab"))
         self.layoutWidget = QtGui.QWidget(self.customerTab)
-        self.layoutWidget.setGeometry(QtCore.QRect(42, 13, 234, 178))
+        self.layoutWidget.setGeometry(QtCore.QRect(42, 13, 254, 178))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.gridLayout = QtGui.QGridLayout(self.layoutWidget)
         self.gridLayout.setMargin(0)
@@ -192,6 +192,7 @@ class Ui_newTicketDialog(object):
         self.totalValueLineEdit = QtGui.QLineEdit(self.payloadTab)
         self.totalValueLineEdit.setMinimumSize(QtCore.QSize(101, 0))
         self.totalValueLineEdit.setMaximumSize(QtCore.QSize(101, 16777215))
+        self.totalValueLineEdit.setReadOnly(True)
         self.totalValueLineEdit.setObjectName(_fromUtf8("totalValueLineEdit"))
         self.gridLayout_2.addWidget(self.totalValueLineEdit, 5, 4, 1, 2)
         self.reviewTicketButton = QtGui.QCommandLinkButton(self.payloadTab)
