@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Mon Jul 11 20:49:51 2011
+# Created: Fri Jul 15 13:50:25 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_newTicketDialog(object):
         self.customerTab = QtGui.QWidget()
         self.customerTab.setObjectName(_fromUtf8("customerTab"))
         self.layoutWidget = QtGui.QWidget(self.customerTab)
-        self.layoutWidget.setGeometry(QtCore.QRect(42, 13, 254, 178))
+        self.layoutWidget.setGeometry(QtCore.QRect(42, 13, 258, 178))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.gridLayout = QtGui.QGridLayout(self.layoutWidget)
         self.gridLayout.setMargin(0)
@@ -142,9 +142,6 @@ class Ui_newTicketDialog(object):
         self.materialCombobox.setMinimumSize(QtCore.QSize(91, 0))
         self.materialCombobox.setMaximumSize(QtCore.QSize(91, 16777215))
         self.materialCombobox.setObjectName(_fromUtf8("materialCombobox"))
-        self.materialCombobox.addItem(_fromUtf8(""))
-        self.materialCombobox.addItem(_fromUtf8(""))
-        self.materialCombobox.addItem(_fromUtf8(""))
         self.gridLayout_2.addWidget(self.materialCombobox, 2, 2, 1, 1)
         self.payloadValueLineEdit = ValidatingLineEdit(self.payloadTab)
         self.payloadValueLineEdit.setMinimumSize(QtCore.QSize(61, 20))
@@ -305,9 +302,6 @@ class Ui_newTicketDialog(object):
         self.netWeightLineEdit.setToolTip(QtGui.QApplication.translate("newTicketDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.netWeightLineEdit.setWhatsThis(QtGui.QApplication.translate("newTicketDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
         self.netWeightLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("newTicketDialog", "Weight", None, QtGui.QApplication.UnicodeUTF8))
-        self.materialCombobox.setItemText(0, QtGui.QApplication.translate("newTicketDialog", "Copper", None, QtGui.QApplication.UnicodeUTF8))
-        self.materialCombobox.setItemText(1, QtGui.QApplication.translate("newTicketDialog", "Car", None, QtGui.QApplication.UnicodeUTF8))
-        self.materialCombobox.setItemText(2, QtGui.QApplication.translate("newTicketDialog", "Heavy Iron", None, QtGui.QApplication.UnicodeUTF8))
         self.payloadValueLineEdit.setToolTip(QtGui.QApplication.translate("newTicketDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.payloadValueLineEdit.setWhatsThis(QtGui.QApplication.translate("newTicketDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
         self.manualPriceCheckbox.setText(QtGui.QApplication.translate("newTicketDialog", "Manual price", None, QtGui.QApplication.UnicodeUTF8))

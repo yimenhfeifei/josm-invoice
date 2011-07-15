@@ -916,6 +916,20 @@ class TestNetWeightInvalidInput(unittest.TestCase):
     def tearDown(self):
         self.gui.deleteLater()
         self.app.deleteLater()
+        
+class TestNewTicketDialogMaterialCombobox(unittest.TestCase):
+    def setUp(self):
+        self.app = QApplication(sys.argv)
+        self.gui = NewTicketDialog()
+        
+    def testPopulate(self):
+        """Combobox should be properly populated."""
+        self.gui.populateMaterialCombobox()
+        self.assertNotEqual(self.gui.materialCombobox.itemText(0), "")
+        
+    def tearDown(self):
+        self.gui.deleteLater()
+        self.app.deleteLater()
 
 class TestNewTicketDialogUsage(unittest.TestCase):
     def setUp(self):

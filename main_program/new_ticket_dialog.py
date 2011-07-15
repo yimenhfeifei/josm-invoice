@@ -27,6 +27,11 @@ class NewTicketDialog(QDialog,
                               self.tareWeightLineEdit,
                               self.netWeightLineEdit)
         
+        self.populateMaterialCombobox()
+
+    def populateMaterialCombobox(self):
+        self.materialCombobox.addItems(["Copper", "Gold", "Iron"])
+    
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]
     
