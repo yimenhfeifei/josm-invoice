@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Fri Jul 15 13:50:25 2011
+# Created: Fri Jul 15 23:02:58 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,8 @@ except AttributeError:
 class Ui_newTicketDialog(object):
     def setupUi(self, newTicketDialog):
         newTicketDialog.setObjectName(_fromUtf8("newTicketDialog"))
-        newTicketDialog.resize(414, 574)
+        newTicketDialog.resize(423, 574)
+        newTicketDialog.setMinimumSize(QtCore.QSize(423, 574))
         self.verticalLayout = QtGui.QVBoxLayout(newTicketDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.newTicketTabWidget = QtGui.QTabWidget(newTicketDialog)
@@ -143,12 +144,6 @@ class Ui_newTicketDialog(object):
         self.materialCombobox.setMaximumSize(QtCore.QSize(91, 16777215))
         self.materialCombobox.setObjectName(_fromUtf8("materialCombobox"))
         self.gridLayout_2.addWidget(self.materialCombobox, 2, 2, 1, 1)
-        self.payloadValueLineEdit = ValidatingLineEdit(self.payloadTab)
-        self.payloadValueLineEdit.setMinimumSize(QtCore.QSize(61, 20))
-        self.payloadValueLineEdit.setMaximumSize(QtCore.QSize(61, 20))
-        self.payloadValueLineEdit.setReadOnly(True)
-        self.payloadValueLineEdit.setObjectName(_fromUtf8("payloadValueLineEdit"))
-        self.gridLayout_2.addWidget(self.payloadValueLineEdit, 2, 3, 1, 2)
         self.manualPriceCheckbox = QtGui.QCheckBox(self.payloadTab)
         self.manualPriceCheckbox.setMinimumSize(QtCore.QSize(91, 0))
         self.manualPriceCheckbox.setObjectName(_fromUtf8("manualPriceCheckbox"))
@@ -198,6 +193,12 @@ class Ui_newTicketDialog(object):
         self.reviewTicketButton.setMaximumSize(QtCore.QSize(131, 16777215))
         self.reviewTicketButton.setObjectName(_fromUtf8("reviewTicketButton"))
         self.gridLayout_2.addWidget(self.reviewTicketButton, 6, 3, 1, 3)
+        self.payloadValueLineEdit = PayloadValueLineEdit(self.payloadTab)
+        self.payloadValueLineEdit.setMinimumSize(QtCore.QSize(60, 25))
+        self.payloadValueLineEdit.setMaximumSize(QtCore.QSize(60, 25))
+        self.payloadValueLineEdit.setReadOnly(True)
+        self.payloadValueLineEdit.setObjectName(_fromUtf8("payloadValueLineEdit"))
+        self.gridLayout_2.addWidget(self.payloadValueLineEdit, 2, 3, 1, 1)
         self.verticalLayout_2.addLayout(self.gridLayout_2)
         self.newTicketTabWidget.addTab(self.payloadTab, _fromUtf8(""))
         self.verticalLayout.addWidget(self.newTicketTabWidget)
@@ -246,7 +247,6 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.tareWeightLineEdit.onInvalid)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.onClearNetWeight)
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearNetWeight()")), self.netWeightLineEdit.onClearNetWeight)
-        QtCore.QObject.connect(self.manualPriceCheckbox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.payloadValueLineEdit.setReadOnlyInverted)
         QtCore.QObject.connect(self.firstNameLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.lastNameLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.houseNumberLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
@@ -257,6 +257,13 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.grossWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
+        QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
+        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculatePayloadValue(QString)")), self.payloadValueLineEdit.onCalculatePayloadValue)
+        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearPayloadValue()")), self.payloadValueLineEdit.onClearPayloadValue)
+        QtCore.QObject.connect(self.manualPriceCheckbox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.payloadValueLineEdit.setReadOnlyInverted)
+        QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.payloadValueLineEdit.onTextEdited)
+        QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.payloadValueLineEdit.onValid)
+        QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.payloadValueLineEdit.onInvalid)
         QtCore.QMetaObject.connectSlotsByName(newTicketDialog)
 
     def retranslateUi(self, newTicketDialog):
@@ -302,15 +309,17 @@ class Ui_newTicketDialog(object):
         self.netWeightLineEdit.setToolTip(QtGui.QApplication.translate("newTicketDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.netWeightLineEdit.setWhatsThis(QtGui.QApplication.translate("newTicketDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
         self.netWeightLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("newTicketDialog", "Weight", None, QtGui.QApplication.UnicodeUTF8))
-        self.payloadValueLineEdit.setToolTip(QtGui.QApplication.translate("newTicketDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
-        self.payloadValueLineEdit.setWhatsThis(QtGui.QApplication.translate("newTicketDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
         self.manualPriceCheckbox.setText(QtGui.QApplication.translate("newTicketDialog", "Manual price", None, QtGui.QApplication.UnicodeUTF8))
         self.addPayloadButton.setText(QtGui.QApplication.translate("newTicketDialog", "Add payload", None, QtGui.QApplication.UnicodeUTF8))
         self.totalValueLabel.setText(QtGui.QApplication.translate("newTicketDialog", "Total", None, QtGui.QApplication.UnicodeUTF8))
         self.reviewTicketButton.setText(QtGui.QApplication.translate("newTicketDialog", "Review ticket", None, QtGui.QApplication.UnicodeUTF8))
+        self.payloadValueLineEdit.setToolTip(QtGui.QApplication.translate("newTicketDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
+        self.payloadValueLineEdit.setWhatsThis(QtGui.QApplication.translate("newTicketDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
+        self.payloadValueLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("newTicketDialog", "Value", None, QtGui.QApplication.UnicodeUTF8))
         self.newTicketTabWidget.setTabText(self.newTicketTabWidget.indexOf(self.payloadTab), QtGui.QApplication.translate("newTicketDialog", "Payload", None, QtGui.QApplication.UnicodeUTF8))
 
 from custom_widgets.tareWeightLineEdit import TareWeightLineEdit
+from custom_widgets.validatingLineEdit import ValidatingLineEdit
 from custom_widgets.grossWeightLineEdit import GrossWeightLineEdit
 from custom_widgets.netWeightLineEdit import NetWeightLineEdit
-from custom_widgets.validatingLineEdit import ValidatingLineEdit
+from custom_widgets.payloadValueLineEdit import PayloadValueLineEdit

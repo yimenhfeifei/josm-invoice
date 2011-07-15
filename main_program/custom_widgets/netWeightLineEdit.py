@@ -14,6 +14,8 @@ class NetWeightLineEdit(ValidatingLineEdit):
     
     enableGrossWeight = pyqtSignal()
     disableGrossWeight = pyqtSignal()
+    calculatePayloadValue = pyqtSignal(str)
+    clearPayloadValue = pyqtSignal()
     
     def __init__(self, parent=None):
         super(NetWeightLineEdit, self).__init__(parent)
@@ -47,3 +49,11 @@ class NetWeightLineEdit(ValidatingLineEdit):
         net = str(Decimal(gross) - Decimal(tare))
         self.setText(net)
         super(NetWeightLineEdit, self).validate()
+        
+    def onValid(self):
+        self.calculatePayloadValue.emit(self.text())
+        super(NetWeightLineEdit, self).onValid()
+        
+    def onInvalid(self):
+        self.clearPayloadValue.emit()
+        super(NetWeightLineEdit, self).onInvalid()

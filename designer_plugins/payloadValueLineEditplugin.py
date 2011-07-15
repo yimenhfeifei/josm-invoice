@@ -5,15 +5,15 @@ try:
     from PyQt4.QtGui import *
     from PyQt4 import QtDesigner
     
-    from custom_widgets.netWeightLineEdit import NetWeightLineEdit
+    from custom_widgets.payloadValueLineEdit import PayloadValueLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
+class PayloadValueLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
 
     def __init__(self, parent = None):
-        super(NetWeightLineEditPlugin, self).__init__(parent)
+        super(PayloadValueLineEditPlugin, self).__init__(parent)
 
         self.initialised = False
     
@@ -29,10 +29,10 @@ class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return self.initialized
     
     def createWidget(self, parent):
-        return NetWeightLineEdit(parent)
+        return PayloadValueLineEdit(parent)
     
     def name(self):
-        return "NetWeightLineEdit"
+        return "PayloadValueLineEdit"
     
     def group(self):
         return "Custom Widgets"
@@ -47,7 +47,7 @@ class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return False
     
     def domXml(self):
-        return ("<widget class='NetWeightLineEdit' name=\'netWeightLineEdit\'>\n"
+        return ("<widget class='PayloadValueLineEdit' name=\'payloadValueLineEdit\'>\n"
                " <property name=\"toolTip\" >\n"
                "  <string>Custom Line Edit</string>\n"
                " </property>\n"
@@ -58,4 +58,4 @@ class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "custom_widgets.netWeightLineEdit"
+        return "custom_widgets.payloadValueLineEdit"

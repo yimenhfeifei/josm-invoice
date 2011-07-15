@@ -28,7 +28,13 @@ class NewTicketDialog(QDialog,
                               self.netWeightLineEdit)
         
         self.populateMaterialCombobox()
+        
+        self.connect(self.addPayloadButton, SIGNAL("clicked()"),
+                     self.addPayload)
 
+    def addPayload(self):
+        pass
+        
     def populateMaterialCombobox(self):
         self.materialCombobox.addItems(["Copper", "Gold", "Iron"])
     
@@ -44,6 +50,17 @@ class NewTicketDialog(QDialog,
     def updateReviewTicketButton(self):
         self.reviewTicketButton.setEnabled(self.allWidgetsValid())
         
+    def updateAddPayloadButton(self):
+        
+        netWeight = self.netWeightLineEdit.getValidatedStatus()
+        payloadValue = self.payloadValueLineEdit.getValidatedStatus()
+        print(netWeight, payloadValue)
+        if netWeight and payloadValue:
+            self.addPayloadButton.setEnabled(True)
+        else:
+            self.addPayloadButton.setEnabled(False)
+        
     def update(self):
         self.updateReviewTicketButton()
+        self.updateAddPayloadButton()
         super(NewTicketDialog, self).update()
