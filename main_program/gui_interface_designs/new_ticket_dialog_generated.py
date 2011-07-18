@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Fri Jul 15 23:02:58 2011
+# Created: Mon Jul 18 13:31:10 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -264,6 +264,8 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.payloadValueLineEdit.onTextEdited)
         QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("valid()")), self.payloadValueLineEdit.onValid)
         QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("invalid()")), self.payloadValueLineEdit.onInvalid)
+        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), self.netWeightLineEdit.onMaterialComboboxChange)
+        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), newTicketDialog.update)
         QtCore.QMetaObject.connectSlotsByName(newTicketDialog)
 
     def retranslateUi(self, newTicketDialog):

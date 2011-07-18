@@ -50,10 +50,16 @@ class NetWeightLineEdit(ValidatingLineEdit):
         self.setText(net)
         super(NetWeightLineEdit, self).validate()
         
+    @pyqtSlot()
     def onValid(self):
         self.calculatePayloadValue.emit(self.text())
         super(NetWeightLineEdit, self).onValid()
-        
+    
+    @pyqtSlot()
     def onInvalid(self):
         self.clearPayloadValue.emit()
         super(NetWeightLineEdit, self).onInvalid()
+    
+    @pyqtSlot()
+    def onMaterialComboboxChange(self):
+        super(NetWeightLineEdit, self).validate()

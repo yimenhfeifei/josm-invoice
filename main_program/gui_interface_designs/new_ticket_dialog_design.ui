@@ -1574,5 +1574,37 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>onMaterialComboboxChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>183</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>96</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>newTicketDialog</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>183</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>211</x>
+     <y>286</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
