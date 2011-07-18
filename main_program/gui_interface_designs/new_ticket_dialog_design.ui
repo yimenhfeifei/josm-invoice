@@ -300,318 +300,403 @@
       <attribute name="title">
        <string>Payload</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>10</y>
+         <width>384</width>
+         <height>491</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Gross</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="GrossWeightLineEdit" name="grossWeightLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Tare</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Net</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="NetWeightLineEdit" name="netWeightLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>71</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {background-color: red;}</string>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Weight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="materialCombobox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>91</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>91</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Custom Line Edit</string>
+          </property>
+          <property name="whatsThis">
+           <string>The analog clock widget displays the current time.</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+          <property name="regexString" stdset="0">
+           <string>Value</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="QCheckBox" name="manualPriceCheckbox">
+          <property name="minimumSize">
+           <size>
+            <width>91</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Manual price</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QPushButton" name="addPayloadButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>81</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Add payload</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="5">
+         <widget class="QTableWidget" name="payloadTableWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>351</width>
+            <height>301</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>78799</width>
+            <height>787787</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragDropOverwriteMode">
+           <bool>false</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::NoSelection</enum>
+          </property>
+          <property name="rowCount">
+           <number>12</number>
+          </property>
+          <property name="columnCount">
+           <number>3</number>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>100</number>
+          </attribute>
+          <attribute name="horizontalHeaderMinimumSectionSize">
+           <number>25</number>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+          <column/>
+          <column/>
+          <column/>
+          <item row="0" column="0">
            <property name="text">
-            <string>Gross</string>
+            <string/>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="GrossWeightLineEdit" name="grossWeightLineEdit">
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Custom Line Edit</string>
-           </property>
-           <property name="whatsThis">
-            <string>The analog clock widget displays the current time.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLineEdit {background-color: red;}</string>
-           </property>
-           <property name="regexString" stdset="0">
-            <string>Weight</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Tare</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Custom Line Edit</string>
-           </property>
-           <property name="whatsThis">
-            <string>The analog clock widget displays the current time.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="regexString" stdset="0">
-            <string>Weight</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Net</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="NetWeightLineEdit" name="netWeightLineEdit">
-           <property name="minimumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>71</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Custom Line Edit</string>
-           </property>
-           <property name="whatsThis">
-            <string>The analog clock widget displays the current time.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLineEdit {background-color: red;}</string>
-           </property>
-           <property name="regexString" stdset="0">
-            <string>Weight</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QComboBox" name="materialCombobox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>91</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="5">
-          <widget class="QCheckBox" name="manualPriceCheckbox">
-           <property name="minimumSize">
-            <size>
-             <width>91</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Manual price</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="5">
-          <widget class="QPushButton" name="addPayloadButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>81</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Add payload</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0" colspan="6">
-          <widget class="QTableWidget" name="payloadTableWidget">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>351</width>
-             <height>301</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>361</width>
-             <height>787787</height>
-            </size>
-           </property>
-           <property name="rowCount">
-            <number>12</number>
-           </property>
-           <property name="columnCount">
-            <number>3</number>
-           </property>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>100</number>
-           </attribute>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <row/>
-           <column/>
-           <column/>
-           <column/>
-          </widget>
-         </item>
-         <item row="5" column="3">
-          <widget class="QLabel" name="totalValueLabel">
            <property name="font">
             <font>
-             <pointsize>10</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+           </property>
+           <property name="background">
+            <brush brushstyle="NoBrush">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </property>
+           <property name="foreground">
+            <brush brushstyle="NoBrush">
+             <color alpha="255">
+              <red>255</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
+           </property>
+           <property name="flags">
+            <set>ItemIsEnabled</set>
+           </property>
+          </item>
+          <item row="0" column="1">
            <property name="text">
-            <string>Total</string>
+            <string/>
            </property>
-           <property name="buddy">
-            <cstring>totalValueLineEdit</cstring>
+           <property name="textAlignment">
+            <set>AlignHCenter|AlignVCenter|AlignCenter</set>
            </property>
-          </widget>
-         </item>
-         <item row="5" column="4" colspan="2">
-          <widget class="QLineEdit" name="totalValueLineEdit">
-           <property name="minimumSize">
-            <size>
-             <width>101</width>
-             <height>0</height>
-            </size>
+           <property name="background">
+            <brush brushstyle="NoBrush">
+             <color alpha="255">
+              <red>0</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>101</width>
-             <height>16777215</height>
-            </size>
+           <property name="foreground">
+            <brush brushstyle="NoBrush">
+             <color alpha="255">
+              <red>255</red>
+              <green>0</green>
+              <blue>0</blue>
+             </color>
+            </brush>
            </property>
-           <property name="readOnly">
-            <bool>true</bool>
+           <property name="flags">
+            <set>ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
            </property>
-          </widget>
-         </item>
-         <item row="6" column="3" colspan="3">
-          <widget class="QCommandLinkButton" name="reviewTicketButton">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>131</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>131</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Review ticket</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
-           <property name="minimumSize">
-            <size>
-             <width>60</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>60</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Custom Line Edit</string>
-           </property>
-           <property name="whatsThis">
-            <string>The analog clock widget displays the current time.</string>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-           <property name="regexString" stdset="0">
-            <string>Value</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+          </item>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="QLabel" name="totalValueLabel">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Total</string>
+          </property>
+          <property name="buddy">
+           <cstring>totalValueLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="4">
+         <widget class="QLineEdit" name="totalValueLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>101</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>101</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3" colspan="2">
+         <widget class="QCommandLinkButton" name="reviewTicketButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>131</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>131</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Review ticket</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
    </item>

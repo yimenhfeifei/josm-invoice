@@ -34,9 +34,20 @@ class NewTicketDialog(QDialog,
         
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload)
+        
+    def collectPayload(self):
+        return (self.netWeightLineEdit.text(),
+                self.materialCombobox.currentText(),
+                self.payloadValueLineEdit.text())
 
     def addPayload(self):
-        pass
+        self.payloadTableWidget.setCurrentCell(self.payloadTableWidget.currentRow()+1, 0)
+        
+        for n, i in enumerate(self.collectPayload()):
+            i = QTableWidgetItem(i)
+            self.payloadTableWidget.setItem(self.payloadTableWidget.currentRow(),
+                                            n,
+                                            i)
         
     def populateMaterialCombobox(self):
         self.materialCombobox.addItems(["Copper", "Gold", "Iron"])
