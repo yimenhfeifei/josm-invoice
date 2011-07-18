@@ -29,6 +29,9 @@ class NewTicketDialog(QDialog,
         
         self.populateMaterialCombobox()
         
+        self.payloadTableWidget.setHorizontalHeaderLabels(["Weight", "Material",
+                                                          "Value"])
+        
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload)
 
@@ -51,10 +54,9 @@ class NewTicketDialog(QDialog,
         self.reviewTicketButton.setEnabled(self.allWidgetsValid())
         
     def updateAddPayloadButton(self):
-        
         netWeight = self.netWeightLineEdit.getValidatedStatus()
         payloadValue = self.payloadValueLineEdit.getValidatedStatus()
-        print(netWeight, payloadValue)
+
         if netWeight and payloadValue:
             self.addPayloadButton.setEnabled(True)
         else:
