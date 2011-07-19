@@ -29,9 +29,6 @@ class NewTicketDialog(QDialog,
         
         self.populateMaterialCombobox()
         
-        self.payloadTableWidget.setHorizontalHeaderLabels(["Weight", "Material",
-                                                          "Value"])
-        
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload)
         
@@ -41,7 +38,7 @@ class NewTicketDialog(QDialog,
                 self.payloadValueLineEdit.text())
 
     def addPayload(self):
-        self.payloadTableWidget.setCurrentCell(self.payloadTableWidget.currentRow()+1, 0)
+        self.payloadTableWidget.setCurrentToEmptyRow()
         
         for n, i in enumerate(self.collectPayload()):
             i = QTableWidgetItem(i)

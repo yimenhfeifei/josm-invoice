@@ -21,6 +21,7 @@ class MainClientWindow(QMainWindow,
                      self.createNewTicketDialog)
     
     def createNewTicketDialog(self):
+
         NewTicketDialog().exec_()
 
 if __name__ == "__main__":
