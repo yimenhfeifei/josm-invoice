@@ -25,9 +25,10 @@ class NewTicketDialog(QDialog,
                               self.townLineEdit,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit,
-                              self.grossWeightLineEdit,
-                              self.tareWeightLineEdit,
-                              self.netWeightLineEdit)
+                              self.payloadTableWidget)
+                              #self.grossWeightLineEdit,
+                              #self.tareWeightLineEdit,
+                              #self.netWeightLineEdit)
         
         self.populateMaterialCombobox()
         
@@ -62,6 +63,7 @@ class NewTicketDialog(QDialog,
                       QTableWidgetItem("00.00"))
         
         table.removeRow(table.currentRow())
+        self.update()
         
     def populateMaterialCombobox(self):
         self.materialCombobox.addItems(["Copper", "Gold", "Iron"])

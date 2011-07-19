@@ -32,4 +32,10 @@ class PayloadTableWidget(QTableWidget):
                 return
             
         self.insertRow(self.rowCount())
-        self.setCurrentCell(self.rowCount()-1, startingColumn)
+        self.setCurrentCell((self.rowCount() - 1), startingColumn)
+        
+    def getValidatedStatus(self):
+        if self.item(0, 0) == None:
+            return False
+        else:
+            return True

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Tue Jul 19 16:51:39 2011
+# Created: Tue Jul 19 21:49:58 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -277,6 +277,7 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), self.payloadTableWidget.onChange)
         QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("calculateTotalValue(PyQt_PyObject)")), self.totalValueLineEdit.onCalculateTotalValue)
+        QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), newTicketDialog.update)
         QtCore.QMetaObject.connectSlotsByName(newTicketDialog)
 
     def retranslateUi(self, newTicketDialog):

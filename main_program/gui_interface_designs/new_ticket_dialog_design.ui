@@ -1690,5 +1690,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>payloadTableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>newTicketDialog</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
+     <y>356</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-9</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
