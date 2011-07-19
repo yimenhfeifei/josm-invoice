@@ -1377,7 +1377,7 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>304</x>
+     <x>309</x>
      <y>91</y>
     </hint>
     <hint type="destinationlabel">

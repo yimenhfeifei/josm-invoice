@@ -16,10 +16,11 @@ class PayloadTableWidget(QTableWidget):
         super(PayloadTableWidget, self).__init__(parent)
         
     @pyqtSlot()
-    def onChange(self, x, y):
-        if y ==2:
-            values = [self.item(row, 2).text() for row in range(self.rowCount())]
-            self.calculateTotalValue.emit(values)
+    def onChange(self, cellRow, cellColumn):
+        if cellColumn == (self.columnCount() - 1):
+            cellValues = [self.item(row, (self.columnCount() - 1)).text() 
+                      for row in range(self.rowCount())]
+            self.calculateTotalValue.emit(cellValues)
         
     def setCurrentToEmptyRow(self):
         self.setCurrentCell(0, 0)

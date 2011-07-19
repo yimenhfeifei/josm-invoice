@@ -11,6 +11,7 @@ except ImportError as err:
 
 class NewTicketDialog(QDialog,
                       new_ticket_dialog_generated.Ui_newTicketDialog):
+    
     calculateTotalValue = pyqtSignal()
 
     def __init__(self, parent=None):
@@ -48,14 +49,19 @@ class NewTicketDialog(QDialog,
     def addPayload(self):
         self.payloadTableWidget.setCurrentToEmptyRow()
         
-        for n, i in enumerate(self.collectPayload()):
-            i = QTableWidgetItem(i)
-            self.payloadTableWidget.setItem(self.payloadTableWidget.currentRow(),
-                                            n,
-                                            i)
+        for column, string in enumerate(self.collectPayload()):
+            item = QTableWidgetItem(string)
+            row = self.payloadTableWidget.currentRow()
+            self.payloadTableWidget.setItem(row, column, item)
             
     def deletePayload(self):
-        self.payloadTableWidget.removeRow(self.payloadTableWidget.currentRow())
+        table = self.payloadTableWidget
+        
+        table.setItem(table.currentRow(),
+                      self.payloadTableWidget.columnCount() - 1,
+                      QTableWidgetItem("00.00"))
+        
+        table.removeRow(table.currentRow())
         
     def populateMaterialCombobox(self):
         self.materialCombobox.addItems(["Copper", "Gold", "Iron"])
