@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Tue Jul 19 11:02:58 2011
+# Created: Tue Jul 19 15:52:48 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!

@@ -11,6 +11,7 @@ except ImportError as err:
 
 class NewTicketDialog(QDialog,
                       new_ticket_dialog_generated.Ui_newTicketDialog):
+    calculateTotalValue = pyqtSignal()
 
     def __init__(self, parent=None):
         super(NewTicketDialog, self).__init__(parent)
@@ -29,8 +30,15 @@ class NewTicketDialog(QDialog,
         
         self.populateMaterialCombobox()
         
+        self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
+                                                           "Material",
+                                                           "Value"])
+        
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload)
+        
+        self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
+                     self.deletePayload)
         
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
@@ -45,6 +53,9 @@ class NewTicketDialog(QDialog,
             self.payloadTableWidget.setItem(self.payloadTableWidget.currentRow(),
                                             n,
                                             i)
+            
+    def deletePayload(self):
+        self.payloadTableWidget.removeRow(self.payloadTableWidget.currentRow())
         
     def populateMaterialCombobox(self):
         self.materialCombobox.addItems(["Copper", "Gold", "Iron"])

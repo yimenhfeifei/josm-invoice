@@ -10,10 +10,16 @@ except ImportError as err:
 
 class PayloadTableWidget(QTableWidget):
     
+    calculateTotalValue = pyqtSignal(list)
+    
     def __init__(self, parent=None):
         super(PayloadTableWidget, self).__init__(parent)
         
-        self.setHorizontalHeaderLabels(["Weight", "Material", "Value"])
+    @pyqtSlot()
+    def onChange(self, x, y):
+        if y ==2:
+            values = [self.item(row, 2).text() for row in range(self.rowCount())]
+            self.calculateTotalValue.emit(values)
         
     def setCurrentToEmptyRow(self):
         self.setCurrentCell(0, 0)
