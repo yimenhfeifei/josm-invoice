@@ -64,31 +64,6 @@
          <height>25</height>
         </size>
        </property>
-       <item>
-        <property name="text">
-         <string>Banger</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Bike</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Car</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Shell</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Van</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="1" column="0">

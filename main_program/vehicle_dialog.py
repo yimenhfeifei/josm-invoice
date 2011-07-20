@@ -20,7 +20,16 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
                               self.vehicleRegistrationLineEdit,
                               self.vinLineEdit,
                               self.catalyticLineEdit)
+        
+        self.populateTypeCombobox()
 
+    def populateTypeCombobox(self):
+        self.typeCombobox.addItem("Banger", "1.00")
+        self.typeCombobox.addItem("Bike", "0.70")
+        self.typeCombobox.addItem("Car", "1.70")
+        self.typeCombobox.addItem("Shell", "0.50")
+        self.typeCombobox.addItem("Van", "1.60")
+        
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]
     

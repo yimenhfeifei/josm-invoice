@@ -5,15 +5,15 @@ try:
     from PyQt4.QtGui import *
     from PyQt4 import QtDesigner
     
-    from custom_widgets.tareWeightLineEdit import TareWeightLineEdit
+    from custom_widgets.materialCombobox import MaterialCombobox
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
+class MaterialComboboxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
 
-    def __init__(self, parent = None):
-        super(TareWeightLineEditPlugin, self).__init__(parent)
+    def __init__(self, parent=None):
+        super(MaterialComboboxPlugin, self).__init__(parent)
 
         self.initialised = False
     
@@ -29,10 +29,10 @@ class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return self.initialized
     
     def createWidget(self, parent):
-        return TareWeightLineEdit(parent)
+        return MaterialCombobox(parent)
     
     def name(self):
-        return "TareWeightLineEdit"
+        return "MaterialCombobox"
     
     def group(self):
         return "Custom Widgets"
@@ -47,7 +47,7 @@ class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return False
     
     def domXml(self):
-        return ("<widget class='TareWeightLineEdit' name='tareWeightLineEdit'>\n"
+        return ("<widget class='MaterialCombobox' name='materialCombobox'>\n"
                " <property name=\"toolTip\" >\n"
                "  <string>Custom Line Edit</string>\n"
                " </property>\n"
@@ -58,4 +58,4 @@ class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "</widget>\n")
                
     def includeFile(self):
-        return "custom_widgets.tareWeightLineEdit"
+        return "custom_widgets.materialCombobox"

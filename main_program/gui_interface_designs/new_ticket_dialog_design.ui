@@ -30,7 +30,7 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>431</width>
+     <width>435</width>
      <height>561</height>
     </rect>
    </property>
@@ -323,11 +323,42 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>411</width>
-       <height>111</height>
+       <width>419</width>
+       <height>112</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="1">
+       <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>71</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>71</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Custom Line Edit</string>
+        </property>
+        <property name="whatsThis">
+         <string>The analog clock widget displays the current time.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="regexString" stdset="0">
+         <string>Weight</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
@@ -376,37 +407,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Custom Line Edit</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>Weight</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
@@ -446,24 +446,12 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QComboBox" name="materialCombobox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <widget class="MaterialCombobox" name="materialCombobox">
+        <property name="toolTip">
+         <string>Custom Line Edit</string>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>91</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>91</width>
-          <height>16777215</height>
-         </size>
+        <property name="whatsThis">
+         <string>The analog clock widget displays the current time.</string>
         </property>
        </widget>
       </item>
@@ -508,6 +496,13 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="deletePayloadButton">
+        <property name="text">
+         <string>Delete payload</string>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="5">
        <widget class="QPushButton" name="addPayloadButton">
         <property name="sizePolicy">
@@ -524,13 +519,6 @@
         </property>
         <property name="text">
          <string>Add payload</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="deletePayloadButton">
-        <property name="text">
-         <string>Delete payload</string>
         </property>
        </widget>
       </item>
@@ -666,6 +654,11 @@
    <header>custom_widgets.grossWeightLineEdit</header>
   </customwidget>
   <customwidget>
+   <class>MaterialCombobox</class>
+   <extends>QComboBox</extends>
+   <header>custom_widgets.materialCombobox</header>
+  </customwidget>
+  <customwidget>
    <class>NetWeightLineEdit</class>
    <extends>ValidatingLineEdit</extends>
    <header>custom_widgets.netWeightLineEdit</header>
@@ -705,12 +698,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>43</y>
+     <x>53</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>90</x>
-     <y>55</y>
+     <x>60</x>
+     <y>75</y>
     </hint>
    </hints>
   </connection>
@@ -721,12 +714,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>110</y>
+     <x>101</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>125</x>
-     <y>110</y>
+     <x>95</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -737,12 +730,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>108</x>
-     <y>110</y>
+     <x>78</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>131</x>
-     <y>110</y>
+     <x>101</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -753,12 +746,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>110</y>
+     <x>71</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>119</x>
-     <y>110</y>
+     <x>89</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -769,12 +762,12 @@
    <slot>onEnableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>61</y>
+     <x>50</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>93</x>
-     <y>110</y>
+     <x>63</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -785,12 +778,12 @@
    <slot>onDisableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>61</y>
+     <x>75</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>117</x>
-     <y>110</y>
+     <x>87</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -801,12 +794,12 @@
    <slot>onEnableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>110</y>
+     <x>101</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>66</x>
-     <y>53</y>
+     <x>36</x>
+     <y>73</y>
     </hint>
    </hints>
   </connection>
@@ -817,12 +810,12 @@
    <slot>onDisableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>110</y>
+     <x>77</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
-     <x>96</x>
-     <y>61</y>
+     <x>66</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -881,12 +874,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -897,12 +890,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -913,12 +906,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -929,12 +922,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -945,12 +938,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -961,12 +954,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -977,12 +970,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -993,12 +986,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1009,12 +1002,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1025,12 +1018,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1041,12 +1034,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1057,12 +1050,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1073,12 +1066,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1089,12 +1082,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1105,12 +1098,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1121,12 +1114,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1137,12 +1130,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1153,12 +1146,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
    </hints>
   </connection>
@@ -1169,12 +1162,12 @@
    <slot>onEnableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>61</y>
+     <x>57</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1185,12 +1178,12 @@
    <slot>onDisableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>61</y>
+     <x>71</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1201,12 +1194,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>51</y>
+     <x>41</x>
+     <y>71</y>
     </hint>
     <hint type="destinationlabel">
-     <x>75</x>
-     <y>54</y>
+     <x>45</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>
@@ -1217,12 +1210,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>54</y>
+     <x>34</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
-     <x>68</x>
-     <y>51</y>
+     <x>38</x>
+     <y>71</y>
     </hint>
    </hints>
   </connection>
@@ -1233,12 +1226,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1249,12 +1242,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1265,12 +1258,12 @@
    <slot>onSendGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>65</x>
-     <y>54</y>
+     <x>35</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>
@@ -1281,12 +1274,12 @@
    <slot>onGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>61</y>
+     <x>77</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1297,12 +1290,12 @@
    <slot>onCalculateNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>83</x>
-     <y>110</y>
+     <x>53</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -1313,12 +1306,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
    </hints>
   </connection>
@@ -1329,12 +1322,12 @@
    <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>65</x>
-     <y>101</y>
+     <x>35</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1345,12 +1338,12 @@
    <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>61</y>
+     <x>77</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
-     <x>107</x>
-     <y>110</y>
+     <x>77</x>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
@@ -1377,8 +1370,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>91</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>233</x>
@@ -1393,8 +1386,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>117</y>
+     <x>103</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>380</x>
@@ -1409,8 +1402,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>143</y>
+     <x>185</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>382</x>
@@ -1425,8 +1418,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>169</y>
+     <x>153</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>382</x>
@@ -1441,8 +1434,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>221</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>383</x>
@@ -1457,8 +1450,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>195</y>
+     <x>123</x>
+     <y>64</y>
     </hint>
     <hint type="destinationlabel">
      <x>379</x>
@@ -1473,8 +1466,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>75</x>
-     <y>61</y>
+     <x>45</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>173</x>
@@ -1489,8 +1482,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>61</y>
+     <x>61</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>192</x>
@@ -1505,8 +1498,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>80</x>
+     <y>130</y>
     </hint>
     <hint type="destinationlabel">
      <x>192</x>
@@ -1521,8 +1514,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
      <x>211</x>
@@ -1537,12 +1530,12 @@
    <slot>onCalculatePayloadValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>100</y>
+     <x>66</x>
+     <y>120</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1553,12 +1546,12 @@
    <slot>onClearPayloadValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>100</y>
+     <x>66</x>
+     <y>120</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1569,12 +1562,12 @@
    <slot>setReadOnlyInverted(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>354</x>
-     <y>101</y>
+     <x>324</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1585,12 +1578,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1601,12 +1594,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1617,44 +1610,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>264</x>
-     <y>101</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>264</x>
-     <y>101</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>materialCombobox</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>netWeightLineEdit</receiver>
-   <slot>onMaterialComboboxChange()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>183</x>
-     <y>101</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>96</x>
-     <y>100</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>materialCombobox</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>newTicketDialog</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>183</x>
-     <y>101</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>211</x>
-     <y>286</y>
+     <x>234</x>
+     <y>121</y>
     </hint>
    </hints>
   </connection>
@@ -1703,6 +1664,70 @@
     <hint type="destinationlabel">
      <x>-9</x>
      <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>netWeightLineEdit</receiver>
+   <slot>onMaterialComboboxChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>53</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>materialCombobox</receiver>
+   <slot>onIndexChange()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>125</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>newTicketDialog</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-2</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>materialCombobox</sender>
+   <signal>materialChanged(QString)</signal>
+   <receiver>payloadValueLineEdit</receiver>
+   <slot>onMaterialChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>127</y>
     </hint>
    </hints>
   </connection>

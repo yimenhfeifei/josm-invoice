@@ -25,7 +25,11 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         super(PayloadValueLineEdit, self).validate()
         
     @pyqtSlot()
+    def onMaterialChanged(self, value):
+        self.materialValue = Decimal(value)
+        
+    @pyqtSlot()
     def onCalculatePayloadValue(self, net):
         net = Decimal(net)
-        self.setText(str(net * Decimal("2")))
+        self.setText(str(net * self.materialValue))
         super(PayloadValueLineEdit, self).validate()

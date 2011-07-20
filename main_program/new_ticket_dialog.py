@@ -47,7 +47,9 @@ class NewTicketDialog(QDialog,
         if selection == "Vehicle":
             vehicleDialog = VehicleDialog()
             if vehicleDialog.exec_():
-                print(vehicleDialog.typeCombobox.currentText())
+                i = vehicleDialog.typeCombobox.currentIndex()
+                print(vehicleDialog.typeCombobox.currentText(),
+                      vehicleDialog.typeCombobox.itemData(i))
         
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
@@ -74,8 +76,11 @@ class NewTicketDialog(QDialog,
         self.update()
         
     def populateMaterialCombobox(self):
-        self.materialCombobox.addItems(["Copper", "Gold", "Iron",
-                                        "Lead", "Vehicle"])
+        self.materialCombobox.addItem("Copper", "5.00")
+        self.materialCombobox.addItem("Iron", "0.70")
+        self.materialCombobox.addItem("Lead", "3.00")
+        self.materialCombobox.addItem("Gold", "4.50")
+        self.materialCombobox.addItem("Vehicle", "00.00")
     
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]

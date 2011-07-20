@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Wed Jul 20 15:07:39 2011
+# Created: Wed Jul 20 16:34:38 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,11 +38,6 @@ class Ui_vehicleDialog(object):
         self.typeCombobox.setMinimumSize(QtCore.QSize(161, 25))
         self.typeCombobox.setMaximumSize(QtCore.QSize(161, 25))
         self.typeCombobox.setObjectName(_fromUtf8("typeCombobox"))
-        self.typeCombobox.addItem(_fromUtf8(""))
-        self.typeCombobox.addItem(_fromUtf8(""))
-        self.typeCombobox.addItem(_fromUtf8(""))
-        self.typeCombobox.addItem(_fromUtf8(""))
-        self.typeCombobox.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.typeCombobox, 0, 1, 1, 3)
         self.makeLabel = QtGui.QLabel(vehicleDialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
@@ -233,11 +228,6 @@ class Ui_vehicleDialog(object):
     def retranslateUi(self, vehicleDialog):
         vehicleDialog.setWindowTitle(QtGui.QApplication.translate("vehicleDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.typeLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Type", None, QtGui.QApplication.UnicodeUTF8))
-        self.typeCombobox.setItemText(0, QtGui.QApplication.translate("vehicleDialog", "Banger", None, QtGui.QApplication.UnicodeUTF8))
-        self.typeCombobox.setItemText(1, QtGui.QApplication.translate("vehicleDialog", "Bike", None, QtGui.QApplication.UnicodeUTF8))
-        self.typeCombobox.setItemText(2, QtGui.QApplication.translate("vehicleDialog", "Car", None, QtGui.QApplication.UnicodeUTF8))
-        self.typeCombobox.setItemText(3, QtGui.QApplication.translate("vehicleDialog", "Shell", None, QtGui.QApplication.UnicodeUTF8))
-        self.typeCombobox.setItemText(4, QtGui.QApplication.translate("vehicleDialog", "Van", None, QtGui.QApplication.UnicodeUTF8))
         self.makeLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Make", None, QtGui.QApplication.UnicodeUTF8))
         self.makeLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.makeLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
