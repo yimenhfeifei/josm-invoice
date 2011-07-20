@@ -5,6 +5,7 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import new_ticket_dialog_generated
+    from vehicle_dialog import VehicleDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -26,9 +27,6 @@ class NewTicketDialog(QDialog,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit,
                               self.payloadTableWidget)
-                              #self.grossWeightLineEdit,
-                              #self.tareWeightLineEdit,
-                              #self.netWeightLineEdit)
         
         self.populateMaterialCombobox()
         
@@ -42,6 +40,13 @@ class NewTicketDialog(QDialog,
         self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
                      self.deletePayload)
         
+        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(QString)"),
+                     self.onMaterialComboboxChange)
+        
+    def onMaterialComboboxChange(self, selection):
+        if selection == "Vehicle":
+            pass
+        
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
                 self.materialCombobox.currentText(),
@@ -52,6 +57,7 @@ class NewTicketDialog(QDialog,
         
         for column, string in enumerate(self.collectPayload()):
             item = QTableWidgetItem(string)
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
             
@@ -66,7 +72,8 @@ class NewTicketDialog(QDialog,
         self.update()
         
     def populateMaterialCombobox(self):
-        self.materialCombobox.addItems(["Copper", "Gold", "Iron"])
+        self.materialCombobox.addItems(["Copper", "Gold", "Iron",
+                                        "Lead", "Vehicle"])
     
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]
