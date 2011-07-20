@@ -1,5 +1,6 @@
 try:
     import sys
+    import decimal
     from decimal import Decimal
     
     from PyQt4.QtCore import *
@@ -25,11 +26,7 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         super(PayloadValueLineEdit, self).validate()
         
     @pyqtSlot()
-    def onMaterialChanged(self, value):
-        self.materialValue = Decimal(value)
-        
-    @pyqtSlot()
-    def onCalculatePayloadValue(self, net):
+    def onCalculatePayloadValue(self, net, price):
         net = Decimal(net)
-        self.setText(str(net * self.materialValue))
+        self.setText(str(net * Decimal(price)))
         super(PayloadValueLineEdit, self).validate()

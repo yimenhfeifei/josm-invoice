@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Wed Jul 20 16:34:37 2011
+# Created: Wed Jul 20 21:05:45 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -260,7 +260,7 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.tareWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
         QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), newTicketDialog.update)
-        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculatePayloadValue(QString)")), self.payloadValueLineEdit.onCalculatePayloadValue)
+        QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("calculatePayloadValue(QString,QString)")), self.payloadValueLineEdit.onCalculatePayloadValue)
         QtCore.QObject.connect(self.netWeightLineEdit, QtCore.SIGNAL(_fromUtf8("clearPayloadValue()")), self.payloadValueLineEdit.onClearPayloadValue)
         QtCore.QObject.connect(self.manualPriceCheckbox, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.payloadValueLineEdit.setReadOnlyInverted)
         QtCore.QObject.connect(self.payloadValueLineEdit, QtCore.SIGNAL(_fromUtf8("textEdited(QString)")), self.payloadValueLineEdit.onTextEdited)
@@ -269,10 +269,9 @@ class Ui_newTicketDialog(object):
         QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), self.payloadTableWidget.onChange)
         QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("calculateTotalValue(PyQt_PyObject)")), self.totalValueLineEdit.onCalculateTotalValue)
         QtCore.QObject.connect(self.payloadTableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), newTicketDialog.update)
-        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), self.netWeightLineEdit.onMaterialComboboxChange)
-        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), self.materialCombobox.onIndexChange)
         QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), newTicketDialog.update)
-        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("materialChanged(QString)")), self.payloadValueLineEdit.onMaterialChanged)
+        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("materialChanged(QString)")), self.netWeightLineEdit.onMaterialChanged)
+        QtCore.QObject.connect(self.materialCombobox, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), self.materialCombobox.onIndexChange)
         QtCore.QMetaObject.connectSlotsByName(newTicketDialog)
 
     def retranslateUi(self, newTicketDialog):

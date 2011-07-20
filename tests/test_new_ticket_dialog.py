@@ -963,13 +963,14 @@ class TestNewTicketDialogUsage(unittest.TestCase):
         QTest.keyClicks(self.gui.tareWeightLineEdit, "1554.00")
         
         self.assertEquals(self.gui.netWeightLineEdit.text(), "946.00")
+        self.gui.addPayload()
         self.assertTrue(self.gui.reviewTicketButton.isEnabled())
         
         QTest.keyClicks(self.gui.tareWeightLineEdit, "1")
         
         self.assertFalse(self.gui.tareWeightLineEdit.getValidatedStatus())
         self.assertFalse(self.gui.netWeightLineEdit.getValidatedStatus())
-        self.assertFalse(self.gui.reviewTicketButton.isEnabled())
+        self.assertTrue(self.gui.reviewTicketButton.isEnabled())
     
     def tearDown(self):
         self.gui.deleteLater()

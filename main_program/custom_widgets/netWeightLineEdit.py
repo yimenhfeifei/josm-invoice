@@ -14,7 +14,7 @@ class NetWeightLineEdit(ValidatingLineEdit):
     
     enableGrossWeight = pyqtSignal()
     disableGrossWeight = pyqtSignal()
-    calculatePayloadValue = pyqtSignal(str)
+    calculatePayloadValue = pyqtSignal(str, str)
     clearPayloadValue = pyqtSignal()
     
     def __init__(self, parent=None):
@@ -52,7 +52,7 @@ class NetWeightLineEdit(ValidatingLineEdit):
         
     @pyqtSlot()
     def onValid(self):
-        self.calculatePayloadValue.emit(self.text())
+        self.calculatePayloadValue.emit(self.text(), self.materialValue)
         super(NetWeightLineEdit, self).onValid()
     
     @pyqtSlot()
@@ -62,4 +62,9 @@ class NetWeightLineEdit(ValidatingLineEdit):
     
     @pyqtSlot()
     def onMaterialComboboxChange(self):
+        super(NetWeightLineEdit, self).validate()
+        
+    @pyqtSlot()
+    def onMaterialChanged(self, value):
+        self.materialValue = value
         super(NetWeightLineEdit, self).validate()

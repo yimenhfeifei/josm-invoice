@@ -31,16 +31,9 @@ class TestVehicleDialogGui(unittest.TestCase):
         
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
-    
-    def testColourLineEditTextEntry(self):
-        testWidget = self.widget.colourLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
         
     def testRegistrationLineEditTextEntry(self):
-        testWidget = self.widget.registrationLineEdit
+        testWidget = self.widget.vehicleRegistrationLineEdit
         testWidget.clear()
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
