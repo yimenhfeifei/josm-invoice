@@ -444,7 +444,7 @@
         <string notr="true">QLineEdit {background-color: red;}</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Catalytic</string>
+        <string>Value</string>
        </property>
       </widget>
      </item>

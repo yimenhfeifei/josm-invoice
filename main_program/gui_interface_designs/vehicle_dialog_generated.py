@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Wed Jul 20 21:05:45 2011
+# Created: Thu Jul 21 11:23:00 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -259,7 +259,7 @@ class Ui_vehicleDialog(object):
         self.catalyticCheckbox.setText(QtGui.QApplication.translate("vehicleDialog", "Catalytic Converter", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Custom Line Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.catalyticLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Catalytic", None, QtGui.QApplication.UnicodeUTF8))
+        self.catalyticLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Value", None, QtGui.QApplication.UnicodeUTF8))
         self.idLabel.setText(QtGui.QApplication.translate("vehicleDialog", "ID", None, QtGui.QApplication.UnicodeUTF8))
         self.idCombobox.setItemText(0, QtGui.QApplication.translate("vehicleDialog", "Checked", None, QtGui.QApplication.UnicodeUTF8))
         self.idCombobox.setItemText(1, QtGui.QApplication.translate("vehicleDialog", "Known", None, QtGui.QApplication.UnicodeUTF8))

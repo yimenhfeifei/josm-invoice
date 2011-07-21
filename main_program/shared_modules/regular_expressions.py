@@ -25,6 +25,4 @@ regexObjects = {"Name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "Model": re.compile(r"^(|[a-z0-9\s]{1,30})$", re.I),
                 
-                "Vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I),
-                
-                "Catalytic": re.compile(r"^[0-9]{1,5}\.[0-9]{1,2}$")}
+                "Vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I)}

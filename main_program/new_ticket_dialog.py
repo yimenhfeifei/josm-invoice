@@ -48,10 +48,13 @@ class NewTicketDialog(QDialog,
         if selection == "Vehicle":
             vehicleDialog = VehicleDialog()
             if vehicleDialog.exec_():
-                i = vehicleDialog.typeCombobox.currentIndex()
-                print(vehicleDialog.typeCombobox.currentText(),
-                      vehicleDialog.typeCombobox.itemData(i))
-        
+                typeComboboxIndex = vehicleDialog.typeCombobox.currentIndex()
+                typePrice = vehicleDialog.typeCombobox.itemData(typeComboboxIndex)
+                
+                materialComboboxIndex = self.materialCombobox.findText("Vehicle")
+                self.materialCombobox.setItemData(materialComboboxIndex, typePrice)
+                self.materialCombobox.onIndexChange()
+                
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
                 self.materialCombobox.currentText(),
