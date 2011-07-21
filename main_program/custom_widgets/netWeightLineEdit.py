@@ -46,8 +46,8 @@ class NetWeightLineEdit(ValidatingLineEdit):
         
     @pyqtSlot()
     def onCalculateNetWeight(self, gross, tare):
-        net = str(Decimal(gross) - Decimal(tare))
-        self.setText(net)
+        netWeight = "{:.2f}".format(Decimal(gross) - Decimal(tare))
+        self.setText(netWeight)
         super(NetWeightLineEdit, self).validate()
         
     @pyqtSlot()

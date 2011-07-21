@@ -29,3 +29,4 @@ if __name__ == "__main__":
     mainWindow = MainClientWindow()
     mainWindow.show()
     application.exec_()
+    

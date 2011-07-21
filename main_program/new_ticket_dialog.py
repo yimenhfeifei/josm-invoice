@@ -1,5 +1,6 @@
 try:
     import sys
+    from decimal import Decimal
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -60,6 +61,8 @@ class NewTicketDialog(QDialog,
         self.payloadTableWidget.setCurrentToEmptyRow()
         
         for column, string in enumerate(self.collectPayload()):
+            if column == self.payloadTableWidget.columnCount() - 1 or column == 0:
+                string = "{:.2f}".format(Decimal(string))
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             row = self.payloadTableWidget.currentRow()

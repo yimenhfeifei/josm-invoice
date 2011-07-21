@@ -26,7 +26,9 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         super(PayloadValueLineEdit, self).validate()
         
     @pyqtSlot()
-    def onCalculatePayloadValue(self, net, price):
-        net = Decimal(net)
-        self.setText(str(net * Decimal(price)))
+    def onCalculatePayloadValue(self, netWeight, pricePerUnit):
+        netWeight = Decimal(netWeight)
+        pricePerUnit = Decimal(pricePerUnit)
+        payloadValue = netWeight * pricePerUnit
+        self.setText("{:.2f}".format(payloadValue))
         super(PayloadValueLineEdit, self).validate()
