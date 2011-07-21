@@ -18,4 +18,5 @@ class TotalValueLineEdit(ValidatingLineEdit):
     @pyqtSlot()
     def onCalculateTotalValue(self, values):
         total = sum([Decimal(value) for value in values])
-        self.setText(str(total))
+        total = Decimal(total).to_integral()
+        self.setText("{:.2f}".format(total))
