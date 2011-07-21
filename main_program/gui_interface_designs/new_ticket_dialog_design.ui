@@ -638,6 +638,9 @@
           <property name="whatsThis">
            <string>The analog clock widget displays the current time.</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
        </layout>

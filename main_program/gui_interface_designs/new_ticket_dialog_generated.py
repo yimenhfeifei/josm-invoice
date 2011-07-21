@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_dialog_design.ui'
 #
-# Created: Thu Jul 21 11:22:59 2011
+# Created: Thu Jul 21 14:48:29 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -201,6 +201,7 @@ class Ui_newTicketDialog(object):
         self.totalValueLineEdit = TotalValueLineEdit(self.layoutWidget2)
         self.totalValueLineEdit.setMinimumSize(QtCore.QSize(101, 25))
         self.totalValueLineEdit.setMaximumSize(QtCore.QSize(101, 25))
+        self.totalValueLineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.totalValueLineEdit.setObjectName(_fromUtf8("totalValueLineEdit"))
         self.gridLayout_3.addWidget(self.totalValueLineEdit, 0, 2, 1, 1)
         self.gridLayout_4.addLayout(self.gridLayout_3, 1, 0, 1, 1)

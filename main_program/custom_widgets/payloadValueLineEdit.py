@@ -15,6 +15,8 @@ class PayloadValueLineEdit(ValidatingLineEdit):
     
     def __init__(self, parent=None):
         super(PayloadValueLineEdit, self).__init__(parent)
+        
+        self.catalyticValue = Decimal("00.00")
     
     @pyqtSlot()
     def onTextEdited(self):
@@ -26,9 +28,15 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         super(PayloadValueLineEdit, self).validate()
         
     @pyqtSlot()
+    def onAddCatalyticValue(self, value):
+        self.catalyticValue = Decimal(value)
+        
+    @pyqtSlot()
     def onCalculatePayloadValue(self, netWeight, pricePerUnit):
         netWeight = Decimal(netWeight)
         pricePerUnit = Decimal(pricePerUnit)
         payloadValue = netWeight * pricePerUnit
+        payloadValue = payloadValue + self.catalyticValue
         self.setText("{:.2f}".format(payloadValue))
+        self.catalyticValue = Decimal("00.00")
         super(PayloadValueLineEdit, self).validate()

@@ -51,6 +51,10 @@ class NewTicketDialog(QDialog,
                 typeComboboxIndex = vehicleDialog.typeCombobox.currentIndex()
                 typePrice = vehicleDialog.typeCombobox.itemData(typeComboboxIndex)
                 
+                if vehicleDialog.catalyticCheckbox.isChecked():
+                    self.payloadValueLineEdit.onAddCatalyticValue(
+                        vehicleDialog.catalyticLineEdit.text())
+                
                 materialComboboxIndex = self.materialCombobox.findText("Vehicle")
                 self.materialCombobox.setItemData(materialComboboxIndex, typePrice)
                 self.materialCombobox.onIndexChange()
