@@ -52,7 +52,8 @@ class NewTicketDialog(QDialog,
                      self.onPayloadTableDoubleClicked)
         
     def onPayloadTableDoubleClicked(self, row, column):
-        if column == 1:
+        materialColumn = 1
+        if column == materialColumn:
             item = self.payloadTableWidget.item(row, column)
             if id(item) in self.vehicles:
                 vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
