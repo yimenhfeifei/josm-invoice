@@ -30,6 +30,18 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         self.typeCombobox.addItem("Shell", "0.50")
         self.typeCombobox.addItem("Van", "1.60")
         
+    def getDialogResult(self):
+        return {"TypeText": self.typeCombobox.currentText(),
+        "TypeValue": self.typeCombobox.itemData(self.typeCombobox.currentIndex()),
+        "Make": self.makeLineEdit.text(),
+        "Model": self.modelLineEdit.text(),
+        "Colour": self.colourCombobox.currentText(),
+        "Registration": self.vehicleRegistrationLineEdit.text(),
+        "Vin": self.vinLineEdit.text(),
+        "CatalyticCheckbox": self.catalyticCheckbox.isChecked(),
+        "CatalyticValue": self.catalyticLineEdit.text(),
+        "Id": self.idCombobox.currentText()}
+        
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]
     

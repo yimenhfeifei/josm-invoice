@@ -29,6 +29,7 @@ class NewTicketDialog(QDialog,
                               self.vehicleRegistrationLineEdit,
                               self.payloadTableWidget)
         
+        self.vehicleDialogResult = None
         self.populateMaterialCombobox()
         
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
@@ -48,16 +49,17 @@ class NewTicketDialog(QDialog,
         if selection == "Vehicle":
             vehicleDialog = VehicleDialog()
             if vehicleDialog.exec_():
-                typeComboboxIndex = vehicleDialog.typeCombobox.currentIndex()
-                typePrice = vehicleDialog.typeCombobox.itemData(typeComboboxIndex)
+                self.vehicleDialogResult = vehicleDialog.getDialogResult()
                 
-                if vehicleDialog.catalyticCheckbox.isChecked():
-                    self.payloadValueLineEdit.onAddCatalyticValue(
-                        vehicleDialog.catalyticLineEdit.text())
+            materialComboboxIndex = self.materialCombobox.findText("Vehicle")
+            self.materialCombobox.setItemData(materialComboboxIndex,
+                                              self.vehicleDialogResult["TypeValue"])
+            
+            if self.vehicleDialogResult["CatalyticCheckbox"]:
+                self.payloadValueLineEdit.onAddCatalyticValue(
+                    self.vehicleDialogResult["CatalyticValue"])
                 
-                materialComboboxIndex = self.materialCombobox.findText("Vehicle")
-                self.materialCombobox.setItemData(materialComboboxIndex, typePrice)
-                self.materialCombobox.onIndexChange()
+            self.materialCombobox.onIndexChange()
                 
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
