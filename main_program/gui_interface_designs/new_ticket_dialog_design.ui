@@ -88,7 +88,10 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer first name.</string>
+        </property>
+        <property name="statusTip">
+         <string>Status test</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -123,7 +126,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer last name.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -158,7 +161,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer house number.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -193,7 +196,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer address street.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -228,7 +231,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer address town.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -263,7 +266,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer address postcode.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -298,7 +301,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Customer's vehicle registration number.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -346,7 +349,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Enter tare weight here. Fraction must be .5 or .0.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -384,7 +387,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Enter gross weight. Fraction must be .5 or .0.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -432,7 +435,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Enter net weight here. Fraction must be .5 or .0.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -448,7 +451,7 @@
       <item row="2" column="2">
        <widget class="MaterialCombobox" name="materialCombobox">
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Select material type. Vehicle entry opens new dialog.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -470,7 +473,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom Line Edit</string>
+         <string>Total value for this payload in GBP.</string>
         </property>
         <property name="whatsThis">
          <string>The analog clock widget displays the current time.</string>
@@ -490,6 +493,9 @@
           <width>91</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Check to allow manual entry of price.</string>
         </property>
         <property name="text">
          <string>Manual price</string>
@@ -549,7 +555,8 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Custom TableWidget</string>
+         <string>Double-click blue vehicle text to view/edit vehicle details.
+Select any row with left-click and click 'Delete payload' to remove.</string>
         </property>
         <property name="whatsThis">
          <string>Extra functions for paylod widget.</string>
@@ -633,13 +640,16 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>Custom Line Edit</string>
+           <string>Total to pay customer in GBP.</string>
           </property>
           <property name="whatsThis">
            <string>The analog clock widget displays the current time.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -877,12 +887,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>
@@ -893,12 +903,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>
@@ -909,12 +919,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>
@@ -925,12 +935,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>
@@ -941,12 +951,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>
@@ -957,12 +967,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
    </hints>
   </connection>
@@ -973,12 +983,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -989,12 +999,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -1005,12 +1015,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
    </hints>
   </connection>
@@ -1021,12 +1031,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -1037,12 +1047,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -1053,12 +1063,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
    </hints>
   </connection>
@@ -1069,12 +1079,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
    </hints>
   </connection>
@@ -1085,12 +1095,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
    </hints>
   </connection>
@@ -1101,12 +1111,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
    </hints>
   </connection>
@@ -1117,12 +1127,12 @@
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
    </hints>
   </connection>
@@ -1133,12 +1143,12 @@
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
    </hints>
   </connection>
@@ -1149,12 +1159,12 @@
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
    </hints>
   </connection>
@@ -1373,8 +1383,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>91</y>
     </hint>
     <hint type="destinationlabel">
      <x>233</x>
@@ -1389,8 +1399,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>64</y>
+     <x>227</x>
+     <y>117</y>
     </hint>
     <hint type="destinationlabel">
      <x>380</x>
@@ -1405,8 +1415,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>64</y>
+     <x>309</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>382</x>
@@ -1421,8 +1431,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>64</y>
+     <x>277</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>382</x>
@@ -1437,8 +1447,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
      <x>383</x>
@@ -1453,8 +1463,8 @@
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>64</y>
+     <x>247</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>379</x>
