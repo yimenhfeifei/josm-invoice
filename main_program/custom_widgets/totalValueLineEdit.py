@@ -1,5 +1,6 @@
 try:
     import sys
+    import decimal
     from decimal import Decimal
     
     from PyQt4.QtCore import *
@@ -17,6 +18,7 @@ class TotalValueLineEdit(ValidatingLineEdit):
         
     @pyqtSlot()
     def onCalculateTotalValue(self, values):
+        decimal.getcontext().rounding = decimal.ROUND_HALF_UP
         total = sum([Decimal(value) for value in values])
         total = Decimal(total).to_integral()
         self.setText("{:.2f}".format(total))

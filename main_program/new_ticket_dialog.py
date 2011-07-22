@@ -31,6 +31,8 @@ class NewTicketDialog(QDialog,
         
         self.vehicleDialogResult = None
         
+        self.vehicles = {}
+        
         self.populateMaterialCombobox()
         
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
@@ -45,6 +47,17 @@ class NewTicketDialog(QDialog,
         
         self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.onMaterialComboboxChange)
+        
+        self.connect(self.payloadTableWidget, SIGNAL("cellDoubleClicked(int, int)"),
+                     self.onPayloadTableDoubleClicked)
+        
+    def onPayloadTableDoubleClicked(self, row, column):
+        if column == 1:
+            item = self.payloadTableWidget.item(row, column)
+            if id(item) in self.vehicles:
+                vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
+                if vehicleDialog.exec_():
+                    self.vehicles[id(item)] = vehicleDialog.getDialogResult()
         
     def processVehicleDialog(self, vehicleDialog):
         if vehicleDialog.exec_():
@@ -79,10 +92,21 @@ class NewTicketDialog(QDialog,
         for column, string in enumerate(self.collectPayload()):
             if column == self.payloadTableWidget.columnCount() - 1 or column == 0:
                 string = "{:.2f}".format(Decimal(string))
+                
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            
+            if column == 1 and self.vehicleDialogResult:
+                self.vehicles[id(item)] = self.vehicleDialogResult.copy()
+                item.setText(self.vehicleDialogResult["TypeText"])
+                item.setTextColor(Qt.blue)
+                item.setFont(QFont("Monospace", weight=QFont.Bold))
+                self.vehicleDialogResult = None
+            
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
+            
+        print(self.vehicles)
             
     def deletePayload(self):
         table = self.payloadTableWidget
@@ -90,6 +114,11 @@ class NewTicketDialog(QDialog,
         table.setItem(table.currentRow(),
                       self.payloadTableWidget.columnCount() - 1,
                       QTableWidgetItem("00.00"))
+        
+        try:
+            del self.vehicles[id(table.item(table.currentRow(), 1))]
+        except KeyError:
+            pass
         
         table.removeRow(table.currentRow())
         self.update()
