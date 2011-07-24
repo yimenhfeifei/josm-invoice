@@ -14,6 +14,8 @@ class PayloadTableWidget(QTableWidget):
     
     def __init__(self, parent=None):
         super(PayloadTableWidget, self).__init__(parent)
+        self.setSelectionBehavior(QTableWidget.SelectRows)
+        self.setSelectionMode(QTableWidget.SingleSelection)
         
     @pyqtSlot()
     def onChange(self, cellRow, cellColumn):

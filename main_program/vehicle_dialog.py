@@ -16,6 +16,8 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         super(VehicleDialog, self).__init__(parent)
         self.setupUi(self)
         
+        self.setWindowTitle("New Vehicle Details")
+        
         self.dialogWidgets = (self.makeLineEdit,
                               self.modelLineEdit,
                               self.vehicleRegistrationLineEdit,
@@ -25,6 +27,8 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         self.populateTypeCombobox()
         
         if vehicle:
+            self.setWindowTitle("Edit Vehicle Details")
+            
             self.typeCombobox.setCurrentIndex(vehicle["TypeIndex"])
             self.typeCombobox.setItemData(self.typeCombobox.currentIndex(),
                                           Decimal(vehicle["TypeValue"]))

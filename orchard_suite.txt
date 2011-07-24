@@ -1,9 +1,9 @@
+Tooltips
+New registration and vin regexs.
 Use private variable naming scheme.
 Interface tweaks.
 Statusbar messages.
 Explanations for invalid inputs.
-Pass dictionary to vehicle dialog.
-New registration and vin regexs.
 New ticket needs to connect to server to populate materials list
 and to fetch the price.
 

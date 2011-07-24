@@ -64,6 +64,9 @@
          <height>25</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>Select vehicle type.</string>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -112,7 +115,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Custom Line Edit</string>
+        <string>Enter vehicle make.</string>
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
@@ -171,7 +174,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Custom Line Edit</string>
+        <string>Enter vehicle model.</string>
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
@@ -225,6 +228,9 @@
          <width>121</width>
          <height>25</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Select vehicle colour.</string>
        </property>
        <item>
         <property name="text">
@@ -329,7 +335,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Custom Line Edit</string>
+        <string>Enter valid UK vehicle registration number.</string>
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
@@ -376,7 +382,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Custom Line Edit</string>
+        <string>Enter valid VIN number.</string>
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
@@ -405,6 +411,9 @@
          <width>141</width>
          <height>17</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Enables entry of catalytic converter price.</string>
        </property>
        <property name="text">
         <string>Catalytic Converter</string>
@@ -435,7 +444,7 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Custom Line Edit</string>
+        <string>Enter price for catalytic converter.</string>
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
@@ -487,6 +496,9 @@
          <height>25</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>Select ID status.</string>
+       </property>
        <item>
         <property name="text">
          <string>Checked</string>
@@ -513,6 +525,9 @@
          <height>26</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>Closes dialog and forgets changes.</string>
+       </property>
        <property name="text">
         <string>Reject</string>
        </property>
@@ -534,6 +549,9 @@
          <width>80</width>
          <height>26</height>
         </size>
+       </property>
+       <property name="toolTip">
+        <string>Closes dialog and saves changes.</string>
        </property>
        <property name="text">
         <string>Accept</string>

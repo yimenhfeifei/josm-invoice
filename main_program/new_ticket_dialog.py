@@ -20,6 +20,8 @@ class NewTicketDialog(QDialog,
         super(NewTicketDialog, self).__init__(parent)
         self.setupUi(self)
         
+        self.setWindowTitle("New Ticket Details")
+        
         self.dialogWidgets = (self.firstNameLineEdit,
                               self.lastNameLineEdit,
                               self.houseNumberLineEdit,
@@ -53,12 +55,11 @@ class NewTicketDialog(QDialog,
         
     def onPayloadTableDoubleClicked(self, row, column):
         materialColumn = 1
-        if column == materialColumn:
-            item = self.payloadTableWidget.item(row, column)
-            if id(item) in self.vehicles:
-                vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
-                if vehicleDialog.exec_():
-                    self.vehicles[id(item)] = vehicleDialog.getDialogResult()
+        item = self.payloadTableWidget.item(row, materialColumn)
+        if id(item) in self.vehicles:
+            vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
+            if vehicleDialog.exec_():
+                self.vehicles[id(item)] = vehicleDialog.getDialogResult()
         
     def processVehicleDialog(self, vehicleDialog):
         if vehicleDialog.exec_():
