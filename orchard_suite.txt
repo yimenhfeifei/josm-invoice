@@ -1,9 +1,12 @@
 Tooltips
-New registration and vin regexs.
+New registration and vin regexs. Strict checking option to switch between regexes?
 Use private variable naming scheme.
 Interface tweaks.
 Statusbar messages.
 Explanations for invalid inputs.
+Security.
+Dynamic finding of all verifyable widgets.
+HTML for invoice review.
 New ticket needs to connect to server to populate materials list
 and to fetch the price.
 

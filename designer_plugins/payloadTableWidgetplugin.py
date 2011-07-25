@@ -49,11 +49,10 @@ class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='PayloadTableWidget' name=\'payloadTableWidget\'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom TableWidget</string>\n"
+               "  <string>Double click vehicle row to see details.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Extra functions "
-               "for paylod widget.</string>\n"
+               "  <string>Custom tablewidget.</string>\n"
                " </property>\n"
                "</widget>\n")
                

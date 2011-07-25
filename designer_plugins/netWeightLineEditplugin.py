@@ -49,11 +49,10 @@ class NetWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='NetWeightLineEdit' name=\'netWeightLineEdit\'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Enter net weight.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Allows entry of net weight.</string>\n"
                " </property>\n"
                "</widget>\n")
                

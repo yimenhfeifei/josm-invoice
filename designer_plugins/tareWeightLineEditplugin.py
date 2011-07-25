@@ -49,11 +49,10 @@ class TareWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='TareWeightLineEdit' name='tareWeightLineEdit'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Enter vehicle tare weight.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Validates vehicle tare weight.</string>\n"
                " </property>\n"
                "</widget>\n")
                

@@ -49,11 +49,10 @@ class TotalValueLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='TotalValueLineEdit' name=\'totalValueLineEdit\'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Total to pay for all payloads in GBP.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Calculates total value.</string>\n"
                " </property>\n"
                "</widget>\n")
                

@@ -50,11 +50,10 @@ class ValidatingLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='ValidatingLineEdit' name='validatingLineEdit'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Line edit that provides custom validation.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Base widget for custom validation.</string>\n"
                " </property>\n"
                "</widget>\n")
                

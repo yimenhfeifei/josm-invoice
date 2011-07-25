@@ -49,11 +49,10 @@ class PayloadValueLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='PayloadValueLineEdit' name=\'payloadValueLineEdit\'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Total value of payload in GBP.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Validates payload value.</string>\n"
                " </property>\n"
                "</widget>\n")
                

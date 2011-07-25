@@ -50,11 +50,10 @@ class GrossWeightLineEditPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='GrossWeightLineEdit' name='grossWeightLineEdit'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Enter gross weight.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Validating line edit for vehicle gross weight.</string>\n"
                " </property>\n"
                "</widget>\n")
                

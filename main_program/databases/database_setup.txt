@@ -6,6 +6,6 @@ create table tickets (number int(12) unsigned zerofill, doa date, toa time, name
 
 create table payloads (number int(12) unsigned zerofill, material varchar(100), weight decimal(16,2), value decimal(16,2));
 
-create table cars (number int(12) unsigned zerofill, make varchar(100), model varchar(100), colour varchar(100), registration varchar(12), cat_value decimal(16,2));
+create table vehicles(number int(12) unsigned zerofill, make varchar(100), model varchar(100), colour varchar(100), registration varchar(12), cat_value decimal(16,2));
 
 create table materials (material varchar(100), pricePerUnit decimal(16,2), ferrous bool);

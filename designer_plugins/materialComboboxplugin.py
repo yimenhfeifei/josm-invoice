@@ -49,11 +49,10 @@ class MaterialComboboxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='MaterialCombobox' name='materialCombobox'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom Line Edit</string>\n"
+               "  <string>Select material.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>The analog clock widget displays "
-               "the current time.</string>\n"
+               "  <string>Allows selecting of material.</string>\n"
                " </property>\n"
                "</widget>\n")
                
