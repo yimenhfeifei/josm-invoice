@@ -1,13 +1,13 @@
 try:
     import sys
     
-    from customer import Customer
-    from payload import Payload
+    from shared_modules.customer import Customer
+    from shared_modules.payload import Payload
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class Ticket(onject):
+class Ticket(object):
     def __init__(self, ticket):
         self.number = ticket["number"]
         self.hashId = ""
