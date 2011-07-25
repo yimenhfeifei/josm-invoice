@@ -5,6 +5,8 @@ except ImportError as err:
     raise SystemExit(err)
 
 class Payload(object):
-    def __init__(self):
-        self.payloads = []
-        self.vehicles = []
+    def __init__(self, payload, vehicle):
+        self.weight = payload["weight"]
+        self.material = payload["material"]
+        self.value = payload["value"]
+        self.vehicle = vehicle

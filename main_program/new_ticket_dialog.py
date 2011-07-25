@@ -7,6 +7,7 @@ try:
     
     from gui_interface_designs import new_ticket_dialog_generated
     from vehicle_dialog import VehicleDialog
+    from shared_modules.ticket import Ticket
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -46,6 +47,9 @@ class NewTicketDialog(QDialog,
         
         self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
                      self.deletePayload)
+
+        self.connect(self.reviewTicketButton, SIGNAL("clicked()"),
+                     self.reviewTicket)
         
         self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.onMaterialComboboxChange)
@@ -152,6 +156,9 @@ class NewTicketDialog(QDialog,
             self.addPayloadButton.setEnabled(True)
         else:
             self.addPayloadButton.setEnabled(False)
+            
+    def reviewTicket(self):
+        pass
         
     def update(self):
         self.updateReviewTicketButton()
