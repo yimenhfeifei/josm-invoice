@@ -14,3 +14,13 @@ class Vehicle(object):
         self.vin = vehicle["vin"]
         self.catalyticBoolean = vehicle["catBool"]
         self.catalyticValue = vehicle["catValue"]
+
+    def getVehicle(self):
+        return {"type": self.vehicleType,
+                "make": self.make,
+                "model": self.model,
+                "colour": self.colour,
+                "registration": self.registration,
+                "vin": self.vin,
+                "catBool": self.catalyticBoolean,
+                "catValue": self.catalyticValue}

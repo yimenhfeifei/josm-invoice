@@ -24,15 +24,45 @@ class Ticket(object):
             self.payloads = payload
             
         self.generateHashId()
-    
-    def generateHashId(self):
-        hasher = hashlib.md5()
         
+    def getTicket(self):
+        return {"number": self.number,
+                "hashId": self.hashId,
+                "date": self.date,
+                "time": self.time,
+                "totalValue": self.totalValue}
+    
+    def getCustomer(self):
+        return {"firstName": self.customer.firstName,
+                "lastName": self.customer.lastName,
+                "houseNumber": self.customer.houseNumber,
+                "street": self.customer.street,
+                "town": self.customer.town,
+                "postcode": self.customer.postcode,
+                "registration": self.customer.vehicleRegistration}
+    
+    def getPayloads(self):
+        collectedPayloads = {}
+        for number, payload in enumerate(self.payloads):
+            currentPayload = {}
+            currentPayload["weight"] = payload.weight
+            currentPayload["material"] = payload.material
+            currentPayload["value"] = payload.value
+            
+            if payload.vehicle:
+                currentPayload["vehicle"] = payload.vehicle.getVehicle()
+                
+            collectedPayloads["payload {}".format(number)] = currentPayload
+        
+        return collectedPayloads
+    
+    def hashTicket(self, hasher):
         hasher.update(bytes(self.number, "UTF-8"))
         hasher.update(bytes(self.date, "UTF-8"))
         hasher.update(bytes(self.time, "UTF-8"))
         hasher.update(bytes(self.totalValue, "UTF-8"))
         
+    def hashCustomer(self, hasher):
         hasher.update(bytes(self.customer.firstName, "UTF-8"))
         hasher.update(bytes(self.customer.lastName, "UTF-8"))
         hasher.update(bytes(self.customer.houseNumber, "UTF-8"))
@@ -41,6 +71,7 @@ class Ticket(object):
         hasher.update(bytes(self.customer.postcode, "UTF-8"))
         hasher.update(bytes(self.customer.vehicleRegistration, "UTF-8"))
         
+    def hashPayloads(self, hasher):
         for payload in self.payloads:
             hasher.update(bytes(payload.weight, "UTF-8"))
             hasher.update(bytes(payload.material, "UTF-8"))
@@ -54,8 +85,14 @@ class Ticket(object):
                 hasher.update(bytes(payload.vehicle.vin, "UTF-8"))
                 hasher.update(bytes(payload.vehicle.catalyticBoolean, "UTF-8"))
                 hasher.update(bytes(payload.vehicle.catalyticValue, "UTF-8"))
+    
+    def generateHashId(self):
+        hasher = hashlib.md5()
+        
+        self.hashTicket(hasher)
+        
+        self.hashCustomer(hasher)
+        
+        self.hashPayloads(hasher)
                 
         self.hashId = hasher.hexdigest()
-
-    def addPayload(self, payload):
-        self.payloads.append(payload)
