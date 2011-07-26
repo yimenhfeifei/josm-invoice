@@ -2,6 +2,10 @@ try:
     import unittest
     import sys
     
+    from shared_modules.ticket import Ticket
+    from shared_modules.customer import Customer
+    from shared_modules.payload import Payload
+    from shared_modules.vehicle import Vehicle
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -9,26 +13,60 @@ except ImportError as err:
 class TestTicketHash(unittest.TestCase):
     
     def setUp(self):
-        t1 = Ticket()
-        t2 = Ticket()
+        self.customer = {"firstName": "John",
+         "lastName": "Orchard",
+         "houseNumber": "54",
+         "street": "Bark",
+         "town": "Truro",
+         "postcode": "Tr679h",
+         "registration": "HU8JJUG"}
         
-        t1.setNumber("12000")
-        t1.setDate("13/10/2011")
-        t1.setTime("13:34")
+        self.vehicle = {"type": "Car",
+                   "make": "BMW",
+                   "model": "Fast One",
+                   "colour": "Black",
+                   "registration": "GDHy487",
+                   "vin": "8742942952528795",
+                   "catBool": "False",
+                   "catValue": "00.00"}
         
-        t1.customer.setFirstName("John")
-        t1.customer.setLastName("Orchard")
-        t1.customer.setHouseNumber("678")
-        t1.customer.setStreet("Way")
-        t1.customer.setTown("Truro")
-        t1.customer.setPostcode("Tr678J")
-        t1.customer.setRegistration("YT78JNK")
+        self.payload = {"weight": "1650",
+         "material": "Car",
+         "value": "155.00"}
         
-        t1.payload.addPayload()
+        self.ticket = {"number": "12000",
+                  "hashID": "",
+                  "date": "24/08/2011",
+                  "time": "13:56",
+                  "totalValue": "155.00"}
+        
+        self.ticket2 = {"number": "12000",
+                        "hashID": "",
+                        "date": "24/08/2011",
+                        "time": "13:57",
+                        "totalValue": "155.00"}
+        
+        self.CustomerObject = Customer(self.customer)
+        self.payloadObject = Payload(self.payload, Vehicle(self.vehicle))
     
-    def testSetData(self):
-        """"""
-        pass
+    def testCollision(self):
+        """Two identical tickets must produce hash collision."""
+        self.t1 = Ticket(self.ticket, self.CustomerObject, self.payloadObject)
+        self.t2 = Ticket(self.ticket, self.CustomerObject, self.payloadObject)
+        
+        self.assertEqual(self.t1.hashId, self.t2.hashId)
 
+    def testNoCollision(self):
+        """Two different tickets must not produce hash collision."""
+        self.t1 = Ticket(self.ticket2, self.CustomerObject, self.payloadObject)
+        
+        self.t2 = Ticket(self.ticket, self.CustomerObject, self.payloadObject)
+        
+        self.assertNotEqual(self.t1.hashId, self.t2.hashId)
+    
     def tearDown(self):
-        pass
+        self.t1 = None
+        self.t2 = None
+
+if __name__ == "__main__":
+    unittest.main()

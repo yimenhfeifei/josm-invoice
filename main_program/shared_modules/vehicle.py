@@ -12,5 +12,5 @@ class Vehicle(object):
         self.colour = vehicle["colour"]
         self.registration = vehicle["registration"]
         self.vin = vehicle["vin"]
-        self.catalyticConverterBoolean = vehicle["catBool"]
-        self.catalyticConverterValue = vehicle["catValue"]
+        self.catalyticBoolean = vehicle["catBool"]
+        self.catalyticValue = vehicle["catValue"]
