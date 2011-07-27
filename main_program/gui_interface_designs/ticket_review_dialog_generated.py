@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_review_dialog_design.ui'
 #
-# Created: Wed Jul 27 10:06:38 2011
+# Created: Wed Jul 27 16:49:00 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -82,40 +82,52 @@ class Ui_ticketReviewDialog(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout = QtGui.QVBoxLayout(self.groupBox)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.formLayout = QtGui.QFormLayout()
-        self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        self.gridLayout = QtGui.QGridLayout()
+        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.label_8 = QtGui.QLabel(self.groupBox)
         self.label_8.setObjectName(_fromUtf8("label_8"))
-        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_8)
-        self.label_9 = QtGui.QLabel(self.groupBox)
+        self.gridLayout.addWidget(self.label_8, 0, 0, 1, 1)
+        self.nameLabel = QtGui.QLabel(self.groupBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_9.sizePolicy().hasHeightForWidth())
-        self.label_9.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.nameLabel.sizePolicy().hasHeightForWidth())
+        self.nameLabel.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setWeight(75)
         font.setBold(True)
-        self.label_9.setFont(font)
-        self.label_9.setStyleSheet(_fromUtf8(""))
-        self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.label_9)
+        self.nameLabel.setFont(font)
+        self.nameLabel.setStyleSheet(_fromUtf8(""))
+        self.nameLabel.setObjectName(_fromUtf8("nameLabel"))
+        self.gridLayout.addWidget(self.nameLabel, 0, 1, 1, 1)
         self.label_11 = QtGui.QLabel(self.groupBox)
         self.label_11.setObjectName(_fromUtf8("label_11"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_11)
-        self.label_18 = QtGui.QLabel(self.groupBox)
-        self.label_18.setObjectName(_fromUtf8("label_18"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.label_18)
+        self.gridLayout.addWidget(self.label_11, 1, 0, 1, 1)
+        self.addressLabel = QtGui.QLabel(self.groupBox)
+        self.addressLabel.setObjectName(_fromUtf8("addressLabel"))
+        self.gridLayout.addWidget(self.addressLabel, 1, 1, 1, 1)
+        self.label_9 = QtGui.QLabel(self.groupBox)
+        self.label_9.setObjectName(_fromUtf8("label_9"))
+        self.gridLayout.addWidget(self.label_9, 2, 0, 1, 1)
+        self.postcodeLabel = QtGui.QLabel(self.groupBox)
+        self.postcodeLabel.setObjectName(_fromUtf8("postcodeLabel"))
+        self.gridLayout.addWidget(self.postcodeLabel, 2, 1, 1, 1)
         self.label_15 = QtGui.QLabel(self.groupBox)
         self.label_15.setObjectName(_fromUtf8("label_15"))
-        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_15)
-        self.label_20 = QtGui.QLabel(self.groupBox)
-        self.label_20.setObjectName(_fromUtf8("label_20"))
-        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.label_20)
-        self.verticalLayout.addLayout(self.formLayout)
+        self.gridLayout.addWidget(self.label_15, 3, 0, 1, 1)
+        self.vehicleRegistrationLabel = QtGui.QLabel(self.groupBox)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.vehicleRegistrationLabel.sizePolicy().hasHeightForWidth())
+        self.vehicleRegistrationLabel.setSizePolicy(sizePolicy)
+        self.vehicleRegistrationLabel.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.vehicleRegistrationLabel.setObjectName(_fromUtf8("vehicleRegistrationLabel"))
+        self.gridLayout.addWidget(self.vehicleRegistrationLabel, 3, 1, 1, 1)
+        self.verticalLayout.addLayout(self.gridLayout)
         self.horizontalLayout.addWidget(self.groupBox)
-        spacerItem3 = QtGui.QSpacerItem(198, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        spacerItem3 = QtGui.QSpacerItem(138, 142, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
         self.groupBox_2 = QtGui.QGroupBox(ticketReviewDialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
@@ -131,24 +143,24 @@ class Ui_ticketReviewDialog(object):
         self.label = QtGui.QLabel(self.groupBox_2)
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
-        self.label_21 = QtGui.QLabel(self.groupBox_2)
-        self.label_21.setObjectName(_fromUtf8("label_21"))
-        self.gridLayout_2.addWidget(self.label_21, 0, 1, 1, 1)
-        self.label_22 = QtGui.QLabel(self.groupBox_2)
-        self.label_22.setObjectName(_fromUtf8("label_22"))
-        self.gridLayout_2.addWidget(self.label_22, 1, 1, 1, 1)
+        self.numberLabel = QtGui.QLabel(self.groupBox_2)
+        self.numberLabel.setObjectName(_fromUtf8("numberLabel"))
+        self.gridLayout_2.addWidget(self.numberLabel, 0, 1, 1, 1)
+        self.hashIdLabel = QtGui.QLabel(self.groupBox_2)
+        self.hashIdLabel.setObjectName(_fromUtf8("hashIdLabel"))
+        self.gridLayout_2.addWidget(self.hashIdLabel, 1, 1, 1, 1)
         self.label_2 = QtGui.QLabel(self.groupBox_2)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.gridLayout_2.addWidget(self.label_2, 2, 0, 1, 1)
-        self.label_23 = QtGui.QLabel(self.groupBox_2)
-        self.label_23.setObjectName(_fromUtf8("label_23"))
-        self.gridLayout_2.addWidget(self.label_23, 2, 1, 1, 1)
+        self.dateLabel = QtGui.QLabel(self.groupBox_2)
+        self.dateLabel.setObjectName(_fromUtf8("dateLabel"))
+        self.gridLayout_2.addWidget(self.dateLabel, 2, 1, 1, 1)
         self.label_4 = QtGui.QLabel(self.groupBox_2)
         self.label_4.setObjectName(_fromUtf8("label_4"))
         self.gridLayout_2.addWidget(self.label_4, 3, 0, 1, 1)
-        self.label_24 = QtGui.QLabel(self.groupBox_2)
-        self.label_24.setObjectName(_fromUtf8("label_24"))
-        self.gridLayout_2.addWidget(self.label_24, 3, 1, 1, 1)
+        self.timeLabel = QtGui.QLabel(self.groupBox_2)
+        self.timeLabel.setObjectName(_fromUtf8("timeLabel"))
+        self.gridLayout_2.addWidget(self.timeLabel, 3, 1, 1, 1)
         self.label_3 = QtGui.QLabel(self.groupBox_2)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.gridLayout_2.addWidget(self.label_3, 1, 0, 1, 1)
@@ -236,40 +248,53 @@ class Ui_ticketReviewDialog(object):
         self.label_30.setText(QtGui.QApplication.translate("ticketReviewDialog", "VAT Reg. Number: 1319249 76", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("ticketReviewDialog", "Customer Details", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("ticketReviewDialog", "Name: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_9.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.nameLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:11pt; font-weight:600; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#000000;\">John Orchard</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; color:#000000;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_11.setText(QtGui.QApplication.translate("ticketReviewDialog", "Address: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_18.setText(QtGui.QApplication.translate("ticketReviewDialog", "67, Mayfair Lane, Truro,\n"
-"TR5 YUJ", None, QtGui.QApplication.UnicodeUTF8))
+        self.addressLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("ticketReviewDialog", "Postcode:", None, QtGui.QApplication.UnicodeUTF8))
+        self.postcodeLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("ticketReviewDialog", "Vehicle reg.: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_20.setText(QtGui.QApplication.translate("ticketReviewDialog", "T54HNJ", None, QtGui.QApplication.UnicodeUTF8))
+        self.vehicleRegistrationLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("ticketReviewDialog", "Ticket Details", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("ticketReviewDialog", "Number: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_21.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.numberLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">12000</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_22.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.hashIdLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("ticketReviewDialog", "Date: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_23.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.dateLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">28/07/2011</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("ticketReviewDialog", "Time: ", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_24.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.timeLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">15:45</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("ticketReviewDialog", "ID: ", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

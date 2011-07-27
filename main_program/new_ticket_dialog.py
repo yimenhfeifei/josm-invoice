@@ -7,6 +7,7 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import new_ticket_dialog_generated
+    from ticket_review_dialog import TicketReviewDialog
     from vehicle_dialog import VehicleDialog
     from shared_modules.ticket import Ticket
     from shared_modules.customer import Customer
@@ -215,13 +216,8 @@ class NewTicketDialog(QDialog,
         return Ticket(ticket, customerObject, payloadObjects)
     
     def reviewTicket(self):
-        print(self.getTicketFields())
-        print(self.getCustomerFields())
-        print(self.getPayloadFields())
-        t = self.makeTicket()
-        print(t.getTicket(),
-              t.getCustomer(),
-              t.getPayload())
+        ticket = self.makeTicket()
+        TicketReviewDialog(ticket).exec_()
         
     def update(self):
         self.updateReviewTicketButton()

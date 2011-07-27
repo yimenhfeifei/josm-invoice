@@ -96,4 +96,4 @@ class Ticket(object):
         
         self.hashPayloads(hasher)
                 
-        self.hashId = hasher.hexdigest()
+        self.hashId = hasher.hexdigest().upper()

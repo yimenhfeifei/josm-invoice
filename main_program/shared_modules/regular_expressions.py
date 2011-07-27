@@ -25,4 +25,6 @@ regexObjects = {"Name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "Model": re.compile(r"^(|[a-z0-9\s]{1,30})$", re.I),
                 
-                "Vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I)}
+                "Vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I),
+                
+                "SpanTagContents": re.compile(r"([^>]*)(?=</span>)")}
