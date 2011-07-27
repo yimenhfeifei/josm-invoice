@@ -1,6 +1,7 @@
 try:
     import sys
     from decimal import Decimal
+    from datetime import datetime
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -8,6 +9,9 @@ try:
     from gui_interface_designs import new_ticket_dialog_generated
     from vehicle_dialog import VehicleDialog
     from shared_modules.ticket import Ticket
+    from shared_modules.customer import Customer
+    from shared_modules.payload import Payload
+    from shared_modules.vehicle import Vehicle
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -20,7 +24,6 @@ class NewTicketDialog(QDialog,
     def __init__(self, parent=None):
         super(NewTicketDialog, self).__init__(parent)
         self.setupUi(self)
-        
         self.setWindowTitle("New Ticket Details")
         
         self.dialogWidgets = (self.firstNameLineEdit,
@@ -58,24 +61,24 @@ class NewTicketDialog(QDialog,
                      self.onPayloadTableDoubleClicked)
         
     def onPayloadTableDoubleClicked(self, row, column):
-        materialColumn = 1
+        materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
         if id(item) in self.vehicles:
             vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
             if vehicleDialog.exec_():
-                self.vehicles[id(item)] = vehicleDialog.getDialogResult()
+                self.vehicles[id(item)] = vehicleDialog.getFields()
         
     def processVehicleDialog(self, vehicleDialog):
         if vehicleDialog.exec_():
-            self.vehicleDialogResult = vehicleDialog.getDialogResult()
+            self.vehicleDialogResult = vehicleDialog.getFields()
             
             materialComboboxIndex = self.materialCombobox.findText("Vehicle")
             self.materialCombobox.setItemData(materialComboboxIndex,
-                                              self.vehicleDialogResult["TypeValue"])
+                                              self.vehicleDialogResult["typeValue"])
         
-            if self.vehicleDialogResult["CatalyticCheckbox"]:
+            if self.vehicleDialogResult["catalyticCheckbox"]:
                 self.payloadValueLineEdit.onAddCatalyticValue(
-                    self.vehicleDialogResult["CatalyticValue"])
+                    self.vehicleDialogResult["catalyticValue"])
         else:
             self.vehicleDialogResult = None
 
@@ -104,15 +107,13 @@ class NewTicketDialog(QDialog,
             
             if column == 1 and self.vehicleDialogResult:
                 self.vehicles[id(item)] = self.vehicleDialogResult.copy()
-                item.setText(self.vehicleDialogResult["TypeText"])
+                item.setText(self.vehicleDialogResult["typeText"])
                 item.setTextColor(Qt.blue)
                 item.setFont(QFont("Monospace", weight=QFont.Bold))
                 self.vehicleDialogResult = None
             
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
-            
-        print(self.vehicles)
             
     def deletePayload(self):
         table = self.payloadTableWidget
@@ -157,8 +158,70 @@ class NewTicketDialog(QDialog,
         else:
             self.addPayloadButton.setEnabled(False)
             
+    def getNewTicketNumber(self):
+        return "12000"
+    
+    def getTicketFields(self):
+        return {"number": self.getNewTicketNumber(),
+                "date": datetime.now().strftime("%Y/%m/%d"),
+                "time": datetime.now().strftime("%H:%M"),
+                "totalValue": self.totalValueLineEdit.text()}
+    
+    def getCustomerFields(self):
+        return {"firstName": self.firstNameLineEdit.text(),
+                "lastName": self.lastNameLineEdit.text(),
+                "houseNumber": self.houseNumberLineEdit.text(),
+                "street": self.streetLineEdit.text(),
+                "town": self.townLineEdit.text(),
+                "postcode": self.postcodeLineEdit.text(),
+                "registration": self.vehicleRegistrationLineEdit.text()}
+    
+    def getPayloadFields(self):
+        payloads = {}
+        table = self.payloadTableWidget
+        
+        for row in range(table.rowCount()):
+            fields = []
+            for column in range(table.columnCount()):
+                fields.append(table.item(row, column).text())
+                
+            materialItem = table.item(row, table.getMaterialColumn())
+            try:
+                fields.append(self.vehicles[id(materialItem)])
+            except KeyError:
+                fields.append(None)
+                
+            payloads["payload {}".format(row)] = {"weight": fields[0],
+                                                  "material": fields[1],
+                                                  "value": fields[2],
+                                                  "vehicle": fields[3]}
+        return payloads
+    
+    def makeTicket(self):
+        ticket = self.getTicketFields()
+        customer = self.getCustomerFields()
+        payloads = self.getPayloadFields()
+        
+        customerObject = Customer(customer)
+        
+        payloadObjects = []
+        for payload in payloads.values():
+            if payload["vehicle"]:
+                vehicle = Vehicle(payload["vehicle"])
+            else:
+                vehicle = None
+            payloadObjects.append(Payload(payload, vehicle))
+        
+        return Ticket(ticket, customerObject, payloadObjects)
+    
     def reviewTicket(self):
-        pass
+        print(self.getTicketFields())
+        print(self.getCustomerFields())
+        print(self.getPayloadFields())
+        t = self.makeTicket()
+        print(t.getTicket(),
+              t.getCustomer(),
+              t.getPayload())
         
     def update(self):
         self.updateReviewTicketButton()

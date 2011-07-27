@@ -41,7 +41,7 @@ class Ticket(object):
                 "postcode": self.customer.postcode,
                 "registration": self.customer.vehicleRegistration}
     
-    def getPayloads(self):
+    def getPayload(self):
         collectedPayloads = {}
         for number, payload in enumerate(self.payloads):
             currentPayload = {}
@@ -83,8 +83,9 @@ class Ticket(object):
                 hasher.update(bytes(payload.vehicle.colour, "UTF-8"))
                 hasher.update(bytes(payload.vehicle.registration, "UTF-8"))
                 hasher.update(bytes(payload.vehicle.vin, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.catalyticBoolean, "UTF-8"))
+                hasher.update(bytes(payload.vehicle.catalyticCheckbox, "UTF-8"))
                 hasher.update(bytes(payload.vehicle.catalyticValue, "UTF-8"))
+                hasher.update(bytes(payload.vehicle.Id, "UTF-8"))
     
     def generateHashId(self):
         hasher = hashlib.md5()

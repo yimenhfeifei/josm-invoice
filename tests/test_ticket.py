@@ -21,14 +21,15 @@ class TestTicketHash(unittest.TestCase):
          "postcode": "Tr679h",
          "registration": "HU8JJUG"}
         
-        self.vehicle = {"type": "Car",
+        self.vehicle = {"typeText": "Car",
                    "make": "BMW",
                    "model": "Fast One",
                    "colour": "Black",
                    "registration": "GDHy487",
                    "vin": "8742942952528795",
-                   "catBool": "False",
-                   "catValue": "00.00"}
+                   "catalyticCheckbox": "False",
+                   "catalyticValue": "00.00",
+                   "id": "Checked"}
         
         self.payload = {"weight": "1650",
          "material": "Car",

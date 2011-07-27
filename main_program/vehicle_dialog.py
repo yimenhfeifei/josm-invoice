@@ -29,17 +29,17 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         if vehicle:
             self.setWindowTitle("Edit Vehicle Details")
             
-            self.typeCombobox.setCurrentIndex(vehicle["TypeIndex"])
+            self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])
             self.typeCombobox.setItemData(self.typeCombobox.currentIndex(),
-                                          Decimal(vehicle["TypeValue"]))
-            self.makeLineEdit.setText(vehicle["Make"])
-            self.modelLineEdit.setText(vehicle["Model"])
-            self.colourCombobox.setCurrentIndex(vehicle["ColourIndex"])
-            self.vehicleRegistrationLineEdit.setText(vehicle["Registration"])
-            self.vinLineEdit.setText(vehicle["Vin"])
-            self.catalyticCheckbox.setChecked(vehicle["CatalyticCheckbox"])
-            self.catalyticLineEdit.setText(vehicle["CatalyticValue"])
-            self.idCombobox.setCurrentIndex(vehicle["IdIndex"])
+                                          Decimal(vehicle["typeValue"]))
+            self.makeLineEdit.setText(vehicle["make"])
+            self.modelLineEdit.setText(vehicle["model"])
+            self.colourCombobox.setCurrentIndex(vehicle["colourIndex"])
+            self.vehicleRegistrationLineEdit.setText(vehicle["registration"])
+            self.vinLineEdit.setText(vehicle["vin"])
+            self.catalyticCheckbox.setChecked(vehicle["catalyticCheckbox"])
+            self.catalyticLineEdit.setText(vehicle["catalyticValue"])
+            self.idCombobox.setCurrentIndex(vehicle["idIndex"])
             
             self.typeCombobox.setEnabled(False)
             self.catalyticLineEdit.setReadOnly(True)
@@ -56,20 +56,20 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         self.typeCombobox.addItem("Shell", "0.50")
         self.typeCombobox.addItem("Van", "1.60")
         
-    def getDialogResult(self):
-        return {"TypeText": self.typeCombobox.currentText(),
-        "TypeValue": self.typeCombobox.itemData(self.typeCombobox.currentIndex()),
-        "TypeIndex": self.typeCombobox.currentIndex(),
-        "Make": self.makeLineEdit.text(),
-        "Model": self.modelLineEdit.text(),
-        "Colour": self.colourCombobox.currentText(),
-        "ColourIndex": self.colourCombobox.currentIndex(),
-        "Registration": self.vehicleRegistrationLineEdit.text(),
-        "Vin": self.vinLineEdit.text(),
-        "CatalyticCheckbox": self.catalyticCheckbox.isChecked(),
-        "CatalyticValue": self.catalyticLineEdit.text(),
-        "Id": self.idCombobox.currentText(),
-        "IdIndex": self.idCombobox.currentIndex()}
+    def getFields(self):
+        return {"typeText": self.typeCombobox.currentText(),
+        "typeValue": self.typeCombobox.itemData(self.typeCombobox.currentIndex()),
+        "typeIndex": self.typeCombobox.currentIndex(),
+        "make": self.makeLineEdit.text(),
+        "model": self.modelLineEdit.text(),
+        "colour": self.colourCombobox.currentText(),
+        "colourIndex": self.colourCombobox.currentIndex(),
+        "registration": self.vehicleRegistrationLineEdit.text(),
+        "vin": self.vinLineEdit.text(),
+        "catalyticCheckbox": self.catalyticCheckbox.isChecked(),
+        "catalyticValue": self.catalyticLineEdit.text(),
+        "id": self.idCombobox.currentText(),
+        "idIndex": self.idCombobox.currentIndex()}
         
     def getActiveWidgets(self):
         return [widget for widget in self.dialogWidgets if widget.isEnabled()]

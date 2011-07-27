@@ -6,14 +6,15 @@ except ImportError as err:
 
 class Vehicle(object):
     def __init__(self, vehicle):
-        self.vehicleType = vehicle["type"]
+        self.vehicleType = vehicle["typeText"]
         self.make = vehicle["make"]
         self.model = vehicle["model"]
         self.colour = vehicle["colour"]
         self.registration = vehicle["registration"]
         self.vin = vehicle["vin"]
-        self.catalyticBoolean = vehicle["catBool"]
-        self.catalyticValue = vehicle["catValue"]
+        self.catalyticCheckbox = vehicle["catalyticCheckbox"]
+        self.catalyticValue = vehicle["catalyticValue"]
+        self.Id = vehicle["id"]
 
     def getVehicle(self):
         return {"type": self.vehicleType,
@@ -22,5 +23,6 @@ class Vehicle(object):
                 "colour": self.colour,
                 "registration": self.registration,
                 "vin": self.vin,
-                "catBool": self.catalyticBoolean,
-                "catValue": self.catalyticValue}
+                "catalyticCheckbox": self.catalyticCheckbox,
+                "catalyticValue": self.catalyticValue,
+                "id": self.Id}

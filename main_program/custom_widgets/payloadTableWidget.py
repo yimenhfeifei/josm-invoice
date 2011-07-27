@@ -17,6 +17,11 @@ class PayloadTableWidget(QTableWidget):
         self.setSelectionBehavior(QTableWidget.SelectRows)
         self.setSelectionMode(QTableWidget.SingleSelection)
         
+        self.materialColumn = 1
+        
+    def getMaterialColumn(self):
+        return self.materialColumn
+        
     @pyqtSlot()
     def onChange(self, cellRow, cellColumn):
         if cellColumn == (self.columnCount() - 1):
