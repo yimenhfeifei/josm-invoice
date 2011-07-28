@@ -59,7 +59,24 @@ class TicketReviewDialog(QDialog,
                                         self.vehicleRegistrationLabel.text()))
         
         self.addPayloads()
-        self.addTotalValue()
+        self.addTotal()
+        
+        printer = QPrinter(QPrinter.HighResolution)
+        printDialog = QPrintDialog(printer)
+        printDialog.exec_()
+        
+        #self.render(printer)
+        
+        window = QPixmap.grabWidget(self, self.rect())
+        
+        window = window.scaled(printer.pageRect().width(),
+                               printer.pageRect().height(),
+                               Qt.KeepAspectRatio)
+        
+        painter = QPainter()
+        painter.begin(printer)
+        painter.drawPixmap(0, 0, window)
+        painter.end()
         
     def buildName(self):
         return " ".join([self.customer["firstName"],
@@ -70,26 +87,29 @@ class TicketReviewDialog(QDialog,
                          self.customer["street"],
                          self.customer["town"]])
     
-    def addTotalValue(self):
-        total = QLabel(re.sub(self.spanTagContents,
-                              "Total:",
-                              self.numberLabel.text()))
+    
+    def addTotal(self):
+        totalRow = self.payloadLayout.rowCount()
+        self.addTotalLabel(totalRow)
+        self.addTotalValue(totalRow)
         
-        total.setAlignment(Qt.AlignHCenter)
-        
-        self.payloadLayout.addWidget(total,
-                                     self.payloadLayout.rowCount(),
-                                     2)
-        
+    def addTotalValue(self, totalRow):
         totalValue = QLabel(re.sub(self.spanTagContents,
                                    self.ticket["totalValue"],
                                    self.numberLabel.text()))
         
         totalValue.setAlignment(Qt.AlignHCenter)
         
-        self.payloadLayout.addWidget(totalValue,
-                                     self.payloadLayout.rowCount()-1,
-                                     3)
+        self.payloadLayout.addWidget(totalValue, totalRow, 3)
+        
+    def addTotalLabel(self, totalRow):
+        totalLabel = QLabel(re.sub(self.spanTagContents,
+                              "Total:",
+                              self.numberLabel.text()))
+        
+        totalLabel.setAlignment(Qt.AlignHCenter)
+        
+        self.payloadLayout.addWidget(totalLabel, totalRow, 2)
     
     def addPayloads(self):
         for row in range(len(self.payload.keys())):
