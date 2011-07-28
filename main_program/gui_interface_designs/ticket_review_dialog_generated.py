@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_review_dialog_design.ui'
 #
-# Created: Wed Jul 27 16:49:00 2011
+# Created: Thu Jul 28 10:56:26 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_ticketReviewDialog(object):
     def setupUi(self, ticketReviewDialog):
         ticketReviewDialog.setObjectName(_fromUtf8("ticketReviewDialog"))
-        ticketReviewDialog.resize(857, 660)
+        ticketReviewDialog.resize(857, 710)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -167,10 +167,10 @@ class Ui_ticketReviewDialog(object):
         self.verticalLayout_3.addLayout(self.gridLayout_2)
         self.horizontalLayout.addWidget(self.groupBox_2)
         self.verticalLayout_4.addLayout(self.horizontalLayout)
-        self.horizontalLayout_3 = QtGui.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.payloadLayout = QtGui.QGridLayout()
+        self.payloadLayout.setObjectName(_fromUtf8("payloadLayout"))
         spacerItem4 = QtGui.QSpacerItem(198, 20, QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem4)
+        self.payloadLayout.addItem(spacerItem4, 0, 0, 1, 1)
         self.label_7 = QtGui.QLabel(ticketReviewDialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -180,7 +180,7 @@ class Ui_ticketReviewDialog(object):
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setMargin(0)
         self.label_7.setObjectName(_fromUtf8("label_7"))
-        self.horizontalLayout_3.addWidget(self.label_7)
+        self.payloadLayout.addWidget(self.label_7, 0, 1, 1, 1)
         self.label_10 = QtGui.QLabel(ticketReviewDialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -189,7 +189,7 @@ class Ui_ticketReviewDialog(object):
         self.label_10.setSizePolicy(sizePolicy)
         self.label_10.setAlignment(QtCore.Qt.AlignCenter)
         self.label_10.setObjectName(_fromUtf8("label_10"))
-        self.horizontalLayout_3.addWidget(self.label_10)
+        self.payloadLayout.addWidget(self.label_10, 0, 2, 1, 1)
         self.label_12 = QtGui.QLabel(ticketReviewDialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -198,10 +198,10 @@ class Ui_ticketReviewDialog(object):
         self.label_12.setSizePolicy(sizePolicy)
         self.label_12.setAlignment(QtCore.Qt.AlignCenter)
         self.label_12.setObjectName(_fromUtf8("label_12"))
-        self.horizontalLayout_3.addWidget(self.label_12)
+        self.payloadLayout.addWidget(self.label_12, 0, 3, 1, 1)
         spacerItem5 = QtGui.QSpacerItem(238, 20, QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem5)
-        self.verticalLayout_4.addLayout(self.horizontalLayout_3)
+        self.payloadLayout.addItem(spacerItem5, 0, 4, 1, 1)
+        self.verticalLayout_4.addLayout(self.payloadLayout)
         spacerItem6 = QtGui.QSpacerItem(20, 377, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_4.addItem(spacerItem6)
 

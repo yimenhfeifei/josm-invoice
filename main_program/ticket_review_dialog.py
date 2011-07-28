@@ -19,46 +19,87 @@ class TicketReviewDialog(QDialog,
         super(TicketReviewDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Review Ticket")
+       
+        self.ticket = ticket.getTicket()
+        self.customer = ticket.getCustomer()
+        self.payload = ticket.getPayload()
         
         self.spanTagContents = regexObjects["SpanTagContents"]
         
         self.numberLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getTicket()["number"],
+                                        self.ticket["number"],
                                         self.numberLabel.text()))
         
         self.hashIdLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getTicket()["hashId"],
+                                        self.ticket["hashId"],
                                         self.hashIdLabel.text()))
         
         self.dateLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getTicket()["date"],
+                                        self.ticket["date"],
                                         self.dateLabel.text()))
         
         self.timeLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getTicket()["time"],
+                                        self.ticket["time"],
                                         self.timeLabel.text()))
         
-        firstName = ticket.getCustomer()["firstName"]
-        lastName = ticket.getCustomer()["lastName"]
-        fullName = firstName + " " + lastName
-        
         self.nameLabel.setText(re.sub(self.spanTagContents,
-                                        fullName,
+                                        self.buildName(),
                                         self.nameLabel.text()))
         
-        address = ", ".join([ticket.getCustomer()["houseNumber"],
-                            ticket.getCustomer()["street"],
-                            ticket.getCustomer()["town"]])
-        
         self.addressLabel.setText(re.sub(self.spanTagContents,
-                                        address,
+                                        self.buildAddress(),
                                         self.addressLabel.text()))
         
         self.postcodeLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getCustomer()["postcode"],
+                                        self.customer["postcode"],
                                         self.postcodeLabel.text()))
         
         self.vehicleRegistrationLabel.setText(re.sub(self.spanTagContents,
-                                        ticket.getCustomer()["registration"],
+                                        self.customer["registration"],
                                         self.vehicleRegistrationLabel.text()))
+        
+        self.addPayloads()
+        self.addTotalValue()
+        
+    def buildName(self):
+        return " ".join([self.customer["firstName"],
+                         self.customer["lastName"]])
+    
+    def buildAddress(self):
+        return ", ".join([self.customer["houseNumber"],
+                         self.customer["street"],
+                         self.customer["town"]])
+    
+    def addTotalValue(self):
+        total = QLabel(re.sub(self.spanTagContents,
+                              "Total:",
+                              self.numberLabel.text()))
+        
+        total.setAlignment(Qt.AlignHCenter)
+        
+        self.payloadLayout.addWidget(total,
+                                     self.payloadLayout.rowCount(),
+                                     2)
+        
+        totalValue = QLabel(re.sub(self.spanTagContents,
+                                   self.ticket["totalValue"],
+                                   self.numberLabel.text()))
+        
+        totalValue.setAlignment(Qt.AlignHCenter)
+        
+        self.payloadLayout.addWidget(totalValue,
+                                     self.payloadLayout.rowCount()-1,
+                                     3)
+    
+    def addPayloads(self):
+        for row in range(len(self.payload.keys())):
+            payload = "payload {}".format(row)
+            
+            payloadValues = [QLabel(self.payload[payload]["weight"]),
+                     QLabel(self.payload[payload]["material"]),
+                     QLabel(self.payload[payload]["value"])]
+            
+            for column, item in enumerate(payloadValues):
+                item.setAlignment(Qt.AlignHCenter)
+                self.payloadLayout.addWidget(item, row+1, column+1)
         
