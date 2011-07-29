@@ -14,7 +14,7 @@ regexObjects = {"Name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "Town": re.compile(r"^[a-z]{1,20}(\s[a-z]{1,20})?$", re.I),
                 
-                "Postcode": re.compile(r"^[a-z]{1,2}[0-9]{1,2}\s?[0-9][a-z][a-z]$",
+                "Postcode": re.compile(r"^[a-z]{1,2}[0-9]{1,2}\s?[0-9][a-z]{2}$",
                                        re.I),
                 
                 "VehicleRegistration": re.compile(r"^[a-z][a-z0-9]{2,7}$", re.I),
@@ -27,4 +27,7 @@ regexObjects = {"Name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "Vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I),
                 
-                "SpanTagContents": re.compile(r"([^>]*)(?=</span>)")}
+                "SpanTagContents": re.compile(r"([^>]*)(?=</span>)"),
+                
+                "Post2001Reg": re.compile(r"^[a-hj-pr-y]{2}[0-9]{2}\s?[a-z]{3}$",
+                                          re.I)}
