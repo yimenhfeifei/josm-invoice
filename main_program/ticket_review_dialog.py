@@ -62,12 +62,16 @@ class TicketReviewDialog(QDialog,
         self.addTotal()
         
         printer = QPrinter(QPrinter.HighResolution)
+        printer.setResolution(300)
         printDialog = QPrintDialog(printer)
         printDialog.exec_()
         
+        #self.setGeometry(printer.pageRect())
         #self.render(printer)
+        #try qimage etc.
         
         window = QPixmap.grabWidget(self, self.rect())
+        #window = window.toImage()
         
         window = window.scaled(printer.pageRect().width(),
                                printer.pageRect().height(),
@@ -100,7 +104,7 @@ class TicketReviewDialog(QDialog,
         
         totalValue.setAlignment(Qt.AlignHCenter)
         
-        self.payloadLayout.addWidget(totalValue, totalRow, 3)
+        self.payloadLayout.addWidget(totalValue, totalRow, 2)
         
     def addTotalLabel(self, totalRow):
         totalLabel = QLabel(re.sub(self.spanTagContents,
@@ -109,7 +113,7 @@ class TicketReviewDialog(QDialog,
         
         totalLabel.setAlignment(Qt.AlignHCenter)
         
-        self.payloadLayout.addWidget(totalLabel, totalRow, 2)
+        self.payloadLayout.addWidget(totalLabel, totalRow, 1)
     
     def addPayloads(self):
         for row in range(len(self.payload.keys())):
@@ -121,5 +125,5 @@ class TicketReviewDialog(QDialog,
             
             for column, item in enumerate(payloadValues):
                 item.setAlignment(Qt.AlignHCenter)
-                self.payloadLayout.addWidget(item, row+1, column+1)
+                self.payloadLayout.addWidget(item, row+1, column)
         
