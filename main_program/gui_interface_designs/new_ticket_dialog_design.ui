@@ -50,7 +50,7 @@
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="customerTab">
     <attribute name="title">
@@ -324,37 +324,6 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="1">
-        <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>71</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>71</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Enter tare weight here. Fraction must be .5 or .0.</string>
-         </property>
-         <property name="whatsThis">
-          <string>The analog clock widget displays the current time.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="regexString" stdset="0">
-          <string>Weight</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
@@ -400,6 +369,37 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Enter tare weight here. Fraction must be .5 or .0.</string>
+         </property>
+         <property name="whatsThis">
+          <string>The analog clock widget displays the current time.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="regexString" stdset="0">
+          <string>Weight</string>
          </property>
         </widget>
        </item>
@@ -451,7 +451,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="3" colspan="2">
+       <item row="2" column="3">
         <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
          <property name="minimumSize">
           <size>
@@ -479,7 +479,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="5">
+       <item row="2" column="4">
         <widget class="QCheckBox" name="manualPriceCheckbox">
          <property name="minimumSize">
           <size>
@@ -495,17 +495,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="deletePayloadButton">
-         <property name="text">
-          <string>Delete payload</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="5">
+       <item row="3" column="0" colspan="5">
         <widget class="QPushButton" name="addPayloadButton">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -541,7 +534,7 @@
          </property>
          <property name="toolTip">
           <string>Double-click blue vehicle text to view/edit vehicle details.
-Select any row with left-click and click 'Delete payload' to remove.</string>
+Click the red 'Delete' to remove.</string>
          </property>
          <property name="whatsThis">
           <string>Extra functions for paylod widget.</string>
@@ -704,12 +697,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>103</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -720,12 +713,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>132</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -736,12 +729,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>132</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -752,12 +745,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>132</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -768,12 +761,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onEnableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>93</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>106</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -784,12 +777,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onDisableNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>118</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>130</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -800,12 +793,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onEnableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>79</x>
-     <y>62</y>
+     <x>122</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -816,12 +809,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onDisableGrossWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>109</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -1168,12 +1161,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onEnableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1184,12 +1177,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onDisableTareWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1200,12 +1193,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>62</y>
+     <x>127</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>88</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -1216,12 +1209,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>62</y>
+     <x>120</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>81</x>
-     <y>62</y>
+     <x>124</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -1232,12 +1225,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1248,12 +1241,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1264,12 +1257,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onSendGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>78</x>
-     <y>62</y>
+     <x>121</x>
+     <y>61</y>
     </hint>
    </hints>
   </connection>
@@ -1280,12 +1273,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onGrossWeightValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1296,12 +1289,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onCalculateNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>96</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -1312,12 +1305,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
    </hints>
   </connection>
@@ -1328,12 +1321,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>78</x>
-     <y>117</y>
+     <x>121</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -1344,12 +1337,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onClearNetWeight()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
-     <x>120</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>
@@ -1472,8 +1465,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>62</y>
+     <x>131</x>
+     <y>61</y>
     </hint>
     <hint type="destinationlabel">
      <x>173</x>
@@ -1488,8 +1481,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>61</y>
+     <x>65</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
      <x>192</x>
@@ -1504,8 +1497,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>192</x>
@@ -1520,8 +1513,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>211</x>
@@ -1536,12 +1529,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onCalculatePayloadValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1552,12 +1545,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onClearPayloadValue()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>117</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1568,12 +1561,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>setReadOnlyInverted(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>432</x>
-     <y>118</y>
+     <x>431</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1584,12 +1577,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onTextEdited()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1600,12 +1593,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onValid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1616,12 +1609,12 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>onInvalid()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>120</y>
+     <x>323</x>
+     <y>113</y>
     </hint>
    </hints>
   </connection>
@@ -1652,8 +1645,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
      <y>386</y>
     </hint>
     <hint type="destinationlabel">
-     <x>337</x>
-     <y>503</y>
+     <x>397</x>
+     <y>533</y>
     </hint>
    </hints>
   </connection>
@@ -1680,8 +1673,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>237</x>
-     <y>120</y>
+     <x>236</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
@@ -1700,8 +1693,8 @@ Select any row with left-click and click 'Delete payload' to remove.</string>
      <y>105</y>
     </hint>
     <hint type="destinationlabel">
-     <x>92</x>
-     <y>111</y>
+     <x>131</x>
+     <y>110</y>
     </hint>
    </hints>
   </connection>

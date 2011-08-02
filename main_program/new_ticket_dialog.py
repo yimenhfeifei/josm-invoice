@@ -44,22 +44,28 @@ class NewTicketDialog(QDialog,
         
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
                                                            "Material",
-                                                           "Value"])
+                                                           "Value",
+                                                           "Delete"])
         
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload)
-        
-        self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
-                     self.deletePayload)
 
         self.connect(self.reviewTicketButton, SIGNAL("clicked()"),
                      self.reviewTicket)
+        
+        self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
+                     self.onCellClicked)
         
         self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.onMaterialComboboxChange)
         
         self.connect(self.payloadTableWidget, SIGNAL("cellDoubleClicked(int, int)"),
                      self.onPayloadTableDoubleClicked)
+        
+    def onCellClicked(self, row, column):
+        if column == self.payloadTableWidget.getDeleteColumn():
+            self.payloadTableWidget.selectRow(row)
+            self.deletePayload()
         
     def onPayloadTableDoubleClicked(self, row, column):
         materialColumn = self.payloadTableWidget.getMaterialColumn()
@@ -97,9 +103,13 @@ class NewTicketDialog(QDialog,
                 self.payloadValueLineEdit.text())
     
     def addDeleteButton(self, row):
-        b = QPushButton("Delete")
-        self.connect(b, SIGNAL("clicked()"), self.deletePayload)
-        self.payloadTableWidget.setCellWidget(row, 3, b)
+        deleteItem = QTableWidgetItem("Delete")
+        deleteItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        
+        deleteItem.setTextColor(Qt.red)
+        deleteItem.setFont(QFont("Monospace", weight=QFont.Bold))
+        
+        self.payloadTableWidget.setItem(row, 3, deleteItem)
         
     def formatString(self, column, string):
         weightColumn = self.payloadTableWidget.getWeightColumn()
@@ -214,6 +224,7 @@ class NewTicketDialog(QDialog,
                 fields.append(table.item(row, column).text())
                 
             materialItem = table.item(row, table.getMaterialColumn())
+            
             try:
                 fields.append(self.vehicles[id(materialItem)])
             except KeyError:
@@ -222,7 +233,7 @@ class NewTicketDialog(QDialog,
             payloads["payload {}".format(row)] = {"weight": fields[0],
                                                   "material": fields[1],
                                                   "value": fields[2],
-                                                  "vehicle": fields[3]}
+                                                  "vehicle": fields[4]}
         return payloads
     
     def makeTicket(self):

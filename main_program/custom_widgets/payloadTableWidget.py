@@ -20,6 +20,7 @@ class PayloadTableWidget(QTableWidget):
         self.weightColumn = 0
         self.materialColumn = 1
         self.valueColumn = 2
+        self.deleteColumn = 3
         
     def getWeightColumn(self):
         return self.weightColumn
@@ -29,6 +30,9 @@ class PayloadTableWidget(QTableWidget):
     
     def getValueColumn(self):
         return self.valueColumn
+    
+    def getDeleteColumn(self):
+        return self.deleteColumn
         
     @pyqtSlot()
     def onChange(self, cellRow, cellColumn):
