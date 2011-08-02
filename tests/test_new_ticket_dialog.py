@@ -566,14 +566,14 @@ class TestVehicleRegistrationValidInput(unittest.TestCase):
         self.gui = NewTicketDialog()
         self.testWidget = self.gui.vehicleRegistrationLineEdit
         
-        self.validText = ("T67",
-                          "TUI89",
-                          "P107608",
-                          "U78IU9",
-                          "R45DE6")
+        self.validText = ("TT54YUT",
+                          "TU89JKO",
+                          "PP60TER",
+                          "UO78JKL",
+                          "EW65KKL")
         
-        self.maximumLength = "Y32YU789"
-        self.minimumLength = "T68"
+        self.maximumLength = "WK00KLP"
+        self.minimumLength = "GT66TWA"
     
     def testValidText(self):
         """Valid text should appear valid and uppercase."""
@@ -957,7 +957,7 @@ class TestNewTicketDialogUsage(unittest.TestCase):
         QTest.keyClicks(self.gui.streetLineEdit, "Kensington Place")
         QTest.keyClicks(self.gui.townLineEdit, "Bath")
         QTest.keyClicks(self.gui.postcodeLineEdit, "BA1 6AW")
-        QTest.keyClicks(self.gui.vehicleRegistrationLineEdit, "G678H9")
+        QTest.keyClicks(self.gui.vehicleRegistrationLineEdit, "WK55RED")
         
         QTest.keyClicks(self.gui.grossWeightLineEdit, "2500.00")
         QTest.keyClicks(self.gui.tareWeightLineEdit, "1554.00")

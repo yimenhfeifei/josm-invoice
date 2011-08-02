@@ -344,7 +344,7 @@
         <string notr="true">QLineEdit {background-color: red;}</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>VehicleRegistration</string>
+        <string>Post2001Reg</string>
        </property>
       </widget>
      </item>

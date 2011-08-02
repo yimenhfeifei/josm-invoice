@@ -69,7 +69,6 @@ class TicketReviewDialog(QDialog,
         #self.setGeometry(printer.pageRect())
         #self.render(printer)
         #try qimage etc.
-        
         window = QPixmap.grabWidget(self, self.rect())
         #window = window.toImage()
         

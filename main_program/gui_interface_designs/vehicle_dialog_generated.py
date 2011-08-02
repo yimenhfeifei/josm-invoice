@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Fri Jul 29 14:21:59 2011
+# Created: Tue Aug  2 12:47:26 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -253,7 +253,7 @@ class Ui_vehicleDialog(object):
         self.vehicleRegistrationLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Registration", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid UK vehicle registration number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.vehicleRegistrationLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "VehicleRegistration", None, QtGui.QApplication.UnicodeUTF8))
+        self.vehicleRegistrationLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Post2001Reg", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLabel.setText(QtGui.QApplication.translate("vehicleDialog", "VIN", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid VIN number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))

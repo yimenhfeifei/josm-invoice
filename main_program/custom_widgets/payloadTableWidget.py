@@ -17,15 +17,23 @@ class PayloadTableWidget(QTableWidget):
         self.setSelectionBehavior(QTableWidget.SelectRows)
         self.setSelectionMode(QTableWidget.SingleSelection)
         
+        self.weightColumn = 0
         self.materialColumn = 1
+        self.valueColumn = 2
         
+    def getWeightColumn(self):
+        return self.weightColumn
+    
     def getMaterialColumn(self):
         return self.materialColumn
+    
+    def getValueColumn(self):
+        return self.valueColumn
         
     @pyqtSlot()
     def onChange(self, cellRow, cellColumn):
-        if cellColumn == (self.columnCount() - 1):
-            cellValues = [self.item(row, (self.columnCount() - 1)).text() 
+        if cellColumn == (self.columnCount() - 2):
+            cellValues = [self.item(row, (self.columnCount() - 2)).text() 
                       for row in range(self.rowCount())]
             self.calculateTotalValue.emit(cellValues)
         

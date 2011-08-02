@@ -95,36 +95,63 @@ class NewTicketDialog(QDialog,
         return (self.netWeightLineEdit.text(),
                 self.materialCombobox.currentText(),
                 self.payloadValueLineEdit.text())
+    
+    def addDeleteButton(self, row):
+        b = QPushButton("Delete")
+        self.connect(b, SIGNAL("clicked()"), self.deletePayload)
+        self.payloadTableWidget.setCellWidget(row, 3, b)
+        
+    def formatString(self, column, string):
+        weightColumn = self.payloadTableWidget.getWeightColumn()
+        valueColumn = self.payloadTableWidget.getValueColumn()
+        
+        if column == valueColumn or column == weightColumn:
+            return "{:.2f}".format(Decimal(string))
+        else:
+            return string
+        
+    def vehiclePresent(self, column):
+        materialColumn = self.payloadTableWidget.getMaterialColumn()
+        
+        if column == materialColumn and self.vehicleDialogResult:
+            return True
+        else:
+            return False
+        
+    def setVehicleItemFont(self, item):
+        item.setText(self.vehicleDialogResult["typeText"])
+        item.setTextColor(Qt.blue)
+        item.setFont(QFont("Monospace", weight=QFont.Bold))
 
     def addPayload(self):
         self.payloadTableWidget.setCurrentToEmptyRow()
         
         for column, string in enumerate(self.collectPayload()):
-            if column == self.payloadTableWidget.columnCount() - 1 or column == 0:
-                string = "{:.2f}".format(Decimal(string))
+            string = self.formatString(column, string)
                 
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             
-            if column == 1 and self.vehicleDialogResult:
+            if self.vehiclePresent(column):
+                self.setVehicleItemFont(item)
                 self.vehicles[id(item)] = self.vehicleDialogResult.copy()
-                item.setText(self.vehicleDialogResult["typeText"])
-                item.setTextColor(Qt.blue)
-                item.setFont(QFont("Monospace", weight=QFont.Bold))
                 self.vehicleDialogResult = None
             
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
             
+            self.addDeleteButton(row)
+            
     def deletePayload(self):
         table = self.payloadTableWidget
         
         table.setItem(table.currentRow(),
-                      self.payloadTableWidget.columnCount() - 1,
+                      self.payloadTableWidget.getValueColumn(),
                       QTableWidgetItem("00.00"))
         
         try:
-            del self.vehicles[id(table.item(table.currentRow(), 1))]
+            del self.vehicles[id(table.item(table.currentRow(),
+                                            table.getMaterialColumn()))]
         except KeyError:
             pass
         

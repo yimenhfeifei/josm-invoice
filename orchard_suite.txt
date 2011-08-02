@@ -1,5 +1,9 @@
 Tooltips
 New registration and vin regexs. Strict checking option to switch between regexes?
+Settings page access.
+Add new remove payload buttons.
+Move and clean printing code.
+Add notes section to interface for payloads.
 Use private variable naming scheme.
 Interface tweaks.
 Statusbar messages.
