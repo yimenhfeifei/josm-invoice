@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Tue Aug  2 15:13:57 2011
+# Created: Wed Aug  3 15:08:36 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -232,11 +232,11 @@ class Ui_vehicleDialog(object):
         self.makeLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Make", None, QtGui.QApplication.UnicodeUTF8))
         self.makeLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter vehicle make.", None, QtGui.QApplication.UnicodeUTF8))
         self.makeLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.makeLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Street", None, QtGui.QApplication.UnicodeUTF8))
+        self.makeLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "street", None, QtGui.QApplication.UnicodeUTF8))
         self.modelLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Model", None, QtGui.QApplication.UnicodeUTF8))
         self.modelLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter vehicle model.", None, QtGui.QApplication.UnicodeUTF8))
         self.modelLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.modelLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Model", None, QtGui.QApplication.UnicodeUTF8))
+        self.modelLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "model", None, QtGui.QApplication.UnicodeUTF8))
         self.colourLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Colour", None, QtGui.QApplication.UnicodeUTF8))
         self.colourCombobox.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Select vehicle colour.", None, QtGui.QApplication.UnicodeUTF8))
         self.colourCombobox.setItemText(0, QtGui.QApplication.translate("vehicleDialog", "Black", None, QtGui.QApplication.UnicodeUTF8))
@@ -253,16 +253,16 @@ class Ui_vehicleDialog(object):
         self.vehicleRegistrationLabel.setText(QtGui.QApplication.translate("vehicleDialog", "Registration", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid UK vehicle registration number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.vehicleRegistrationLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Post2001Reg", None, QtGui.QApplication.UnicodeUTF8))
+        self.vehicleRegistrationLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "post2001Reg", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLabel.setText(QtGui.QApplication.translate("vehicleDialog", "VIN", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid VIN number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vinLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.vinLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Vin", None, QtGui.QApplication.UnicodeUTF8))
+        self.vinLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "vin", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticCheckbox.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enables entry of catalytic converter price.", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticCheckbox.setText(QtGui.QApplication.translate("vehicleDialog", "Catalytic Converter", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticLineEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter price for catalytic converter.", None, QtGui.QApplication.UnicodeUTF8))
         self.catalyticLineEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.catalyticLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "Value", None, QtGui.QApplication.UnicodeUTF8))
+        self.catalyticLineEdit.setProperty(_fromUtf8("regexString"), QtGui.QApplication.translate("vehicleDialog", "value", None, QtGui.QApplication.UnicodeUTF8))
         self.idLabel.setText(QtGui.QApplication.translate("vehicleDialog", "ID", None, QtGui.QApplication.UnicodeUTF8))
         self.idCombobox.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Select ID status.", None, QtGui.QApplication.UnicodeUTF8))
         self.idCombobox.setItemText(0, QtGui.QApplication.translate("vehicleDialog", "Checked", None, QtGui.QApplication.UnicodeUTF8))

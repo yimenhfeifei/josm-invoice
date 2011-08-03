@@ -8,6 +8,7 @@ try:
     from gui_interface_designs import ticket_review_dialog_generated
     from shared_modules.ticket import Ticket
     from shared_modules.regular_expressions import regexObjects
+    from widgetPrinter import WidgetPrinter
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -24,7 +25,7 @@ class TicketReviewDialog(QDialog,
         self.customer = ticket.getCustomer()
         self.payload = ticket.getPayload()
         
-        self.spanTagContents = regexObjects["SpanTagContents"]
+        self.spanTagContents = regexObjects["spanTagContents"]
         
         self.numberLabel.setText(re.sub(self.spanTagContents,
                                         self.ticket["number"],
@@ -61,25 +62,8 @@ class TicketReviewDialog(QDialog,
         self.addPayloads()
         self.addTotal()
         
-        printer = QPrinter(QPrinter.HighResolution)
-        printer.setResolution(300)
-        printDialog = QPrintDialog(printer)
-        printDialog.exec_()
-        
-        #self.setGeometry(printer.pageRect())
-        #self.render(printer)
-        #try qimage etc.
-        window = QPixmap.grabWidget(self, self.rect())
-        #window = window.toImage()
-        
-        window = window.scaled(printer.pageRect().width(),
-                               printer.pageRect().height(),
-                               Qt.KeepAspectRatio)
-        
-        painter = QPainter()
-        painter.begin(printer)
-        painter.drawPixmap(0, 0, window)
-        painter.end()
+        p = WidgetPrinter(self, 300, QPrinter.HighResolution)
+        p.showPrintDialog()
         
     def buildName(self):
         return " ".join([self.customer["firstName"],

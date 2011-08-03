@@ -100,7 +100,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Name</string>
+         <string>name</string>
         </property>
        </widget>
       </item>
@@ -135,7 +135,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Name</string>
+         <string>name</string>
         </property>
        </widget>
       </item>
@@ -170,7 +170,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>HouseNumber</string>
+         <string>houseNumber</string>
         </property>
        </widget>
       </item>
@@ -205,7 +205,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Street</string>
+         <string>street</string>
         </property>
        </widget>
       </item>
@@ -240,7 +240,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Town</string>
+         <string>town</string>
         </property>
        </widget>
       </item>
@@ -275,7 +275,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Postcode</string>
+         <string>postcode</string>
         </property>
        </widget>
       </item>
@@ -310,7 +310,7 @@
          <string notr="true">QLineEdit {background-color: red;}</string>
         </property>
         <property name="regexString" stdset="0">
-         <string>Post2001Reg</string>
+         <string>post2001Reg</string>
         </property>
        </widget>
       </item>
@@ -358,7 +358,7 @@
           <string notr="true">QLineEdit {background-color: red;}</string>
          </property>
          <property name="regexString" stdset="0">
-          <string>Weight</string>
+          <string>weight</string>
          </property>
         </widget>
        </item>
@@ -399,7 +399,7 @@
           <string notr="true"/>
          </property>
          <property name="regexString" stdset="0">
-          <string>Weight</string>
+          <string>weight</string>
          </property>
         </widget>
        </item>
@@ -437,7 +437,7 @@
           <string notr="true">QLineEdit {background-color: red;}</string>
          </property>
          <property name="regexString" stdset="0">
-          <string>Weight</string>
+          <string>weight</string>
          </property>
         </widget>
        </item>
@@ -475,7 +475,7 @@
           <bool>true</bool>
          </property>
          <property name="regexString" stdset="0">
-          <string>Value</string>
+          <string>value</string>
          </property>
         </widget>
        </item>

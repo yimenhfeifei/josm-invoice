@@ -124,7 +124,7 @@
         <string notr="true">QLineEdit {background-color: red;}</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Street</string>
+        <string>street</string>
        </property>
       </widget>
      </item>
@@ -180,7 +180,7 @@
         <string>The analog clock widget displays the current time.</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Model</string>
+        <string>model</string>
        </property>
       </widget>
      </item>
@@ -344,7 +344,7 @@
         <string notr="true">QLineEdit {background-color: red;}</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Post2001Reg</string>
+        <string>post2001Reg</string>
        </property>
       </widget>
      </item>
@@ -388,7 +388,7 @@
         <string>The analog clock widget displays the current time.</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Vin</string>
+        <string>vin</string>
        </property>
       </widget>
      </item>
@@ -453,7 +453,7 @@
         <string notr="true">QLineEdit {background-color: red;}</string>
        </property>
        <property name="regexString" stdset="0">
-        <string>Value</string>
+        <string>value</string>
        </property>
       </widget>
      </item>
