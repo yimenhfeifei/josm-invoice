@@ -1,13 +1,14 @@
 Tooltips
 New registration and vin regexs. Strict checking option to switch between regexes?
 Settings page access.
+Custom reg and vin widgets.
+Add random data to hash.
+Make QR of hash.
 
 Reg:
 m180daf
 w748jae
 trn756ufj
-
-need to make get ticket return single flat dictionary.
 
 top yard prints or not?
 how to set paid status?

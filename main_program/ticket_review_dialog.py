@@ -22,8 +22,6 @@ class TicketReviewDialog(QDialog,
         self.setWindowTitle("Review Ticket")
        
         self.ticket = ticket.getTicket()
-        self.customer = ticket.getCustomer()
-        self.payload = ticket.getPayload()
         
         self.spanTagContents = regexObjects["spanTagContents"]
         
@@ -52,11 +50,11 @@ class TicketReviewDialog(QDialog,
                                         self.addressLabel.text()))
         
         self.postcodeLabel.setText(re.sub(self.spanTagContents,
-                                        self.customer["postcode"],
+                                        self.ticket["postcode"],
                                         self.postcodeLabel.text()))
         
         self.vehicleRegistrationLabel.setText(re.sub(self.spanTagContents,
-                                        self.customer["registration"],
+                                        self.ticket["registration"],
                                         self.vehicleRegistrationLabel.text()))
         
         self.addPayloads()
@@ -66,13 +64,13 @@ class TicketReviewDialog(QDialog,
         p.showPrintDialog()
         
     def buildName(self):
-        return " ".join([self.customer["firstName"],
-                         self.customer["lastName"]])
+        return " ".join([self.ticket["firstName"],
+                         self.ticket["lastName"]])
     
     def buildAddress(self):
-        return ", ".join([self.customer["houseNumber"],
-                         self.customer["street"],
-                         self.customer["town"]])
+        return ", ".join([self.ticket["houseNumber"],
+                         self.ticket["street"],
+                         self.ticket["town"]])
     
     
     def addTotal(self):
@@ -99,14 +97,14 @@ class TicketReviewDialog(QDialog,
         self.payloadLayout.addWidget(totalLabel, totalRow, 1)
     
     def addPayloads(self):
-        for row in range(len(self.payload.keys())):
-            payload = "payload {}".format(row)
-            
-            payloadValues = [QLabel(self.payload[payload]["weight"]),
-                     QLabel(self.payload[payload]["material"]),
-                     QLabel(self.payload[payload]["value"])]
-            
-            for column, item in enumerate(payloadValues):
-                item.setAlignment(Qt.AlignHCenter)
-                self.payloadLayout.addWidget(item, row+1, column)
+        for key, value in self.ticket.items():
+            match = re.search(r"[0-9]{1,3}", key, re.I)
+            if match:
+                payloadValues = [QLabel(value["weight"]),
+                                 QLabel(value["material"]),
+                                 QLabel(value["value"])]
+                
+                for column, item in enumerate(payloadValues):
+                    item.setAlignment(Qt.AlignHCenter)
+                    self.payloadLayout.addWidget(item, int(match.group(0)), column)
         
