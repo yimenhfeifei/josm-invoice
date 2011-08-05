@@ -13,7 +13,6 @@ trn756ufj
 top yard prints or not?
 how to set paid status?
 Who sets ticket paid? payer. Invoice tickets retrieval?
-Move and clean printing code.
 Add notes section to interface for payloads.
 Use private variable naming scheme.
 Interface tweaks.

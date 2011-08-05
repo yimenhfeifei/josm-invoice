@@ -36,8 +36,8 @@ class PayloadTableWidget(QTableWidget):
         
     @pyqtSlot()
     def onChange(self, cellRow, cellColumn):
-        if cellColumn == (self.columnCount() - 2):
-            cellValues = [self.item(row, (self.columnCount() - 2)).text() 
+        if cellColumn == (self.valueColumn):
+            cellValues = [self.item(row, self.valueColumn).text() 
                       for row in range(self.rowCount())]
             self.calculateTotalValue.emit(cellValues)
         

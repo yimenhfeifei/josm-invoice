@@ -929,21 +929,7 @@ class TestNewTicketDialogMaterialCombobox(unittest.TestCase):
         
     def tearDown(self):
         self.gui.deleteLater()
-        self.app.deleteLater()
-
-class TestNewTicketDialogPayloadTableWidget(unittest.TestCase):
-    def setUp(self):
-        self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
-        
-    def testSetCurrentToEmptyRow(self):
-        """Tablewidget should be able to find empty row."""
-        self.gui.payloadTableWidget.setCurrentToEmptyRow()
-        self.assertEqual(self.gui.payloadTableWidget.currentItem(), None)
-        
-    def tearDown(self):
-        self.gui.deleteLater()
-        self.app.deleteLater()    
+        self.app.deleteLater() 
 
 class TestNewTicketDialogUsage(unittest.TestCase):
     def setUp(self):
