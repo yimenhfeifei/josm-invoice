@@ -2,8 +2,8 @@ Tooltips
 New registration and vin regexs. Strict checking option to switch between regexes?
 Settings page access.
 Custom reg and vin widgets.
-Add random data to hash.
 Make QR of hash.
+Clean and extend test code.
 
 Reg:
 m180daf

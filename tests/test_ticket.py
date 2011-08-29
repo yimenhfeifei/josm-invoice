@@ -53,6 +53,7 @@ class TestTicketHash(unittest.TestCase):
     def testCollision(self):
         """Two identical tickets must produce hash collision."""
         self.t1 = Ticket(self.ticket, self.CustomerObject, self.payloadObject)
+        
         self.t2 = Ticket(self.ticket, self.CustomerObject, self.payloadObject)
         
         self.assertEqual(self.t1.hashId, self.t2.hashId)

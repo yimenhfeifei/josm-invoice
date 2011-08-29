@@ -1,6 +1,7 @@
 try:
     import sys
     import hashlib
+    from os import urandom
     
     from shared_modules.payload import Payload
     from shared_modules.byte_count_hasher import ByteCountHasher
