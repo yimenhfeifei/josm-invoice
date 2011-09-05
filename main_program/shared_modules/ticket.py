@@ -65,22 +65,6 @@ class Ticket(object):
                 self.hashAll(value, hasher)
                 continue
             hasher.update(value)
-        
-    def hashPayloads(self, hasher):
-        for payload in self.payloads:
-            hasher.update(bytes(payload.weight, "UTF-8"))
-            hasher.update(bytes(payload.material, "UTF-8"))
-            hasher.update(bytes(payload.value, "UTF-8"))
-            if payload.vehicle:
-                hasher.update(bytes(payload.vehicle.vehicleType, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.make, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.model, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.colour, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.registration, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.vin, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.catalyticCheckbox, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.catalyticValue, "UTF-8"))
-                hasher.update(bytes(payload.vehicle.Id, "UTF-8"))
     
     def generateHashId(self):
         hasher = ByteCountHasher("md5")
