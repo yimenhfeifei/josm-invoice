@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_review_dialog_design.ui'
 #
-# Created: Wed Aug  3 15:08:33 2011
+# Created: Mon Sep  5 12:00:45 2011
 #      by: PyQt4 UI code generator 4.8.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_ticketReviewDialog(object):
     def setupUi(self, ticketReviewDialog):
         ticketReviewDialog.setObjectName(_fromUtf8("ticketReviewDialog"))
-        ticketReviewDialog.resize(857, 719)
+        ticketReviewDialog.resize(857, 755)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -291,11 +291,7 @@ class Ui_ticketReviewDialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.hashIdLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.hashIdLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<img src=\"/home/john/code/orchard_suite/main_program/qrcode.png\" />", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("ticketReviewDialog", "Date: ", None, QtGui.QApplication.UnicodeUTF8))
         self.dateLabel.setText(QtGui.QApplication.translate("ticketReviewDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
