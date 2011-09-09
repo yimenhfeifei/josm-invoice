@@ -3,6 +3,8 @@ try:
     import hashlib
     from os import urandom
     
+    from shared_modules.pyqr_native import *
+    
     from shared_modules.payload import Payload
     from shared_modules.byte_count_hasher import ByteCountHasher
 except ImportError as err:
@@ -65,6 +67,18 @@ class Ticket(object):
                 self.hashAll(value, hasher)
                 continue
             hasher.update(value)
+            
+    def generateQrCode(self, version, errorLevel, width, file):
+        qr = QRCode(version, errorLevel)
+        qr.addData(self.hashId)
+        qr.make()
+        
+        qrImage = qr.makeImage()
+        
+        qrImage = qrImage.scaledToHeight(width)
+        
+        qrImage.save(file,
+                     "png", -1)
     
     def generateHashId(self):
         hasher = ByteCountHasher("md5")
@@ -72,5 +86,10 @@ class Ticket(object):
         self.hashAll(self.getTicket(), hasher)
                 
         self.hashId = hasher.hexdigest()
+        
+        self.generateQrCode(4,
+                            QRErrorCorrectLevel.H,
+                            80,
+                            "/home/john/code/orchard_suite/main_program/qrcode.png")
         
         self.size = len(bytes(self.hashId, "UTF-8")) + hasher.getNumBytesHashed()
