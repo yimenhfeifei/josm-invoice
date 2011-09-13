@@ -361,7 +361,6 @@ class QRCode:
 
         return data
 
-
 class QRMode:
     MODE_NUMBER = 1 << 0
     MODE_ALPHA_NUM = 1 << 1
@@ -958,18 +957,23 @@ class QRBitBuffer:
     def __init__(self):
         self.buffer = []
         self.length = 0
+        
     def __repr__(self):
         return ".".join([str(n) for n in self.buffer])
+    
     def get(self, index):
         bufIndex = math.floor(index / 8)
         val = ( (self.buffer[bufIndex] >> (7 - index % 8) ) & 1) == 1
         print("get ", val)
         return ( (self.buffer[bufIndex] >> (7 - index % 8) ) & 1) == 1
+    
     def put(self, num, length):
         for i in range(length):
             self.putBit( ( (num >> (length - i - 1) ) & 1) == 1)
+            
     def getLengthInBits(self):
         return self.length
+    
     def putBit(self, bit):
         bufIndex = self.length // 8
         if len(self.buffer) <= bufIndex:

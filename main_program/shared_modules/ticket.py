@@ -89,7 +89,7 @@ class Ticket(object):
         
         self.generateQrCode(4,
                             QRErrorCorrectLevel.H,
-                            80,
+                            120,
                             "/home/john/code/orchard_suite/main_program/qrcode.png")
         
         self.size = len(bytes(self.hashId, "UTF-8")) + hasher.getNumBytesHashed()

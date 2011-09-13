@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'settings_dialog_design.ui'
 #
-# Created: Fri Sep  9 12:24:57 2011
-#      by: PyQt4 UI code generator 4.8.4
+# Created: Tue Sep 13 15:08:22 2011
+#      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -18,6 +18,7 @@ class Ui_settingsDialog(object):
     def setupUi(self, settingsDialog):
         settingsDialog.setObjectName(_fromUtf8("settingsDialog"))
         settingsDialog.resize(400, 299)
+        settingsDialog.setWindowTitle(QtGui.QApplication.translate("settingsDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.settingsTabWidget = QtGui.QTabWidget(settingsDialog)
         self.settingsTabWidget.setGeometry(QtCore.QRect(20, 10, 371, 271))
         self.settingsTabWidget.setObjectName(_fromUtf8("settingsTabWidget"))
@@ -28,12 +29,15 @@ class Ui_settingsDialog(object):
         self.serverTab.setObjectName(_fromUtf8("serverTab"))
         self.addressLabel = QtGui.QLabel(self.serverTab)
         self.addressLabel.setGeometry(QtCore.QRect(40, 40, 41, 16))
+        self.addressLabel.setText(QtGui.QApplication.translate("settingsDialog", "Address", None, QtGui.QApplication.UnicodeUTF8))
         self.addressLabel.setObjectName(_fromUtf8("addressLabel"))
         self.portLabel = QtGui.QLabel(self.serverTab)
         self.portLabel.setGeometry(QtCore.QRect(40, 70, 21, 16))
+        self.portLabel.setText(QtGui.QApplication.translate("settingsDialog", "Port", None, QtGui.QApplication.UnicodeUTF8))
         self.portLabel.setObjectName(_fromUtf8("portLabel"))
         self.timeoutLabel = QtGui.QLabel(self.serverTab)
         self.timeoutLabel.setGeometry(QtCore.QRect(40, 130, 101, 16))
+        self.timeoutLabel.setText(QtGui.QApplication.translate("settingsDialog", "Connection Timeout", None, QtGui.QApplication.UnicodeUTF8))
         self.timeoutLabel.setObjectName(_fromUtf8("timeoutLabel"))
         self.addressLineEditOctet1 = QtGui.QLineEdit(self.serverTab)
         self.addressLineEditOctet1.setGeometry(QtCore.QRect(90, 40, 31, 20))
@@ -71,12 +75,14 @@ class Ui_settingsDialog(object):
         self.formLayout.setMargin(0)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.fileLabel = QtGui.QLabel(self.layoutWidget)
+        self.fileLabel.setText(QtGui.QApplication.translate("settingsDialog", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.fileLabel.setObjectName(_fromUtf8("fileLabel"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.fileLabel)
         self.fileLineEdit = QtGui.QLineEdit(self.layoutWidget)
         self.fileLineEdit.setObjectName(_fromUtf8("fileLineEdit"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.fileLineEdit)
         self.backendLabel = QtGui.QLabel(self.layoutWidget)
+        self.backendLabel.setText(QtGui.QApplication.translate("settingsDialog", "Backend", None, QtGui.QApplication.UnicodeUTF8))
         self.backendLabel.setObjectName(_fromUtf8("backendLabel"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.backendLabel)
         self.backendLineEdit = QtGui.QLineEdit(self.layoutWidget)
@@ -96,13 +102,7 @@ class Ui_settingsDialog(object):
         QtCore.QMetaObject.connectSlotsByName(settingsDialog)
 
     def retranslateUi(self, settingsDialog):
-        settingsDialog.setWindowTitle(QtGui.QApplication.translate("settingsDialog", "Dialog", None, QtGui.QApplication.UnicodeUTF8))
         self.settingsTabWidget.setTabText(self.settingsTabWidget.indexOf(self.generalTab), QtGui.QApplication.translate("settingsDialog", "General", None, QtGui.QApplication.UnicodeUTF8))
-        self.addressLabel.setText(QtGui.QApplication.translate("settingsDialog", "Address", None, QtGui.QApplication.UnicodeUTF8))
-        self.portLabel.setText(QtGui.QApplication.translate("settingsDialog", "Port", None, QtGui.QApplication.UnicodeUTF8))
-        self.timeoutLabel.setText(QtGui.QApplication.translate("settingsDialog", "Connection Timeout", None, QtGui.QApplication.UnicodeUTF8))
         self.settingsTabWidget.setTabText(self.settingsTabWidget.indexOf(self.serverTab), QtGui.QApplication.translate("settingsDialog", "Server", None, QtGui.QApplication.UnicodeUTF8))
-        self.fileLabel.setText(QtGui.QApplication.translate("settingsDialog", "File", None, QtGui.QApplication.UnicodeUTF8))
-        self.backendLabel.setText(QtGui.QApplication.translate("settingsDialog", "Backend", None, QtGui.QApplication.UnicodeUTF8))
         self.settingsTabWidget.setTabText(self.settingsTabWidget.indexOf(self.databaseTab), QtGui.QApplication.translate("settingsDialog", "Database", None, QtGui.QApplication.UnicodeUTF8))
 
