@@ -9,7 +9,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class MysqlManager(object):
+class ServerManager(object):
     def __init__(self):
         pass
     

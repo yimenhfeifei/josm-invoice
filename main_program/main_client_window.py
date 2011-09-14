@@ -11,7 +11,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-version = "0.0"
+__version__ = "0.0"
 
 class MainClientWindow(QMainWindow,
                        main_client_window_generated.Ui_mainClientWindow):
@@ -19,6 +19,7 @@ class MainClientWindow(QMainWindow,
     def __init__(self, parent=None):
         super(MainClientWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowTitle("Orchard Suite")
         
         self.connect(self.newTicketButton, SIGNAL("clicked()"),
                      self.createNewTicketDialog)
@@ -35,6 +36,10 @@ class MainClientWindow(QMainWindow,
 if __name__ == "__main__":
     application = QApplication(sys.argv)
     mainWindow = MainClientWindow()
+    application.setOrganizationName("John Orchard & Company")
+    application.setOrganizationDomain("orchard.com")
+    application.setApplicationName("Orchard Suite")
+    application.setApplicationVersion(__version__)
     mainWindow.show()
     application.exec_()
     

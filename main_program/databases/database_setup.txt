@@ -2,10 +2,10 @@ create database business;
 
 use orchard_suite;
 
-create table tickets (number int(12) unsigned zerofill, doa date, toa time, name varchar(100), houseNum varchar(100), street varchar(100), town varchar(100), postcode varchar(12), reg varchar(12), hash varchar(32), paid bool, primary key (number));
+create table tickets (number int(12) unsigned zerofill, doa date, toa time, name varchar(100), houseNum varchar(100), street varchar(100), town varchar(100), postcode varchar(12), reg varchar(12), hash varchar(32), paid bool, primary key (number, hash));
 
 create table payloads (number int(12) unsigned zerofill, material varchar(100), weight decimal(16,2), value decimal(16,2));
 
-create table vehicles(number int(12) unsigned zerofill, make varchar(100), model varchar(100), colour varchar(100), registration varchar(12), cat_value decimal(16,2));
+create table vehicles(number int(12) unsigned zerofill, make varchar(100), model varchar(100), colour varchar(100), registration varchar(12), vin varchar(27), cat_value decimal(16,2));
 
 create table materials (material varchar(100), pricePerUnit decimal(16,2), ferrous bool);
