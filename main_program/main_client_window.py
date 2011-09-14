@@ -11,6 +11,8 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
+version = "0.0"
+
 class MainClientWindow(QMainWindow,
                        main_client_window_generated.Ui_mainClientWindow):
 

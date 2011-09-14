@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'verify_ticket_dialog_design.ui'
 #
-# Created: Tue Sep 13 15:08:22 2011
+# Created: Wed Sep 14 11:26:49 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_verifyTicketDialog(object):
     def setupUi(self, verifyTicketDialog):
         verifyTicketDialog.setObjectName(_fromUtf8("verifyTicketDialog"))
-        verifyTicketDialog.resize(481, 483)
+        verifyTicketDialog.resize(486, 483)
         verifyTicketDialog.setWindowTitle(QtGui.QApplication.translate("verifyTicketDialog", "Verify Ticket", None, QtGui.QApplication.UnicodeUTF8))
         self.verticalLayout_2 = QtGui.QVBoxLayout(verifyTicketDialog)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -27,9 +27,6 @@ class Ui_verifyTicketDialog(object):
         self.scanButton.setMinimumSize(QtCore.QSize(114, 65))
         self.scanButton.setMaximumSize(QtCore.QSize(114, 65))
         self.scanButton.setText(QtGui.QApplication.translate("verifyTicketDialog", "Auto scan ticket", None, QtGui.QApplication.UnicodeUTF8))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../qrcode.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.scanButton.setIcon(icon)
         self.scanButton.setIconSize(QtCore.QSize(40, 40))
         self.scanButton.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.scanButton.setArrowType(QtCore.Qt.NoArrow)

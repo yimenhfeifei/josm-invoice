@@ -6,6 +6,7 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import verify_ticket_dialog_generated
+    from shared_modules.mysql_Manager import MysqlManager
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -17,12 +18,25 @@ class VerifyTicketDialog(QDialog,
         super(VerifyTicketDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Verify Ticket")
+        self.server = MysqlManager()
         
         self.connect(self.scanButton, SIGNAL("clicked()"),
                      self.scanQR)
+        
+        self.connect(self.submitButton, SIGNAL("clicked()"),
+                     self.submit)
     
     def scanQR(self):
         qrCode = subprocess.check_output(["zbarcam", "--raw", "-q"])
         
         self.hashIdLineEdit.setText(str(qrCode)[2:-3])
         self.submitButton.setFocus()
+        
+    def submit(self):
+        ticketHash = self.hashIdLineEdit.text()
+        if self.server.valueInDatabase("hashId", ticketHash):
+            self.server.setPaidTrue()
+        else:
+            QMessageBox.warning(self, "Attention",
+                                "Ticket {} was not found.".format(ticketHash))
+    
