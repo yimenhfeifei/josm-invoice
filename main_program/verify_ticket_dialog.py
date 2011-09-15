@@ -6,7 +6,7 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import verify_ticket_dialog_generated
-    from shared_modules.server_Manager import ServerManager
+    from shared_modules.server_manager import ServerManager
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)

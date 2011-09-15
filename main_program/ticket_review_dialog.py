@@ -60,8 +60,11 @@ class TicketReviewDialog(QDialog,
         self.addPayloads()
         self.addTotal()
         
-        p = WidgetPrinter(self, 300, QPrinter.HighResolution)
-        p.showPrintDialog()
+        self.printer = WidgetPrinter(self, 300, QPrinter.HighResolution)
+        QTimer.singleShot(0, self.submitTicket)
+        
+    def submitTicket(self):
+        self.printer.showPrintDialog()
         
     def buildName(self):
         return " ".join([self.ticket["firstName"],
@@ -71,7 +74,6 @@ class TicketReviewDialog(QDialog,
         return ", ".join([self.ticket["houseNumber"],
                          self.ticket["street"],
                          self.ticket["town"]])
-    
     
     def addTotal(self):
         totalRow = self.payloadLayout.rowCount()
