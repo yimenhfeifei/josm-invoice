@@ -32,7 +32,7 @@ class NewTicketWidget(QWidget,
                               self.streetLineEdit,
                               self.townLineEdit,
                               self.postcodeLineEdit,
-                              self.vehicleRegistrationLineEdit,
+                              self.customerRegistrationLineEdit,
                               self.payloadTableWidget)
         
         self.vehicleDialogResult = None
