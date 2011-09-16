@@ -6,6 +6,7 @@ try:
     
     from gui_interface_designs import main_client_window_generated
     from custom_widgets.newTicketWidget import NewTicketWidget
+    from custom_widgets.customerWidget import CustomerWidget
     from verify_ticket_dialog import VerifyTicketDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
@@ -22,6 +23,8 @@ class MainClientWindow(QMainWindow,
         self.setWindowTitle("Orchard Suite")
         self.setCentralWidget(self.homeWidget)
         
+        self.currentProcess = None
+        
         self.connect(self.homeWidget.newTicketButton, SIGNAL("clicked()"),
                      self.createNewTicketDialog)
         
@@ -29,7 +32,7 @@ class MainClientWindow(QMainWindow,
                      self.createVerifyTicketDialog)
     
     def createNewTicketDialog(self):
-        self.setCentralWidget(NewTicketWidget())
+        self.setCentralWidget(CustomerWidget())
         self.layout()
         
     def createVerifyTicketDialog(self):

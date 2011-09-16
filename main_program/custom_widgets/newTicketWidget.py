@@ -82,9 +82,6 @@ class NewTicketWidget(QWidget,
         self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
                          self.update)
         
-        self.connect(self.grossWeightLineEdit, SIGNAL("textEdited(QString)"),
-                         self.grossWeightLineEdit.onTextEdited)
-        
     def getValidationCandidates(self, widget):
         for widget in widget.children():
             if isinstance(widget, QGroupBox):
