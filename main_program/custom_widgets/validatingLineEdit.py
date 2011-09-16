@@ -11,9 +11,6 @@ except ImportError as err:
 
 class ValidatingLineEdit(QLineEdit):
     
-    valid = pyqtSignal()
-    invalid = pyqtSignal()
-    
     styleSheets = {"Valid": "",
                    "Invalid": "QLineEdit {background-color: red;}"}
     
@@ -21,12 +18,7 @@ class ValidatingLineEdit(QLineEdit):
         super(ValidatingLineEdit, self).__init__(parent)
         
         self.setProperty("regexString", "")
-    
-    @pyqtSlot()
-    def onTextEdited(self):
-        self.validate()
         
-    @pyqtSlot()
     def validate(self):
         self.makeUppercase()
         
@@ -41,21 +33,19 @@ class ValidatingLineEdit(QLineEdit):
         regexMatch = regex.match(self.text())
         
         if regexMatch:
-            self.valid.emit()
+            self.setStyleSheet(self.styleSheets["Valid"])
         else:
-            self.invalid.emit()
+            self.setStyleSheet(self.styleSheets["Invalid"])
     
-    @pyqtSlot(bool)
     def setReadOnlyInverted(self, state):
         self.setReadOnly(not state)
-            
-    @pyqtSlot()
-    def onValid(self):
-        self.setStyleSheet(self.styleSheets["Valid"])
-    
-    @pyqtSlot()
-    def onInvalid(self):
-        self.setStyleSheet(self.styleSheets["Invalid"])
+        
+    def setEnabled(self, value):
+        super(ValidatingLineEdit, self).setEnabled(value)
+        if value == False:
+            self.setStyleSheet(self.styleSheets["Valid"])
+        else:
+            self.validate()
         
     def getValidatedStatus(self):
         if self.styleSheet() == self.styleSheets["Valid"]:

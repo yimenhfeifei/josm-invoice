@@ -6,19 +6,23 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from gui_interface_designs import proto_new_ticket_generated
+    from gui_interface_designs import new_ticket_widget_generated
     from ticket_review_dialog import TicketReviewDialog
     from vehicle_dialog import VehicleDialog
     from shared_modules.ticket import Ticket
     from shared_modules.customer import Customer
     from shared_modules.payload import Payload
     from shared_modules.vehicle import Vehicle
+    from custom_widgets import grossWeightLineEdit
+    from custom_widgets import tareWeightLineEdit
+    from custom_widgets import netWeightLineEdit
+    from custom_widgets import validatingLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
 class NewTicketWidget(QWidget,
-                      proto_new_ticket_generated.Ui_newTicketWidget):
+                      new_ticket_widget_generated.Ui_newTicketWidget):
     
     calculateTotalValue = pyqtSignal()
 
@@ -26,40 +30,100 @@ class NewTicketWidget(QWidget,
         super(NewTicketWidget, self).__init__(parent)
         self.setupUi(self)
         
-        self.dialogWidgets = (self.firstNameLineEdit,
-                              self.lastNameLineEdit,
-                              self.houseNumberLineEdit,
-                              self.streetLineEdit,
-                              self.townLineEdit,
-                              self.postcodeLineEdit,
-                              self.customerRegistrationLineEdit,
-                              self.payloadTableWidget)
-        
-        self.vehicleDialogResult = None
-        
         self.vehicles = {}
         
+        self.classesToValidate = (grossWeightLineEdit.GrossWeightLineEdit,
+                                  tareWeightLineEdit.TareWeightLineEdit,
+                                  netWeightLineEdit.NetWeightLineEdit,
+                                  validatingLineEdit.ValidatingLineEdit)
+        
+        self.validationCandidates = []
+        for candidate in self.getValidationCandidates(self):
+            self.validationCandidates.append(candidate)
+        
         self.populateMaterialCombobox()
+        
+        self.populateTypeCombobox()
         
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
                                                            "Material",
                                                            "Value",
                                                            "Delete"])
         
-        self.connect(self.addPayloadButton, SIGNAL("clicked()"),
-                     self.addPayload)
-
-        self.connect(self.reviewTicketButton, SIGNAL("clicked()"),
-                     self.reviewTicket)
+        for lineEdit in self.validationCandidates:
+            self.connect(lineEdit, SIGNAL("textEdited(QString)"),
+                         lineEdit.validate)
+            
+        for lineEdit in self.validationCandidates:
+            self.connect(lineEdit, SIGNAL("textChanged(QString)"),
+                         self.update)
+            
+        self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
+                         self.catalyticLineEdit.setEnabled)
         
-        self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
-                     self.onCellClicked)
+        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(int)"),
+                         self.onMaterialComboboxChanged)
         
-        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(QString)"),
-                     self.onMaterialComboboxChange)
+        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(int)"),
+                         self.update)
         
-        self.connect(self.payloadTableWidget, SIGNAL("cellDoubleClicked(int, int)"),
-                     self.onPayloadTableDoubleClicked)
+        self.connect(self.typeCombobox, SIGNAL("currentIndexChanged(int)"),
+                         self.update)
+        
+        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
+                         self.update)
+        
+        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
+                         self.payloadValueLineEdit.setReadOnlyInverted)
+        
+        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
+                         self.payloadValueLineEdit.clearPayloadValue)
+        
+        self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
+                         self.update)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("textEdited(QString)"),
+                         self.grossWeightLineEdit.onTextEdited)
+        
+    def getValidationCandidates(self, widget):
+        for widget in widget.children():
+            if isinstance(widget, QGroupBox):
+                for result in self.getValidationCandidates(widget):
+                    yield result
+            else:
+                if isinstance(widget, self.classesToValidate):
+                    yield widget
+        
+    def getWidgetsToValidate(self, candidates):
+        for candidate in candidates:
+            if candidate.isEnabled():
+                yield candidate
+                
+    def onMaterialComboboxChanged(self):
+        index = self.materialCombobox.findText("Vehicle")
+        if self.materialCombobox.currentIndex() == index:
+            self.vehicleGroupBox.setEnabled(True)
+        else:
+            self.vehicleGroupBox.setEnabled(False)
+        
+    def loadVehicleDetails(self, vehicle):
+        self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])
+        self.typeCombobox.setItemData(self.typeCombobox.currentIndex(),
+                                      Decimal(vehicle["typeValue"]))
+        self.makeLineEdit.setText(vehicle["make"])
+        self.modelLineEdit.setText(vehicle["model"])
+        self.colourCombobox.setCurrentIndex(vehicle["colourIndex"])
+        self.vehicleRegistrationLineEdit.setText(vehicle["registration"])
+        self.vinLineEdit.setText(vehicle["vin"])
+        self.catalyticCheckbox.setChecked(vehicle["catalyticCheckbox"])
+        self.catalyticLineEdit.setText(vehicle["catalyticValue"])
+        self.idCombobox.setCurrentIndex(vehicle["idIndex"])
+        
+        self.typeCombobox.setEnabled(False)
+        self.catalyticLineEdit.setReadOnly(True)
+        
+        for widget in self.dialogWidgets:
+            widget.validate()
         
     def onCellClicked(self, row, column):
         if column == self.payloadTableWidget.getDeleteColumn():
@@ -70,31 +134,8 @@ class NewTicketWidget(QWidget,
         materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
         if id(item) in self.vehicles:
-            vehicleDialog = VehicleDialog(vehicle=self.vehicles[id(item)])
-            if vehicleDialog.exec_():
-                self.vehicles[id(item)] = vehicleDialog.getFields()
-        
-    def processVehicleDialog(self, vehicleDialog):
-        if vehicleDialog.exec_():
-            self.vehicleDialogResult = vehicleDialog.getFields()
-            
-            materialComboboxIndex = self.materialCombobox.findText("Vehicle")
-            self.materialCombobox.setItemData(materialComboboxIndex,
-                                              self.vehicleDialogResult["typeValue"])
-        
-            if self.vehicleDialogResult["catalyticCheckbox"]:
-                self.payloadValueLineEdit.onAddCatalyticValue(
-                    self.vehicleDialogResult["catalyticValue"])
-        else:
-            self.vehicleDialogResult = None
-
-    def onMaterialComboboxChange(self, selection):
-        if selection == "Vehicle":
-            vehicleDialog = VehicleDialog()
-            
-            self.processVehicleDialog(vehicleDialog)
-                
-            self.materialCombobox.onIndexChange()
+            self.loadVehicleDetails(self.vehicles[id(item)])
+            # code to update details if edited
                 
     def collectPayload(self):
         return (self.netWeightLineEdit.text(),
@@ -173,18 +214,22 @@ class NewTicketWidget(QWidget,
         self.materialCombobox.addItem("Lead", "3.00")
         self.materialCombobox.addItem("Gold", "4.50")
         self.materialCombobox.addItem("Vehicle", "00.00")
+        
+    def populateTypeCombobox(self):
+        self.typeCombobox.addItem("Banger", "1.00")
+        self.typeCombobox.addItem("Bike", "0.70")
+        self.typeCombobox.addItem("Car", "1.70")
+        self.typeCombobox.addItem("Shell", "0.50")
+        self.typeCombobox.addItem("Van", "1.60")
     
-    def getActiveWidgets(self):
-        return [widget for widget in self.dialogWidgets if widget.isEnabled()]
-    
-    def allWidgetsValid(self):
-        for widget in self.getActiveWidgets():
+    def allWidgetsValidated(self):
+        for widget in self.getWidgetsToValidate(self.validationCandidates):
             if not widget.getValidatedStatus():
                 return False
         return True
     
     def updateReviewTicketButton(self):
-        self.reviewTicketButton.setEnabled(self.allWidgetsValid())
+        self.reviewTicketButton.setEnabled(self.allWidgetsValidated())
         
     def updateAddPayloadButton(self):
         netWeight = self.netWeightLineEdit.getValidatedStatus()
@@ -234,6 +279,21 @@ class NewTicketWidget(QWidget,
                                                   "value": fields[2],
                                                   "vehicle": fields[4]}
         return payloads
+    
+    def getVehicleFields(self):
+        return {"typeText": self.typeCombobox.currentText(),
+        "typeValue": self.typeCombobox.itemData(self.typeCombobox.currentIndex()),
+        "typeIndex": self.typeCombobox.currentIndex(),
+        "make": self.makeLineEdit.text(),
+        "model": self.modelLineEdit.text(),
+        "colour": self.colourCombobox.currentText(),
+        "colourIndex": self.colourCombobox.currentIndex(),
+        "registration": self.vehicleRegistrationLineEdit.text(),
+        "vin": self.vinLineEdit.text(),
+        "catalyticCheckbox": self.catalyticCheckbox.isChecked(),
+        "catalyticValue": self.catalyticLineEdit.text(),
+        "id": self.idCombobox.currentText(),
+        "idIndex": self.idCombobox.currentIndex()}
     
     def makeTicket(self):
         ticket = self.getTicketFields()

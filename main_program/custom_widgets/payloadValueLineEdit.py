@@ -23,7 +23,7 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         super(PayloadValueLineEdit, self).validate()
         
     @pyqtSlot()
-    def onClearPayloadValue(self):
+    def clearPayloadValue(self):
         self.clear()
         super(PayloadValueLineEdit, self).validate()
         
@@ -32,7 +32,7 @@ class PayloadValueLineEdit(ValidatingLineEdit):
         self.catalyticValue = Decimal(value)
         
     @pyqtSlot()
-    def onCalculatePayloadValue(self, netWeight, pricePerUnit):
+    def calculatePayloadValue(self, netWeight, pricePerUnit):
         netWeight = Decimal(netWeight)
         pricePerUnit = Decimal(pricePerUnit)
         payloadValue = netWeight * pricePerUnit

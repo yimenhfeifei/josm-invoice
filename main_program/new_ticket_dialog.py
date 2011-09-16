@@ -34,7 +34,12 @@ class NewTicketDialog(QDialog,
                               self.townLineEdit,
                               self.postcodeLineEdit,
                               self.vehicleRegistrationLineEdit,
-                              self.payloadTableWidget)
+                              self.payloadTableWidget,
+                              self.makeLineEdit,
+                              self.modelLineEdit,
+                              self.vehicleRegistrationLineEdit,
+                              self.vinLineEdit,
+                              self.catalyticLineEdit)
         
         self.vehicleDialogResult = None
         
