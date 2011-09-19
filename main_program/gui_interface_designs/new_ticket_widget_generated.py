@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_widget_design.ui'
 #
-# Created: Mon Sep 19 11:18:16 2011
+# Created: Mon Sep 19 12:00:05 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
