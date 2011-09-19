@@ -14,7 +14,7 @@ except ImportError as err:
 
 __version__ = "0.0"
 
-class MainClientWindow(QMainWindow,
+class TicketClientWindow(QMainWindow,
                        main_client_window_generated.Ui_mainClientWindow):
 
     def __init__(self, parent=None):

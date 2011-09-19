@@ -13,228 +13,44 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Tickets</string>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QPushButton" name="newTicketButton">
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>26</height>
+      </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="newTicketButton">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>New Ticket</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="verifyTicketButton">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Verify Ticket</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="searchTicketsButton">
-        <property name="minimumSize">
-         <size>
-          <width>101</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Search Tickets</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="text">
+      <string>New Ticket</string>
+     </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Materials</string>
+   <item>
+    <widget class="QPushButton" name="verifyTicketButton">
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>26</height>
+      </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>New Material</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_9">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Update Material</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_10">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>View Materials</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="text">
+      <string>Verify Ticket</string>
+     </property>
     </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Money Pool</string>
+   <item>
+    <widget class="QPushButton" name="searchTicketsButton">
+     <property name="minimumSize">
+      <size>
+       <width>101</width>
+       <height>26</height>
+      </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Add Money</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_11">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>View Pool</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>Invoices</string>
+     <property name="text">
+      <string>Search Tickets</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
-      <item>
-       <widget class="QPushButton" name="pushButton_12">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>New Invoice</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox_5">
-     <property name="title">
-      <string>Statistics</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QPushButton" name="pushButton_7">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Summary</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_13">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Total Tickets</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QGroupBox" name="groupBox_6">
-     <property name="title">
-      <string>Annual Returns</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
-      <item>
-       <widget class="QPushButton" name="pushButton_8">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>New Record</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_14">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>26</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>View Records</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'customer_widget_design.ui'
 #
-# Created: Fri Sep 16 16:29:29 2011
+# Created: Mon Sep 19 11:18:14 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(634, 489)
+        Form.resize(468, 535)
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -129,7 +129,24 @@ class Ui_Form(object):
         spacerItem2 = QtGui.QSpacerItem(128, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        spacerItem3 = QtGui.QSpacerItem(20, 188, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.textBrowser = QtGui.QTextBrowser(Form)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
+        self.textBrowser.setSizePolicy(sizePolicy)
+        self.textBrowser.setFrameShape(QtGui.QFrame.StyledPanel)
+        self.textBrowser.setFrameShadow(QtGui.QFrame.Sunken)
+        self.textBrowser.setLineWidth(1)
+        self.textBrowser.setAutoFormatting(QtGui.QTextEdit.AutoBulletList)
+        self.textBrowser.setHtml(QtGui.QApplication.translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Welcome to the new ticket creation screen!</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
+        self.verticalLayout.addWidget(self.textBrowser)
+        spacerItem3 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
 
         self.retranslateUi(Form)
