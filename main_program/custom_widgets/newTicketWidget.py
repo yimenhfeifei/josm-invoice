@@ -82,6 +82,38 @@ class NewTicketWidget(QWidget,
         self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
                          self.update)
         
+        self.connect(self.netWeightLineEdit, SIGNAL("enableGrossWeight()"),
+                         self.grossWeightLineEdit.onEnableGrossWeight)
+        
+        self.connect(self.netWeightLineEdit, SIGNAL("disableGrossWeight()"),
+                         self.grossWeightLineEdit.onDisableGrossWeight)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("enableNetWeight()"),
+                         self.netWeightLineEdit.onEnableNetWeight)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("disableNetWeight()"),
+                         self.netWeightLineEdit.onDisableNetWeight)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("textEdited(QString)"),
+                         self.grossWeightLineEdit.onTextEdited)
+        
+        self.connect(self.netWeightLineEdit, SIGNAL("textEdited(QString)"),
+                         self.netWeightLineEdit.onTextEdited)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("valid()"),
+                         self.grossWeightLineEdit.onValid)
+        
+        self.connect(self.grossWeightLineEdit, SIGNAL("invalid()"),
+                         self.grossWeightLineEdit.onInvalid)
+        
+        self.connect(self.tareWeightLineEdit, SIGNAL("enableTareWeight()"),
+                         self.tareWeightLineEdit.onEnableTareWeight)
+        
+        self.connect(self.tareWeightLineEdit, SIGNAL("disableTareWeight()"),
+                         self.tareWeightLineEdit.onDisableTareWeight)
+        
+        
+        
     def getValidationCandidates(self, widget):
         for widget in widget.children():
             if isinstance(widget, QGroupBox):
@@ -102,6 +134,10 @@ class NewTicketWidget(QWidget,
             self.vehicleGroupBox.setEnabled(True)
         else:
             self.vehicleGroupBox.setEnabled(False)
+            
+        ppu = self.materialCombobox.itemData(self.materialCombobox.currentIndex())
+        self.payloadValueLineEdit.calculatePayloadValue(self.netWeightLineEdit.text(),
+                                                        ppu)
         
     def loadVehicleDetails(self, vehicle):
         self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])

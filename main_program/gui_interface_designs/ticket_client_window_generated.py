@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_client_window_design.ui'
 #
-# Created: Mon Sep 19 12:00:00 2011
+# Created: Wed Sep 21 09:18:58 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,12 +24,6 @@ class Ui_ticketClientWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.homeWidget = HomeWidget(self.centralwidget)
-        self.homeWidget.setMinimumSize(QtCore.QSize(608, 533))
-        self.homeWidget.setToolTip(QtGui.QApplication.translate("ticketClientWindow", "Select material.", None, QtGui.QApplication.UnicodeUTF8))
-        self.homeWidget.setWhatsThis(QtGui.QApplication.translate("ticketClientWindow", "Allows selecting of material.", None, QtGui.QApplication.UnicodeUTF8))
-        self.homeWidget.setObjectName(_fromUtf8("homeWidget"))
-        self.verticalLayout.addWidget(self.homeWidget)
         ticketClientWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(ticketClientWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 720, 23))
@@ -55,18 +49,10 @@ class Ui_ticketClientWindow(object):
         self.actionOrchard_Suite = QtGui.QAction(ticketClientWindow)
         self.actionOrchard_Suite.setText(QtGui.QApplication.translate("ticketClientWindow", "Orchard Suite", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOrchard_Suite.setObjectName(_fromUtf8("actionOrchard_Suite"))
-        self.actionNext = QtGui.QAction(ticketClientWindow)
-        self.actionNext.setText(QtGui.QApplication.translate("ticketClientWindow", "Next", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionNext.setObjectName(_fromUtf8("actionNext"))
-        self.actionPrevious = QtGui.QAction(ticketClientWindow)
-        self.actionPrevious.setText(QtGui.QApplication.translate("ticketClientWindow", "Previous", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionPrevious.setObjectName(_fromUtf8("actionPrevious"))
         self.menuFile.addAction(self.actionExit)
         self.menuAbout.addAction(self.actionOrchard_Suite)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuAbout.menuAction())
-        self.toolBar.addAction(self.actionPrevious)
-        self.toolBar.addAction(self.actionNext)
 
         self.retranslateUi(ticketClientWindow)
         QtCore.QMetaObject.connectSlotsByName(ticketClientWindow)
@@ -74,4 +60,3 @@ class Ui_ticketClientWindow(object):
     def retranslateUi(self, ticketClientWindow):
         pass
 
-from custom_widgets.homeWidget import HomeWidget

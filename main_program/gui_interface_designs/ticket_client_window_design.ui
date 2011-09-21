@@ -20,24 +20,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="HomeWidget" name="homeWidget">
-      <property name="minimumSize">
-       <size>
-        <width>608</width>
-        <height>533</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Select material.</string>
-      </property>
-      <property name="whatsThis">
-       <string>Allows selecting of material.</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QVBoxLayout" name="verticalLayout"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -78,8 +61,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionPrevious"/>
-   <addaction name="actionNext"/>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -91,24 +72,7 @@
     <string>Orchard Suite</string>
    </property>
   </action>
-  <action name="actionNext">
-   <property name="text">
-    <string>Next</string>
-   </property>
-  </action>
-  <action name="actionPrevious">
-   <property name="text">
-    <string>Previous</string>
-   </property>
-  </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>HomeWidget</class>
-   <extends>QWidget</extends>
-   <header>custom_widgets.homeWidget</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

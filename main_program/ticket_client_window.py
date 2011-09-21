@@ -4,10 +4,12 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from gui_interface_designs import main_client_window_generated
-    from custom_widgets.newTicketWidget import NewTicketWidget
+    from gui_interface_designs import ticket_client_window_generated
     from custom_widgets.customerWidget import CustomerWidget
+    from custom_widgets.homeWidget import HomeWidget
+    from shared_modules.new_ticket_process import NewTicketProcess
     from verify_ticket_dialog import VerifyTicketDialog
+    from shared_modules.exceptions import ProcessFinished
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -18,29 +20,31 @@ class TicketClientWindow(QMainWindow,
                        ticket_client_window_generated.Ui_ticketClientWindow):
 
     def __init__(self, parent=None):
-        super(MainClientWindow, self).__init__(parent)
+        super(TicketClientWindow, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle("Orchard Suite")
-        self.setCentralWidget(self.homeWidget)
+        self.setWindowTitle("Ticket")
+        self.goHome()
         
-        self.currentProcess = None
+        self.process = None
         
-        self.connect(self.homeWidget.newTicketButton, SIGNAL("clicked()"),
-                     self.createNewTicketDialog)
+    def goHome(self):
+        self.setCentralWidget(HomeWidget())
         
-        self.connect(self.homeWidget.verifyTicketButton, SIGNAL("clicked()"),
+        self.connect(self.centralWidget().newTicketButton, SIGNAL("clicked()"),
+                     self.startNewTicket)
+        
+        self.connect(self.centralWidget().verifyTicketButton, SIGNAL("clicked()"),
                      self.createVerifyTicketDialog)
-    
-    def createNewTicketDialog(self):
-        self.setCentralWidget(CustomerWidget())
-        self.layout()
+        
+    def startNewTicket(self):
+        self.process = NewTicketProcess(self)
         
     def createVerifyTicketDialog(self):
         VerifyTicketDialog().exec_()
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
-    mainWindow = MainClientWindow()
+    mainWindow = TicketClientWindow()
     application.setOrganizationName("John Orchard & Company")
     application.setOrganizationDomain("orchard.com")
     application.setApplicationName("Orchard Suite")
