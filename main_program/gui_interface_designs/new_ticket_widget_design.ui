@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>552</height>
+    <width>886</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>280</x>
      <y>10</y>
      <width>601</width>
-     <height>504</height>
+     <height>521</height>
     </rect>
    </property>
    <property name="title">
@@ -29,9 +29,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>280</y>
-      <width>311</width>
-      <height>161</height>
+      <y>370</y>
+      <width>331</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -107,166 +107,6 @@ Click the red 'Delete' to remove.</string>
      <string>Weight widget.</string>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>450</y>
-      <width>301</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0">
-      <widget class="QCommandLinkButton" name="reviewTicketButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>131</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>131</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Review ticket</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="totalValueLabel">
-       <property name="font">
-        <font>
-         <pointsize>10</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Total</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="TotalValueLineEdit" name="totalValueLineEdit">
-       <property name="minimumSize">
-        <size>
-         <width>101</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>101</width>
-         <height>25</height>
-        </size>
-       </property>
-       <property name="toolTip">
-        <string>Total to pay customer in GBP.</string>
-       </property>
-       <property name="whatsThis">
-        <string>The analog clock widget displays the current time.</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>310</y>
-      <width>81</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>81</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>81</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="toolTip">
-     <string>Total value for this payload in GBP.</string>
-    </property>
-    <property name="whatsThis">
-     <string>The analog clock widget displays the current time.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit {background-color: red;}</string>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-    <property name="regexString" stdset="0">
-     <string>value</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addPayloadButton">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>310</y>
-      <width>85</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>81</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Add payload</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="manualPriceCheckbox">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>280</y>
-      <width>102</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>91</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="toolTip">
-     <string>Check to allow manual entry of price.</string>
-    </property>
-    <property name="text">
-     <string>Manual price</string>
-    </property>
-   </widget>
    <widget class="MaterialWidget" name="materialWidget">
     <property name="geometry">
      <rect>
@@ -291,8 +131,8 @@ Click the red 'Delete' to remove.</string>
      <rect>
       <x>340</x>
       <y>10</y>
-      <width>252</width>
-      <height>261</height>
+      <width>228</width>
+      <height>217</height>
      </rect>
     </property>
     <property name="title">
@@ -301,656 +141,559 @@ Click the red 'Delete' to remove.</string>
     <property name="checkable">
      <bool>false</bool>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="makeLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Make</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="ValidatingLineEdit" name="makeLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>161</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>161</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Enter vehicle make.</string>
+       </property>
+       <property name="whatsThis">
+        <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {background-color: red;}</string>
+       </property>
+       <property name="regexString" stdset="0">
+        <string>street</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="modelLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>36</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>36</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Model</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1" colspan="2">
+      <widget class="ValidatingLineEdit" name="modelLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>161</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>161</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Enter vehicle model.</string>
+       </property>
+       <property name="whatsThis">
+        <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="regexString" stdset="0">
+        <string>model</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="colourLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>39</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>39</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Colour</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QComboBox" name="colourCombobox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>121</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Select vehicle colour.</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Black</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Blue</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Brown</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Green</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Grey</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Orange</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pink</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Purple</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Red</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>White</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Yellow</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QLabel" name="vehicleRegistrationLabel_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>71</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>71</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Registration</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="ValidatingLineEdit" name="vehicleRegistrationLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>91</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>91</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Enter valid UK vehicle registration number.</string>
+       </property>
+       <property name="whatsThis">
+        <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {background-color: red;}</string>
+       </property>
+       <property name="regexString" stdset="0">
+        <string>post2001Reg</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="vinLabel">
+       <property name="maximumSize">
+        <size>
+         <width>21</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>VIN</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="ValidatingLineEdit" name="vinLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>183</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Enter valid VIN number.</string>
+       </property>
+       <property name="whatsThis">
+        <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="regexString" stdset="0">
+        <string>vin</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="idLabel">
+       <property name="minimumSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QComboBox" name="idCombobox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>121</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Select ID status.</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Checked</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Known</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>280</y>
+      <width>256</width>
+      <height>88</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Payload Total</string>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="makeLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>32</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>32</width>
-           <height>16</height>
-          </size>
-         </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>Make</string>
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;$ 340.00&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="0" column="1" colspan="3">
-        <widget class="ValidatingLineEdit" name="makeLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>161</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>161</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Enter vehicle make.</string>
-         </property>
-         <property name="whatsThis">
-          <string>The analog clock widget displays the current time.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit {background-color: red;}</string>
-         </property>
-         <property name="regexString" stdset="0">
-          <string>street</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="modelLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>36</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>36</width>
-           <height>16</height>
-          </size>
-         </property>
+       <item>
+        <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string>Model</string>
+          <string>Custom total</string>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1" colspan="3">
-        <widget class="ValidatingLineEdit" name="modelLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>161</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>161</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Enter vehicle model.</string>
-         </property>
-         <property name="whatsThis">
-          <string>The analog clock widget displays the current time.</string>
-         </property>
-         <property name="regexString" stdset="0">
-          <string>model</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="colourLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>39</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>39</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Colour</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="3">
-        <widget class="QComboBox" name="colourCombobox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>121</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>121</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Select vehicle colour.</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Black</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Blue</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Brown</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Green</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Grey</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Orange</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Pink</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Purple</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Red</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>White</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Yellow</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="vehicleRegistrationLabel_2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>71</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>71</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Registration</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" colspan="2">
-        <widget class="ValidatingLineEdit" name="vehicleRegistrationLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>91</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>91</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Enter valid UK vehicle registration number.</string>
-         </property>
-         <property name="whatsThis">
-          <string>The analog clock widget displays the current time.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QLineEdit {background-color: red;}</string>
-         </property>
-         <property name="regexString" stdset="0">
-          <string>post2001Reg</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="vinLabel">
-         <property name="maximumSize">
-          <size>
-           <width>21</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>VIN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1" colspan="3">
-        <widget class="ValidatingLineEdit" name="vinLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>183</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Enter valid VIN number.</string>
-         </property>
-         <property name="whatsThis">
-          <string>The analog clock widget displays the current time.</string>
-         </property>
-         <property name="regexString" stdset="0">
-          <string>vin</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="idLabel">
-         <property name="minimumSize">
-          <size>
-           <width>16</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>ID</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1" colspan="3">
-        <widget class="QComboBox" name="idCombobox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>121</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>121</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Select ID status.</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Checked</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Known</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
      </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>13</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addPayloadButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>81</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Add payload</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>390</y>
+      <width>133</width>
+      <height>98</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Ticket total</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;$ 3400.00&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCommandLinkButton" name="reviewTicketButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>131</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>131</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Review ticket</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="customerGroupBox">
+  <widget class="CustomerWidget" name="customerWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>0</y>
      <width>271</width>
-     <height>213</height>
+     <height>251</height>
     </rect>
    </property>
-   <property name="title">
-    <string>Customer</string>
+   <property name="toolTip">
+    <string>Customer details.</string>
    </property>
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="firstNameLabel">
-      <property name="text">
-       <string>First name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="ValidatingLineEdit" name="firstNameLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer first name.</string>
-      </property>
-      <property name="statusTip">
-       <string>Status test</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="lastNameLabel">
-      <property name="text">
-       <string>Last name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="ValidatingLineEdit" name="lastNameLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer last name.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>name</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="houseNumberLabel">
-      <property name="text">
-       <string>House number</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="ValidatingLineEdit" name="houseNumberLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>51</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>51</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer house number.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>houseNumber</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="streetLabel">
-      <property name="text">
-       <string>Street</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="ValidatingLineEdit" name="streetLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>133</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer address street.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>street</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="townLabel">
-      <property name="text">
-       <string>Town</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="ValidatingLineEdit" name="townLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>101</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>101</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer address town.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>town</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="postcodeLabel">
-      <property name="text">
-       <string>Postcode</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="ValidatingLineEdit" name="postcodeLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>51</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>71</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer address postcode.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>postcode</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="vehicleRegistrationLabel">
-      <property name="text">
-       <string>Vehicle Registration</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="ValidatingLineEdit" name="customerRegistrationLineEdit">
-      <property name="minimumSize">
-       <size>
-        <width>71</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>71</width>
-        <height>20</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Customer's vehicle registration number.</string>
-      </property>
-      <property name="whatsThis">
-       <string>The analog clock widget displays the current time.</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {background-color: red;}</string>
-      </property>
-      <property name="regexString" stdset="0">
-       <string>post2001Reg</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="whatsThis">
+    <string>Customer details widgte.</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>CustomerWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.customerWidget</header>
+  </customwidget>
   <customwidget>
    <class>MaterialWidget</class>
    <extends>QWidget</extends>
@@ -960,16 +703,6 @@ Click the red 'Delete' to remove.</string>
    <class>PayloadTableWidget</class>
    <extends>QTableWidget</extends>
    <header>custom_widgets.payloadTableWidget</header>
-  </customwidget>
-  <customwidget>
-   <class>PayloadValueLineEdit</class>
-   <extends>ValidatingLineEdit</extends>
-   <header>custom_widgets.payloadValueLineEdit</header>
-  </customwidget>
-  <customwidget>
-   <class>TotalValueLineEdit</class>
-   <extends>ValidatingLineEdit</extends>
-   <header>custom_widgets.totalValueLineEdit</header>
   </customwidget>
   <customwidget>
    <class>ValidatingLineEdit</class>

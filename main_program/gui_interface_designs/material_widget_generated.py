@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'material_widget_design.ui'
 #
-# Created: Wed Sep 21 15:34:54 2011
+# Created: Wed Sep 21 15:46:20 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
