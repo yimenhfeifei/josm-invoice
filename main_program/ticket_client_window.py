@@ -7,9 +7,8 @@ try:
     from gui_interface_designs import ticket_client_window_generated
     from custom_widgets.customerWidget import CustomerWidget
     from custom_widgets.homeWidget import HomeWidget
-    from shared_modules.new_ticket_process import NewTicketProcess
     from verify_ticket_dialog import VerifyTicketDialog
-    from shared_modules.exceptions import ProcessFinished
+    from custom_widgets.weightWidget import WeightWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -25,8 +24,6 @@ class TicketClientWindow(QMainWindow,
         self.setWindowTitle("Ticket")
         self.goHome()
         
-        self.process = None
-        
     def goHome(self):
         self.setCentralWidget(HomeWidget())
         
@@ -37,7 +34,7 @@ class TicketClientWindow(QMainWindow,
                      self.createVerifyTicketDialog)
         
     def startNewTicket(self):
-        self.process = NewTicketProcess(self)
+        self.setCentralWidget(WeightWidget())
         
     def createVerifyTicketDialog(self):
         VerifyTicketDialog().exec_()
