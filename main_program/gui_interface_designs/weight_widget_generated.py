@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'weight_widget_design.ui'
 #
-# Created: Wed Sep 21 14:54:38 2011
+# Created: Wed Sep 21 15:34:51 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,13 +24,11 @@ class Ui_weightWidget(object):
         sizePolicy.setHeightForWidth(weightWidget.sizePolicy().hasHeightForWidth())
         weightWidget.setSizePolicy(sizePolicy)
         weightWidget.setWindowTitle(QtGui.QApplication.translate("weightWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.widget = QtGui.QWidget(weightWidget)
-        self.widget.setGeometry(QtCore.QRect(12, 12, 144, 246))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.widget)
-        self.verticalLayout_2.setMargin(0)
+        self.verticalLayout_3 = QtGui.QVBoxLayout(weightWidget)
+        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-        self.useGrossBox = QtGui.QGroupBox(self.widget)
+        self.useGrossBox = QtGui.QGroupBox(weightWidget)
         self.useGrossBox.setEnabled(True)
         self.useGrossBox.setTitle(QtGui.QApplication.translate("weightWidget", "Use gross weight", None, QtGui.QApplication.UnicodeUTF8))
         self.useGrossBox.setCheckable(True)
@@ -76,12 +74,12 @@ class Ui_weightWidget(object):
         self.horizontalLayout_3.addWidget(self.tareEdit)
         self.verticalLayout.addWidget(self.tareBox)
         self.verticalLayout_2.addWidget(self.useGrossBox)
-        self.line = QtGui.QFrame(self.widget)
+        self.line = QtGui.QFrame(weightWidget)
         self.line.setFrameShape(QtGui.QFrame.HLine)
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
         self.line.setObjectName(_fromUtf8("line"))
         self.verticalLayout_2.addWidget(self.line)
-        self.netBox = QtGui.QGroupBox(self.widget)
+        self.netBox = QtGui.QGroupBox(weightWidget)
         self.netBox.setStyleSheet(_fromUtf8(""))
         self.netBox.setTitle(QtGui.QApplication.translate("weightWidget", "Net weight (Kg)", None, QtGui.QApplication.UnicodeUTF8))
         self.netBox.setObjectName(_fromUtf8("netBox"))
@@ -92,6 +90,7 @@ class Ui_weightWidget(object):
         self.netEdit.setObjectName(_fromUtf8("netEdit"))
         self.horizontalLayout.addWidget(self.netEdit)
         self.verticalLayout_2.addWidget(self.netBox)
+        self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
         self.retranslateUi(weightWidget)
         QtCore.QMetaObject.connectSlotsByName(weightWidget)

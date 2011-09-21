@@ -9,6 +9,7 @@ try:
     from custom_widgets.homeWidget import HomeWidget
     from verify_ticket_dialog import VerifyTicketDialog
     from custom_widgets.weightWidget import WeightWidget
+    from custom_widgets.newTicketWidget import NewTicketWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -34,7 +35,7 @@ class TicketClientWindow(QMainWindow,
                      self.createVerifyTicketDialog)
         
     def startNewTicket(self):
-        self.setCentralWidget(WeightWidget())
+        self.setCentralWidget(NewTicketWidget())
         
     def createVerifyTicketDialog(self):
         VerifyTicketDialog().exec_()

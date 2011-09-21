@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
+    <width>890</width>
     <height>552</height>
    </rect>
   </property>
@@ -16,349 +16,682 @@
   <widget class="QGroupBox" name="payloadsGroupBox">
    <property name="geometry">
     <rect>
-     <x>343</x>
-     <y>9</y>
-     <width>418</width>
+     <x>280</x>
+     <y>10</y>
+     <width>601</width>
      <height>504</height>
     </rect>
    </property>
    <property name="title">
     <string>Payloads</string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Gross</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="GrossWeightLineEdit" name="grossWeightLineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter gross weight. Fraction must be .5 or .0.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>weight</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Tare</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="TareWeightLineEdit" name="tareWeightLineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter tare weight here. Fraction must be .5 or .0.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>weight</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Net</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="NetWeightLineEdit" name="netWeightLineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>71</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter net weight here. Fraction must be .5 or .0.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>weight</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="MaterialCombobox" name="materialCombobox">
-        <property name="toolTip">
-         <string>Select material type. Vehicle entry opens new dialog.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>81</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>81</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Total value for this payload in GBP.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>value</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QCheckBox" name="manualPriceCheckbox">
-        <property name="minimumSize">
-         <size>
-          <width>91</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Check to allow manual entry of price.</string>
-        </property>
-        <property name="text">
-         <string>Manual price</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="5">
-       <widget class="QPushButton" name="addPayloadButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>81</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Add payload</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="PayloadTableWidget" name="payloadTableWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>311</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>8000</width>
-        <height>678</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>Double-click blue vehicle text to view/edit vehicle details.
+   <widget class="PayloadTableWidget" name="payloadTableWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>280</y>
+      <width>311</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>8000</width>
+      <height>800</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Double-click blue vehicle text to view/edit vehicle details.
 Click the red 'Delete' to remove.</string>
-      </property>
-      <property name="whatsThis">
-       <string>Extra functions for paylod widget.</string>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="tabKeyNavigation">
-       <bool>true</bool>
-      </property>
-      <property name="showDropIndicator" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="dragDropOverwriteMode">
-       <bool>false</bool>
-      </property>
-      <property name="rowCount">
-       <number>0</number>
-      </property>
-      <property name="columnCount">
-       <number>4</number>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>100</number>
-      </attribute>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>25</number>
-      </attribute>
-      <attribute name="horizontalHeaderStretchLastSection">
-       <bool>true</bool>
-      </attribute>
-      <column/>
-      <column/>
-      <column/>
-      <column/>
-     </widget>
-    </item>
-    <item>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QCommandLinkButton" name="reviewTicketButton">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>131</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>131</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Review ticket</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="totalValueLabel">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Total</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="TotalValueLineEdit" name="totalValueLineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>101</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>101</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Total to pay customer in GBP.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+    </property>
+    <property name="whatsThis">
+     <string>Extra functions for paylod widget.</string>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation">
+     <bool>true</bool>
+    </property>
+    <property name="showDropIndicator" stdset="0">
+     <bool>false</bool>
+    </property>
+    <property name="dragDropOverwriteMode">
+     <bool>false</bool>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>4</number>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>100</number>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>25</number>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>true</bool>
+    </attribute>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
+   </widget>
+   <widget class="WeightWidget" name="weightWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>160</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Custom weight entry.</string>
+    </property>
+    <property name="whatsThis">
+     <string>Weight widget.</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>450</y>
+      <width>301</width>
+      <height>38</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QCommandLinkButton" name="reviewTicketButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>131</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>131</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Review ticket</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="totalValueLabel">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Total</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="TotalValueLineEdit" name="totalValueLineEdit">
+       <property name="minimumSize">
+        <size>
+         <width>101</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>101</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Total to pay customer in GBP.</string>
+       </property>
+       <property name="whatsThis">
+        <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="PayloadValueLineEdit" name="payloadValueLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>310</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>81</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>81</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Total value for this payload in GBP.</string>
+    </property>
+    <property name="whatsThis">
+     <string>The analog clock widget displays the current time.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {background-color: red;}</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="regexString" stdset="0">
+     <string>value</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addPayloadButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>310</y>
+      <width>85</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>81</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>Add payload</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="manualPriceCheckbox">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>280</y>
+      <width>102</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>91</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="toolTip">
+     <string>Check to allow manual entry of price.</string>
+    </property>
+    <property name="text">
+     <string>Manual price</string>
+    </property>
+   </widget>
+   <widget class="MaterialWidget" name="materialWidget">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>30</y>
+      <width>171</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Material selection.</string>
+    </property>
+    <property name="whatsThis">
+     <string>Material selection widget.</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="vehicleGroupBox">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>10</y>
+      <width>252</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Vehicle</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="makeLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Make</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="3">
+        <widget class="ValidatingLineEdit" name="makeLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Enter vehicle make.</string>
+         </property>
+         <property name="whatsThis">
+          <string>The analog clock widget displays the current time.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {background-color: red;}</string>
+         </property>
+         <property name="regexString" stdset="0">
+          <string>street</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="modelLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>36</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>36</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Model</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="3">
+        <widget class="ValidatingLineEdit" name="modelLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>161</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>161</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Enter vehicle model.</string>
+         </property>
+         <property name="whatsThis">
+          <string>The analog clock widget displays the current time.</string>
+         </property>
+         <property name="regexString" stdset="0">
+          <string>model</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="colourLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>39</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>39</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Colour</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="3">
+        <widget class="QComboBox" name="colourCombobox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>121</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>121</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Select vehicle colour.</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Black</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Blue</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Brown</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Green</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Grey</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Orange</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Pink</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Purple</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Red</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>White</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Yellow</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="vehicleRegistrationLabel_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>71</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>71</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Registration</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2" colspan="2">
+        <widget class="ValidatingLineEdit" name="vehicleRegistrationLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>91</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>91</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Enter valid UK vehicle registration number.</string>
+         </property>
+         <property name="whatsThis">
+          <string>The analog clock widget displays the current time.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {background-color: red;}</string>
+         </property>
+         <property name="regexString" stdset="0">
+          <string>post2001Reg</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="vinLabel">
+         <property name="maximumSize">
+          <size>
+           <width>21</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>VIN</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="3">
+        <widget class="ValidatingLineEdit" name="vinLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>183</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Enter valid VIN number.</string>
+         </property>
+         <property name="whatsThis">
+          <string>The analog clock widget displays the current time.</string>
+         </property>
+         <property name="regexString" stdset="0">
+          <string>vin</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="idLabel">
+         <property name="minimumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" colspan="3">
+        <widget class="QComboBox" name="idCombobox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>121</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>121</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Select ID status.</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Checked</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Known</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="customerGroupBox">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>278</width>
+     <width>271</width>
      <height>213</height>
     </rect>
    </property>
@@ -616,536 +949,12 @@ Click the red 'Delete' to remove.</string>
     </item>
    </layout>
   </widget>
-  <widget class="QGroupBox" name="vehicleGroupBox">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>229</y>
-     <width>252</width>
-     <height>281</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Vehicle</string>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="typeLabel">
-        <property name="minimumSize">
-         <size>
-          <width>31</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>31</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Type</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QComboBox" name="typeCombobox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Select vehicle type.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="makeLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>32</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>32</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Make</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="3">
-       <widget class="ValidatingLineEdit" name="makeLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter vehicle make.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>street</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="modelLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>36</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>36</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Model</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="3">
-       <widget class="ValidatingLineEdit" name="modelLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>161</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter vehicle model.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>model</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="colourLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>39</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>39</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Colour</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="3">
-       <widget class="QComboBox" name="colourCombobox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>121</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>121</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Select vehicle colour.</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Black</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Blue</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Brown</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Green</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Grey</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Orange</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Pink</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Purple</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Red</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>White</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Yellow</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QLabel" name="vehicleRegistrationLabel_2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>71</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>71</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Registration</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" colspan="2">
-       <widget class="ValidatingLineEdit" name="vehicleRegistrationLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>91</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>91</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter valid UK vehicle registration number.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>post2001Reg</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="vinLabel">
-        <property name="maximumSize">
-         <size>
-          <width>21</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>VIN</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1" colspan="3">
-       <widget class="ValidatingLineEdit" name="vinLineEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>183</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter valid VIN number.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>vin</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="3">
-       <widget class="QCheckBox" name="catalyticCheckbox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>141</width>
-          <height>17</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>141</width>
-          <height>17</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enables entry of catalytic converter price.</string>
-        </property>
-        <property name="text">
-         <string>Catalytic Converter</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="3">
-       <widget class="ValidatingLineEdit" name="catalyticLineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>81</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>81</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Enter price for catalytic converter.</string>
-        </property>
-        <property name="whatsThis">
-         <string>The analog clock widget displays the current time.</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QLineEdit {background-color: red;}</string>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-        <property name="regexString" stdset="0">
-         <string>value</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="idLabel">
-        <property name="minimumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>ID</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1" colspan="3">
-       <widget class="QComboBox" name="idCombobox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>121</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>121</width>
-          <height>25</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Select ID status.</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>Checked</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Known</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>GrossWeightLineEdit</class>
-   <extends>ValidatingLineEdit</extends>
-   <header>custom_widgets.grossWeightLineEdit</header>
-  </customwidget>
-  <customwidget>
-   <class>MaterialCombobox</class>
-   <extends>QComboBox</extends>
-   <header>custom_widgets.materialCombobox</header>
-  </customwidget>
-  <customwidget>
-   <class>NetWeightLineEdit</class>
-   <extends>ValidatingLineEdit</extends>
-   <header>custom_widgets.netWeightLineEdit</header>
+   <class>MaterialWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.materialWidget</header>
   </customwidget>
   <customwidget>
    <class>PayloadTableWidget</class>
@@ -1158,11 +967,6 @@ Click the red 'Delete' to remove.</string>
    <header>custom_widgets.payloadValueLineEdit</header>
   </customwidget>
   <customwidget>
-   <class>TareWeightLineEdit</class>
-   <extends>ValidatingLineEdit</extends>
-   <header>custom_widgets.tareWeightLineEdit</header>
-  </customwidget>
-  <customwidget>
    <class>TotalValueLineEdit</class>
    <extends>ValidatingLineEdit</extends>
    <header>custom_widgets.totalValueLineEdit</header>
@@ -1171,6 +975,11 @@ Click the red 'Delete' to remove.</string>
    <class>ValidatingLineEdit</class>
    <extends>QLineEdit</extends>
    <header>custom_widgets.validatingLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>WeightWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.weightWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>

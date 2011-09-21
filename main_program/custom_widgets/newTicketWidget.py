@@ -41,78 +41,10 @@ class NewTicketWidget(QWidget,
         for candidate in self.getValidationCandidates(self):
             self.validationCandidates.append(candidate)
         
-        self.populateMaterialCombobox()
-        
-        self.populateTypeCombobox()
-        
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
                                                            "Material",
                                                            "Value",
                                                            "Delete"])
-        
-        for lineEdit in self.validationCandidates:
-            self.connect(lineEdit, SIGNAL("textEdited(QString)"),
-                         lineEdit.validate)
-            
-        for lineEdit in self.validationCandidates:
-            self.connect(lineEdit, SIGNAL("textChanged(QString)"),
-                         self.update)
-            
-        self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
-                         self.catalyticLineEdit.setEnabled)
-        
-        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(int)"),
-                         self.onMaterialComboboxChanged)
-        
-        self.connect(self.materialCombobox, SIGNAL("currentIndexChanged(int)"),
-                         self.update)
-        
-        self.connect(self.typeCombobox, SIGNAL("currentIndexChanged(int)"),
-                         self.update)
-        
-        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
-                         self.update)
-        
-        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
-                         self.payloadValueLineEdit.setReadOnlyInverted)
-        
-        self.connect(self.manualPriceCheckbox, SIGNAL("toggled(bool)"),
-                         self.payloadValueLineEdit.clearPayloadValue)
-        
-        self.connect(self.catalyticCheckbox, SIGNAL("toggled(bool)"),
-                         self.update)
-        
-        self.connect(self.netWeightLineEdit, SIGNAL("enableGrossWeight()"),
-                         self.grossWeightLineEdit.onEnableGrossWeight)
-        
-        self.connect(self.netWeightLineEdit, SIGNAL("disableGrossWeight()"),
-                         self.grossWeightLineEdit.onDisableGrossWeight)
-        
-        self.connect(self.grossWeightLineEdit, SIGNAL("enableNetWeight()"),
-                         self.netWeightLineEdit.onEnableNetWeight)
-        
-        self.connect(self.grossWeightLineEdit, SIGNAL("disableNetWeight()"),
-                         self.netWeightLineEdit.onDisableNetWeight)
-        
-        self.connect(self.grossWeightLineEdit, SIGNAL("textEdited(QString)"),
-                         self.grossWeightLineEdit.onTextEdited)
-        
-        self.connect(self.netWeightLineEdit, SIGNAL("textEdited(QString)"),
-                         self.netWeightLineEdit.onTextEdited)
-        
-        self.connect(self.grossWeightLineEdit, SIGNAL("valid()"),
-                         self.grossWeightLineEdit.onValid)
-        
-        self.connect(self.grossWeightLineEdit, SIGNAL("invalid()"),
-                         self.grossWeightLineEdit.onInvalid)
-        
-        self.connect(self.tareWeightLineEdit, SIGNAL("enableTareWeight()"),
-                         self.tareWeightLineEdit.onEnableTareWeight)
-        
-        self.connect(self.tareWeightLineEdit, SIGNAL("disableTareWeight()"),
-                         self.tareWeightLineEdit.onDisableTareWeight)
-        
-        
         
     def getValidationCandidates(self, widget):
         for widget in widget.children():
