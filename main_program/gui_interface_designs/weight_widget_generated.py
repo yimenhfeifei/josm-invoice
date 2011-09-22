@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'weight_widget_design.ui'
 #
-# Created: Wed Sep 21 15:46:17 2011
+# Created: Thu Sep 22 11:19:27 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,9 +24,7 @@ class Ui_weightWidget(object):
         sizePolicy.setHeightForWidth(weightWidget.sizePolicy().hasHeightForWidth())
         weightWidget.setSizePolicy(sizePolicy)
         weightWidget.setWindowTitle(QtGui.QApplication.translate("weightWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.verticalLayout_3 = QtGui.QVBoxLayout(weightWidget)
-        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout()
+        self.verticalLayout_2 = QtGui.QVBoxLayout(weightWidget)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.useGrossBox = QtGui.QGroupBox(weightWidget)
         self.useGrossBox.setEnabled(True)
@@ -49,14 +47,16 @@ class Ui_weightWidget(object):
         self.grossBox.setObjectName(_fromUtf8("grossBox"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.grossBox)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.grossEdit = QtGui.QLineEdit(self.grossBox)
+        self.grossEdit = ValidatingLineEdit(self.grossBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.grossEdit.sizePolicy().hasHeightForWidth())
         self.grossEdit.setSizePolicy(sizePolicy)
-        self.grossEdit.setMaximumSize(QtCore.QSize(71, 25))
-        self.grossEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.grossEdit.setMaximumSize(QtCore.QSize(81, 16777215))
+        self.grossEdit.setToolTip(QtGui.QApplication.translate("weightWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.grossEdit.setWhatsThis(QtGui.QApplication.translate("weightWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.grossEdit.setProperty("regexString", QtGui.QApplication.translate("weightWidget", "weight", None, QtGui.QApplication.UnicodeUTF8))
         self.grossEdit.setObjectName(_fromUtf8("grossEdit"))
         self.horizontalLayout_2.addWidget(self.grossEdit)
         self.verticalLayout.addWidget(self.grossBox)
@@ -68,8 +68,16 @@ class Ui_weightWidget(object):
         self.tareBox.setObjectName(_fromUtf8("tareBox"))
         self.horizontalLayout_3 = QtGui.QHBoxLayout(self.tareBox)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        self.tareEdit = QtGui.QLineEdit(self.tareBox)
-        self.tareEdit.setMaximumSize(QtCore.QSize(71, 25))
+        self.tareEdit = ValidatingLineEdit(self.tareBox)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tareEdit.sizePolicy().hasHeightForWidth())
+        self.tareEdit.setSizePolicy(sizePolicy)
+        self.tareEdit.setMaximumSize(QtCore.QSize(81, 16777215))
+        self.tareEdit.setToolTip(QtGui.QApplication.translate("weightWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.tareEdit.setWhatsThis(QtGui.QApplication.translate("weightWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.tareEdit.setProperty("regexString", QtGui.QApplication.translate("weightWidget", "weight", None, QtGui.QApplication.UnicodeUTF8))
         self.tareEdit.setObjectName(_fromUtf8("tareEdit"))
         self.horizontalLayout_3.addWidget(self.tareEdit)
         self.verticalLayout.addWidget(self.tareBox)
@@ -85,12 +93,19 @@ class Ui_weightWidget(object):
         self.netBox.setObjectName(_fromUtf8("netBox"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.netBox)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.netEdit = QtGui.QLineEdit(self.netBox)
-        self.netEdit.setMaximumSize(QtCore.QSize(71, 25))
+        self.netEdit = ValidatingLineEdit(self.netBox)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.netEdit.sizePolicy().hasHeightForWidth())
+        self.netEdit.setSizePolicy(sizePolicy)
+        self.netEdit.setMaximumSize(QtCore.QSize(81, 25))
+        self.netEdit.setToolTip(QtGui.QApplication.translate("weightWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.netEdit.setWhatsThis(QtGui.QApplication.translate("weightWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
+        self.netEdit.setProperty("regexString", QtGui.QApplication.translate("weightWidget", "weight", None, QtGui.QApplication.UnicodeUTF8))
         self.netEdit.setObjectName(_fromUtf8("netEdit"))
         self.horizontalLayout.addWidget(self.netEdit)
         self.verticalLayout_2.addWidget(self.netBox)
-        self.verticalLayout_3.addLayout(self.verticalLayout_2)
 
         self.retranslateUi(weightWidget)
         QtCore.QMetaObject.connectSlotsByName(weightWidget)
@@ -98,3 +113,4 @@ class Ui_weightWidget(object):
     def retranslateUi(self, weightWidget):
         pass
 
+from custom_widgets.validatingLineEdit import ValidatingLineEdit

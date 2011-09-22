@@ -6,19 +6,18 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import weight_widget_generated
-    from shared_modules.validate import validate
+    from shared_modules.validate import validateLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
 class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
 
+    widgetChanged = pyqtSignal()
+    
     def __init__(self, parent=None):
         super(WeightWidget, self).__init__(parent)
         self.setupUi(self)
-        
-        self.styles = {True: "",
-                       False: "QLineEdit {background-color: red;}"}
         
         self.widgets = [self.grossEdit,
                         self.tareEdit,
@@ -37,28 +36,26 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
                      self.clear)
         
         self.connect(self.grossEdit, SIGNAL("textEdited(QString)"),
-                     self.edited)
+                     self.changed)
         
         self.connect(self.tareEdit, SIGNAL("textEdited(QString)"),
-                     self.edited)
+                     self.changed)
         
         self.connect(self.netEdit, SIGNAL("textEdited(QString)"),
-                     self.edited)
+                     self.changed)
         
         self.connect(self.grossEdit, SIGNAL("textChanged(QString)"),
-                     self.edited)
+                     self.changed)
         
         self.connect(self.tareEdit, SIGNAL("textChanged(QString)"),
-                     self.edited)
+                     self.changed)
         
         self.connect(self.netEdit, SIGNAL("textChanged(QString)"),
-                     self.edited)
+                     self.changed)
         
-    def edited(self):
+    def changed(self):
         for widget in self.widgets:
-            status = validate(widget.text(), "weight")
-            widget.setProperty("valid", status)
-            widget.setStyleSheet(self.styles[status])
+            widget.validate()
         
         if self.grossEdit.property("valid") and self.tareEdit.property("valid"):
             self.calculateNetWeight()
@@ -68,8 +65,9 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
         
         if self.netEdit.property("valid") == True:
             if Decimal(self.netEdit.text()) == 0:
-                self.netEdit.setProperty("valid", False)
-                self.netEdit.setStyleSheet(self.styles[False])
+                self.netEdit.setValidStatus(False)
+                
+        self.widgetChanged.emit()
             
     def calculateNetWeight(self):
         grossWeight = Decimal(self.grossEdit.text())
@@ -80,8 +78,7 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
             self.netEdit.setText(str(netWeight))
         else:
             self.netEdit.clear()
-            self.tareEdit.setProperty("valid", False)
-            self.tareEdit.setStyleSheet(self.styles[False])
+            self.tareEdit.setValidStatus(False)
 
     def toggleNetEdit(self, state):
         self.netEdit.setReadOnly(state)
@@ -90,3 +87,15 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
         self.grossEdit.clear()
         self.tareEdit.clear()
         self.netEdit.clear()
+        
+    def getNetWeight(self):
+        if self.isValid():
+            return self.netEdit.text()
+        else:
+            return "0"
+    
+    def isValid(self):
+        if self.netEdit.isValid():
+            return True
+        else:
+            return False

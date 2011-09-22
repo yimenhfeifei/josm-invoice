@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'home_widget_design.ui'
 #
-# Created: Wed Sep 21 15:46:15 2011
+# Created: Thu Sep 22 11:19:26 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!

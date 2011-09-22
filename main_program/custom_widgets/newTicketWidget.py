@@ -13,10 +13,8 @@ try:
     from shared_modules.customer import Customer
     from shared_modules.payload import Payload
     from shared_modules.vehicle import Vehicle
-    from custom_widgets import grossWeightLineEdit
-    from custom_widgets import tareWeightLineEdit
-    from custom_widgets import netWeightLineEdit
-    from custom_widgets import validatingLineEdit
+    from custom_widgets.customerWidget import CustomerWidget
+    from custom_widgets.weightWidget import WeightWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -32,10 +30,8 @@ class NewTicketWidget(QWidget,
         
         self.vehicles = {}
         
-        self.classesToValidate = (grossWeightLineEdit.GrossWeightLineEdit,
-                                  tareWeightLineEdit.TareWeightLineEdit,
-                                  netWeightLineEdit.NetWeightLineEdit,
-                                  validatingLineEdit.ValidatingLineEdit)
+        self.classesToValidate = (CustomerWidget,
+                                  WeightWidget)
         
         self.validationCandidates = []
         for candidate in self.getValidationCandidates(self):
@@ -46,6 +42,11 @@ class NewTicketWidget(QWidget,
                                                            "Value",
                                                            "Delete"])
         
+        self.connect(self.customerWidget, SIGNAL("widgetChanged()"), self.update)
+        
+        self.connect(self.payloadWidget, SIGNAL("newPayloadTotal(QString, QString)"),
+                     self, SLOT("updatePayloadTotal(QString, QString)"))
+
     def getValidationCandidates(self, widget):
         for widget in widget.children():
             if isinstance(widget, QGroupBox):
@@ -173,13 +174,6 @@ class NewTicketWidget(QWidget,
         table.removeRow(table.currentRow())
         self.update()
         
-    def populateMaterialCombobox(self):
-        self.materialCombobox.addItem("Copper", "5.00")
-        self.materialCombobox.addItem("Iron", "0.70")
-        self.materialCombobox.addItem("Lead", "3.00")
-        self.materialCombobox.addItem("Gold", "4.50")
-        self.materialCombobox.addItem("Vehicle", "00.00")
-        
     def populateTypeCombobox(self):
         self.typeCombobox.addItem("Banger", "1.00")
         self.typeCombobox.addItem("Bike", "0.70")
@@ -189,7 +183,7 @@ class NewTicketWidget(QWidget,
     
     def allWidgetsValidated(self):
         for widget in self.getWidgetsToValidate(self.validationCandidates):
-            if not widget.getValidatedStatus():
+            if not widget.isValid():
                 return False
         return True
     
@@ -197,13 +191,8 @@ class NewTicketWidget(QWidget,
         self.reviewTicketButton.setEnabled(self.allWidgetsValidated())
         
     def updateAddPayloadButton(self):
-        netWeight = self.netWeightLineEdit.getValidatedStatus()
-        payloadValue = self.payloadValueLineEdit.getValidatedStatus()
-
-        if netWeight and payloadValue:
-            self.addPayloadButton.setEnabled(True)
-        else:
-            self.addPayloadButton.setEnabled(False)
+        #self.addPayloadButton.setEnabled(self.weightWidget.isValid())
+        pass
             
     def getNewTicketNumber(self):
         return "12000"
@@ -281,7 +270,15 @@ class NewTicketWidget(QWidget,
         ticket = self.makeTicket()
         TicketReviewDialog(ticket).exec_()
         
+    @pyqtSlot("QString", "QString")
+    def updatePayloadTotal(self, net, ppu):
+        total = Decimal(net) * Decimal(ppu)
+        print(net, ppu)
+        self.payloadTotalLabel.setText(str(total))
+        self.update()
+        
     def update(self):
+        print("update")
         self.updateReviewTicketButton()
         self.updateAddPayloadButton()
         super(NewTicketWidget, self).update()

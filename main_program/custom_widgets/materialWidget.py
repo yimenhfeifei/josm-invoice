@@ -10,11 +10,23 @@ except ImportError as err:
     raise SystemExit(err)
 
 class MaterialWidget(QWidget, material_widget_generated.Ui_materialWidget):
+    
+    widgetChanged = pyqtSignal()
 
     def __init__(self, parent=None):
         super(MaterialWidget, self).__init__(parent)
         self.setupUi(self)
         self.populateMaterialTable()
+        
+        self.connect(self.materialTable, SIGNAL("itemSelectionChanged()"),
+                     self.changed)
+        
+    def changed(self):
+        self.widgetChanged.emit()
+        
+    def getPricePerUnit(self):
+        row = self.materialTable.currentRow()
+        return self.materialTable.item(row, 1).text()
 
     def populateMaterialTable(self):
         self.materialTable.insertRow(0)

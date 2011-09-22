@@ -91,38 +91,6 @@ Click the red 'Delete' to remove.</string>
     <column/>
     <column/>
    </widget>
-   <widget class="WeightWidget" name="weightWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>160</width>
-      <height>261</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Custom weight entry.</string>
-    </property>
-    <property name="whatsThis">
-     <string>Weight widget.</string>
-    </property>
-   </widget>
-   <widget class="MaterialWidget" name="materialWidget">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>30</y>
-      <width>171</width>
-      <height>251</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Material selection.</string>
-    </property>
-    <property name="whatsThis">
-     <string>Material selection widget.</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="vehicleGroupBox">
     <property name="enabled">
      <bool>false</bool>
@@ -537,7 +505,7 @@ Click the red 'Delete' to remove.</string>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="payloadTotalLabel">
          <property name="text">
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -613,7 +581,7 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -670,14 +638,30 @@ p, li { white-space: pre-wrap; }
      </item>
     </layout>
    </widget>
+   <widget class="PayloadWidget" name="payloadWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>341</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Payload details.</string>
+    </property>
+    <property name="whatsThis">
+     <string>Payload widget.</string>
+    </property>
+   </widget>
   </widget>
   <widget class="CustomerWidget" name="customerWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>0</y>
-     <width>271</width>
-     <height>251</height>
+     <width>290</width>
+     <height>266</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -695,24 +679,19 @@ p, li { white-space: pre-wrap; }
    <header>custom_widgets.customerWidget</header>
   </customwidget>
   <customwidget>
-   <class>MaterialWidget</class>
-   <extends>QWidget</extends>
-   <header>custom_widgets.materialWidget</header>
-  </customwidget>
-  <customwidget>
    <class>PayloadTableWidget</class>
    <extends>QTableWidget</extends>
    <header>custom_widgets.payloadTableWidget</header>
   </customwidget>
   <customwidget>
+   <class>PayloadWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.payloadWidget</header>
+  </customwidget>
+  <customwidget>
    <class>ValidatingLineEdit</class>
    <extends>QLineEdit</extends>
    <header>custom_widgets.validatingLineEdit</header>
-  </customwidget>
-  <customwidget>
-   <class>WeightWidget</class>
-   <extends>QWidget</extends>
-   <header>custom_widgets.weightWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>payloadWidget</class>
+ <widget class="QWidget" name="payloadWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>451</width>
+    <height>282</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="WeightWidget" name="weightWidget">
+       <property name="toolTip">
+        <string>Custom weight entry.</string>
+       </property>
+       <property name="whatsThis">
+        <string>Weight widget.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="MaterialWidget" name="materialWidget">
+       <property name="toolTip">
+        <string>Material selection.</string>
+       </property>
+       <property name="whatsThis">
+        <string>Material selection widget.</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MaterialWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.materialWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>WeightWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.weightWidget</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

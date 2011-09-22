@@ -9,12 +9,18 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-def validate(value, expression):
+styles = {True: "",
+          False: "QLineEdit {background-color: red;}"}
+
+def validateLineEdit(widget, expression):
     regex = regexObjects[expression]
 
-    regexMatch = regex.match(value)
+    regexMatch = regex.match(widget.text())
         
     if regexMatch:
-        return True
+        result = True
     else:
-        return False
+        result = False
+        
+    widget.setProperty("valid", result)
+    widget.setStyleSheet(styles[result])

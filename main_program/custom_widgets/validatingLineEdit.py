@@ -11,13 +11,14 @@ except ImportError as err:
 
 class ValidatingLineEdit(QLineEdit):
     
-    styleSheets = {"Valid": "",
-                   "Invalid": "QLineEdit {background-color: red;}"}
+    styleSheets = {True: "",
+                   False: "QLineEdit {background-color: red;}"}
     
     def __init__(self, parent=None):
         super(ValidatingLineEdit, self).__init__(parent)
         
         self.setProperty("regexString", "")
+        self.setValidStatus(False)
         
     def validate(self):
         self.makeUppercase()
@@ -33,22 +34,13 @@ class ValidatingLineEdit(QLineEdit):
         regexMatch = regex.match(self.text())
         
         if regexMatch:
-            self.setStyleSheet(self.styleSheets["Valid"])
+            self.setValidStatus(True)
         else:
-            self.setStyleSheet(self.styleSheets["Invalid"])
-    
-    def setReadOnlyInverted(self, state):
-        self.setReadOnly(not state)
+            self.setValidStatus(False)
+            
+    def setValidStatus(self, value):
+        self.setStyleSheet(self.styleSheets[value])
+        self.setProperty("valid", value)
         
-    def setEnabled(self, value):
-        super(ValidatingLineEdit, self).setEnabled(value)
-        if value == False:
-            self.setStyleSheet(self.styleSheets["Valid"])
-        else:
-            self.validate()
-        
-    def getValidatedStatus(self):
-        if self.styleSheet() == self.styleSheets["Valid"]:
-            return True
-        else:
-            return False
+    def isValid(self):
+        return self.property("valid")
