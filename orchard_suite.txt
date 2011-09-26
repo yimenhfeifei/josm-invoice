@@ -1,4 +1,5 @@
 Tooltips
+Reg code must allow for missing customer reg.
 New registration and vin regexs. Strict checking option to switch between regexes?
 Settings page access.
 Custom reg and vin widgets.

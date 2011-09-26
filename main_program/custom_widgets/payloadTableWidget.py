@@ -1,5 +1,6 @@
 try:
     import sys
+    from decimal import Decimal
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -10,10 +11,11 @@ except ImportError as err:
 
 class PayloadTableWidget(QTableWidget):
     
-    calculateTotalValue = pyqtSignal(list)
-    
+    updateTicketTotal = pyqtSignal()
+
     def __init__(self, parent=None):
         super(PayloadTableWidget, self).__init__(parent)
+
         self.setSelectionBehavior(QTableWidget.SelectRows)
         self.setSelectionMode(QTableWidget.SingleSelection)
         
@@ -21,6 +23,9 @@ class PayloadTableWidget(QTableWidget):
         self.materialColumn = 1
         self.valueColumn = 2
         self.deleteColumn = 3
+        
+        self.connect(self, SIGNAL("cellChanged(int, int)"),
+                     self.changed)
         
     def getWeightColumn(self):
         return self.weightColumn
@@ -33,13 +38,16 @@ class PayloadTableWidget(QTableWidget):
     
     def getDeleteColumn(self):
         return self.deleteColumn
-        
-    @pyqtSlot()
-    def onChange(self, cellRow, cellColumn):
-        if cellColumn == (self.valueColumn):
-            cellValues = [self.item(row, self.valueColumn).text() 
+    
+    def getTotal(self):
+        cellValues = [Decimal(self.item(row, self.valueColumn).text()) 
                       for row in range(self.rowCount())]
-            self.calculateTotalValue.emit(cellValues)
+        
+        return sum(cellValues)
+        
+    def changed(self, cellRow, cellColumn):
+        if cellColumn == (self.valueColumn):
+            self.updateTicketTotal.emit()
         
     def setCurrentToEmptyRow(self):
         self.setCurrentCell(0, 0)
@@ -53,7 +61,7 @@ class PayloadTableWidget(QTableWidget):
         self.insertRow(self.rowCount())
         self.setCurrentCell((self.rowCount() - 1), startingColumn)
         
-    def getValidatedStatus(self):
+    def isValid(self):
         if self.item(0, 0) == None:
             return False
         else:

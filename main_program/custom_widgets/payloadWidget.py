@@ -12,7 +12,7 @@ except ImportError as err:
 
 class PayloadWidget(QWidget, payload_widget_generated.Ui_payloadWidget):
 
-    newPayloadTotal = pyqtSignal("QString", "QString")
+    newPayloadTotal = pyqtSignal("QString", "QString", "bool")
     
     def __init__(self, parent=None):
         super(PayloadWidget, self).__init__(parent)
@@ -26,4 +26,14 @@ class PayloadWidget(QWidget, payload_widget_generated.Ui_payloadWidget):
         
     def changed(self):
         self.newPayloadTotal.emit(self.weightWidget.getNetWeight(),
-                                  self.materialWidget.getPricePerUnit())
+                                  self.materialWidget.getPricePerUnit(),
+                                  self.materialWidget.isValid())
+        
+    def getNetWeight(self):
+        return self.weightWidget.getNetWeight()
+    
+    def getMaterial(self):
+        return self.materialWidget.getMaterial()
+    
+    def vehicleSelected(self):
+        return self.materialWidget.vehicleSelected()

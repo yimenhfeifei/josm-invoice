@@ -5,15 +5,15 @@ try:
     from PyQt4.QtGui import *
     from PyQt4 import QtDesigner
     
-    from custom_widgets.payloadTableWidget import PayloadTableWidget
+    from custom_widgets.payloadTotalWidget import PayloadTotalWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
+class PayloadTotalWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
 
     def __init__(self, parent = None):
-        super(PayloadTableWidgetPlugin, self).__init__(parent)
+        super(PayloadTotalWidgetPlugin, self).__init__(parent)
 
         self.initialised = False
     
@@ -29,10 +29,10 @@ class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return self.initialized
     
     def createWidget(self, parent):
-        return PayloadTableWidget(parent)
+        return PayloadTotalWidget(parent)
     
     def name(self):
-        return "PayloadTableWidget"
+        return "PayloadTotalWidget"
     
     def group(self):
         return "Custom Widgets"
@@ -47,14 +47,14 @@ class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return False
     
     def domXml(self):
-        return ("<widget class='PayloadTableWidget' name='payloadTableWidget'>\n"
+        return ("<widget class='PayloadTotalWidget' name='payloadTotalWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Customer details.</string>\n"
+               "  <string>Payload total display.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Customer details widgte.</string>\n"
+               "  <string>Payload total.</string>\n"
                " </property>\n"
                "</widget>\n")
                
     def includeFile(self):
-        return "custom_widgets.payloadTableWidget"
+        return "custom_widgets.payloadTotalWidget"

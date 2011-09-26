@@ -33,44 +33,25 @@ class NewTicketWidget(QWidget,
         self.classesToValidate = (CustomerWidget,
                                   WeightWidget)
         
-        self.validationCandidates = []
-        for candidate in self.getValidationCandidates(self):
-            self.validationCandidates.append(candidate)
-        
         self.payloadTableWidget.setHorizontalHeaderLabels(["Weight",
                                                            "Material",
                                                            "Value",
                                                            "Delete"])
         
-        self.connect(self.customerWidget, SIGNAL("widgetChanged()"), self.update)
+        self.connect(self.customerWidget, SIGNAL("widgetChanged()"),
+                     self.update)
         
-        self.connect(self.payloadWidget, SIGNAL("newPayloadTotal(QString, QString)"),
-                     self, SLOT("updatePayloadTotal(QString, QString)"))
-
-    def getValidationCandidates(self, widget):
-        for widget in widget.children():
-            if isinstance(widget, QGroupBox):
-                for result in self.getValidationCandidates(widget):
-                    yield result
-            else:
-                if isinstance(widget, self.classesToValidate):
-                    yield widget
+        self.connect(self.payloadWidget, SIGNAL("newPayloadTotal(QString, QString, bool)"),
+                     self.payloadTotalWidget, SLOT("updatePayloadTotal(QString, QString, bool)"))
         
-    def getWidgetsToValidate(self, candidates):
-        for candidate in candidates:
-            if candidate.isEnabled():
-                yield candidate
-                
-    def onMaterialComboboxChanged(self):
-        index = self.materialCombobox.findText("Vehicle")
-        if self.materialCombobox.currentIndex() == index:
-            self.vehicleGroupBox.setEnabled(True)
-        else:
-            self.vehicleGroupBox.setEnabled(False)
-            
-        ppu = self.materialCombobox.itemData(self.materialCombobox.currentIndex())
-        self.payloadValueLineEdit.calculatePayloadValue(self.netWeightLineEdit.text(),
-                                                        ppu)
+        self.connect(self.payloadTableWidget, SIGNAL("updateTicketTotal()"),
+                     self.updateTicketTotal)
+        
+        self.connect(self.payloadTotalWidget, SIGNAL("addPayload()"),
+                     self.addPayload)
+        
+        self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
+                     self.deletePayload)
         
     def loadVehicleDetails(self, vehicle):
         self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])
@@ -104,9 +85,9 @@ class NewTicketWidget(QWidget,
             # code to update details if edited
                 
     def collectPayload(self):
-        return (self.netWeightLineEdit.text(),
-                self.materialCombobox.currentText(),
-                self.payloadValueLineEdit.text())
+        return (self.payloadWidget.getNetWeight(),
+                self.payloadWidget.getMaterial(),
+                self.payloadTotalWidget.getPayloadValue())
     
     def addDeleteButton(self, row):
         deleteItem = QTableWidgetItem("Delete")
@@ -126,16 +107,10 @@ class NewTicketWidget(QWidget,
         else:
             return string
         
-    def vehiclePresent(self, column):
-        materialColumn = self.payloadTableWidget.getMaterialColumn()
-        
-        if column == materialColumn and self.vehicleDialogResult:
-            return True
-        else:
-            return False
+    def vehicleSelected(self):
+        return self.payloadWidget.vehicleSelected()
         
     def setVehicleItemFont(self, item):
-        item.setText(self.vehicleDialogResult["typeText"])
         item.setTextColor(Qt.blue)
         item.setFont(QFont("Monospace", weight=QFont.Bold))
 
@@ -148,15 +123,14 @@ class NewTicketWidget(QWidget,
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             
-            if self.vehiclePresent(column):
+            if self.vehicleSelected():
                 self.setVehicleItemFont(item)
-                self.vehicles[id(item)] = self.vehicleDialogResult.copy()
-                self.vehicleDialogResult = None
+                print("vehicle added")
             
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
             
-            self.addDeleteButton(row)
+            #self.addDeleteButton(row)
             
     def deletePayload(self):
         table = self.payloadTableWidget
@@ -165,34 +139,20 @@ class NewTicketWidget(QWidget,
                       self.payloadTableWidget.getValueColumn(),
                       QTableWidgetItem("00.00"))
         
-        try:
-            del self.vehicles[id(table.item(table.currentRow(),
-                                            table.getMaterialColumn()))]
-        except KeyError:
-            pass
+        #try:
+            #del self.vehicles[id(table.item(table.currentRow(),
+                                            #table.getMaterialColumn()))]
+        #except KeyError:
+            #pass
         
         table.removeRow(table.currentRow())
         self.update()
-        
-    def populateTypeCombobox(self):
-        self.typeCombobox.addItem("Banger", "1.00")
-        self.typeCombobox.addItem("Bike", "0.70")
-        self.typeCombobox.addItem("Car", "1.70")
-        self.typeCombobox.addItem("Shell", "0.50")
-        self.typeCombobox.addItem("Van", "1.60")
-    
-    def allWidgetsValidated(self):
-        for widget in self.getWidgetsToValidate(self.validationCandidates):
-            if not widget.isValid():
-                return False
-        return True
     
     def updateReviewTicketButton(self):
-        self.reviewTicketButton.setEnabled(self.allWidgetsValidated())
-        
-    def updateAddPayloadButton(self):
-        #self.addPayloadButton.setEnabled(self.weightWidget.isValid())
-        pass
+        if self.payloadTableWidget.isValid() and self.customerWidget.isValid():
+            self.reviewTicketButton.setEnabled(True)
+        else:
+            self.reviewTicketButton.setEnabled(False)
             
     def getNewTicketNumber(self):
         return "12000"
@@ -266,19 +226,13 @@ class NewTicketWidget(QWidget,
         
         return Ticket(ticket, customerObject, payloadObjects)
     
+    def updateTicketTotal(self):
+        self.ticketTotalLabel.setText(str(self.payloadTableWidget.getTotal()))
+    
     def reviewTicket(self):
         ticket = self.makeTicket()
         TicketReviewDialog(ticket).exec_()
         
-    @pyqtSlot("QString", "QString")
-    def updatePayloadTotal(self, net, ppu):
-        total = Decimal(net) * Decimal(ppu)
-        print(net, ppu)
-        self.payloadTotalLabel.setText(str(total))
-        self.update()
-        
     def update(self):
-        print("update")
         self.updateReviewTicketButton()
-        self.updateAddPayloadButton()
         super(NewTicketWidget, self).update()
