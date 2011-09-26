@@ -153,6 +153,19 @@ p, li { white-space: pre-wrap; }
      <string>Delete</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="editPayloadButton">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>500</y>
+      <width>51</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Edit</string>
+    </property>
+   </widget>
   </widget>
   <widget class="CustomerWidget" name="customerWidget">
    <property name="geometry">

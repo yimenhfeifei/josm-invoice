@@ -37,3 +37,6 @@ class PayloadWidget(QWidget, payload_widget_generated.Ui_payloadWidget):
     
     def vehicleSelected(self):
         return self.materialWidget.vehicleSelected()
+    
+    def getVehicleDetails(self):
+        return self.materialWidget.getVehicleDetails()

@@ -68,6 +68,14 @@ class MaterialWidget(QWidget, material_widget_generated.Ui_materialWidget):
     
     def vehicleSelected(self):
         return self.vehicleBox.isEnabled()
+    
+    def getVehicleDetails(self):
+        return {"make": self.makeEdit.text(),
+                "model": self.modelEdit.text(),
+                "colour": self.colourCombobox.currentIndex(),
+                "reg": self.vehicleRegistrationEdit.text(),
+                "vin": self.vinEdit.text(),
+                "id": self.idCombobox.currentIndex()}
         
     def isValid(self):
         if self.vehicleBox.isEnabled():

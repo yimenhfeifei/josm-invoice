@@ -8,7 +8,7 @@ try:
     
     from gui_interface_designs import new_ticket_widget_generated
     from ticket_review_dialog import TicketReviewDialog
-    from vehicle_dialog import VehicleDialog
+    from custom_widgets.vehicleDialog import VehicleDialog
     from shared_modules.ticket import Ticket
     from shared_modules.customer import Customer
     from shared_modules.payload import Payload
@@ -53,6 +53,12 @@ class NewTicketWidget(QWidget,
         self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
                      self.deletePayload)
         
+        self.connect(self.editPayloadButton, SIGNAL("clicked()"),
+                     self.deletePayload)
+        
+        self.connect(self.payloadTableWidget, SIGNAL("cellDoubleClicked(int, int)"),
+                     self.onPayloadTableDoubleClicked)
+        
     def loadVehicleDetails(self, vehicle):
         self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])
         self.typeCombobox.setItemData(self.typeCombobox.currentIndex(),
@@ -81,7 +87,8 @@ class NewTicketWidget(QWidget,
         materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
         if id(item) in self.vehicles:
-            self.loadVehicleDetails(self.vehicles[id(item)])
+            d = VehicleDialog(self.vehicles[id(item)])
+            d.exec_()
             # code to update details if edited
                 
     def collectPayload(self):
@@ -123,9 +130,9 @@ class NewTicketWidget(QWidget,
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             
-            if self.vehicleSelected():
+            if self.vehicleSelected() and column == self.payloadTableWidget.materialColumn:
                 self.setVehicleItemFont(item)
-                print("vehicle added")
+                self.vehicles[id(item)] = self.payloadWidget.getVehicleDetails()
             
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'payload_total_widget_design.ui'
 #
-# Created: Mon Sep 26 11:52:08 2011
+# Created: Mon Sep 26 14:42:50 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_widget_design.ui'
 #
-# Created: Mon Sep 26 11:52:07 2011
+# Created: Mon Sep 26 14:42:49 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -73,6 +73,10 @@ class Ui_newTicketWidget(object):
         self.deletePayloadButton.setGeometry(QtCore.QRect(340, 450, 51, 26))
         self.deletePayloadButton.setText(QtGui.QApplication.translate("newTicketWidget", "Delete", None, QtGui.QApplication.UnicodeUTF8))
         self.deletePayloadButton.setObjectName(_fromUtf8("deletePayloadButton"))
+        self.editPayloadButton = QtGui.QPushButton(self.payloadsGroupBox)
+        self.editPayloadButton.setGeometry(QtCore.QRect(340, 500, 51, 26))
+        self.editPayloadButton.setText(QtGui.QApplication.translate("newTicketWidget", "Edit", None, QtGui.QApplication.UnicodeUTF8))
+        self.editPayloadButton.setObjectName(_fromUtf8("editPayloadButton"))
         self.customerWidget = CustomerWidget(newTicketWidget)
         self.customerWidget.setGeometry(QtCore.QRect(0, 0, 290, 266))
         self.customerWidget.setToolTip(QtGui.QApplication.translate("newTicketWidget", "Customer details.", None, QtGui.QApplication.UnicodeUTF8))
