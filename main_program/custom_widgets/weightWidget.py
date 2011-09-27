@@ -99,3 +99,7 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
             return True
         else:
             return False
+        
+    def reset(self):
+        self.clear()
+        self.useGrossBox.setChecked(False)

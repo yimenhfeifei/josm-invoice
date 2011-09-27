@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'new_ticket_widget_design.ui'
 #
-# Created: Tue Sep 27 09:27:11 2011
+# Created: Tue Sep 27 11:11:02 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,7 +24,7 @@ class Ui_newTicketWidget(object):
         self.payloadsGroupBox.setTitle(QtGui.QApplication.translate("newTicketWidget", "Payloads", None, QtGui.QApplication.UnicodeUTF8))
         self.payloadsGroupBox.setObjectName(_fromUtf8("payloadsGroupBox"))
         self.layoutWidget = QtGui.QWidget(self.payloadsGroupBox)
-        self.layoutWidget.setGeometry(QtCore.QRect(400, 390, 133, 98))
+        self.layoutWidget.setGeometry(QtCore.QRect(400, 390, 133, 103))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_3.setMargin(0)
@@ -34,15 +34,26 @@ class Ui_newTicketWidget(object):
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.groupBox_2)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.ticketTotalLabel = QtGui.QLabel(self.groupBox_2)
-        self.ticketTotalLabel.setText(QtGui.QApplication.translate("newTicketWidget", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        spacerItem = QtGui.QSpacerItem(18, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.label = QtGui.QLabel(self.groupBox_2)
+        self.label.setText(QtGui.QApplication.translate("newTicketWidget", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">$ 3400.00</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt; font-weight:600;\">$</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout.addWidget(self.label)
+        self.ticketTotalLabel = QtGui.QLabel(self.groupBox_2)
+        self.ticketTotalLabel.setText(QtGui.QApplication.translate("newTicketWidget", "00.00", None, QtGui.QApplication.UnicodeUTF8))
         self.ticketTotalLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.ticketTotalLabel.setObjectName(_fromUtf8("ticketTotalLabel"))
-        self.horizontalLayout_2.addWidget(self.ticketTotalLabel)
+        self.horizontalLayout.addWidget(self.ticketTotalLabel)
+        spacerItem1 = QtGui.QSpacerItem(18, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
+        self.horizontalLayout_2.addLayout(self.horizontalLayout)
         self.verticalLayout_3.addWidget(self.groupBox_2)
         self.reviewTicketButton = QtGui.QCommandLinkButton(self.layoutWidget)
         self.reviewTicketButton.setEnabled(False)

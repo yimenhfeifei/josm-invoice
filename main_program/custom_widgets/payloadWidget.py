@@ -40,3 +40,7 @@ class PayloadWidget(QWidget, payload_widget_generated.Ui_payloadWidget):
     
     def getVehicleDetails(self):
         return self.materialWidget.getVehicleDetails()
+    
+    def reset(self):
+        self.weightWidget.reset()
+        self.materialWidget.reset()

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'verify_ticket_dialog_design.ui'
 #
-# Created: Tue Sep 27 09:27:10 2011
+# Created: Tue Sep 27 11:11:01 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!

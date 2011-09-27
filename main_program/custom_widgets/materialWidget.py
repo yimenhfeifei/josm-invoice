@@ -83,3 +83,16 @@ class MaterialWidget(QWidget, material_widget_generated.Ui_materialWidget):
                 if not widget.isValid():
                     return False
         return True
+    
+    def reset(self):
+        self.materialTable.clearSelection()
+        self.materialTable.setCurrentCell(0, 0)
+        
+        self.makeEdit.clear()
+        self.modelEdit.clear()
+        self.colourCombobox.setCurrentIndex(0)
+        self.vehicleRegistrationEdit.clear()
+        self.vinEdit.clear()
+        self.idCombobox.setCurrentIndex(0)
+        
+        self.vehicleBox.setEnabled(False)

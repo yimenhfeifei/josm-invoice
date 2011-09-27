@@ -20,6 +20,13 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
                                self.vehicleRegistrationEdit,
                                self.vinEdit]
         
+        self.makeEdit.setText(vehicle["make"])
+        self.modelEdit.setText(vehicle["model"])
+        self.colourCombobox.setCurrentIndex(vehicle["colour"])
+        self.vehicleRegistrationEdit.setText(vehicle["reg"])
+        self.vinEdit.setText(vehicle["vin"])
+        self.idCombobox.setCurrentIndex(vehicle["id"])
+        
         for widget in self.vehicleWidgets:
             self.connect(widget, SIGNAL("textChanged(QString)"),
                          self.changed)
@@ -30,12 +37,7 @@ class VehicleDialog(QDialog, vehicle_dialog_generated.Ui_vehicleDialog):
         self.connect(self.acceptButton, SIGNAL("clicked()"),
                      self.accept)
         
-        self.makeEdit.setText(vehicle["make"])
-        self.modelEdit.setText(vehicle["model"])
-        self.colourCombobox.setCurrentIndex(vehicle["colour"])
-        self.vehicleRegistrationEdit.setText(vehicle["reg"])
-        self.vinEdit.setText(vehicle["vin"])
-        self.idCombobox.setCurrentIndex(vehicle["id"])
+        self.changed()
     
     def changed(self):
         for widget in self.vehicleWidgets:

@@ -139,6 +139,8 @@ class NewTicketWidget(QWidget,
             
             #self.addDeleteButton(row)
             
+        self.payloadWidget.reset()
+            
     def deletePayload(self):
         table = self.payloadTableWidget
         

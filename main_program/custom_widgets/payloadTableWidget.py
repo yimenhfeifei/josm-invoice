@@ -1,5 +1,6 @@
 try:
     import sys
+    import decimal
     from decimal import Decimal
     
     from PyQt4.QtCore import *
@@ -27,6 +28,8 @@ class PayloadTableWidget(QTableWidget):
         self.connect(self, SIGNAL("cellChanged(int, int)"),
                      self.changed)
         
+        decimal.getcontext().rounding = decimal.ROUND_HALF_UP
+        
     def getWeightColumn(self):
         return self.weightColumn
     
@@ -43,7 +46,10 @@ class PayloadTableWidget(QTableWidget):
         cellValues = [Decimal(self.item(row, self.valueColumn).text()) 
                       for row in range(self.rowCount())]
         
-        return sum(cellValues)
+        total = sum(cellValues)
+        total = total.to_integral() + Decimal(".00")
+        
+        return total
         
     def changed(self, cellRow, cellColumn):
         if cellColumn == (self.valueColumn):
