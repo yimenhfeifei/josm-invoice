@@ -56,7 +56,7 @@ class NewTicketWidget(QWidget,
         self.connect(self.editPayloadButton, SIGNAL("clicked()"),
                      self.deletePayload)
         
-        self.connect(self.payloadTableWidget, SIGNAL("cellDoubleClicked(int, int)"),
+        self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
                      self.onPayloadTableDoubleClicked)
         
     def loadVehicleDetails(self, vehicle):
