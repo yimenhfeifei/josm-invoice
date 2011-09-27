@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'vehicle_dialog_design.ui'
 #
-# Created: Mon Sep 26 14:42:50 2011
+# Created: Tue Sep 27 09:27:12 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -44,7 +44,7 @@ class Ui_vehicleDialog(object):
         self.makeEdit.setMaximumSize(QtCore.QSize(161, 25))
         self.makeEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter vehicle make.", None, QtGui.QApplication.UnicodeUTF8))
         self.makeEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.makeEdit.setStyleSheet(_fromUtf8("QLineEdit {background-color: red;}"))
+        self.makeEdit.setStyleSheet(_fromUtf8(""))
         self.makeEdit.setProperty("regexString", QtGui.QApplication.translate("vehicleDialog", "street", None, QtGui.QApplication.UnicodeUTF8))
         self.makeEdit.setObjectName(_fromUtf8("makeEdit"))
         self.gridLayout.addWidget(self.makeEdit, 0, 1, 1, 2)
@@ -69,6 +69,7 @@ class Ui_vehicleDialog(object):
         self.modelEdit.setMaximumSize(QtCore.QSize(161, 25))
         self.modelEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter vehicle model.", None, QtGui.QApplication.UnicodeUTF8))
         self.modelEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
+        self.modelEdit.setStyleSheet(_fromUtf8(""))
         self.modelEdit.setProperty("regexString", QtGui.QApplication.translate("vehicleDialog", "model", None, QtGui.QApplication.UnicodeUTF8))
         self.modelEdit.setObjectName(_fromUtf8("modelEdit"))
         self.gridLayout.addWidget(self.modelEdit, 1, 1, 1, 2)
@@ -137,7 +138,7 @@ class Ui_vehicleDialog(object):
         self.vehicleRegistrationEdit.setMaximumSize(QtCore.QSize(91, 25))
         self.vehicleRegistrationEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid UK vehicle registration number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
-        self.vehicleRegistrationEdit.setStyleSheet(_fromUtf8("QLineEdit {background-color: red;}"))
+        self.vehicleRegistrationEdit.setStyleSheet(_fromUtf8(""))
         self.vehicleRegistrationEdit.setProperty("regexString", QtGui.QApplication.translate("vehicleDialog", "post2001Reg", None, QtGui.QApplication.UnicodeUTF8))
         self.vehicleRegistrationEdit.setObjectName(_fromUtf8("vehicleRegistrationEdit"))
         self.gridLayout.addWidget(self.vehicleRegistrationEdit, 3, 2, 1, 1)
@@ -156,6 +157,7 @@ class Ui_vehicleDialog(object):
         self.vinEdit.setMaximumSize(QtCore.QSize(183, 25))
         self.vinEdit.setToolTip(QtGui.QApplication.translate("vehicleDialog", "Enter valid VIN number.", None, QtGui.QApplication.UnicodeUTF8))
         self.vinEdit.setWhatsThis(QtGui.QApplication.translate("vehicleDialog", "The analog clock widget displays the current time.", None, QtGui.QApplication.UnicodeUTF8))
+        self.vinEdit.setStyleSheet(_fromUtf8(""))
         self.vinEdit.setProperty("regexString", QtGui.QApplication.translate("vehicleDialog", "vin", None, QtGui.QApplication.UnicodeUTF8))
         self.vinEdit.setObjectName(_fromUtf8("vinEdit"))
         self.gridLayout.addWidget(self.vinEdit, 4, 1, 1, 2)
@@ -181,15 +183,21 @@ class Ui_vehicleDialog(object):
         self.idCombobox.setItemText(1, QtGui.QApplication.translate("vehicleDialog", "Known", None, QtGui.QApplication.UnicodeUTF8))
         self.gridLayout.addWidget(self.idCombobox, 5, 1, 1, 2)
         self.verticalLayout.addLayout(self.gridLayout)
-        self.buttonBox = QtGui.QDialogButtonBox(vehicleDialog)
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.verticalLayout.addWidget(self.buttonBox)
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.cancelButton = QtGui.QPushButton(vehicleDialog)
+        self.cancelButton.setText(QtGui.QApplication.translate("vehicleDialog", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+        self.cancelButton.setObjectName(_fromUtf8("cancelButton"))
+        self.horizontalLayout.addWidget(self.cancelButton)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.acceptButton = QtGui.QPushButton(vehicleDialog)
+        self.acceptButton.setText(QtGui.QApplication.translate("vehicleDialog", "Accept", None, QtGui.QApplication.UnicodeUTF8))
+        self.acceptButton.setObjectName(_fromUtf8("acceptButton"))
+        self.horizontalLayout.addWidget(self.acceptButton)
+        self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(vehicleDialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), vehicleDialog.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), vehicleDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(vehicleDialog)
 
     def retranslateUi(self, vehicleDialog):

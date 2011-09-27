@@ -86,10 +86,10 @@ class NewTicketWidget(QWidget,
     def onPayloadTableDoubleClicked(self, row, column):
         materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
-        if id(item) in self.vehicles:
+        if column == materialColumn and id(item) in self.vehicles:
             d = VehicleDialog(self.vehicles[id(item)])
-            d.exec_()
-            # code to update details if edited
+            if d.exec_():
+                self.vehicles[id(item)] = d.getFields()
                 
     def collectPayload(self):
         return (self.payloadWidget.getNetWeight(),
@@ -146,11 +146,11 @@ class NewTicketWidget(QWidget,
                       self.payloadTableWidget.getValueColumn(),
                       QTableWidgetItem("00.00"))
         
-        #try:
-            #del self.vehicles[id(table.item(table.currentRow(),
-                                            #table.getMaterialColumn()))]
-        #except KeyError:
-            #pass
+        try:
+            del self.vehicles[id(table.item(table.currentRow(),
+                                            table.getMaterialColumn()))]
+        except KeyError:
+            pass
         
         table.removeRow(table.currentRow())
         self.update()

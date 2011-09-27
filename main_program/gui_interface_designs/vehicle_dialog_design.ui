@@ -68,7 +68,7 @@
         <string>The analog clock widget displays the current time.</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit {background-color: red;}</string>
+        <string notr="true"/>
        </property>
        <property name="regexString" stdset="0">
         <string>street</string>
@@ -125,6 +125,9 @@
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="regexString" stdset="0">
         <string>model</string>
@@ -288,7 +291,7 @@
         <string>The analog clock widget displays the current time.</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">QLineEdit {background-color: red;}</string>
+        <string notr="true"/>
        </property>
        <property name="regexString" stdset="0">
         <string>post2001Reg</string>
@@ -333,6 +336,9 @@
        </property>
        <property name="whatsThis">
         <string>The analog clock widget displays the current time.</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="regexString" stdset="0">
         <string>vin</string>
@@ -396,14 +402,35 @@
     </layout>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="acceptButton">
+       <property name="text">
+        <string>Accept</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -415,38 +442,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>vehicleDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>vehicleDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
