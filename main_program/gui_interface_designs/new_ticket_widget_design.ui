@@ -6,86 +6,278 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>886</width>
-    <height>584</height>
+    <width>973</width>
+    <height>619</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>836</width>
+    <height>535</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGroupBox" name="payloadsGroupBox">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>10</y>
-     <width>601</width>
-     <height>571</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Payloads</string>
-   </property>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>390</y>
-      <width>133</width>
-      <height>103</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="title">
-        <string>Ticket total</string>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <item>
+    <widget class="CustomerWidget" name="customerWidget">
+     <property name="toolTip">
+      <string>Customer details.</string>
+     </property>
+     <property name="whatsThis">
+      <string>Customer details widgte.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="payloadsGroupBox">
+     <property name="title">
+      <string>Payloads</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="PayloadWidget" name="payloadWidget">
+        <property name="toolTip">
+         <string>Payload details.</string>
+        </property>
+        <property name="whatsThis">
+         <string>Payload widget.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <spacer name="horizontalSpacer">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="PayloadTotalWidget" name="payloadTotalWidget">
+              <property name="toolTip">
+               <string>Payload total display.</string>
+              </property>
+              <property name="whatsThis">
+               <string>Payload total.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="PayloadTableWidget" name="payloadTableWidget">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>351</width>
+              <height>160</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Customer details.</string>
+            </property>
+            <property name="whatsThis">
+             <string>Customer details widgte.</string>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="columnCount">
+             <number>4</number>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>80</number>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>70</number>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <column/>
+            <column/>
+            <column/>
+            <column/>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>68</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0">
+           <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>18</width>
+              <width>78</width>
               <height>20</height>
              </size>
             </property>
            </spacer>
           </item>
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+          <item row="1" column="1">
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
+               <string>Ticket total</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>18</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;$&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="ticketTotalLabel">
+                   <property name="text">
+                    <string>00.00</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>18</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCommandLinkButton" name="reviewTicketButton">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>131</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>131</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Review ticket</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item>
-           <widget class="QLabel" name="ticketTotalLabel">
-            <property name="text">
-             <string>00.00</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
+          <item row="1" column="2">
+           <spacer name="horizontalSpacer_6">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>18</width>
+              <width>88</width>
               <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="1">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>58</height>
              </size>
             </property>
            </spacer>
@@ -93,133 +285,11 @@ p, li { white-space: pre-wrap; }
          </layout>
         </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCommandLinkButton" name="reviewTicketButton">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>131</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>131</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Review ticket</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="PayloadWidget" name="payloadWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>601</width>
-      <height>281</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Payload details.</string>
-    </property>
-    <property name="whatsThis">
-     <string>Payload widget.</string>
-    </property>
-   </widget>
-   <widget class="PayloadTotalWidget" name="payloadTotalWidget">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>290</y>
-      <width>254</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Payload total display.</string>
-    </property>
-    <property name="whatsThis">
-     <string>Payload total.</string>
-    </property>
-   </widget>
-   <widget class="PayloadTableWidget" name="payloadTableWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>410</y>
-      <width>321</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Customer details.</string>
-    </property>
-    <property name="whatsThis">
-     <string>Customer details widgte.</string>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="columnCount">
-     <number>4</number>
-    </property>
-    <column/>
-    <column/>
-    <column/>
-    <column/>
-   </widget>
-   <widget class="QPushButton" name="deletePayloadButton">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>450</y>
-      <width>51</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Delete</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="editPayloadButton">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>500</y>
-      <width>51</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Edit</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="CustomerWidget" name="customerWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>290</width>
-     <height>266</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Customer details.</string>
-   </property>
-   <property name="whatsThis">
-    <string>Customer details widgte.</string>
-   </property>
-  </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>

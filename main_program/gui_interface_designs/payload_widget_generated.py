@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'payload_widget_design.ui'
 #
-# Created: Tue Sep 27 11:10:58 2011
+# Created: Tue Sep 27 16:02:42 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_payloadWidget(object):
     def setupUi(self, payloadWidget):
         payloadWidget.setObjectName(_fromUtf8("payloadWidget"))
-        payloadWidget.resize(451, 282)
+        payloadWidget.resize(604, 282)
         payloadWidget.setWindowTitle(QtGui.QApplication.translate("payloadWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
         self.verticalLayout = QtGui.QVBoxLayout(payloadWidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))

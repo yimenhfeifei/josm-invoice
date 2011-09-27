@@ -1,11 +1,14 @@
 try:
     import sys
+    import re
     from decimal import Decimal
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
     from gui_interface_designs import payload_total_widget_generated
+    from custom_widgets.payloadEditDialog import PayloadEditDialog
+    from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -21,13 +24,30 @@ class PayloadTotalWidget(QWidget,
         
         self.connect(self.addPayloadButton, SIGNAL("clicked()"),
                      self.addPayload.emit)
+        
+        self.connect(self.payloadTotalLabel, SIGNAL("linkActivated(QString)"),
+                     self.editPayloadTotal)
     
     @pyqtSlot("QString", "QString", "bool")
     def updatePayloadTotal(self, net, ppu, materialValid):
         total = Decimal(net) * Decimal(ppu)
-        print(net, ppu)
-        self.payloadTotalLabel.setText(str(total))
+        
+        totalString = re.sub(regexObjects["spanTagContents"],
+                             str(total),
+                             self.payloadTotalLabel.text())
+        
+        self.payloadTotalLabel.setText(totalString)
         self.updateAddPayloadButton(total, materialValid)
+        
+    def editPayloadTotal(self):
+        dialog = PayloadEditDialog()
+        if dialog.exec_():
+            totalString = re.sub(regexObjects["spanTagContents"],
+                                 dialog.payloadValueEdit.text(),
+                                 self.payloadTotalLabel.text())
+            
+            self.payloadTotalLabel.setText(totalString)
+            self.updateAddPayloadButton(totalString, True)
         
     def updateAddPayloadButton(self, value, materialValid):
         if value and materialValid:
@@ -36,4 +56,7 @@ class PayloadTotalWidget(QWidget,
             self.addPayloadButton.setEnabled(False)
             
     def getPayloadValue(self):
-        return self.payloadTotalLabel.text()
+        match = re.search(regexObjects["spanTagContents"],
+                          self.payloadTotalLabel.text())
+        
+        return match.group(0)

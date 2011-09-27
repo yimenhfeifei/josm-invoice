@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'customer_widget_design.ui'
 #
-# Created: Tue Sep 27 11:11:00 2011
+# Created: Tue Sep 27 16:02:43 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_customerWidget(object):
     def setupUi(self, customerWidget):
         customerWidget.setObjectName(_fromUtf8("customerWidget"))
-        customerWidget.resize(283, 266)
+        customerWidget.resize(326, 266)
         customerWidget.setWindowTitle(QtGui.QApplication.translate("customerWidget", "Form", None, QtGui.QApplication.UnicodeUTF8))
         self.verticalLayout = QtGui.QVBoxLayout(customerWidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -39,6 +39,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.firstNameEdit.sizePolicy().hasHeightForWidth())
         self.firstNameEdit.setSizePolicy(sizePolicy)
+        self.firstNameEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.firstNameEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.firstNameEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.firstNameEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "name", None, QtGui.QApplication.UnicodeUTF8))
@@ -54,6 +55,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lastNameEdit.sizePolicy().hasHeightForWidth())
         self.lastNameEdit.setSizePolicy(sizePolicy)
+        self.lastNameEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.lastNameEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.lastNameEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.lastNameEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "name", None, QtGui.QApplication.UnicodeUTF8))
@@ -69,6 +71,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.houseNumberEdit.sizePolicy().hasHeightForWidth())
         self.houseNumberEdit.setSizePolicy(sizePolicy)
+        self.houseNumberEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.houseNumberEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.houseNumberEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.houseNumberEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "houseNumber", None, QtGui.QApplication.UnicodeUTF8))
@@ -84,6 +87,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.streetEdit.sizePolicy().hasHeightForWidth())
         self.streetEdit.setSizePolicy(sizePolicy)
+        self.streetEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.streetEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.streetEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.streetEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "street", None, QtGui.QApplication.UnicodeUTF8))
@@ -99,6 +103,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.townEdit.sizePolicy().hasHeightForWidth())
         self.townEdit.setSizePolicy(sizePolicy)
+        self.townEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.townEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.townEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.townEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "town", None, QtGui.QApplication.UnicodeUTF8))
@@ -114,6 +119,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.postcodeEdit.sizePolicy().hasHeightForWidth())
         self.postcodeEdit.setSizePolicy(sizePolicy)
+        self.postcodeEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.postcodeEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.postcodeEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.postcodeEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "postcode", None, QtGui.QApplication.UnicodeUTF8))
@@ -129,6 +135,7 @@ class Ui_customerWidget(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.customerRegEdit.sizePolicy().hasHeightForWidth())
         self.customerRegEdit.setSizePolicy(sizePolicy)
+        self.customerRegEdit.setMaximumSize(QtCore.QSize(163, 25))
         self.customerRegEdit.setToolTip(QtGui.QApplication.translate("customerWidget", "Line edit that provides custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.customerRegEdit.setWhatsThis(QtGui.QApplication.translate("customerWidget", "Base widget for custom validation.", None, QtGui.QApplication.UnicodeUTF8))
         self.customerRegEdit.setProperty("regexString", QtGui.QApplication.translate("customerWidget", "post2001Reg", None, QtGui.QApplication.UnicodeUTF8))

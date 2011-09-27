@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_client_window_design.ui'
 #
-# Created: Tue Sep 27 11:10:57 2011
+# Created: Tue Sep 27 16:02:42 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,8 +17,8 @@ except AttributeError:
 class Ui_ticketClientWindow(object):
     def setupUi(self, ticketClientWindow):
         ticketClientWindow.setObjectName(_fromUtf8("ticketClientWindow"))
-        ticketClientWindow.resize(720, 575)
-        ticketClientWindow.setMinimumSize(QtCore.QSize(626, 62))
+        ticketClientWindow.resize(973, 651)
+        ticketClientWindow.setMinimumSize(QtCore.QSize(973, 651))
         ticketClientWindow.setWindowTitle(QtGui.QApplication.translate("ticketClientWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
         self.centralwidget = QtGui.QWidget(ticketClientWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -26,7 +26,7 @@ class Ui_ticketClientWindow(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         ticketClientWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(ticketClientWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 720, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 973, 23))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setTitle(QtGui.QApplication.translate("ticketClientWindow", "File", None, QtGui.QApplication.UnicodeUTF8))

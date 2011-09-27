@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'weight_widget_design.ui'
 #
-# Created: Tue Sep 27 11:11:00 2011
+# Created: Tue Sep 27 16:02:43 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!

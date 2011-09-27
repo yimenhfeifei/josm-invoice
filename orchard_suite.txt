@@ -1,9 +1,9 @@
 Tooltips
 Reg code must allow for missing customer reg.
+payload value allows zeros, and allows adding loads when materials aren't selected.
 New registration and vin regexs. Strict checking option to switch between regexes?
 Settings page access.
 Custom reg and vin widgets.
-Make QR of hash.
 Clean and extend test code.
 
 Reg:

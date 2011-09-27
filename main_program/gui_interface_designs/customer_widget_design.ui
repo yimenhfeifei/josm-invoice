@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>283</width>
+    <width>326</width>
     <height>266</height>
    </rect>
   </property>
@@ -44,6 +44,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
         </property>
@@ -69,6 +75,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
         </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
@@ -96,6 +108,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
         </property>
@@ -121,6 +139,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
         </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
@@ -148,6 +172,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
         </property>
@@ -174,6 +204,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
+        </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>
         </property>
@@ -199,6 +235,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>163</width>
+          <height>25</height>
+         </size>
         </property>
         <property name="toolTip">
          <string>Line edit that provides custom validation.</string>

@@ -50,46 +50,20 @@ class NewTicketWidget(QWidget,
         self.connect(self.payloadTotalWidget, SIGNAL("addPayload()"),
                      self.addPayload)
         
-        self.connect(self.deletePayloadButton, SIGNAL("clicked()"),
-                     self.deletePayload)
-        
-        self.connect(self.editPayloadButton, SIGNAL("clicked()"),
-                     self.deletePayload)
-        
         self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
-                     self.onPayloadTableDoubleClicked)
+                     self.payloadTableClicked)
         
-    def loadVehicleDetails(self, vehicle):
-        self.typeCombobox.setCurrentIndex(vehicle["typeIndex"])
-        self.typeCombobox.setItemData(self.typeCombobox.currentIndex(),
-                                      Decimal(vehicle["typeValue"]))
-        self.makeLineEdit.setText(vehicle["make"])
-        self.modelLineEdit.setText(vehicle["model"])
-        self.colourCombobox.setCurrentIndex(vehicle["colourIndex"])
-        self.vehicleRegistrationLineEdit.setText(vehicle["registration"])
-        self.vinLineEdit.setText(vehicle["vin"])
-        self.catalyticCheckbox.setChecked(vehicle["catalyticCheckbox"])
-        self.catalyticLineEdit.setText(vehicle["catalyticValue"])
-        self.idCombobox.setCurrentIndex(vehicle["idIndex"])
+    def payloadTableClicked(self, row, column):
+        materialColumn = self.payloadTableWidget.getMaterialColumn()
+        item = self.payloadTableWidget.item(row, materialColumn)
         
-        self.typeCombobox.setEnabled(False)
-        self.catalyticLineEdit.setReadOnly(True)
-        
-        for widget in self.dialogWidgets:
-            widget.validate()
-        
-    def onCellClicked(self, row, column):
         if column == self.payloadTableWidget.getDeleteColumn():
             self.payloadTableWidget.selectRow(row)
             self.deletePayload()
-        
-    def onPayloadTableDoubleClicked(self, row, column):
-        materialColumn = self.payloadTableWidget.getMaterialColumn()
-        item = self.payloadTableWidget.item(row, materialColumn)
-        if column == materialColumn and id(item) in self.vehicles:
-            d = VehicleDialog(self.vehicles[id(item)])
-            if d.exec_():
-                self.vehicles[id(item)] = d.getFields()
+        elif column == materialColumn and id(item) in self.vehicles:
+            dialog = VehicleDialog(self.vehicles[id(item)])
+            if dialog.exec_():
+                self.vehicles[id(item)] = dialog.getFields()
                 
     def collectPayload(self):
         return (self.payloadWidget.getNetWeight(),
@@ -137,7 +111,7 @@ class NewTicketWidget(QWidget,
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
             
-            #self.addDeleteButton(row)
+        self.addDeleteButton(row)
             
         self.payloadWidget.reset()
             
