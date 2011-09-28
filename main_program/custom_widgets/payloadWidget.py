@@ -44,3 +44,9 @@ class PayloadWidget(QWidget, payload_widget_generated.Ui_payloadWidget):
     def reset(self):
         self.weightWidget.reset()
         self.materialWidget.reset()
+        
+    def isMaterialValid(self):
+        return self.materialWidget.isValid()
+    
+    def isWeightValid(self):
+        return self.weightWidget.isValid()

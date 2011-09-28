@@ -7,7 +7,6 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import payload_total_widget_generated
-    from custom_widgets.payloadEditDialog import PayloadEditDialog
     from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
@@ -17,6 +16,7 @@ class PayloadTotalWidget(QWidget,
                          payload_total_widget_generated.Ui_payloadTotalWidget):
     
     addPayload = pyqtSignal()
+    payloadEdited = pyqtSignal()
     
     def __init__(self, parent=None):
         super(PayloadTotalWidget, self).__init__(parent)
@@ -26,7 +26,7 @@ class PayloadTotalWidget(QWidget,
                      self.addPayload.emit)
         
         self.connect(self.payloadTotalLabel, SIGNAL("linkActivated(QString)"),
-                     self.editPayloadTotal)
+                     self.payloadEdited.emit)
     
     @pyqtSlot("QString", "QString", "bool")
     def updatePayloadTotal(self, net, ppu, materialValid):
@@ -38,16 +38,6 @@ class PayloadTotalWidget(QWidget,
         
         self.payloadTotalLabel.setText(totalString)
         self.updateAddPayloadButton(total, materialValid)
-        
-    def editPayloadTotal(self):
-        dialog = PayloadEditDialog()
-        if dialog.exec_():
-            totalString = re.sub(regexObjects["spanTagContents"],
-                                 dialog.payloadValueEdit.text(),
-                                 self.payloadTotalLabel.text())
-            
-            self.payloadTotalLabel.setText(totalString)
-            self.updateAddPayloadButton(totalString, True)
         
     def updateAddPayloadButton(self, value, materialValid):
         if value and materialValid:

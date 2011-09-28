@@ -27,6 +27,7 @@ class MaterialWidget(QWidget, material_widget_generated.Ui_materialWidget):
         
         self.vehicles = []
         self.populateMaterialTable()
+        self.reset()
         
         self.connect(self.materialTable, SIGNAL("itemSelectionChanged()"),
                      self.changed)

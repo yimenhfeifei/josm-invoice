@@ -1,5 +1,6 @@
 try:
     import sys
+    import re
     from decimal import Decimal
     from datetime import datetime
     
@@ -15,6 +16,8 @@ try:
     from shared_modules.vehicle import Vehicle
     from custom_widgets.customerWidget import CustomerWidget
     from custom_widgets.weightWidget import WeightWidget
+    from custom_widgets.payloadEditDialog import PayloadEditDialog
+    from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -53,6 +56,9 @@ class NewTicketWidget(QWidget,
         self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
                      self.payloadTableClicked)
         
+        self.connect(self.payloadTotalWidget, SIGNAL("payloadEdited()"),
+                     self.editPayloadTotal)
+        
     def payloadTableClicked(self, row, column):
         materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
@@ -69,6 +75,21 @@ class NewTicketWidget(QWidget,
         return (self.payloadWidget.getNetWeight(),
                 self.payloadWidget.getMaterial(),
                 self.payloadTotalWidget.getPayloadValue())
+    
+    def editPayloadTotal(self):
+        if not self.payloadWidget.isWeightValid():
+            return
+        
+        dialog = PayloadEditDialog()
+        if dialog.exec_():
+            newValue = Decimal(dialog.payloadValueEdit.text()) + Decimal(".00")
+            totalString = re.sub(regexObjects["spanTagContents"],
+                                 str(newValue),
+                                 self.payloadTotalWidget.payloadTotalLabel.text())
+            
+            self.payloadTotalWidget.payloadTotalLabel.setText(totalString)
+            self.payloadTotalWidget.updateAddPayloadButton(totalString,
+                                                           self.payloadWidget.isMaterialValid())
     
     def addDeleteButton(self, row):
         deleteItem = QTableWidgetItem("Delete")
