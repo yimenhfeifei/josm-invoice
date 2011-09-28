@@ -100,15 +100,6 @@ class NewTicketWidget(QWidget,
         
         self.payloadTableWidget.setItem(row, 3, deleteItem)
         
-    def formatString(self, column, string):
-        weightColumn = self.payloadTableWidget.getWeightColumn()
-        valueColumn = self.payloadTableWidget.getValueColumn()
-        
-        if column == valueColumn or column == weightColumn:
-            return "{:.2f}".format(Decimal(string))
-        else:
-            return string
-        
     def vehicleSelected(self):
         return self.payloadWidget.vehicleSelected()
         
@@ -120,7 +111,6 @@ class NewTicketWidget(QWidget,
         self.payloadTableWidget.setCurrentToEmptyRow()
         
         for column, string in enumerate(self.collectPayload()):
-            string = self.formatString(column, string)
                 
             item = QTableWidgetItem(string)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
@@ -168,13 +158,7 @@ class NewTicketWidget(QWidget,
                 "totalValue": self.totalValueLineEdit.text()}
     
     def getCustomerFields(self):
-        return {"firstName": self.firstNameLineEdit.text(),
-                "lastName": self.lastNameLineEdit.text(),
-                "houseNumber": self.houseNumberLineEdit.text(),
-                "street": self.streetLineEdit.text(),
-                "town": self.townLineEdit.text(),
-                "postcode": self.postcodeLineEdit.text(),
-                "registration": self.vehicleRegistrationLineEdit.text()}
+        return self.customerWidget.getFields()
     
     def getPayloadFields(self):
         payloads = {}

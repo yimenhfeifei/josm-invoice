@@ -62,10 +62,6 @@ class WeightWidget(QWidget, weight_widget_generated.Ui_weightWidget):
         else:
             if self.useGrossBox.isChecked():
                 self.netEdit.clear()
-        
-        if self.netEdit.property("valid") == True:
-            if Decimal(self.netEdit.text()) == 0:
-                self.netEdit.setValidStatus(False)
                 
         self.widgetChanged.emit()
             

@@ -1,6 +1,7 @@
 try:
     import sys
     import re
+    import decimal
     from decimal import Decimal
     
     from PyQt4.QtCore import *
@@ -33,7 +34,7 @@ class PayloadTotalWidget(QWidget,
         total = Decimal(net) * Decimal(ppu)
         
         totalString = re.sub(regexObjects["spanTagContents"],
-                             str(total),
+                             "{:.2f}".format(total),
                              self.payloadTotalLabel.text())
         
         self.payloadTotalLabel.setText(totalString)

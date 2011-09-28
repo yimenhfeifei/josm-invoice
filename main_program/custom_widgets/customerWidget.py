@@ -29,7 +29,16 @@ class CustomerWidget(QWidget, customer_widget_generated.Ui_customerWidget):
         for widget in self.widgets:
             self.connect(widget, SIGNAL("textChanged(QString)"),
                          self.changed)
-    
+
+    def getFields(self):
+        return {"firstName": self.firstNameEdit.text(),
+                "lastName": self.lastNameEdit.text(),
+                "houseNumber": self.houseNumberEdit.text(),
+                "street": self.streetEdit.text(),
+                "town": self.townEdit.text(),
+                "postcode": self.postcodeEdit.text(),
+                "customerReg": self.customerRegEdit.text()}
+            
     def changed(self):
         for widget in self.widgets:
             widget.validate()
