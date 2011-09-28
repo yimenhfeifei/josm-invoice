@@ -21,7 +21,13 @@ class TicketClientWindow(QMainWindow,
         super(TicketClientWindow, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Ticket")
-        self.goHome()
+        self.setCentralWidget(self.homeWidget)
+        
+        self.connect(self.centralWidget().newTicketButton, SIGNAL("clicked()"),
+                     self.startNewTicket)
+        
+        self.connect(self.centralWidget().verifyTicketButton, SIGNAL("clicked()"),
+                     self.createVerifyTicketDialog)
         
     def goHome(self):
         self.setCentralWidget(HomeWidget())

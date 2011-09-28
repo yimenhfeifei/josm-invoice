@@ -20,7 +20,18 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout"/>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="HomeWidget" name="homeWidget">
+      <property name="toolTip">
+       <string>Select material.</string>
+      </property>
+      <property name="whatsThis">
+       <string>Allows selecting of material.</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -73,6 +84,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HomeWidget</class>
+   <extends>QWidget</extends>
+   <header>custom_widgets.homeWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

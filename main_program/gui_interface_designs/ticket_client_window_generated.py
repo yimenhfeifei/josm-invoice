@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_client_window_design.ui'
 #
-# Created: Tue Sep 27 16:02:42 2011
+# Created: Wed Sep 28 14:18:55 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,6 +24,11 @@ class Ui_ticketClientWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.homeWidget = HomeWidget(self.centralwidget)
+        self.homeWidget.setToolTip(QtGui.QApplication.translate("ticketClientWindow", "Select material.", None, QtGui.QApplication.UnicodeUTF8))
+        self.homeWidget.setWhatsThis(QtGui.QApplication.translate("ticketClientWindow", "Allows selecting of material.", None, QtGui.QApplication.UnicodeUTF8))
+        self.homeWidget.setObjectName(_fromUtf8("homeWidget"))
+        self.verticalLayout.addWidget(self.homeWidget)
         ticketClientWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(ticketClientWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 973, 23))
@@ -60,3 +65,4 @@ class Ui_ticketClientWindow(object):
     def retranslateUi(self, ticketClientWindow):
         pass
 
+from custom_widgets.homeWidget import HomeWidget
