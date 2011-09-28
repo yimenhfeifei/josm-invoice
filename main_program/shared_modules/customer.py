@@ -12,4 +12,4 @@ class Customer(object):
         self.street = customer["street"]
         self.town = customer["town"]
         self.postcode = customer["postcode"]
-        self.vehicleRegistration = customer["registration"]
+        self.customerRegistration = customer["customerReg"]

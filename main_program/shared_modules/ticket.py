@@ -17,7 +17,7 @@ class Ticket(object):
         self.hashId = ""
         self.date = ticket["date"]
         self.time = ticket["time"]  
-        self.totalValue = ticket["totalValue"]
+        self.ticketValue = ticket["ticketValue"]
         
         self.customer = customer
         self.payloads = []
@@ -35,14 +35,14 @@ class Ticket(object):
                   "hashId": self.hashId,
                   "date": self.date,
                   "time": self.time,
-                  "totalValue": self.totalValue,
+                  "ticketValue": self.ticketValue,
                   "firstName": self.customer.firstName,
                   "lastName": self.customer.lastName,
                   "houseNumber": self.customer.houseNumber,
                   "street": self.customer.street,
                   "town": self.customer.town,
                   "postcode": self.customer.postcode,
-                  "registration": self.customer.vehicleRegistration}
+                  "customerReg": self.customer.customerRegistration}
         ticket.update(self.getPayload())
         return ticket
 

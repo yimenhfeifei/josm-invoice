@@ -54,7 +54,7 @@ class TicketReviewDialog(QDialog,
                                         self.postcodeLabel.text()))
         
         self.vehicleRegistrationLabel.setText(re.sub(self.spanTagContents,
-                                        self.ticket["registration"],
+                                        self.ticket["customerReg"],
                                         self.vehicleRegistrationLabel.text()))
         
         self.addPayloads()
@@ -82,7 +82,7 @@ class TicketReviewDialog(QDialog,
         
     def addTotalValue(self, totalRow):
         totalValue = QLabel(re.sub(self.spanTagContents,
-                                   self.ticket["totalValue"],
+                                   self.ticket["ticketValue"],
                                    self.numberLabel.text()))
         
         totalValue.setAlignment(Qt.AlignHCenter)

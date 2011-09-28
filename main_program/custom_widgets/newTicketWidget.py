@@ -59,6 +59,9 @@ class NewTicketWidget(QWidget,
         self.connect(self.payloadTotalWidget, SIGNAL("payloadEdited()"),
                      self.editPayloadTotal)
         
+        self.connect(self.reviewTicketButton, SIGNAL("clicked()"),
+                     self.reviewTicket)
+        
     def payloadTableClicked(self, row, column):
         materialColumn = self.payloadTableWidget.getMaterialColumn()
         item = self.payloadTableWidget.item(row, materialColumn)
@@ -118,6 +121,7 @@ class NewTicketWidget(QWidget,
             if self.vehicleSelected() and column == self.payloadTableWidget.materialColumn:
                 self.setVehicleItemFont(item)
                 self.vehicles[id(item)] = self.payloadWidget.getVehicleDetails()
+                print(self.vehicles)
             
             row = self.payloadTableWidget.currentRow()
             self.payloadTableWidget.setItem(row, column, item)
@@ -125,6 +129,8 @@ class NewTicketWidget(QWidget,
         self.addDeleteButton(row)
             
         self.payloadWidget.reset()
+        
+        self.update()
             
     def deletePayload(self):
         table = self.payloadTableWidget
@@ -155,7 +161,7 @@ class NewTicketWidget(QWidget,
         return {"number": self.getNewTicketNumber(),
                 "date": datetime.now().strftime("%Y/%m/%d"),
                 "time": datetime.now().strftime("%H:%M"),
-                "totalValue": self.totalValueLineEdit.text()}
+                "ticketValue": self.ticketTotalLabel.text()}
     
     def getCustomerFields(self):
         return self.customerWidget.getFields()
@@ -183,19 +189,7 @@ class NewTicketWidget(QWidget,
         return payloads
     
     def getVehicleFields(self):
-        return {"typeText": self.typeCombobox.currentText(),
-        "typeValue": self.typeCombobox.itemData(self.typeCombobox.currentIndex()),
-        "typeIndex": self.typeCombobox.currentIndex(),
-        "make": self.makeLineEdit.text(),
-        "model": self.modelLineEdit.text(),
-        "colour": self.colourCombobox.currentText(),
-        "colourIndex": self.colourCombobox.currentIndex(),
-        "registration": self.vehicleRegistrationLineEdit.text(),
-        "vin": self.vinLineEdit.text(),
-        "catalyticCheckbox": self.catalyticCheckbox.isChecked(),
-        "catalyticValue": self.catalyticLineEdit.text(),
-        "id": self.idCombobox.currentText(),
-        "idIndex": self.idCombobox.currentIndex()}
+        return self.payloadWidget.getVehicleDetails()
     
     def makeTicket(self):
         ticket = self.getTicketFields()
