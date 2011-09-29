@@ -6,7 +6,7 @@ try:
     from PyQt4.QtGui import *
     from PyQt4.QtTest import *
     
-    from vehicle_dialog import VehicleDialog
+    from custom_widgets.vehicleDialog import VehicleDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -15,64 +15,41 @@ class TestVehicleDialogGui(unittest.TestCase):
     
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.widget = VehicleDialog()
+        self.vehicle = {"make": "Porsche",
+                        "model": "911",
+                        "colour": 4,
+                        "reg": "WK11TSA",
+                        "vin": "78298yr9843r",
+                        "id": 1}
+        self.widget = VehicleDialog(self.vehicle)
         self.testString = "I"
       
     def testMakeLineEditTextEntry(self):
-        testWidget = self.widget.makeLineEdit
+        testWidget = self.widget.makeEdit
         testWidget.clear()
         
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
     
     def testModelLineEditTextEntry(self):
-        testWidget = self.widget.modelLineEdit
+        testWidget = self.widget.modelEdit
         testWidget.clear()
         
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
         
     def testRegistrationLineEditTextEntry(self):
-        testWidget = self.widget.vehicleRegistrationLineEdit
+        testWidget = self.widget.vehicleRegistrationEdit
         testWidget.clear()
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
     
     def testVinLineEditTextEntry(self):
-        testWidget = self.widget.vinLineEdit
+        testWidget = self.widget.vinEdit
         testWidget.clear()
         
         QTest.keyClicks(testWidget, self.testString)
         assert testWidget.text() == self.testString
-    
-    def testCatalyticLineEditTextEntry(self):
-        testWidget = self.widget.catalyticLineEdit
-        testWidget.clear()
-        
-        QTest.keyClicks(testWidget, self.testString)
-        assert testWidget.text() == self.testString
-    
-    def testCatalyticCheckboxToggle(self):
-        testWidget = self.widget.catalyticCheckbox
-        assert testWidget.isChecked() == False
-        
-        QTest.mouseClick(testWidget, Qt.LeftButton)
-        assert testWidget.isChecked() == True
-        
-        QTest.mouseClick(testWidget, Qt.LeftButton)
-        assert testWidget.isChecked() == False
-        
-    def testCatalyticLineEditToggle(self):
-        testWidget = self.widget.catalyticLineEdit
-        assert testWidget.isEnabled() == False
-        
-        QTest.mouseClick(self.widget.catalyticCheckbox, Qt.LeftButton)
-        
-        assert testWidget.isEnabled() == True
-        
-        QTest.mouseClick(self.widget.catalyticCheckbox, Qt.LeftButton)
-        
-        assert testWidget.isEnabled() == False
         
     def tearDown(self):
         self.widget.deleteLater()

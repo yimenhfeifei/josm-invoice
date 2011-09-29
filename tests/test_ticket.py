@@ -19,33 +19,30 @@ class TestTicketHash(unittest.TestCase):
          "street": "Bark",
          "town": "Truro",
          "postcode": "Tr679h",
-         "registration": "HU8JJUG"}
+         "customerReg": "HU8JJUG"}
         
-        self.vehicle = {"typeText": "Car",
-                   "make": "BMW",
-                   "model": "Fast One",
-                   "colour": "Black",
-                   "registration": "GDHy487",
-                   "vin": "8742942952528795",
-                   "catalyticCheckbox": "False",
-                   "catalyticValue": "00.00",
-                   "id": "Checked"}
+        self.vehicle = {"make": "BMW",
+                        "model": "Fast One",
+                        "colour": "Black",
+                        "reg": "GDHy487",
+                        "vin": "8742942952528795",
+                        "id": "Checked"}
         
         self.payload = {"weight": "1650",
-         "material": "Car",
-         "value": "155.00"}
+                        "material": "Car",
+                        "value": "155.00"}
         
         self.ticket = {"number": "12000",
-                  "hashID": "",
-                  "date": "24/08/2011",
-                  "time": "13:56",
-                  "totalValue": "155.00"}
+                       "hashID": "",
+                       "date": "24/08/2011",
+                       "time": "13:56",
+                       "ticketValue": "155.00"}
         
         self.ticket2 = {"number": "12000",
                         "hashID": "",
                         "date": "24/08/2011",
                         "time": "13:57",
-                        "totalValue": "155.00"}
+                        "ticketValue": "155.00"}
         
         self.CustomerObject = Customer(self.customer)
         self.payloadObject = Payload(self.payload, Vehicle(self.vehicle))

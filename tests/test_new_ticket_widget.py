@@ -6,65 +6,17 @@ try:
     from PyQt4.QtGui import *
     from PyQt4.QtTest import *
     
-    from new_ticket_dialog import NewTicketDialog
+    from custom_widgets.newTicketWidget import NewTicketWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
-
-class TestManualPriceCheckbox(unittest.TestCase):
-    
-    def setUp(self):
-        self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
-        self.testWidget = self.gui.manualPriceCheckbox
-    
-    def testToggleFalseToTrue(self):
-        """Unchecked checkbox should be checked when clicked."""
-        self.assertFalse(self.testWidget.isChecked())
-        
-        QTest.mouseClick(self.testWidget, Qt.LeftButton)
-        self.assertTrue(self.testWidget.isChecked())
-        
-    def testToggleTrueToFalse(self):
-        """Checked checkbox should be unchecked when clicked."""
-        self.testWidget.setChecked(True)
-        self.assertTrue(self.testWidget.isChecked())
-        
-        QTest.mouseClick(self.testWidget, Qt.LeftButton)
-        self.assertFalse(self.testWidget.isChecked())
-
-    def tearDown(self):
-        self.gui.deleteLater()
-        self.app.deleteLater()
-        
-class TestManualPriceAndPayloadValue(unittest.TestCase):
-    
-    def setUp(self):
-        self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
-        self.manualPrice = self.gui.manualPriceCheckbox
-        self.payloadValue = self.gui.payloadValueLineEdit
-        
-    def testPayloadValueActivate(self):
-        """Payload value should be editable when checkbox is checked."""
-        self.assertFalse(self.manualPrice.isChecked())
-        self.assertTrue(self.payloadValue.isReadOnly())
-        
-        QTest.mouseClick(self.manualPrice, Qt.LeftButton)
-        
-        self.assertTrue(self.manualPrice.isChecked())
-        self.assertFalse(self.payloadValue.isReadOnly())
-        
-    def tearDown(self):
-        self.gui.deleteLater()
-        self.app.deleteLater()
         
 class TestNamesValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
-        self.testWidgets = (self.gui.firstNameLineEdit,
-                            self.gui.lastNameLineEdit)
+        self.gui = NewTicketWidget()
+        self.testWidgets = (self.gui.firstNameEdit,
+                            self.gui.lastNameEdit)
         
         self.validText = ("JOHN",
                           "MARK",
@@ -114,9 +66,9 @@ class TestNamesValidInput(unittest.TestCase):
 class TestNamesInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
-        self.testWidgets = (self.gui.firstNameLineEdit,
-                            self.gui.lastNameLineEdit)
+        self.gui = NewTicketWidget()
+        self.testWidgets = (self.gui.firstNameEdit,
+                            self.gui.lastNameEdit)
         
         self.invalidText = ("John  ",
                             " john ",
@@ -197,7 +149,7 @@ class TestNamesInvalidInput(unittest.TestCase):
 class TestHouseNumberValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.houseNumberLineEdit
         
         self.validNumbers = ("12345",
@@ -239,7 +191,7 @@ class TestHouseNumberValidInput(unittest.TestCase):
 class TestHouseNumberInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.houseNumberLineEdit
         
         self.invalidNumbers = ("12.90",
@@ -282,7 +234,7 @@ class TestHouseNumberInvalidInput(unittest.TestCase):
 class TestStreetValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.streetLineEdit
         
         self.validText = ("The Way",
@@ -327,7 +279,7 @@ class TestStreetValidInput(unittest.TestCase):
 class TestStreetInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.streetLineEdit
         
         self.invalidText = ("54678",
@@ -375,7 +327,7 @@ class TestStreetInvalidInput(unittest.TestCase):
 class TestTownValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.townLineEdit
         
         self.validText = ("The Way",
@@ -420,7 +372,7 @@ class TestTownValidInput(unittest.TestCase):
 class TestTownInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.townLineEdit
         
         self.invalidText = ("54678",
@@ -468,7 +420,7 @@ class TestTownInvalidInput(unittest.TestCase):
 class TestPostcodeValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.postcodeLineEdit
         
         self.validText = ("TR165QY",
@@ -514,7 +466,7 @@ class TestPostcodeValidInput(unittest.TestCase):
 class TestPostcodeInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.postcodeLineEdit
         
         self.invalidText = ("TR165 5QY",
@@ -563,7 +515,7 @@ class TestPostcodeInvalidInput(unittest.TestCase):
 class TestVehicleRegistrationValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.vehicleRegistrationLineEdit
         
         self.validText = ("TT54YUT",
@@ -607,7 +559,7 @@ class TestVehicleRegistrationValidInput(unittest.TestCase):
 class TestVehicleRegistrationInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.vehicleRegistrationLineEdit
         
         self.invalidText = ("",
@@ -657,7 +609,7 @@ class TestVehicleRegistrationInvalidInput(unittest.TestCase):
 class TestGrossWeightValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.grossWeightLineEdit
         
         self.validNumbers = ("120.00",
@@ -699,7 +651,7 @@ class TestGrossWeightValidInput(unittest.TestCase):
 class TestGrossWeightInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.grossWeightLineEdit
         
         self.invalidNumbers = ("",
@@ -744,7 +696,7 @@ class TestGrossWeightInvalidInput(unittest.TestCase):
 class TestTareWeightValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.tareWeightLineEdit
         self.gui.grossWeightLineEdit.setText("99999.50")
         
@@ -787,7 +739,7 @@ class TestTareWeightValidInput(unittest.TestCase):
 class TestTareWeightInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.tareWeightLineEdit
         self.gui.grossWeightLineEdit.setText("99999.50")
         
@@ -833,7 +785,7 @@ class TestTareWeightInvalidInput(unittest.TestCase):
 class TestNetWeightValidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.netWeightLineEdit
         
         self.validNumbers = ("120.00",
@@ -875,7 +827,7 @@ class TestNetWeightValidInput(unittest.TestCase):
 class TestNetWeightInvalidInput(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         self.testWidget = self.gui.netWeightLineEdit
         
         self.invalidNumbers = ("",
@@ -920,7 +872,7 @@ class TestNetWeightInvalidInput(unittest.TestCase):
 class TestNewTicketDialogMaterialCombobox(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         
     def testPopulate(self):
         """Combobox should be properly populated."""
@@ -934,7 +886,7 @@ class TestNewTicketDialogMaterialCombobox(unittest.TestCase):
 class TestNewTicketDialogUsage(unittest.TestCase):
     def setUp(self):
         self.app = QApplication(sys.argv)
-        self.gui = NewTicketDialog()
+        self.gui = NewTicketWidget()
         
     def testUsage(self):
         QTest.keyClicks(self.gui.firstNameLineEdit, "John")
