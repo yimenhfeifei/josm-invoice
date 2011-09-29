@@ -38,7 +38,7 @@ class MaterialWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Select material in list."
 
     def whatsThis(self):
         return ""

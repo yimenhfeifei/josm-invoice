@@ -38,7 +38,7 @@ class PayloadTotalWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Total for current material and weight."
 
     def whatsThis(self):
         return ""
@@ -49,7 +49,7 @@ class PayloadTotalWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='PayloadTotalWidget' name='payloadTotalWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Payload total display.</string>\n"
+               "  <string>Current payload total.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
                "  <string>Payload total.</string>\n"

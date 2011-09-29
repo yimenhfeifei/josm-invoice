@@ -38,7 +38,7 @@ class CustomerWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Customer details."
 
     def whatsThis(self):
         return ""
@@ -52,7 +52,7 @@ class CustomerWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
                "  <string>Customer details.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Customer details widgte.</string>\n"
+               "  <string>Customer details widget.</string>\n"
                " </property>\n"
                "</widget>\n")
                

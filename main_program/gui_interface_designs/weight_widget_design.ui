@@ -25,8 +25,17 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="toolTip">
+      <string>Enter payload weight in Kg.</string>
+     </property>
+     <property name="statusTip">
+      <string>Entering gross and tare will automatically calculate net weight.</string>
+     </property>
      <property name="title">
       <string>Use gross weight</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -48,6 +57,9 @@
         </property>
         <property name="title">
          <string>Gross</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="checkable">
          <bool>false</bool>
@@ -71,7 +83,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Line edit that provides custom validation.</string>
+            <string>Gross weight.</string>
            </property>
            <property name="whatsThis">
             <string>Base widget for custom validation.</string>
@@ -91,6 +103,9 @@
         </property>
         <property name="title">
          <string>Tare</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="checkable">
          <bool>false</bool>
@@ -114,7 +129,7 @@
             </size>
            </property>
            <property name="toolTip">
-            <string>Line edit that provides custom validation.</string>
+            <string>Tare weight.</string>
            </property>
            <property name="whatsThis">
             <string>Base widget for custom validation.</string>
@@ -139,11 +154,20 @@
    </item>
    <item>
     <widget class="QGroupBox" name="netBox">
+     <property name="toolTip">
+      <string>Enter payload net weight in Kg.</string>
+     </property>
+     <property name="statusTip">
+      <string>Not editable when gross is used.</string>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>
      <property name="title">
       <string>Net weight (Kg)</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -161,7 +185,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Net weight.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>

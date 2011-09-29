@@ -47,10 +47,10 @@ class NewTicketWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='NewTicketWidget' name='newTicketWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Select material.</string>\n"
+               "  <string>New ticket.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Allows selecting of material.</string>\n"
+               "  <string>Allows entry of new ticket.</string>\n"
                " </property>\n"
                "</widget>\n")
                

@@ -51,7 +51,10 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter first name.</string>
+        </property>
+        <property name="statusTip">
+         <string>One space is allowed.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -83,7 +86,10 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter last name.</string>
+        </property>
+        <property name="statusTip">
+         <string>Customer surname.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -115,7 +121,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter house number.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -147,7 +153,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter street.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -179,7 +185,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter town.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -211,7 +217,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter postcode.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>
@@ -243,7 +249,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Line edit that provides custom validation.</string>
+         <string>Enter vehicle registration number.</string>
         </property>
         <property name="whatsThis">
          <string>Base widget for custom validation.</string>

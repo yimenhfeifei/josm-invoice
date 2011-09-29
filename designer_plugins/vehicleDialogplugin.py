@@ -38,7 +38,7 @@ class VehicleDialogPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Enter vehicle details."
 
     def whatsThis(self):
         return ""
@@ -49,10 +49,10 @@ class VehicleDialogPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='VehicleDialog' name='vehicleDialog'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Customer details.</string>\n"
+               "  <string>Enter vehicle details.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Customer details widgte.</string>\n"
+               "  <string>Vehicle dialog widget.</string>\n"
                " </property>\n"
                "</widget>\n")
                

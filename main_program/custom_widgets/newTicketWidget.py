@@ -209,7 +209,10 @@ class NewTicketWidget(QWidget,
         return Ticket(ticket, customerObject, payloadObjects)
     
     def updateTicketTotal(self):
-        self.ticketTotalLabel.setText(str(self.payloadTableWidget.getTotal()))
+        totalString = re.sub(regexObjects["spanTagContents"],
+                             "{:.2f}".format(self.payloadTableWidget.getTotal()),
+                             self.ticketTotalLabel.text())
+        self.ticketTotalLabel.setText(totalString)
     
     def reviewTicket(self):
         ticket = self.makeTicket()

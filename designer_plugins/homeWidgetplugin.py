@@ -36,7 +36,7 @@ class HomeWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Select action."
 
     def whatsThis(self):
         return ""
@@ -47,10 +47,10 @@ class HomeWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='HomeWidget' name='homeWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Select material.</string>\n"
+               "  <string>Main menu.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Allows selecting of material.</string>\n"
+               "  <string>Choose action from the menu.</string>\n"
                " </property>\n"
                "</widget>\n")
                

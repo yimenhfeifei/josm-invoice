@@ -38,7 +38,7 @@ class WeightWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Enter net weight or use gross weight."
 
     def whatsThis(self):
         return ""
@@ -49,7 +49,7 @@ class WeightWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='WeightWidget' name='weightWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Custom weight entry.</string>\n"
+               "  <string>Enter manual net weight or use gross for auto.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
                "  <string>Weight widget.</string>\n"

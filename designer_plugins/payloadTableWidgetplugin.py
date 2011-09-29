@@ -38,7 +38,7 @@ class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "Custom Widgets"
     
     def toolTip(self):
-        return ""
+        return "Payloads for current ticket."
 
     def whatsThis(self):
         return ""
@@ -49,10 +49,10 @@ class PayloadTableWidgetPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
     def domXml(self):
         return ("<widget class='PayloadTableWidget' name='payloadTableWidget'>\n"
                " <property name=\"toolTip\" >\n"
-               "  <string>Customer details.</string>\n"
+               "  <string>Current payloads.</string>\n"
                " </property>\n"
                " <property name=\"whatsThis\" >\n"
-               "  <string>Customer details widgte.</string>\n"
+               "  <string>PayloadTable widget.</string>\n"
                " </property>\n"
                "</widget>\n")
                
