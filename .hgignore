@@ -1,5 +1,9 @@
-\.pyo$
-\.pyc$
-\.wpu$
-\.pdf$
-\.png$
+
+syntax: regexp
+
+.*\.pyo$
+.*\.pyc$
+.*\.wpu$
+.*\.pdf$
+.*\.png$
+.*generated.py$
