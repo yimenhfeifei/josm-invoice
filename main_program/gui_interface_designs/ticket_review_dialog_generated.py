@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ticket_review_dialog_design.ui'
 #
-# Created: Wed Sep 28 14:18:56 2011
+# Created: Thu Sep 29 11:38:31 2011
 #      by: PyQt4 UI code generator 4.8.5
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_ticketReviewDialog(object):
     def setupUi(self, ticketReviewDialog):
         ticketReviewDialog.setObjectName(_fromUtf8("ticketReviewDialog"))
-        ticketReviewDialog.resize(857, 792)
+        ticketReviewDialog.resize(857, 828)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -184,7 +184,7 @@ class Ui_ticketReviewDialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">ERROR</span></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
-        self.vehicleRegistrationLabel.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.vehicleRegistrationLabel.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.vehicleRegistrationLabel.setObjectName(_fromUtf8("vehicleRegistrationLabel"))
         self.gridLayout.addWidget(self.vehicleRegistrationLabel, 3, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
