@@ -1,3 +1,6 @@
+automate tarsnap
+automate module generation before debug run
+move ticket review to internal widget
 Tooltips
 Reg code must allow for missing customer reg.
 New registration and vin regexs. Strict checking option to switch between regexes?
