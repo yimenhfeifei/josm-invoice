@@ -6,10 +6,11 @@
 [project attributes]
 proj.directory-list = [{'dirloc': loc('.'),
                         'excludes': [u'main_program/print.pdf',
-                                     u'main_program/qrcode.png'],
+                                     u'main_program/qrcode.png',
+                                     u'tests/test_new_ticket_widget.py'],
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-testing.auto-test-file-specs = ('test_',)
+testing.auto-test-file-specs = ('tests/*',)

@@ -35,7 +35,6 @@ class MaterialWidget(QWidget, material_widget_generated.Ui_materialWidget):
     def changed(self):
         row = self.materialTable.currentRow()
         if self.materialTable.item(row, 0).text() in self.vehicles:
-            print("vehicle selected")
             self.vehicleBox.setEnabled(True)
             for widget in self.vehicleWidgets:
                 widget.validate()
