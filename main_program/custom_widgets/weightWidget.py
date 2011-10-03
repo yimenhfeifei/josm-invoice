@@ -6,7 +6,6 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import weight_widget_generated
-    from shared_modules.validate import validateLineEdit
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
