@@ -18,18 +18,19 @@ try:
     from custom_widgets.weightWidget import WeightWidget
     from custom_widgets.payloadEditDialog import PayloadEditDialog
     from shared_modules.regular_expressions import regexObjects
+    from ticket_review_dialog import TicketReviewDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
 class NewTicketWidget(QWidget,
                       new_ticket_widget_generated.Ui_newTicketWidget):
-    
-    calculateTotalValue = pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, callback=None):
         super(NewTicketWidget, self).__init__(parent)
         self.setupUi(self)
+        
+        self.callback = callback
         
         self.vehicles = {}
         
@@ -216,7 +217,10 @@ class NewTicketWidget(QWidget,
     
     def reviewTicket(self):
         ticket = self.makeTicket()
-        TicketReviewDialog(ticket).exec_()
+        if TicketReviewDialog(ticket).exec_():
+            self.callback()
+        else:
+            pass
         
     def update(self):
         self.updateReviewTicketButton()

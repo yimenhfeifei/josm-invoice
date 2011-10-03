@@ -39,7 +39,7 @@ class TicketClientWindow(QMainWindow,
                      self.createVerifyTicketDialog)
         
     def startNewTicket(self):
-        self.setCentralWidget(NewTicketWidget())
+        self.setCentralWidget(NewTicketWidget(self, callback=self.goHome))
         
     def createVerifyTicketDialog(self):
         VerifyTicketDialog().exec_()

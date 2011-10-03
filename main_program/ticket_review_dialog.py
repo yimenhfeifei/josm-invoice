@@ -23,6 +23,12 @@ class TicketReviewDialog(QDialog,
        
         self.ticket = ticket.getTicket()
         
+        self.connect(self.confirmButtonbox, SIGNAL("accepted()"),
+                     self.submitTicket)
+        
+        self.connect(self.confirmButtonbox, SIGNAL("rejected()"),
+                     self.cancelSumbit)
+        
         self.spanTagContents = regexObjects["spanTagContents"]
         
         self.numberLabel.setText(re.sub(self.spanTagContents,
@@ -61,10 +67,13 @@ class TicketReviewDialog(QDialog,
         self.addTotal()
         
         self.printer = WidgetPrinter(self, 300, QPrinter.HighResolution)
-        QTimer.singleShot(0, self.submitTicket)
         
     def submitTicket(self):
         self.printer.showPrintDialog()
+        self.accept()
+        
+    def cancelSumbit(self):
+        self.reject()
         
     def buildName(self):
         return " ".join([self.ticket["firstName"],
