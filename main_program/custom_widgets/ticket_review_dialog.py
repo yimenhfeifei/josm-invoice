@@ -8,7 +8,7 @@ try:
     from gui_interface_designs import ticket_review_dialog_generated
     from shared_modules.ticket import Ticket
     from shared_modules.regular_expressions import regexObjects
-    from widgetPrinter import WidgetPrinter
+    from shared_modules.widgetPrinter import WidgetPrinter
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -117,5 +117,5 @@ class TicketReviewDialog(QDialog,
                 
                 for column, item in enumerate(payloadValues):
                     item.setAlignment(Qt.AlignHCenter)
-                    self.payloadLayout.addWidget(item, int(match.group(0)), column)
+                    self.payloadLayout.addWidget(item, int(match.group(0))+1, column)
         

@@ -1,6 +1,6 @@
 automate tarsnap
 automate module generation before debug run
-move ticket review to internal widget
+same company header for ticket and invoices
 sort out ide tests
 look into dpi handling in qt
 Tooltips

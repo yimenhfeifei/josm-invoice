@@ -8,7 +8,6 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import new_ticket_widget_generated
-    from ticket_review_dialog import TicketReviewDialog
     from custom_widgets.vehicleDialog import VehicleDialog
     from shared_modules.ticket import Ticket
     from shared_modules.customer import Customer
@@ -18,7 +17,7 @@ try:
     from custom_widgets.weightWidget import WeightWidget
     from custom_widgets.payloadEditDialog import PayloadEditDialog
     from shared_modules.regular_expressions import regexObjects
-    from ticket_review_dialog import TicketReviewDialog
+    from custom_widgets.ticket_review_dialog import TicketReviewDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)

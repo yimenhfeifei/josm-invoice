@@ -6,7 +6,7 @@ try:
     
     from gui_interface_designs import ticket_client_window_generated
     from custom_widgets.homeWidget import HomeWidget
-    from verify_ticket_dialog import VerifyTicketDialog
+    from custom_widgets.verify_ticket_dialog import VerifyTicketDialog
     from custom_widgets.newTicketWidget import NewTicketWidget
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))

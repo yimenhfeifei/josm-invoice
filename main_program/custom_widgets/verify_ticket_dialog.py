@@ -27,7 +27,7 @@ class VerifyTicketDialog(QDialog,
                      self.submit)
     
     def scanQR(self):
-        qrCode = subprocess.check_output(["zbarcam", "--raw", "-q"])
+        qrCode = subprocess.check_output(["bin/zbarcam", "--raw", "-q"])
         
         self.hashIdLineEdit.setText(str(qrCode)[2:-3])
         self.submitButton.setFocus()
