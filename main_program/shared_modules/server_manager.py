@@ -8,16 +8,16 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
+class ServerManagerBaseCall(Exception):
+    pass
+
 class ServerManager(object):
     def __init__(self):
         pass
     
     def valueInDatabase(self, field, value):
-        if value == "http://en.m.wikipedia.org":
-            return True
-        else:
-            return False
+        raise ServerManagerBaseCall()
         
     def setPaidTrue(self, field, value):
-        pass
+        raise ServerManagerBaseCall()
         
