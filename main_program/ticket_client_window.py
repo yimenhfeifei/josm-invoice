@@ -12,9 +12,10 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__version__ = "0.0"
+__VERSION__ = "0.0"
 __QT__ = "4.7.0"
-__PYQT__ = "4.8.4"
+__SIP__ = "4.12.4"
+__PYQT__ = "4.8.5"
 __PYTHON__ = "3.2.2"
 
 class TicketClientWindow(QMainWindow,
