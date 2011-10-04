@@ -13,6 +13,9 @@ except ImportError as err:
     raise SystemExit(err)
 
 __version__ = "0.0"
+__QT__ = "4.7.0"
+__PYQT__ = "4.8.4"
+__PYTHON__ = "3.2.2"
 
 class TicketClientWindow(QMainWindow,
                        ticket_client_window_generated.Ui_ticketClientWindow):
