@@ -1,7 +1,7 @@
 try:
     import sys
 
-    import pymysql
+    #import pymysql
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
