@@ -69,6 +69,7 @@ class TicketReviewDialog(QDialog,
         self.printer = WidgetPrinter(self, 300, QPrinter.HighResolution)
         
     def submitTicket(self):
+        self.confirmButtonbox.hide()
         self.printer.showPrintDialog()
         self.accept()
         
