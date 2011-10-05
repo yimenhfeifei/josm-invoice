@@ -18,6 +18,7 @@ try:
     from custom_widgets.payloadEditDialog import PayloadEditDialog
     from shared_modules.regular_expressions import regexObjects
     from custom_widgets.ticket_review_dialog import TicketReviewDialog
+    from shared_modules.mysql_manager import MysqlManager
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -27,7 +28,17 @@ class NewTicketWidget(QWidget,
 
     def __init__(self, parent=None, callback=None):
         super(NewTicketWidget, self).__init__(parent)
-        self.setupUi(self)
+        self.setupUi(self)        
+        
+        self.databaseSettings = {'host': '127.0.0.1',
+                                 'unix_socket': '/var/run/mysql/mysql.sock',
+                                 'port': 3306,
+                                 'user': 'john',
+                                 'passwd': 'dragon',
+                                 'db': 'business'}
+        
+        self.server = MysqlManager()
+        self.server.connect(self.databaseSettings)
         
         self.callback = callback
         
@@ -217,6 +228,7 @@ class NewTicketWidget(QWidget,
     def reviewTicket(self):
         ticket = self.makeTicket()
         if TicketReviewDialog(ticket).exec_():
+            self.server.submitTicket(ticket.getTicket())
             self.callback()
         else:
             pass

@@ -18,7 +18,16 @@ class VerifyTicketDialog(QDialog,
         super(VerifyTicketDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Verify Ticket")
+        
+        self.databaseSettings = {'host': '127.0.0.1',
+                                 'unix_socket': '/var/run/mysql/mysql.sock',
+                                 'port': 3306,
+                                 'user': 'john',
+                                 'passwd': 'dragon',
+                                 'db': 'business'}
+        
         self.server = MysqlManager()
+        self.server.connect(self.databaseSettings)
 
         self.connect(self.scanButton, SIGNAL("clicked()"),
                      self.scanQR)
@@ -27,15 +36,20 @@ class VerifyTicketDialog(QDialog,
                      self.submit)
 
     def scanQR(self):
-        qrCode = subprocess.check_output(["bin/zbarcam", "--raw", "-q"])
+        qrCode = subprocess.check_output(["bin/zbarcam", "--raw", "/dev/video1"])
 
         self.hashIdLineEdit.setText(str(qrCode)[2:-3])
         self.submitButton.setFocus()
 
     def submit(self):
         ticketHash = self.hashIdLineEdit.text()
-        if self.server.valueInDatabase("hashId", ticketHash):
-            self.server.setPaidTrue("hashId", ticketHash)
+        if self.server.valueInDatabase("hash", ticketHash):
+            if self.server.setPaidTrue("hash", ticketHash):
+                QMessageBox.warning(self, "Attention",
+                                "Ticket {} is valid. You may now pay the customer.".format(ticketHash))
+            else:
+                QMessageBox.warning(self, "Warning",
+                                "Ticket {} has already been paid. Do not pay the customer.".format(ticketHash))
         else:
             QMessageBox.warning(self, "Attention",
                                 "Ticket {} was not found.".format(ticketHash))

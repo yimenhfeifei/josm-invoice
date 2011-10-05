@@ -70,6 +70,7 @@ class TicketReviewDialog(QDialog,
         
     def submitTicket(self):
         self.confirmButtonbox.hide()
+        # make settings implicit and eliminate dialog
         self.printer.showPrintDialog()
         self.accept()
         

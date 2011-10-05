@@ -54,7 +54,7 @@ if __name__ == "__main__":
     application.setOrganizationName("John Orchard & Company")
     application.setOrganizationDomain("orchard.com")
     application.setApplicationName("Orchard Suite")
-    application.setApplicationVersion(__version__)
+    application.setApplicationVersion(__VERSION__)
     mainWindow.show()
     application.exec_()
     
