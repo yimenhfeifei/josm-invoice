@@ -1,3 +1,4 @@
+Add reg details to payload list
 automate tarsnap
 use pgp keys encoded as qrcodes to verify tickets?
 add customer information to qrcodes to allow rapid entry of customer details? (customer account cards)
