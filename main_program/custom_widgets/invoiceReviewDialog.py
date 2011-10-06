@@ -7,6 +7,7 @@ try:
     
     from gui_interface_designs import invoice_review_dialog_generated
     from shared_modules.regular_expressions import regexObjects
+    from shared_modules.widgetPrinter import WidgetPrinter
     from business_customers import customers
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
@@ -24,6 +25,8 @@ class InvoiceReviewDialog(QDialog,
         
         self.addInvoiceDetails(details)
         self.addPayloads(payloads)
+        
+        self.printer = WidgetPrinter(self, 300, QPrinter.HighResolution)
         
     def addInvoiceDetails(self, details):
         name = details["name"]
