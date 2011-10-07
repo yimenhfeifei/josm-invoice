@@ -39,7 +39,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.deleteColumn = len(self.validating)
         
-        self.vatRate = Decimal("0.20")
+        self.vatRate = self.getInvoiceVatRate()
         
         for widget in self.validating:
             self.connect(widget, SIGNAL("textChanged(QString)"),
@@ -82,7 +82,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.valueEdit.clear()
     
     def calculateValue(self):
-        weight = Decimal(self.weightEdit.text())
+        weight = Decimal(self.weightEdit.text()) / Decimal("1000.00")
         pricePerUnit = Decimal(self.pricePerTonneEdit.text())
         self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
         
@@ -95,8 +95,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     def addPayload(self):
         if self.allValid(): 
             self.addRow(self.descriptionEdit.text(),
-                        self.weightEdit.text(),
-                        self.pricePerTonneEdit.text(),
+                        "{:.2f}".format(Decimal(self.weightEdit.text())),
+                        "{:.2f}".format(Decimal(self.pricePerTonneEdit.text())),
                         self.valueEdit.text())
             
             self.resetForm()
@@ -143,7 +143,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return sum(values)
     
     def getVatTotal(self):
-        return self.getPayloadTotal() * self.vatRate
+        return self.getPayloadTotal() * (Decimal(self.vatRate) / 100)
     
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal()

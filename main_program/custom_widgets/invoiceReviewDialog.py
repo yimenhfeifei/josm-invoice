@@ -81,6 +81,10 @@ class InvoiceReviewDialog(QDialog,
         self.grandTotalLabel.setText(re.sub(self.spanTagContents,
                                             details["grandTotal"],
                                             self.grandTotalLabel.text()))
+        
+        self.vatRateLabel.setText(re.sub(self.spanTagContents,
+                                            "VAT ({} %)".format(details["vatRate"]),
+                                            self.vatRateLabel.text()))
 
     def addPayloads(self, payloads):
         for row, payload in enumerate(payloads.values()):
