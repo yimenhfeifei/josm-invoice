@@ -30,16 +30,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.number = self.getInvoiceNumber()
         
-        self.vatRate = self.getInvoiceVatRate()
-        
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
                            self.pricePerTonneEdit,
-                           self.valueEdit]
+                           self.valueEdit,
+                           self.vatEdit]
         
-        self.deleteColumn = len(self.validating)
-        
-        self.vatRate = self.getInvoiceVatRate()
+        self.deleteColumn = 4
         
         for widget in self.validating:
             self.connect(widget, SIGNAL("textChanged(QString)"),
@@ -57,11 +54,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
         
+        self.changed()
+        
     def getInvoiceNumber(self):
         return [line for line in open("invoice_number.txt", "r")][0]
     
     def getInvoiceVatRate(self):
-        return [line for line in open("invoice_vat_rate.txt", "r")][0]
+        return self.vatEdit.text()
         
     def populateCustomerBox(self, customers):
         for index, name in enumerate(customers.keys()):
@@ -130,7 +129,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return {"number": self.number,
                 "date": datetime.now().strftime("%Y/%m/%d"),
                 "name": self.customerCombobox.currentText(),
-                "vatRate": self.vatRate,
+                "vatRate": self.getInvoiceVatRate(),
                 "payloadTotal": str(self.getPayloadTotal()),
                 "vatTotal": "{:.2f}".format(self.getVatTotal()),
                 "grandTotal": "{:.2f}".format(self.getGrandTotal())}
@@ -138,12 +137,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     def getPayloadTotal(self):
         values = []
         for row in range(self.payloadTableWidget.rowCount()):
-            values.append(Decimal(self.payloadTableWidget.item(row, len(self.validating)-1).text()))
+            values.append(Decimal(self.payloadTableWidget.item(row, self.deleteColumn-1).text()))
             
         return sum(values)
     
     def getVatTotal(self):
-        return self.getPayloadTotal() * (Decimal(self.vatRate) / 100)
+        print(self.getInvoiceVatRate())
+        return self.getPayloadTotal() * (Decimal(self.getInvoiceVatRate()) / 100)
     
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal()
@@ -181,8 +181,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.descriptionEdit.setFocus()
             
     def resetForm(self):
+        value = self.vatEdit.text()
         for widget in self.validating:
             widget.clear()
+        self.vatEdit.setText(value)
         self.descriptionEdit.setFocus()
 
 if __name__ == "__main__":
