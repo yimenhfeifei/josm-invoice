@@ -28,6 +28,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateCustomerBox(customers)
         
+        self.number = self.getInvoiceNumber()
+        
+        self.vatRate = self.getInvoiceVatRate()
+        
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
                            self.pricePerTonneEdit,
@@ -35,7 +39,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.deleteColumn = len(self.validating)
         
-        self.number = 801
         self.vatRate = Decimal("0.20")
         
         for widget in self.validating:
@@ -53,6 +56,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
+        
+    def getInvoiceNumber(self):
+        return [line for line in open("invoice_number.txt", "r")][0]
+    
+    def getInvoiceVatRate(self):
+        return [line for line in open("invoice_vat_rate.txt", "r")][0]
         
     def populateCustomerBox(self, customers):
         for index, name in enumerate(customers.keys()):
@@ -118,10 +127,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.payloadTableWidget.setItem(row, self.deleteColumn, deleteItem)
         
     def getInvoiceDetails(self):
-        return {"number": str(self.number),
+        return {"number": self.number,
                 "date": datetime.now().strftime("%Y/%m/%d"),
                 "name": self.customerCombobox.currentText(),
-                "vatRate": str(self.vatRate),
+                "vatRate": self.vatRate,
                 "payloadTotal": str(self.getPayloadTotal()),
                 "vatTotal": "{:.2f}".format(self.getVatTotal()),
                 "grandTotal": "{:.2f}".format(self.getGrandTotal())}
@@ -156,9 +165,20 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     
     def createInvoiceReview(self):
         if self.payloadTableWidget.isValid():
-            InvoiceReviewDialog(self.getInvoiceDetails(), self.getPayloads()).exec_()
+            self.generateInvoice()
         else:
             QMessageBox.warning(self, "Attention", "No payloads to review!")
+            
+    def generateInvoice(self):
+        if InvoiceReviewDialog(self.getInvoiceDetails(),
+                               self.getPayloads()).exec_():
+            f = open("invoice_number.txt", "w")
+            f.seek(0)
+            self.number = str(int(self.number) + 1)
+            
+            f.write(self.number)
+            
+        self.descriptionEdit.setFocus()
             
     def resetForm(self):
         for widget in self.validating:

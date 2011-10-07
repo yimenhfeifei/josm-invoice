@@ -28,6 +28,24 @@ class InvoiceReviewDialog(QDialog,
         
         self.printer = WidgetPrinter(self, 300, QPrinter.HighResolution)
         
+        self.connect(self.confirmbox, SIGNAL("accepted()"),
+                     self.acceptInvoice)
+        
+        
+        self.connect(self.confirmbox, SIGNAL("rejected()"),
+                     self.cancelInvoice)
+        
+    def printInvoice(self):
+        self.confirmbox.hide()
+        self.printer.showPrintDialog()
+        
+    def acceptInvoice(self):
+        self.printInvoice()
+        self.accept()
+    
+    def cancelInvoice(self):
+        self.reject()
+        
     def addInvoiceDetails(self, details):
         name = details["name"]
         personalDetails = customers[name]
