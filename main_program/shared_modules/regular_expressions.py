@@ -19,11 +19,13 @@ regexObjects = {"name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "vehicleRegistration": re.compile(r"^[a-z][a-z0-9]{2,7}$", re.I),
                 
-                "weight": re.compile(r"^[1-9]\d{0,4}(\.\d{1,2})?$"),
+                "weight": re.compile(r"^(\d{1,5}(\.\d{1,2})?|\.\d{1,2})$"),
                 
                 "value": re.compile(r"^\d{1,5}(\.\d{1,2})?$"),
                 
                 "model": re.compile(r"^(|[a-z0-9\s]{1,30})$", re.I),
+                
+                "description": re.compile(r"^(\w+\s?)+(\(.*\))?$", re.I),
                 
                 "vin": re.compile(r"^(|[a-z0-9]{1,17})$", re.I),
                 

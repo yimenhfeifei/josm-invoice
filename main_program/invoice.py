@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 try:
     import sys
     from decimal import Decimal
@@ -13,7 +14,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.0"
+__VERSION__ = "0.1"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = "4.8.5"
@@ -36,6 +37,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                            self.valueEdit,
                            self.vatEdit]
         
+        self.payloadTableWidget.setHorizontalHeaderLabels(["Description",
+                                                           "Weight",
+                                                           "Price Per Tonne",
+                                                           "Value",
+                                                           "Delete"])
+        
         self.deleteColumn = 4
         
         for widget in self.validating:
@@ -55,6 +62,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                      self.addPayload)
         
         self.changed()
+        
+        self.descriptionEdit.setFocus()
         
     def getInvoiceNumber(self):
         return [line for line in open("invoice_number.txt", "r")][0]

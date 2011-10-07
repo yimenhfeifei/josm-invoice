@@ -92,6 +92,8 @@ class InvoiceReviewDialog(QDialog,
                              QLabel(payload["weight"]),
                              QLabel(payload["ppu"]),
                              QLabel(payload["value"])]
+            
+            payloadValues[0].setWordWrap(True)
                 
             for column, item in enumerate(payloadValues):
                 item.setAlignment(Qt.AlignHCenter)
