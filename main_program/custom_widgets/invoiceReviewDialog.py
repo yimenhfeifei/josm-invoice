@@ -20,6 +20,10 @@ class InvoiceReviewDialog(QDialog,
         super(InvoiceReviewDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Invoice Review")
+        #self.sysTrayRect = QSystemTrayIcon().geometry()
+        
+        #self.screenRect = QDesktopWidget().geometry()
+        #self.setGeometry(0, 0, self.width(), (self.screenRect.height() - 100))
         
         self.spanTagContents = regexObjects["spanTagContents"]
         

@@ -27,6 +27,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.setupUi(self)
         self.setWindowTitle("Invoice")
         
+        self.screenRect = QDesktopWidget().geometry()
+        
+        self.move((self.screenRect.width() - self.width()) / 2,
+                  (self.screenRect.height() - self.height()) / 2)
+        
         self.populateCustomerBox(customers)
         
         self.number = self.getInvoiceNumber()
@@ -179,15 +184,41 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             QMessageBox.warning(self, "Attention", "No payloads to review!")
             
     def generateInvoice(self):
-        if InvoiceReviewDialog(self.getInvoiceDetails(),
-                               self.getPayloads()).exec_():
-            f = open("invoice_number.txt", "w")
-            f.seek(0)
-            self.number = str(int(self.number) + 1)
+        #if InvoiceReviewDialog(self.getInvoiceDetails(),
+                               #self.getPayloads()).exec_():
+            #f = open("invoice_number.txt", "w")
+            #f.seek(0)
+            #self.number = str(int(self.number) + 1)
             
-            f.write(self.number)
+            #f.write(self.number)
             
-        self.descriptionEdit.setFocus()
+        #self.descriptionEdit.setFocus()
+        
+        p = QPrinter(QPrinter.HighResolution)
+        p.setPaperSize(QPrinter.A5)
+        
+        pp = QPrintPreviewDialog(p, self)
+        self.connect(pp, SIGNAL("paintRequested(QPrinter*)"),
+                     self.printIt)
+        pp.exec_()
+        
+    def printIt(self, printer):
+        painter = QPainter(printer)
+        
+        inv = InvoiceReviewDialog(self.getInvoiceDetails(), self.getPayloads())
+        
+        image = QPixmap.grabWidget(inv, inv.rect())
+        
+        inv.reject()
+        
+        image = image.scaled(printer.pageRect().width(),
+                             printer.pageRect().height(),
+                             Qt.KeepAspectRatio)
+        
+        painter.begin(self)
+        painter.drawPixmap(0, 0, image)
+        painter.end()
+        printer.newPage()
             
     def resetForm(self):
         value = self.vatEdit.text()
