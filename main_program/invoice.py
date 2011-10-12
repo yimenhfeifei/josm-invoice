@@ -201,9 +201,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             statements["statement {}".format(num)] = {"number": num,
                                                       "payloadTotal": payloadTotal,
                                                       "vatTotal": vatTotal,
-                                                      "grandTotal": grandTotal}
+                                                      "grandTotal": grandTotal,
+                                                      "batch": batch}
         
-        statements.update(static)
+        
             
         return statements
             
@@ -237,31 +238,68 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
                       ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
-                      ("WML: 78975, TEL.: 8932979824, FAX: 473492794, WCL: 758479485", QFont("Helvetica", 10, weight=QFont.Bold)),
+                      ("WML: 20659, TEL.: (01209)820313, FAX: (01209)822512, WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("VAT Registration number: 57857935", QFont("Helvetica", 10))]
         
-        for statement in self.generateStatements():
+        for statement in self.generateStatements().values():
             x = 0
             y = pageRect.y()
             
-            for line, font in letterHead:
+            for num, (line, font) in enumerate(letterHead):
                 painter.setFont(font)
-                x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
-                painter.drawText(x, y, line)
-                y += painter.fontMetrics().height()
-                print(painter.fontMetrics().height())
+                if num == 3:
+                    x = 0
+                    space = (pageRect.width() - painter.fontMetrics().width(line))
+                    space /= 3
+                    for pair in list(zip(line.split()[::2], line.split()[1::2])):
+                        painter.drawText(x, y, pair[0] + " " + pair[1])
+                        x += (painter.fontMetrics().width(pair[0] + pair[1]) + space)
+                        
+                    y += painter.fontMetrics().height()
+                else:
+                    x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+                    painter.drawText(x, y, line)
+                    y += painter.fontMetrics().height()
                 
-            y += 20
+            y += 40
             
-            painter.setFont(QFont("Helvetica", 10, QFont.Bold))
-            x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+            painter.setFont(QFont("Helvetica", 12, QFont.Bold))
+            x = (pageRect.width() - painter.fontMetrics().width("Purchase Invoice")) / 2
             painter.drawText(x, y, "Purchase Invoice")
             y += painter.fontMetrics().height()
             
             painter.setFont(QFont("Helvetica", 10))
-            x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+            x = (pageRect.width() - painter.fontMetrics().width("Invoice Details")) / 2
             painter.drawText(x, y, "Invoice Details")
             y += painter.fontMetrics().height()
+            
+            y += 40
+            
+            payloadHeaders = ["Description",
+                              "Weight (Kg)",
+                              "Price Per Unit",
+                              "Value (GBP)"]
+            
+            x = 0
+            for item in payloadHeaders:
+                painter.drawText(x, y, item)
+                x += (painter.fontMetrics().width(item) + 50)
+
+            for payload in statement["batch"]:
+                x = 0
+                painter.setFont(font)
+                length = painter.fontMetrics().width(payload["description"]+
+                                                     payload["weight"]+
+                                                     payload["ppu"]+
+                                                     payload["value"]) + 150
+                x = (pageRect.width() - length) / 2
+                
+                for item in payload.values():
+                    painter.drawText(x, y, item)
+                    x += (painter.fontMetrics().width(item) + 50)
+                    
+                y += painter.fontMetrics().height()
+                
     
     def createInvoiceReview(self):
         if self.payloadTableWidget.isValid():
@@ -281,23 +319,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         #self.descriptionEdit.setFocus()
         
         print(self.generateStatements())
-        
-    def printIt(self, printer):
-        painter = QPainter(printer)
-        
-        painter.begin(self)
-        y = 100
-        for i in range(1000):
-            y += 25
-            br  = painter.drawText(QRect(100, y, 50, 25), 0, self.getInvoiceDetails()["number"])
-            painter.eraseRect(br)
-            if br.intersects(printer.pageRect()):
-                print("{} intersects {}".format(br, printer.pageRect()))
-                painter.drawText(br, 0, self.getInvoiceDetails()["number"])
-            else:
-                print("{} off the page".format(br))
-                printer.newPage()
-        painter.end()
             
     def resetForm(self):
         value = self.vatEdit.text()
