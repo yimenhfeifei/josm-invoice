@@ -16,7 +16,7 @@ except ImportError as err:
 class InvoiceReviewDialog(QDialog,
                       invoice_review_dialog_generated.Ui_invoiceReviewDialog):
 
-    def __init__(self, details, payloads, parent=None):
+    def __init__(self, details, payloads, p, parent=None):
         super(InvoiceReviewDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Invoice Review")
@@ -24,6 +24,8 @@ class InvoiceReviewDialog(QDialog,
         
         #self.screenRect = QDesktopWidget().geometry()
         #self.setGeometry(0, 0, self.width(), (self.screenRect.height() - 100))
+        
+        self.render(p)
         
         self.spanTagContents = regexObjects["spanTagContents"]
         

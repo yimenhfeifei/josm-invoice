@@ -27,6 +27,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.setupUi(self)
         self.setWindowTitle("Invoice")
         
+        self.printer = QPrinter(QPrinter.HighResolution)
+        self.printer.setPaperSize(QPrinter.A4)
+        self.printer.setResolution(300)
+        
+        self.fontScale = self.printer.resolution() / 96
+        
         self.screenRect = QDesktopWidget().geometry()
         
         self.move((self.screenRect.width() - self.width()) / 2,
@@ -34,7 +40,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateCustomerBox(customers)
         
-        self.number = self.getInvoiceNumber()
+        self.startingNumber = self.getInvoiceNumber()
         
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -61,7 +67,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                      self.payloadTableClicked)
         
         self.connect(self.reviewButton, SIGNAL("clicked()"),
-                     self.createInvoiceReview)
+                     self.printPreview)
         
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
@@ -111,7 +117,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
                         "{:.2f}".format(Decimal(self.pricePerTonneEdit.text())),
                         self.valueEdit.text())
-            
             self.resetForm()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
@@ -140,7 +145,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.payloadTableWidget.setItem(row, self.deleteColumn, deleteItem)
         
     def getInvoiceDetails(self):
-        return {"number": self.number,
+        return {"number": self.startingNumber,
                 "date": datetime.now().strftime("%Y/%m/%d"),
                 "name": self.customerCombobox.currentText(),
                 "vatRate": self.getInvoiceVatRate(),
@@ -155,9 +160,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         return sum(values)
     
-    def getVatTotal(self):
-        print(self.getInvoiceVatRate())
-        return self.getPayloadTotal() * (Decimal(self.getInvoiceVatRate()) / 100)
+    def getVatTotal(self, amount):
+        return amount * (Decimal(self.getInvoiceVatRate()) / 100)
     
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal()
@@ -177,6 +181,88 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                                                   "value": fields[3]}
         return payloads
     
+        
+    def generateStatements(self):
+        statements = {}
+        static = {"date": datetime.now().strftime("%Y/%m/%d"),
+                  "name": self.customerCombobox.currentText(),
+                  "vatRate": self.getInvoiceVatRate()}
+        
+        payloads = []
+        payloadGroups = list(self.getPayloads().values())
+        groupSize = 15
+        payloads = [payloadGroups[n:n+groupSize] for n, i in enumerate(payloadGroups) if n % groupSize == 0]
+        
+        for num, batch in enumerate(payloads):
+            payloadTotal = sum([Decimal(i["value"]) for i in batch])
+            vatTotal = self.getVatTotal(payloadTotal)
+            grandTotal = "{:.2f}".format(payloadTotal + vatTotal)
+    
+            statements["statement {}".format(num)] = {"number": num,
+                                                      "payloadTotal": payloadTotal,
+                                                      "vatTotal": vatTotal,
+                                                      "grandTotal": grandTotal}
+        
+        statements.update(static)
+            
+        return statements
+            
+    def printPreview(self):
+        previewDialog = QPrintPreviewDialog(self.printer, self)
+        
+        self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
+                     self.paintInvoice)
+        
+        previewDialog.exec_()
+        
+    def paintLetterHead(self, painter):
+        fm = painter.fontMetrics()
+        letterHeadWidth = fm.width("John Orchard and Company")
+        painter.drawText()
+    
+    def paintPayloads(self, painter):
+        pass
+    
+    def paintTotals(self, painter):
+        pass
+    
+    def paintFooter(self, painter):
+        pass
+        
+    def paintInvoice(self):
+        painter = QPainter(self.printer)
+        
+        pageRect = self.printer.pageRect()
+        
+        letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
+                      ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
+                      ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
+                      ("WML: 78975, TEL.: 8932979824, FAX: 473492794, WCL: 758479485", QFont("Helvetica", 10, weight=QFont.Bold)),
+                      ("VAT Registration number: 57857935", QFont("Helvetica", 10))]
+        
+        for statement in self.generateStatements():
+            x = 0
+            y = pageRect.y()
+            
+            for line, font in letterHead:
+                painter.setFont(font)
+                x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+                painter.drawText(x, y, line)
+                y += painter.fontMetrics().height()
+                print(painter.fontMetrics().height())
+                
+            y += 20
+            
+            painter.setFont(QFont("Helvetica", 10, QFont.Bold))
+            x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+            painter.drawText(x, y, "Purchase Invoice")
+            y += painter.fontMetrics().height()
+            
+            painter.setFont(QFont("Helvetica", 10))
+            x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+            painter.drawText(x, y, "Invoice Details")
+            y += painter.fontMetrics().height()
+    
     def createInvoiceReview(self):
         if self.payloadTableWidget.isValid():
             self.generateInvoice()
@@ -194,31 +280,24 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         #self.descriptionEdit.setFocus()
         
-        p = QPrinter(QPrinter.HighResolution)
-        p.setPaperSize(QPrinter.A5)
-        
-        pp = QPrintPreviewDialog(p, self)
-        self.connect(pp, SIGNAL("paintRequested(QPrinter*)"),
-                     self.printIt)
-        pp.exec_()
+        print(self.generateStatements())
         
     def printIt(self, printer):
         painter = QPainter(printer)
         
-        inv = InvoiceReviewDialog(self.getInvoiceDetails(), self.getPayloads())
-        
-        image = QPixmap.grabWidget(inv, inv.rect())
-        
-        inv.reject()
-        
-        image = image.scaled(printer.pageRect().width(),
-                             printer.pageRect().height(),
-                             Qt.KeepAspectRatio)
-        
         painter.begin(self)
-        painter.drawPixmap(0, 0, image)
+        y = 100
+        for i in range(1000):
+            y += 25
+            br  = painter.drawText(QRect(100, y, 50, 25), 0, self.getInvoiceDetails()["number"])
+            painter.eraseRect(br)
+            if br.intersects(printer.pageRect()):
+                print("{} intersects {}".format(br, printer.pageRect()))
+                painter.drawText(br, 0, self.getInvoiceDetails()["number"])
+            else:
+                print("{} off the page".format(br))
+                printer.newPage()
         painter.end()
-        printer.newPage()
             
     def resetForm(self):
         value = self.vatEdit.text()
