@@ -40,6 +40,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateCustomerBox(customers)
         
+        self.populateTypeBox("Purchase", "Sales")
+        
         self.startingNumber = self.getInvoiceNumber()
         
         self.validating = [self.descriptionEdit,
@@ -81,6 +83,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
+    
+    def populateTypeBox(self, *types):
+        for index, name in enumerate(types):
+            self.typeCombobox.insertItem(index, name + " Invoice")
         
     def populateCustomerBox(self, customers):
         for index, name in enumerate(customers.keys()):
@@ -213,168 +219,202 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         previewDialog.exec_()
         
-    def paintLetterHead(self, painter):
-        fm = painter.fontMetrics()
-        letterHeadWidth = fm.width("John Orchard and Company")
-        painter.drawText()
-    
-    def paintPayloads(self, painter):
-        pass
-    
-    def paintTotals(self, painter):
-        pass
-    
-    def paintFooter(self, painter):
-        pass
-        
-    def paintInvoice(self):
-        painter = QPainter(self.printer)
-        
-        pageRect = self.printer.pageRect()
-        
+    def paintLetterHead(self, painter, pageRect):
         letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
                       ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
                       ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("VAT Registration number: 1319249 76", QFont("Helvetica", 10))]
         
-        lastPage = len(self.generateStatements().values()) - 1
-        
-        for page, statement in enumerate(self.generateStatements().values()):
-            x = 0
-            y = pageRect.y()
-            
-            for num, (line, font) in enumerate(letterHead):
+        for num, (line, font) in enumerate(letterHead):
                 painter.setFont(font)
                 if num == 3:
-                    x = 0
+                    self.x = 0
                     space = (pageRect.width() - painter.fontMetrics().width(line))
                     space /= 3
                     for pair in list(zip(line.split()[::2], line.split()[1::2])):
-                        painter.drawText(x, y, pair[0] + " " + pair[1])
-                        x += (painter.fontMetrics().width(pair[0] + pair[1]) + space)
+                        painter.drawText(self.x, self.y, pair[0] + " " + pair[1])
+                        self.x += (painter.fontMetrics().width(pair[0] + pair[1]) + space)
                         
-                    y += painter.fontMetrics().height()
+                    self.y += painter.fontMetrics().height()
                 else:
-                    x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
-                    painter.drawText(x, y, line)
-                    y += painter.fontMetrics().height()
+                    self.x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
+                    painter.drawText(self.x, self.y, line)
+                    self.y += painter.fontMetrics().height()
+                    
+        return (self.x, self.y)
+    
+    def paintPayloads(self, painter, pageRect, statement):
+        payloadHeaders = [("Description", 300),
+                              ("Weight (Kg)", 50),
+                              ("Price Per Tonne", 50),
+                              ("Value (GBP)", 50)]
+            
+        length = 0
+        for item, space in payloadHeaders:
+            length += painter.fontMetrics().width(item) + space
+        
+        self.x = (pageRect.width() - length) / 2
+        painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+        headerPos = []
+        for item, space in payloadHeaders:
+            headerLength = (painter.fontMetrics().width(item) + space)
+            offset = (headerLength - painter.fontMetrics().width(item)) / 2
+            headerPos.append((self.x+offset, painter.fontMetrics().width(item)))
+            painter.drawText(self.x+offset, self.y, item)
+            self.x += headerLength
+            
+        self.y += painter.fontMetrics().height()
+        
+        painter.setFont(QFont("Helvetica", 10))
+        for payload in statement["batch"]:                
+            values = [payload["description"], payload["weight"],
+                      payload["ppu"], payload["value"]]
+            
+            for num, item in enumerate(values):
+                pair = headerPos[num]
+                self.x = pair[0]
+                self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
                 
-            y += 40
+                painter.drawText(self.x, self.y, item)
+                
+            self.y += painter.fontMetrics().height()
+    
+    def paintTotals(self, painter, pageRect, statement):
+        totalLabels = ["Total: ",
+                           "VAT ({}%): ".format(self.getInvoiceVatRate()),
+                           "Invoice total: "]
             
-            painter.setFont(QFont("Helvetica", 12, QFont.Bold))
-            x = (pageRect.width() - painter.fontMetrics().width("Purchase Invoice")) / 2
-            painter.drawText(x, y, "Purchase Invoice")
-            y += painter.fontMetrics().height()
+        totalDetails = [statement["payloadTotal"],
+                        statement["vatTotal"],
+                        " £ {}".format(statement["grandTotal"])]
+        
+        labelLengths = []
+        lineLengths = []
+        for label, detail in zip(totalLabels, totalDetails):
+            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            labelLength = painter.fontMetrics().width(label)
+            labelLengths.append(labelLength)
+            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            detailLength = painter.fontMetrics().width(detail)
+            lineLengths.append(labelLength + detailLength)
             
-            invoiceLabels = ["Invoice number: ",
+        longestLabel = max(labelLengths)
+        longestLine = max(lineLengths)
+        
+        self.x = 0
+        self.x += (pageRect.width() - longestLine) / 2
+        for label, detail in zip(totalLabels, totalDetails):
+            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            painter.drawText(self.x, self.y, label)
+            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            painter.drawText(self.x+longestLabel, self.y, detail)
+            self.y += painter.fontMetrics().height()
+    
+    def paintFooter(self, painter, pageRect):
+        footer = "N.B.: The VAT shown on this document is your output tax, and must be accounted for accordingly."
+        painter.setFont(QFont("Helvetica", 12, QFont.Bold))
+        footerWidth = painter.fontMetrics().width(footer)
+        
+        if footerWidth > pageRect.width():
+            splitNumber =  footerWidth // pageRect.width()
+            
+            strings = footer.split(",", splitNumber)
+        else:
+            strings = [footer]
+
+        self.x = 0
+        offset = 0
+        self.x += (pageRect.width() - painter.fontMetrics().width(strings[0])) / 2
+        for num, string in enumerate(strings):
+            if num > 0:
+                offset = painter.fontMetrics().width(strings[0][:6])
+            painter.drawText(self.x+offset, self.y, string)
+            self.paintVerticalSpace(painter.fontMetrics().height())
+        
+    def paintDetails(self, painter, pageRect, statement):
+        invoiceLabels = ["Invoice number: ",
                              "Date: ",
                              "Name: ",
                              "Address: ",
                              "Vat Reg. Number: "]
             
-            invoiceDetails = [statement["number"],
-                              datetime.now().strftime("%d/%m/%Y"),
-                              self.customerCombobox.currentText(),
-                              customers[self.customerCombobox.currentText()]["address"],
-                              customers[self.customerCombobox.currentText()]["vatReg"]]
+        invoiceDetails = [statement["number"],
+                          datetime.now().strftime("%d/%m/%Y"),
+                          self.customerCombobox.currentText(),
+                          customers[self.customerCombobox.currentText()]["address"],
+                          customers[self.customerCombobox.currentText()]["vatReg"]]
             
-            lengths = []
-            labels = []
-            for pair in zip(invoiceLabels, invoiceDetails):
-                painter.setFont(QFont("Helvetica", 10))
-                labelWidth = painter.fontMetrics().width(pair[0])
-                painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
-                valueWidth = painter.fontMetrics().width(pair[1])
-                lengths.append(labelWidth + valueWidth)
-                labels.append(painter.fontMetrics().width(pair[0]))
-            longestLine = max(lengths)
-            longestLabel = max(labels)
-            
-            x = 0
-            x += (pageRect.width() - longestLine) / 2
-            for pair in zip(invoiceLabels, invoiceDetails):
-                painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
-                painter.drawText(x, y, pair[0])
-                painter.setFont(QFont("Helvetica", 10))
-                painter.drawText(x+longestLabel, y, pair[1])
-                y += painter.fontMetrics().height()
-                
-            y += painter.fontMetrics().height()
-            
-            painter.drawLine(0, y, pageRect.width(), y)
-            
-            y += painter.fontMetrics().height() * 2
-                
-            
-            payloadHeaders = [("Description", 300),
-                              ("Weight (Kg)", 50),
-                              ("Price Per Tonne", 50),
-                              ("Value (GBP)", 50)]
-            
-            length = 0
-            for item, space in payloadHeaders:
-                length += painter.fontMetrics().width(item) + space
-            
-            x = (pageRect.width() - length) / 2
-            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
-            headerPos = []
-            for item, space in payloadHeaders:
-                headerLength = (painter.fontMetrics().width(item) + space)
-                offset = (headerLength - painter.fontMetrics().width(item)) / 2
-                headerPos.append((x+offset, painter.fontMetrics().width(item)))
-                painter.drawText(x+offset, y, item)
-                x += headerLength
-                
-            y += painter.fontMetrics().height()
-            
+        lengths = []
+        labels = []
+        for pair in zip(invoiceLabels, invoiceDetails):
             painter.setFont(QFont("Helvetica", 10))
-            for payload in statement["batch"]:                
-                values = [payload["description"], payload["weight"],
-                          payload["ppu"], payload["value"]]
+            labelWidth = painter.fontMetrics().width(pair[0])
+            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+            valueWidth = painter.fontMetrics().width(pair[1])
+            lengths.append(labelWidth + valueWidth)
+            labels.append(painter.fontMetrics().width(pair[0]))
+        longestLine = max(lengths)
+        longestLabel = max(labels)
+        
+        self.x = 0
+        self.x += (pageRect.width() - longestLine) / 2
+        for pair in zip(invoiceLabels, invoiceDetails):
+            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+            painter.drawText(self.x, self.y, pair[0])
+            painter.setFont(QFont("Helvetica", 10))
+            painter.drawText(self.x+longestLabel, self.y, pair[1])
+            self.y += painter.fontMetrics().height()
+        
+    def paintVerticalSpace(self, size):
+        self.y += size
+        
+    def paintPageLine(self, painter, pageRect):
+        painter.drawLine(0, self.y, pageRect.width(), self.y)
+        
+    def paintInvoiceType(self, painter, pageRect):
+        invoiceType = self.typeCombobox.currentText()
+        painter.setFont(QFont("Helvetica", 12, QFont.Bold))
+        self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
+        painter.drawText(self.x, self.y, invoiceType)
+        self.y += painter.fontMetrics().height()
+            
+    def paintInvoice(self):
+        painter = QPainter(self.printer)
+        
+        pageRect = self.printer.pageRect()
+        
+        lastPage = len(self.generateStatements().values()) - 1
+        
+        for page, statement in enumerate(self.generateStatements().values()):
+            self.x = 0
+            self.y = pageRect.y()
+            
+            self.paintLetterHead(painter, pageRect)
                 
-                for num, item in enumerate(values):
-                    pair = headerPos[num]
-                    x = pair[0]
-                    x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
-                    
-                    painter.drawText(x, y, item)
-                    
-                y += painter.fontMetrics().height()
+            self.paintVerticalSpace(40)
             
-            painter.drawLine(0, y, pageRect.width(), y)
+            self.paintInvoiceType(painter, pageRect)
             
-            y += painter.fontMetrics().height() * 3
-            
-            totalLabels = ["Total: ",
-                           "VAT ({}%): ".format(self.getInvoiceVatRate()),
-                           "Invoice total: "]
-            
-            totalDetails = [statement["payloadTotal"],
-                            statement["vatTotal"],
-                            " £ {}".format(statement["grandTotal"])]
-            
-            labelLengths = []
-            lineLengths = []
-            for label, detail in zip(totalLabels, totalDetails):
-                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
-                labelLength = painter.fontMetrics().width(label)
-                labelLengths.append(labelLength)
-                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
-                detailLength = painter.fontMetrics().width(detail)
-                lineLengths.append(labelLength + detailLength)
+            self.paintDetails(painter, pageRect, statement)
                 
-            longestLabel = max(labelLengths)
-            longestLine = max(lineLengths)
+            self.paintVerticalSpace(painter.fontMetrics().height())
             
-            x = 0
-            x += (pageRect.width() - longestLine) / 2
-            for label, detail in zip(totalLabels, totalDetails):
-                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
-                painter.drawText(x, y, label)
-                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
-                painter.drawText(x+longestLabel, y, detail)
-                y += painter.fontMetrics().height()
+            self.paintPageLine(painter, pageRect)
+            
+            self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+                
+            self.paintPayloads(painter, pageRect, statement)
+            
+            self.paintPageLine(painter, pageRect)
+            
+            self.paintVerticalSpace(painter.fontMetrics().height() * 3)
+            
+            self.paintTotals(painter, pageRect, statement)
+            
+            self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+            
+            self.paintFooter(painter, pageRect)
             
             if page == lastPage:
                 pass
