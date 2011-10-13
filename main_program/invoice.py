@@ -196,8 +196,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             grandTotal = "{:.2f}".format(payloadTotal + vatTotal)
     
             statements["statement {}".format(num)] = {"number": str(int(self.startingNumber) + num),
-                                                      "payloadTotal": payloadTotal,
-                                                      "vatTotal": vatTotal,
+                                                      "payloadTotal": "{:.2f}".format(payloadTotal),
+                                                      "vatTotal": "{:.2f}".format(vatTotal),
                                                       "grandTotal": grandTotal,
                                                       "batch": batch}
         
@@ -238,8 +238,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                       ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("VAT Registration number: 1319249 76", QFont("Helvetica", 10))]
         
-        painter.begin(self.printer)
-        
         lastPage = len(self.generateStatements().values()) - 1
         
         for page, statement in enumerate(self.generateStatements().values()):
@@ -273,7 +271,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                              "Date: ",
                              "Name: ",
                              "Address: ",
-                             "Vat Reg. Number "]
+                             "Vat Reg. Number: "]
             
             invoiceDetails = [statement["number"],
                               datetime.now().strftime("%d/%m/%Y"),
@@ -296,13 +294,17 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             x = 0
             x += (pageRect.width() - longestLine) / 2
             for pair in zip(invoiceLabels, invoiceDetails):
-                painter.setFont(QFont("Helvetica", 10))
-                painter.drawText(x, y, pair[0])
                 painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+                painter.drawText(x, y, pair[0])
+                painter.setFont(QFont("Helvetica", 10))
                 painter.drawText(x+longestLabel, y, pair[1])
                 y += painter.fontMetrics().height()
-            
+                
             y += painter.fontMetrics().height()
+            
+            painter.drawLine(0, y, pageRect.width(), y)
+            
+            y += painter.fontMetrics().height() * 2
                 
             
             payloadHeaders = [("Description", 300),
@@ -338,6 +340,40 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                     
                     painter.drawText(x, y, item)
                     
+                y += painter.fontMetrics().height()
+            
+            painter.drawLine(0, y, pageRect.width(), y)
+            
+            y += painter.fontMetrics().height() * 3
+            
+            totalLabels = ["Total: ",
+                           "VAT ({} %): ".format(self.getInvoiceVatRate()),
+                           "Invoice total: "]
+            
+            totalDetails = [statement["payloadTotal"],
+                            statement["vatTotal"],
+                            statement["grandTotal"]]
+            
+            labelLengths = []
+            lineLengths = []
+            for label, detail in zip(totalLabels, totalDetails):
+                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+                labelLength = painter.fontMetrics().width(label)
+                labelLengths.append(labelLength)
+                painter.setFont(QFont("Helvetica", 12))
+                detailLength = painter.fontMetrics().width(detail)
+                lineLengths.append(labelLength + detailLength)
+                
+            longestLabel = max(labelLengths)
+            longestLine = max(lineLengths)
+            
+            x = 0
+            x += (pageRect.width() - longestLine) / 2
+            for label, detail in zip(totalLabels, totalDetails):
+                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+                painter.drawText(x, y, label)
+                painter.setFont(QFont("Helvetica", 12))
+                painter.drawText(x+longestLabel, y, detail)
                 y += painter.fontMetrics().height()
             
             if page == lastPage:
