@@ -184,9 +184,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
     def generateStatements(self):
         statements = {}
-        static = {"date": datetime.now().strftime("%Y/%m/%d"),
-                  "name": self.customerCombobox.currentText(),
-                  "vatRate": self.getInvoiceVatRate()}
         
         payloads = []
         payloadGroups = list(self.getPayloads().values())
@@ -198,7 +195,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             vatTotal = self.getVatTotal(payloadTotal)
             grandTotal = "{:.2f}".format(payloadTotal + vatTotal)
     
-            statements["statement {}".format(num)] = {"number": num,
+            statements["statement {}".format(num)] = {"number": str(int(self.startingNumber) + num),
                                                       "payloadTotal": payloadTotal,
                                                       "vatTotal": vatTotal,
                                                       "grandTotal": grandTotal,
@@ -239,7 +236,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                       ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
                       ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
-                      ("VAT Registration number: 57857935", QFont("Helvetica", 10))]
+                      ("VAT Registration number: 1319249 76", QFont("Helvetica", 10))]
         
         painter.begin(self.printer)
         
@@ -272,9 +269,45 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             painter.drawText(x, y, "Purchase Invoice")
             y += painter.fontMetrics().height()
             
+            invoiceLabels = ["Invoice number: ",
+                             "Date: ",
+                             "Name: ",
+                             "Address: ",
+                             "Vat Reg. Number "]
+            
+            invoiceDetails = [statement["number"],
+                              datetime.now().strftime("%d/%m/%Y"),
+                              self.customerCombobox.currentText(),
+                              customers[self.customerCombobox.currentText()]["address"],
+                              customers[self.customerCombobox.currentText()]["vatReg"]]
+            
+            lengths = []
+            labels = []
+            for pair in zip(invoiceLabels, invoiceDetails):
+                painter.setFont(QFont("Helvetica", 10))
+                labelWidth = painter.fontMetrics().width(pair[0])
+                painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+                valueWidth = painter.fontMetrics().width(pair[1])
+                lengths.append(labelWidth + valueWidth)
+                labels.append(painter.fontMetrics().width(pair[0]))
+            longestLine = max(lengths)
+            longestLabel = max(labels)
+            
+            x = 0
+            x += (pageRect.width() - longestLine) / 2
+            for pair in zip(invoiceLabels, invoiceDetails):
+                painter.setFont(QFont("Helvetica", 10))
+                painter.drawText(x, y, pair[0])
+                painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+                painter.drawText(x+longestLabel, y, pair[1])
+                y += painter.fontMetrics().height()
+            
+            y += painter.fontMetrics().height()
+                
+            
             payloadHeaders = [("Description", 300),
                               ("Weight (Kg)", 50),
-                              ("Price Per Unit", 50),
+                              ("Price Per Tonne", 50),
                               ("Value (GBP)", 50)]
             
             length = 0
