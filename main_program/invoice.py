@@ -347,12 +347,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             y += painter.fontMetrics().height() * 3
             
             totalLabels = ["Total: ",
-                           "VAT ({} %): ".format(self.getInvoiceVatRate()),
+                           "VAT ({}%): ".format(self.getInvoiceVatRate()),
                            "Invoice total: "]
             
             totalDetails = [statement["payloadTotal"],
                             statement["vatTotal"],
-                            statement["grandTotal"]]
+                            " £ {}".format(statement["grandTotal"])]
             
             labelLengths = []
             lineLengths = []
@@ -360,7 +360,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                 painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
                 labelLength = painter.fontMetrics().width(label)
                 labelLengths.append(labelLength)
-                painter.setFont(QFont("Helvetica", 12))
+                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
                 detailLength = painter.fontMetrics().width(detail)
                 lineLengths.append(labelLength + detailLength)
                 
@@ -372,7 +372,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             for label, detail in zip(totalLabels, totalDetails):
                 painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
                 painter.drawText(x, y, label)
-                painter.setFont(QFont("Helvetica", 12))
+                painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
                 painter.drawText(x+longestLabel, y, detail)
                 y += painter.fontMetrics().height()
             
