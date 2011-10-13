@@ -238,10 +238,14 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
                       ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
-                      ("WML: 20659, TEL.: (01209)820313, FAX: (01209)822512, WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
+                      ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
                       ("VAT Registration number: 57857935", QFont("Helvetica", 10))]
         
-        for statement in self.generateStatements().values():
+        painter.begin(self.printer)
+        
+        lastPage = len(self.generateStatements().values()) - 1
+        
+        for page, statement in enumerate(self.generateStatements().values()):
             x = 0
             y = pageRect.y()
             
@@ -268,37 +272,47 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             painter.drawText(x, y, "Purchase Invoice")
             y += painter.fontMetrics().height()
             
-            painter.setFont(QFont("Helvetica", 10))
-            x = (pageRect.width() - painter.fontMetrics().width("Invoice Details")) / 2
-            painter.drawText(x, y, "Invoice Details")
+            payloadHeaders = [("Description", 300),
+                              ("Weight (Kg)", 50),
+                              ("Price Per Unit", 50),
+                              ("Value (GBP)", 50)]
+            
+            length = 0
+            for item, space in payloadHeaders:
+                length += painter.fontMetrics().width(item) + space
+            
+            x = (pageRect.width() - length) / 2
+            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+            headerPos = []
+            for item, space in payloadHeaders:
+                headerLength = (painter.fontMetrics().width(item) + space)
+                offset = (headerLength - painter.fontMetrics().width(item)) / 2
+                headerPos.append((x+offset, painter.fontMetrics().width(item)))
+                painter.drawText(x+offset, y, item)
+                x += headerLength
+                
             y += painter.fontMetrics().height()
             
-            y += 40
-            
-            payloadHeaders = ["Description",
-                              "Weight (Kg)",
-                              "Price Per Unit",
-                              "Value (GBP)"]
-            
-            x = 0
-            for item in payloadHeaders:
-                painter.drawText(x, y, item)
-                x += (painter.fontMetrics().width(item) + 50)
-
-            for payload in statement["batch"]:
-                x = 0
-                painter.setFont(font)
-                length = painter.fontMetrics().width(payload["description"]+
-                                                     payload["weight"]+
-                                                     payload["ppu"]+
-                                                     payload["value"]) + 150
-                x = (pageRect.width() - length) / 2
+            painter.setFont(QFont("Helvetica", 10))
+            for payload in statement["batch"]:                
+                values = [payload["description"], payload["weight"],
+                          payload["ppu"], payload["value"]]
                 
-                for item in payload.values():
+                for num, item in enumerate(values):
+                    pair = headerPos[num]
+                    x = pair[0]
+                    x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
+                    
                     painter.drawText(x, y, item)
-                    x += (painter.fontMetrics().width(item) + 50)
                     
                 y += painter.fontMetrics().height()
+            
+            if page == lastPage:
+                pass
+            else:
+                self.printer.newPage()
+            
+        painter.end()
                 
     
     def createInvoiceReview(self):
