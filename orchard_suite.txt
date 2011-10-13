@@ -1,3 +1,8 @@
+Need to calculate the number of payloads that can be printed on the page.
+Need to constrain description field length.
+Neew full sales invoice switching options.
+Need to refine regular expressions.
+
 Add reg details to payload list
 automate tarsnap
 use pgp keys encoded as qrcodes to verify tickets?

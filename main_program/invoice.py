@@ -149,15 +149,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         deleteItem.setFont(QFont("Monospace", weight=QFont.Bold))
         
         self.payloadTableWidget.setItem(row, self.deleteColumn, deleteItem)
-        
-    def getInvoiceDetails(self):
-        return {"number": self.startingNumber,
-                "date": datetime.now().strftime("%Y/%m/%d"),
-                "name": self.customerCombobox.currentText(),
-                "vatRate": self.getInvoiceVatRate(),
-                "payloadTotal": str(self.getPayloadTotal()),
-                "vatTotal": "{:.2f}".format(self.getVatTotal()),
-                "grandTotal": "{:.2f}".format(self.getGrandTotal())}
     
     def getPayloadTotal(self):
         values = []
@@ -188,7 +179,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return payloads
     
         
-    def generateStatements(self):
+    def getStatements(self):
         statements = {}
         
         payloads = []
@@ -206,8 +197,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                                                       "vatTotal": "{:.2f}".format(vatTotal),
                                                       "grandTotal": grandTotal,
                                                       "batch": batch}
-        
-        
             
         return statements
             
@@ -384,9 +373,9 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         pageRect = self.printer.pageRect()
         
-        lastPage = len(self.generateStatements().values()) - 1
+        lastPage = len(self.getStatements().values()) - 1
         
-        for page, statement in enumerate(self.generateStatements().values()):
+        for page, statement in enumerate(self.getStatements().values()):
             self.x = 0
             self.y = pageRect.y()
             
@@ -441,7 +430,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         #self.descriptionEdit.setFocus()
         
-        print(self.generateStatements())
+        print(self.getStatements())
             
     def resetForm(self):
         value = self.vatEdit.text()
