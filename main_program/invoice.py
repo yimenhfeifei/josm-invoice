@@ -75,9 +75,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateTypeBox("Purchase", "Sales")
         
-        self.startingNumber = self.getInvoiceNumber()
-        
-        self.lastNumber = None
+        self.invoiceNumber = self.getInvoiceNumber()
         
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -196,7 +194,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return amount * (Decimal(self.getInvoiceVatRate()) / 100)
     
     def getGrandTotal(self):
-        return self.getPayloadTotal() + self.getVatTotal()
+        return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
         
     def getPayloads(self):
         payloads = {}
@@ -250,7 +248,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             f = open("invoice_number.txt", "w")
             f.seek(0)
             
-            f.write(self.lastNumber)
+            f.write(str(int(self.invoiceNumber) + 1))
             f.close()
             self.clearPayloadTable()
             
@@ -292,8 +290,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.headerPos.append((self.x+offset, painter.fontMetrics().width(item)))
             painter.drawText(self.x+offset, self.y, item)
             self.x += headerLength
-            
-        self.y += painter.fontMetrics().height()
     
     def paintPayload(self, painter, pageRect, payload):
         painter.setFont(self.fonts["payloadFont"])              
@@ -307,10 +303,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
             painter.drawText(self.x, self.y, item)
     
-    def paintTotals(self, painter, pageRect, statement):
-        totalDetails = [statement["payloadTotal"],
-                        statement["vatTotal"],
-                        "£ {}".format(statement["grandTotal"])]
+    def paintTotals(self, painter, pageRect):
+        totalDetails = ["{:.2f}".format(self.getPayloadTotal()),
+                        "{:.2f}".format(self.getVatTotal(self.getPayloadTotal())),
+                        "£ {:.2f}".format(self.getGrandTotal())]
         
         labelLengths = []
         lineLengths = []
@@ -360,8 +356,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             painter.drawText(self.x+offset, self.y, string)
             self.paintVerticalSpace(painter.fontMetrics().height())
         
-    def paintDetails(self, painter, pageRect, statement):
-        invoiceDetails = [statement["number"],
+    def paintDetails(self, painter, pageRect, invoiceNumber):
+        invoiceDetails = [invoiceNumber,
                           datetime.now().strftime("%d/%m/%Y"),
                           self.customerCombobox.currentText(),
                           customers[self.customerCombobox.currentText()]["address"],
@@ -407,9 +403,17 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
         painter.drawText(self.x, self.y, invoiceType)
         
-    def paintTop(self, painter, pageRect):
+    def paintPageNumber(self, painter, pageRect, pageNumber):
+        painter.setFont(self.fonts["payloadFont"])
+        pageString = "Page {}".format(pageNumber)
+        width = painter.fontMetrics().width(pageString)
+        painter.drawText(pageRect.width() - width, self.y, pageString)
+    
+    def paintTop(self, painter, pageRect, invoiceNumber, pageNumber):
         self.x = 0
         self.y = pageRect.y()
+        
+        self.paintPageNumber(painter, pageRect, pageNumber)
         
         self.paintLetterHead(painter, pageRect)
                 
@@ -419,7 +423,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.paintVerticalSpace(painter.fontMetrics().height())
         
-        self.paintDetails(painter, pageRect, statement)
+        self.paintDetails(painter, pageRect, invoiceNumber)
             
         self.paintVerticalSpace(painter.fontMetrics().height())
         
@@ -428,12 +432,40 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.paintVerticalSpace(painter.fontMetrics().height() * 2)
         
         self.paintPayloadHeaders(painter, pageRect)
+        
+        self.paintVerticalSpace(painter.fontMetrics().height())
     
     def paintLooper(self, painter, pageRect):
-        self.paintTop(painter, pageRect)
+        invoiceNumber = self.getInvoiceNumber()
         
-        for payload in self.getPayloads().values():
-            self.paintPayload(painter, pageRect)
+        self.paintTop(painter, pageRect, invoiceNumber, 1)
+        
+        painter.setFont(self.fonts["totalsLabelFont"])
+        totalsHeight = painter.fontMetrics().height() * len(self.totalLabels)
+        
+        painter.setFont(self.fonts["footerFont"])
+        footerHeight = painter.fontMetrics().height() * 2
+        
+        painter.setFont(self.fonts["payloadFont"])
+        spaceHeight = painter.fontMetrics().height() * 5
+        
+        bottomHeight = totalsHeight + footerHeight + spaceHeight
+        
+        usedSpace = self.y + bottomHeight
+        
+        payloadSpace = pageRect.height() - usedSpace
+        
+        payloadStart = self.y
+        
+        pageNumber = 1
+        
+        for num, payload in enumerate(self.getPayloads().values()):
+            if self.y > (payloadStart + payloadSpace):
+                self.printer.newPage()
+                pageNumber += 1
+                self.paintTop(painter, pageRect, invoiceNumber, pageNumber)
+                
+            self.paintPayload(painter, pageRect, payload)
             self.paintVerticalSpace(painter.fontMetrics().height())
         
         self.paintBottom(painter, pageRect)
@@ -443,7 +475,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         self.paintVerticalSpace(painter.fontMetrics().height() * 3)
         
-        self.paintTotals(painter, pageRect, statement)
+        self.paintTotals(painter, pageRect)
         
         self.paintVerticalSpace(painter.fontMetrics().height() * 2)
         
@@ -454,20 +486,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         pageRect = self.printer.pageRect()
         
-        lastPage = len(self.getStatements(ppp).values()) - 1
+        self.paintLooper(painter, pageRect)
         
-        self.paintLooper()
-        
-        for page, statement in enumerate(self.getStatements(ppp).values()):
-            self.paintPayloads(painter, pageRect, statement)
-            
-            
-            
-            if page == lastPage:
-                self.lastNumber = str(int(statement["number"]) + 1)
-            else:
-                self.printer.newPage()
-            
         painter.end()
             
     def resetForm(self):
