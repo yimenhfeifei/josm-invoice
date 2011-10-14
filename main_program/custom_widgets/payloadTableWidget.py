@@ -72,3 +72,7 @@ class PayloadTableWidget(QTableWidget):
             return False
         else:
             return True
+        
+    def reset(self):
+        for row in [i for i in range(self.rowCount())][::-1]:
+            self.removeRow(row)

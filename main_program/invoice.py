@@ -31,8 +31,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.printer.setPaperSize(QPrinter.A4)
         self.printer.setResolution(300)
         
-        self.fontScale = self.printer.resolution() / 96
-        
         self.screenRect = QDesktopWidget().geometry()
         
         self.move((self.screenRect.width() - self.width()) / 2,
@@ -43,6 +41,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.populateTypeBox("Purchase", "Sales")
         
         self.startingNumber = self.getInvoiceNumber()
+        
+        self.lastNumber = None
         
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -170,6 +170,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         for row in range(table.rowCount()):
             fields = []
             for column in range(table.columnCount() - 1):
+                print(row, column)
+                print(table.rowCount())
                 fields.append(table.item(row, column).text())
                 
             payloads["payload {}".format(row)] = {"description": fields[0],
@@ -185,7 +187,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         payloads = []
         payloadGroups = list(self.getPayloads().values())
         groupSize = 15
-        payloads = [payloadGroups[n:n+groupSize] for n, i in enumerate(payloadGroups) if n % groupSize == 0]
+        payloads = [payloadGroups[n:n+groupSize]
+                    for n, i in enumerate(payloadGroups) if n % groupSize == 0]
         
         for num, batch in enumerate(payloads):
             payloadTotal = sum([Decimal(i["value"]) for i in batch])
@@ -201,12 +204,25 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return statements
             
     def printPreview(self):
+        if not self.payloadTableWidget.isValid():
+            return
+        
         previewDialog = QPrintPreviewDialog(self.printer, self)
         
         self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
                      self.paintInvoice)
         
-        previewDialog.exec_()
+        if previewDialog.exec_():
+            f = open("invoice_number.txt", "w")
+            f.seek(0)
+            
+            f.write(self.lastNumber)
+            f.close()
+            self.clearPayloadTable()
+            
+            self.startingNumber = self.getInvoiceNumber()
+            
+        self.descriptionEdit.setFocus()
         
     def paintLetterHead(self, painter, pageRect):
         letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
@@ -406,7 +422,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.paintFooter(painter, pageRect)
             
             if page == lastPage:
-                pass
+                self.lastNumber = str(int(statement["number"]) + 1)
             else:
                 self.printer.newPage()
             
@@ -419,25 +435,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         else:
             QMessageBox.warning(self, "Attention", "No payloads to review!")
             
-    def generateInvoice(self):
-        #if InvoiceReviewDialog(self.getInvoiceDetails(),
-                               #self.getPayloads()).exec_():
-            #f = open("invoice_number.txt", "w")
-            #f.seek(0)
-            #self.number = str(int(self.number) + 1)
-            
-            #f.write(self.number)
-            
-        #self.descriptionEdit.setFocus()
-        
-        print(self.getStatements())
-            
     def resetForm(self):
         value = self.vatEdit.text()
         for widget in self.validating:
             widget.clear()
         self.vatEdit.setText(value)
         self.descriptionEdit.setFocus()
+        
+    def clearPayloadTable(self):
+        self.payloadTableWidget.reset()
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
