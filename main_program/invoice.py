@@ -205,8 +205,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         for row in range(table.rowCount()):
             fields = []
             for column in range(table.columnCount() - 1):
-                print(row, column)
-                print(table.rowCount())
                 fields.append(table.item(row, column).text())
                 
             payloads["payload {}".format(row)] = {"description": fields[0],
@@ -279,7 +277,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                     
         return (self.x, self.y)
     
-    def paintPayloads(self, painter, pageRect, statement):
+    def paintPayloadHeaders(self, painter, pageRect):
         length = 0
         painter.setFont(self.fonts["payloadHeadersFont"])
         for item, space in self.payloadHeaders:
@@ -287,29 +285,27 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.x = (pageRect.width() - length) / 2
         
-        headerPos = []
+        self.headerPos = []
         for item, space in self.payloadHeaders:
             headerLength = (painter.fontMetrics().width(item) + space)
             offset = (headerLength - painter.fontMetrics().width(item)) / 2
-            headerPos.append((self.x+offset, painter.fontMetrics().width(item)))
+            self.headerPos.append((self.x+offset, painter.fontMetrics().width(item)))
             painter.drawText(self.x+offset, self.y, item)
             self.x += headerLength
             
         self.y += painter.fontMetrics().height()
-        
-        painter.setFont(self.fonts["payloadFont"])
-        for payload in statement["batch"]:                
-            values = [payload["description"], payload["weight"],
-                      payload["ppu"], payload["value"]]
+    
+    def paintPayload(self, painter, pageRect, payload):
+        painter.setFont(self.fonts["payloadFont"])              
+        values = [payload["description"], payload["weight"],
+                  payload["ppu"], payload["value"]]
             
-            for num, item in enumerate(values):
-                pair = headerPos[num]
-                self.x = pair[0]
-                self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
-                
-                painter.drawText(self.x, self.y, item)
-                
-            self.y += painter.fontMetrics().height()
+        for num, item in enumerate(values):
+            pair = self.headerPos[num]
+            self.x = pair[0]
+            self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
+            
+            painter.drawText(self.x, self.y, item)
     
     def paintTotals(self, painter, pageRect, statement):
         totalDetails = [statement["payloadTotal"],
@@ -410,80 +406,62 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
         painter.drawText(self.x, self.y, invoiceType)
+        
+    def paintTop(self, painter, pageRect):
+        self.x = 0
+        self.y = pageRect.y()
+        
+        self.paintLetterHead(painter, pageRect)
+                
+        self.paintVerticalSpace(40)
+        
+        self.paintInvoiceType(painter, pageRect)
+        
+        self.paintVerticalSpace(painter.fontMetrics().height())
+        
+        self.paintDetails(painter, pageRect, statement)
+            
+        self.paintVerticalSpace(painter.fontMetrics().height())
+        
+        self.paintPageLine(painter, pageRect)
+        
+        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+        
+        self.paintPayloadHeaders(painter, pageRect)
+    
+    def paintLooper(self, painter, pageRect):
+        self.paintTop(painter, pageRect)
+        
+        for payload in self.getPayloads().values():
+            self.paintPayload(painter, pageRect)
+            self.paintVerticalSpace(painter.fontMetrics().height())
+        
+        self.paintBottom(painter, pageRect)
+    
+    def paintBottom(self, painter, pageRect):
+        self.paintPageLine(painter, pageRect)
+            
+        self.paintVerticalSpace(painter.fontMetrics().height() * 3)
+        
+        self.paintTotals(painter, pageRect, statement)
+        
+        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+        
+        self.paintFooter(painter, pageRect)
             
     def paintInvoice(self):
         painter = QPainter(self.printer)
         
         pageRect = self.printer.pageRect()
         
-        painter.setFont(self.fonts["merchantFont"])
-        h = 5 * painter.fontMetrics().height()
-        
-        s = 40
-        
-        painter.setFont(self.fonts["invoiceTypeFont"])
-        it = 1 * painter.fontMetrics().height()
-        
-        s += painter.fontMetrics().height()
-        
-        painter.setFont(self.fonts["invoiceLabelsFont"])
-        d = 5 * painter.fontMetrics().height()
-        
-        s += painter.fontMetrics().height() * 3
-        
-        painter.setFont(self.fonts["payloadHeadersFont"])
-        ph = painter.fontMetrics().height()
-        
-        s += painter.fontMetrics().height() * 4
-        
-        painter.setFont(self.fonts["totalsLabelFont"])
-        t = 3 * painter.fontMetrics().height()
-        
-        s += painter.fontMetrics().height() * 2
-        
-        painter.setFont(self.fonts["footerFont"])
-        f = 3 * painter.fontMetrics().height()
-        
-        vSize = h + it + d + ph + t + f + s
-        
-        ppp = (pageRect.height() - vSize) / painter.fontMetrics().height()
-        ppp = int(ppp)
-        print(pageRect.height())
-        print(ppp)
-        
         lastPage = len(self.getStatements(ppp).values()) - 1
         
+        self.paintLooper()
+        
         for page, statement in enumerate(self.getStatements(ppp).values()):
-            self.x = 0
-            self.y = pageRect.y()
-            
-            self.paintLetterHead(painter, pageRect)
-                
-            self.paintVerticalSpace(40)
-            
-            self.paintInvoiceType(painter, pageRect)
-            
-            self.paintVerticalSpace(painter.fontMetrics().height())
-            
-            self.paintDetails(painter, pageRect, statement)
-                
-            self.paintVerticalSpace(painter.fontMetrics().height())
-            
-            self.paintPageLine(painter, pageRect)
-            
-            self.paintVerticalSpace(painter.fontMetrics().height() * 2)
-                
             self.paintPayloads(painter, pageRect, statement)
             
-            self.paintPageLine(painter, pageRect)
             
-            self.paintVerticalSpace(painter.fontMetrics().height() * 3)
-            
-            self.paintTotals(painter, pageRect, statement)
-            
-            self.paintVerticalSpace(painter.fontMetrics().height() * 2)
-            
-            self.paintFooter(painter, pageRect)
             
             if page == lastPage:
                 self.lastNumber = str(int(statement["number"]) + 1)
