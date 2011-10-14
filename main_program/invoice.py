@@ -434,12 +434,16 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.paintPayloadHeaders(painter, pageRect)
         
         self.paintVerticalSpace(painter.fontMetrics().height())
-    
-    def paintLooper(self, painter, pageRect):
-        invoiceNumber = self.getInvoiceNumber()
         
-        self.paintTop(painter, pageRect, invoiceNumber, 1)
+    def paintNewPageMessage(self, painter, pageRect, pageNum):
+        message = "Continued on page {} -------->".format(pageNum)
         
+        painter.setFont(self.fonts["merchantFont"])
+        mWidth = painter.fontMetrics().width(message)
+        self.x = (pageRect.width() - mWidth) / 2
+        painter.drawText(self.x, self.y, message)
+        
+    def calculatePayloadSpace(self, painter, pageRect):
         painter.setFont(self.fonts["totalsLabelFont"])
         totalsHeight = painter.fontMetrics().height() * len(self.totalLabels)
         
@@ -453,7 +457,14 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         usedSpace = self.y + bottomHeight
         
-        payloadSpace = pageRect.height() - usedSpace
+        return pageRect.height() - usedSpace
+    
+    def paintLooper(self, painter, pageRect):
+        invoiceNumber = self.getInvoiceNumber()
+        
+        self.paintTop(painter, pageRect, invoiceNumber, 1)
+        
+        payloadSpace = self.calculatePayloadSpace(painter, pageRect)
         
         payloadStart = self.y
         
@@ -461,8 +472,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         for num, payload in enumerate(self.getPayloads().values()):
             if self.y > (payloadStart + payloadSpace):
-                self.printer.newPage()
                 pageNumber += 1
+                self.paintPageLine(painter, pageRect)
+                self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+                self.paintNewPageMessage(painter, pageRect, pageNumber)
+                self.printer.newPage()
                 self.paintTop(painter, pageRect, invoiceNumber, pageNumber)
                 
             self.paintPayload(painter, pageRect, payload)
