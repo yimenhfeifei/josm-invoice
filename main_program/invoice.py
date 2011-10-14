@@ -31,6 +31,41 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.printer.setPaperSize(QPrinter.A4)
         self.printer.setResolution(300)
         
+        self.fonts = {"payloadFont": QFont("Helvetica", 10),
+                      "totalsLabelFont": QFont("Helvetic", 12, QFont.Bold),
+                      "totalsDetailFont": QFont("Helvetic", 12, QFont.Bold),
+                      "payloadHeadersFont": QFont("Helvetica", 10, weight=QFont.Bold),
+                      "footerFont": QFont("Helvetica", 12, QFont.Bold),
+                      "invoiceLabelsFont": QFont("Helvetica", 10),
+                      "invoiceDetailsFont": QFont("Helvetica", 10, QFont.Bold),
+                      "invoiceTypeFont": QFont("Helvetica", 12, QFont.Bold),
+                      "companyFont": QFont("Helvetica", 14, weight=QFont.Bold),
+                      "merchantFont": QFont("Helvetica", 10, weight=QFont.Bold),
+                      "addressFont": QFont("Helvetica", 12, weight=QFont.Bold),
+                      "numberLineFont": QFont("Helvetica", 10, weight=QFont.Bold),
+                      "vatFont": QFont("Helvetica", 10)}
+        
+        self.letterHead = [("John Orchard and Company", self.fonts["companyFont"]),
+                           ("Scrap Metal Merchants", self.fonts["merchantFont"]),
+                           ("Chosen View, United Road, St Day, TR16 5HT", self.fonts["addressFont"]),
+                           ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", self.fonts["numberLineFont"]),
+                           ("VAT Registration number: 1319249 76", self.fonts["vatFont"])]
+        
+        self.invoiceLabels = ["Invoice number: ",
+                              "Date: ",
+                              "Name: ",
+                              "Address: ",
+                              "Vat Reg. Number: "]
+        
+        self.payloadHeaders = [("Description", 300),
+                               ("Weight (Kg)", 50),
+                               ("Price Per Tonne", 50),
+                               ("Value (GBP)", 50)]
+        
+        self.totalLabels = ["Total: ",
+                            "VAT ({}%): ".format(self.getInvoiceVatRate()),
+                            "Invoice total: "]
+        
         self.screenRect = QDesktopWidget().geometry()
         
         self.move((self.screenRect.width() - self.width()) / 2,
@@ -181,12 +216,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return payloads
     
         
-    def getStatements(self):
+    def getStatements(self, ppp):
         statements = {}
         
         payloads = []
         payloadGroups = list(self.getPayloads().values())
-        groupSize = 15
+        groupSize = ppp
         payloads = [payloadGroups[n:n+groupSize]
                     for n, i in enumerate(payloadGroups) if n % groupSize == 0]
         
@@ -205,6 +240,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
     def printPreview(self):
         if not self.payloadTableWidget.isValid():
+            QMessageBox.warning(self, "Attention", "No payloads to review!")
             return
         
         previewDialog = QPrintPreviewDialog(self.printer, self)
@@ -225,13 +261,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.descriptionEdit.setFocus()
         
     def paintLetterHead(self, painter, pageRect):
-        letterHead = [("John Orchard and Company", QFont("Helvetica", 14, weight=QFont.Bold)),
-                      ("Scrap Metal Merchants", QFont("Helvetica", 10, weight=QFont.Bold)),
-                      ("Chosen View, United Road, St Day, TR16 5HT", QFont("Helvetica", 12, weight=QFont.Bold)),
-                      ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", QFont("Helvetica", 10, weight=QFont.Bold)),
-                      ("VAT Registration number: 1319249 76", QFont("Helvetica", 10))]
-        
-        for num, (line, font) in enumerate(letterHead):
+        for num, (line, font) in enumerate(self.letterHead):
                 painter.setFont(font)
                 if num == 3:
                     self.x = 0
@@ -250,19 +280,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return (self.x, self.y)
     
     def paintPayloads(self, painter, pageRect, statement):
-        payloadHeaders = [("Description", 300),
-                              ("Weight (Kg)", 50),
-                              ("Price Per Tonne", 50),
-                              ("Value (GBP)", 50)]
-            
         length = 0
-        for item, space in payloadHeaders:
+        painter.setFont(self.fonts["payloadHeadersFont"])
+        for item, space in self.payloadHeaders:
             length += painter.fontMetrics().width(item) + space
         
         self.x = (pageRect.width() - length) / 2
-        painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+        
         headerPos = []
-        for item, space in payloadHeaders:
+        for item, space in self.payloadHeaders:
             headerLength = (painter.fontMetrics().width(item) + space)
             offset = (headerLength - painter.fontMetrics().width(item)) / 2
             headerPos.append((self.x+offset, painter.fontMetrics().width(item)))
@@ -271,7 +297,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         self.y += painter.fontMetrics().height()
         
-        painter.setFont(QFont("Helvetica", 10))
+        painter.setFont(self.fonts["payloadFont"])
         for payload in statement["batch"]:                
             values = [payload["description"], payload["weight"],
                       payload["ppu"], payload["value"]]
@@ -286,22 +312,21 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.y += painter.fontMetrics().height()
     
     def paintTotals(self, painter, pageRect, statement):
-        totalLabels = ["Total: ",
-                           "VAT ({}%): ".format(self.getInvoiceVatRate()),
-                           "Invoice total: "]
-            
         totalDetails = [statement["payloadTotal"],
                         statement["vatTotal"],
-                        " £ {}".format(statement["grandTotal"])]
+                        "£ {}".format(statement["grandTotal"])]
         
         labelLengths = []
         lineLengths = []
-        for label, detail in zip(totalLabels, totalDetails):
-            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+        for label, detail in zip(self.totalLabels, totalDetails):
+            painter.setFont(self.fonts["totalsLabelFont"])
             labelLength = painter.fontMetrics().width(label)
+            
             labelLengths.append(labelLength)
-            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            
+            painter.setFont(self.fonts["totalsDetailFont"])
             detailLength = painter.fontMetrics().width(detail)
+            
             lineLengths.append(labelLength + detailLength)
             
         longestLabel = max(labelLengths)
@@ -309,16 +334,18 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.x = 0
         self.x += (pageRect.width() - longestLine) / 2
-        for label, detail in zip(totalLabels, totalDetails):
-            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+        for label, detail in zip(self.totalLabels, totalDetails):
+            painter.setFont(self.fonts["totalsLabelFont"])
             painter.drawText(self.x, self.y, label)
-            painter.setFont(QFont("Helvetica", 12, weight=QFont.Bold))
+            
+            painter.setFont(self.fonts["totalsDetailFont"])
             painter.drawText(self.x+longestLabel, self.y, detail)
+            
             self.y += painter.fontMetrics().height()
     
     def paintFooter(self, painter, pageRect):
         footer = "N.B.: The VAT shown on this document is your output tax, and must be accounted for accordingly."
-        painter.setFont(QFont("Helvetica", 12, QFont.Bold))
+        painter.setFont(self.fonts["footerFont"])
         footerWidth = painter.fontMetrics().width(footer)
         
         if footerWidth > pageRect.width():
@@ -338,12 +365,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.paintVerticalSpace(painter.fontMetrics().height())
         
     def paintDetails(self, painter, pageRect, statement):
-        invoiceLabels = ["Invoice number: ",
-                             "Date: ",
-                             "Name: ",
-                             "Address: ",
-                             "Vat Reg. Number: "]
-            
         invoiceDetails = [statement["number"],
                           datetime.now().strftime("%d/%m/%Y"),
                           self.customerCombobox.currentText(),
@@ -352,23 +373,28 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         lengths = []
         labels = []
-        for pair in zip(invoiceLabels, invoiceDetails):
-            painter.setFont(QFont("Helvetica", 10))
+        for pair in zip(self.invoiceLabels, invoiceDetails):
+            painter.setFont(self.fonts["invoiceLabelsFont"])
             labelWidth = painter.fontMetrics().width(pair[0])
-            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+            
+            painter.setFont(self.fonts["invoiceDetailsFont"])
             valueWidth = painter.fontMetrics().width(pair[1])
+            
             lengths.append(labelWidth + valueWidth)
             labels.append(painter.fontMetrics().width(pair[0]))
+            
         longestLine = max(lengths)
         longestLabel = max(labels)
         
         self.x = 0
         self.x += (pageRect.width() - longestLine) / 2
-        for pair in zip(invoiceLabels, invoiceDetails):
-            painter.setFont(QFont("Helvetica", 10, weight=QFont.Bold))
+        for pair in zip(self.invoiceLabels, invoiceDetails):
+            painter.setFont(self.fonts["invoiceLabelsFont"])
             painter.drawText(self.x, self.y, pair[0])
-            painter.setFont(QFont("Helvetica", 10))
+            
+            painter.setFont(self.fonts["invoiceDetailsFont"])
             painter.drawText(self.x+longestLabel, self.y, pair[1])
+            
             self.y += painter.fontMetrics().height()
         
     def paintVerticalSpace(self, size):
@@ -379,19 +405,55 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
     def paintInvoiceType(self, painter, pageRect):
         invoiceType = self.typeCombobox.currentText()
-        painter.setFont(QFont("Helvetica", 12, QFont.Bold))
+        
+        painter.setFont(self.fonts["invoiceTypeFont"])
+        
         self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
         painter.drawText(self.x, self.y, invoiceType)
-        self.y += painter.fontMetrics().height()
             
     def paintInvoice(self):
         painter = QPainter(self.printer)
         
         pageRect = self.printer.pageRect()
         
-        lastPage = len(self.getStatements().values()) - 1
+        painter.setFont(self.fonts["merchantFont"])
+        h = 5 * painter.fontMetrics().height()
         
-        for page, statement in enumerate(self.getStatements().values()):
+        s = 40
+        
+        painter.setFont(self.fonts["invoiceTypeFont"])
+        it = 1 * painter.fontMetrics().height()
+        
+        s += painter.fontMetrics().height()
+        
+        painter.setFont(self.fonts["invoiceLabelsFont"])
+        d = 5 * painter.fontMetrics().height()
+        
+        s += painter.fontMetrics().height() * 3
+        
+        painter.setFont(self.fonts["payloadHeadersFont"])
+        ph = painter.fontMetrics().height()
+        
+        s += painter.fontMetrics().height() * 4
+        
+        painter.setFont(self.fonts["totalsLabelFont"])
+        t = 3 * painter.fontMetrics().height()
+        
+        s += painter.fontMetrics().height() * 2
+        
+        painter.setFont(self.fonts["footerFont"])
+        f = 3 * painter.fontMetrics().height()
+        
+        vSize = h + it + d + ph + t + f + s
+        
+        ppp = (pageRect.height() - vSize) / painter.fontMetrics().height()
+        ppp = int(ppp)
+        print(pageRect.height())
+        print(ppp)
+        
+        lastPage = len(self.getStatements(ppp).values()) - 1
+        
+        for page, statement in enumerate(self.getStatements(ppp).values()):
             self.x = 0
             self.y = pageRect.y()
             
@@ -400,6 +462,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.paintVerticalSpace(40)
             
             self.paintInvoiceType(painter, pageRect)
+            
+            self.paintVerticalSpace(painter.fontMetrics().height())
             
             self.paintDetails(painter, pageRect, statement)
                 
@@ -427,13 +491,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                 self.printer.newPage()
             
         painter.end()
-                
-    
-    def createInvoiceReview(self):
-        if self.payloadTableWidget.isValid():
-            self.generateInvoice()
-        else:
-            QMessageBox.warning(self, "Attention", "No payloads to review!")
             
     def resetForm(self):
         value = self.vatEdit.text()
