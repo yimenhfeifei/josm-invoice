@@ -308,6 +308,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                         "{:.2f}".format(self.getVatTotal(self.getPayloadTotal())),
                         "£ {:.2f}".format(self.getGrandTotal())]
         
+        self.totalLabels[1] = "VAT ({}%): ".format(self.getInvoiceVatRate())
+        
         labelLengths = []
         lineLengths = []
         for label, detail in zip(self.totalLabels, totalDetails):

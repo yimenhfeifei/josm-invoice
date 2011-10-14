@@ -591,6 +591,18 @@ p, li { white-space: pre-wrap; }
    <header>custom_widgets.validatingLineEdit</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>typeCombobox</tabstop>
+  <tabstop>customerCombobox</tabstop>
+  <tabstop>vatEdit</tabstop>
+  <tabstop>descriptionEdit</tabstop>
+  <tabstop>weightEdit</tabstop>
+  <tabstop>pricePerTonneEdit</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>payloadTableWidget</tabstop>
+  <tabstop>reviewButton</tabstop>
+  <tabstop>valueEdit</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
