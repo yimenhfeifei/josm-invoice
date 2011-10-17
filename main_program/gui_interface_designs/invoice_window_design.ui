@@ -583,6 +583,9 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Invoice</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
   </action>
  </widget>
  <customwidgets>

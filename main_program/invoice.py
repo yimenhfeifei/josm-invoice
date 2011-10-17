@@ -32,8 +32,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.printer.setResolution(300)
         self.printer.setPageMargins(10.0, 10.0, 10.0, 10.0, QPrinter.Millimeter)
         
-        self.Qdialog
-        
         self.fonts = {"payloadFont": QFont("Helvetica", 10),
                       "totalsLabelFont": QFont("Helvetic", 12, QFont.Bold),
                       "totalsDetailFont": QFont("Helvetic", 12, QFont.Bold),
@@ -42,7 +40,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                       "invoiceLabelsFont": QFont("Helvetica", 10),
                       "invoiceDetailsFont": QFont("Helvetica", 10, QFont.Bold),
                       "invoiceTypeFont": QFont("Helvetica", 12, QFont.Bold),
-                      "companyFont": QFont("Helvetica", 14, weight=QFont.Bold),
+                      "companyFont": QFont("Helvetica", 16, weight=QFont.Bold),
                       "merchantFont": QFont("Helvetica", 10, weight=QFont.Bold),
                       "addressFont": QFont("Helvetica", 12, weight=QFont.Bold),
                       "numberLineFont": QFont("Helvetica", 10, weight=QFont.Bold),
@@ -113,11 +111,20 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.actionExit, SIGNAL("triggered()"),
                      self.close)
         
+        self.connect(self.actionInvoice, SIGNAL("triggered()"),
+                     self.showAbout)
+        
         self.actionExit = QAction("&Exit", self)
+        
+        self.actionInvoice = QAction("&Invoice", self)
         
         self.changed()
         
         self.descriptionEdit.setFocus()
+        
+    def showAbout(self):
+        QMessageBox.about(self, "About Invoice", "Version {}\n".format(__VERSION__)
+                          + "Copyright John Orchard & Company 2011")
         
     def getInvoiceNumber(self):
         with open("invoice_number.txt", "r") as file:
@@ -295,8 +302,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             painter.drawText(self.x, self.y, item)
     
     def paintTotals(self, painter, pageRect):
-        totalDetails = ["{:.2f}".format(self.getPayloadTotal()),
-                        "{:.2f}".format(self.getVatTotal(self.getPayloadTotal())),
+        totalDetails = ["£ {:.2f}".format(self.getPayloadTotal()),
+                        "£ {:.2f}".format(self.getVatTotal(self.getPayloadTotal())),
                         "£ {:.2f}".format(self.getGrandTotal())]
         
         self.totalLabels[1] = "VAT ({}%): ".format(self.getInvoiceVatRate())

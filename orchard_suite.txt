@@ -1,3 +1,5 @@
+Move customer details to database.
+Add full customer details.
 Need full sales invoice switching options.
 Need to refine regular expressions.
 Need to print page total on each page.
