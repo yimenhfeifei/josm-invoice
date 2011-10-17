@@ -107,9 +107,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
-        
+    
         self.connect(self.actionExit, SIGNAL("triggered()"),
                      self.close)
+        
+        self.actionExit = QAction("&Exit", self)
         
         self.changed()
         

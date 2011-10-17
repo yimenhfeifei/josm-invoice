@@ -573,7 +573,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
