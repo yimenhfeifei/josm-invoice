@@ -1,8 +1,8 @@
-customers = {"Philpott": {"vatReg": "749754",
-                          "address": "24 Killridge Road, Mayfair, TR16 7YU"},
+customers = {"GM Philpott": {"vatReg": "501 4917 75",
+                             "address": "Gweek, Near Helston"},
              
-              "Maple Recycling": {"vatReg": "8009814",
-                                  "address": "666, The Forge, Barnswick, TR56 9OP"},
+              "Maple Recycling": {"vatReg": "Unknown",
+                                  "address": "N/A"},
               
               "D & L Metals": {"vatReg": "983 93 5269",
-                                  "address": "3, The Chalet, Carne Cross, St Blazey, PL24 2SX"}}
+                               "address": "3, The Chalet, Carne Cross, St Blazey, PL24 2SX"}}

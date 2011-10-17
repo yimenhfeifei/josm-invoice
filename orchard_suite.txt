@@ -1,10 +1,7 @@
-Need to constrain description field length.
 Need full sales invoice switching options.
 Need to refine regular expressions.
 Need to print page total on each page.
-Tab orders.
 Keyboard shortcuts and focus.
-Clean file handling code.
 File menus.
 Unit tests.
 

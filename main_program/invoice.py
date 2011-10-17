@@ -9,6 +9,7 @@ try:
     
     from gui_interface_designs import invoice_window_generated
     from custom_widgets.invoiceReviewDialog import InvoiceReviewDialog
+    from custom_widgets.invoice_number_dialog import InvoiceNumberDialog
     from business_customers import customers
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
@@ -57,7 +58,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                               "Address: ",
                               "Vat Reg. Number: "]
         
-        self.payloadHeaders = [("Description", 300),
+        self.payloadHeaders = [("Description", 500),
                                ("Weight (Kg)", 50),
                                ("Price Per Tonne", 50),
                                ("Value (GBP)", 50)]
@@ -107,12 +108,23 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
         
+        self.connect(self.actionExit, SIGNAL("triggered()"),
+                     self.close)
+        
         self.changed()
         
         self.descriptionEdit.setFocus()
         
     def getInvoiceNumber(self):
-        return [line for line in open("invoice_number.txt", "r")][0]
+        with open("invoice_number.txt", "r") as file:
+            contents =  file.readline()
+            
+        if contents:
+            return contents
+        else:
+            dialog = InvoiceNumberDialog()
+            if dialog.exec_():
+                return dialog.invoiceNumberEdit.text()
     
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
@@ -210,29 +222,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                                                   "ppu": fields[2],
                                                   "value": fields[3]}
         return payloads
-    
-        
-    def getStatements(self, ppp):
-        statements = {}
-        
-        payloads = []
-        payloadGroups = list(self.getPayloads().values())
-        groupSize = ppp
-        payloads = [payloadGroups[n:n+groupSize]
-                    for n, i in enumerate(payloadGroups) if n % groupSize == 0]
-        
-        for num, batch in enumerate(payloads):
-            payloadTotal = sum([Decimal(i["value"]) for i in batch])
-            vatTotal = self.getVatTotal(payloadTotal)
-            grandTotal = "{:.2f}".format(payloadTotal + vatTotal)
-    
-            statements["statement {}".format(num)] = {"number": str(int(self.startingNumber) + num),
-                                                      "payloadTotal": "{:.2f}".format(payloadTotal),
-                                                      "vatTotal": "{:.2f}".format(vatTotal),
-                                                      "grandTotal": grandTotal,
-                                                      "batch": batch}
-            
-        return statements
             
     def printPreview(self):
         if not self.payloadTableWidget.isValid():
@@ -245,14 +234,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                      self.paintInvoice)
         
         if previewDialog.exec_():
-            f = open("invoice_number.txt", "w")
-            f.seek(0)
             
-            f.write(str(int(self.invoiceNumber) + 1))
-            f.close()
+            self.invoiceNumber = "{:03d}".format(int(self.invoiceNumber) + 1)
+            with open("invoice_number.txt", "w") as file:
+                file.write(self.invoiceNumber)
+                
             self.clearPayloadTable()
-            
-            self.startingNumber = self.getInvoiceNumber()
             
         self.descriptionEdit.setFocus()
         
@@ -462,9 +449,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return pageRect.height() - usedSpace
     
     def paintLooper(self, painter, pageRect):
-        invoiceNumber = self.getInvoiceNumber()
-        
-        self.paintTop(painter, pageRect, invoiceNumber, 1)
+        self.paintTop(painter, pageRect, self.invoiceNumber, 1)
         
         payloadSpace = self.calculatePayloadSpace(painter, pageRect)
         
@@ -479,7 +464,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                 self.paintVerticalSpace(painter.fontMetrics().height() * 2)
                 self.paintNewPageMessage(painter, pageRect, pageNumber)
                 self.printer.newPage()
-                self.paintTop(painter, pageRect, invoiceNumber, pageNumber)
+                self.paintTop(painter, pageRect, self.invoiceNumber, pageNumber)
                 
             self.paintPayload(painter, pageRect, payload)
             self.paintVerticalSpace(painter.fontMetrics().height())
@@ -524,5 +509,5 @@ if __name__ == "__main__":
     application.setApplicationName("Orchard Suite")
     application.setApplicationVersion(__VERSION__)
     mainWindow.show()
-    application.exec_()
+    sys.exit(application.exec_())
     
