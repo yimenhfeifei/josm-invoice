@@ -8,14 +8,13 @@ try:
     from PyQt4.QtGui import *
     
     from gui_interface_designs import invoice_window_generated
-    from custom_widgets.invoiceReviewDialog import InvoiceReviewDialog
     from custom_widgets.invoice_number_dialog import InvoiceNumberDialog
     from business_customers import customers
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.1"
+__VERSION__ = "0.2"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = "4.8.5"
@@ -31,6 +30,9 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPaperSize(QPrinter.A4)
         self.printer.setResolution(300)
+        self.printer.setPageMargins(10.0, 10.0, 10.0, 10.0, QPrinter.Millimeter)
+        
+        self.Qdialog
         
         self.fonts = {"payloadFont": QFont("Helvetica", 10),
                       "totalsLabelFont": QFont("Helvetic", 12, QFont.Bold),
