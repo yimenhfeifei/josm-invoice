@@ -14,7 +14,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.3"
+__VERSION__ = "0.4"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = "4.8.5"
@@ -78,7 +78,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
         
-        self.invoiceNumber = self.getInvoiceNumber()
+        self.invoiceNumber = self.getInvoiceNumber("Purchase Invoice")
         
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -139,6 +139,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.populateCustomerBox(self.customers)
         
+        self.invoiceNumber = self.getInvoiceNumber(name)
+        
         self.returnFocus()
         
     def returnFocus(self):
@@ -148,9 +150,14 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         QMessageBox.about(self, "About Invoice", "Version {}\n".format(__VERSION__)
                           + "Copyright John Orchard & Company 2011")
         
-    def getInvoiceNumber(self):
-        with open("invoice_number.txt", "r") as file:
-            contents =  file.readline()
+    def getInvoiceNumber(self, invoiceType):
+        if invoiceType == "Purchase Invoice":
+            self.numberFile = "purchase_number.txt"
+        else:
+            self.numberFile = "sales_number.txt"
+            
+        with open(self.numberFile, "r") as file:
+                contents =  file.readline()
             
         if contents:
             return contents
@@ -269,7 +276,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if previewDialog.exec_():
             
             self.invoiceNumber = "{:03d}".format(int(self.invoiceNumber) + 1)
-            with open("invoice_number.txt", "w") as file:
+            with open(self.numberFile, "w") as file:
                 file.write(self.invoiceNumber)
                 
             self.clearPayloadTable()
