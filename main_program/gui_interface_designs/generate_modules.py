@@ -42,8 +42,10 @@ for fileName in os.listdir(commandLineArgs["directory"]):
     if fileName[-(lengthOfFileExtension):] == commandLineArgs["fileExtension"]:
         prefix = fileName.partition(commandLineArgs["suffixToReplace"])[0]
         
-        subprocess.call([commandLineArgs["pyuicName"], "-o", 
-                         "{0}{1}{2}".format(prefix, 
-                                            commandLineArgs["newSuffix"],
-                                            ".py"), fileName])
-        print("Processing", fileName)
+        newFile = "{0}{1}{2}".format(prefix, commandLineArgs["newSuffix"], ".py")
+        if os.path.getmtime(fileName) > os.path.getmtime(newFile):
+            subprocess.call([commandLineArgs["pyuicName"], "-o", 
+                             "{0}{1}{2}".format(prefix, 
+                                                commandLineArgs["newSuffix"],
+                                                ".py"), fileName])
+            print("Processing", fileName)
