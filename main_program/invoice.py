@@ -14,7 +14,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.2"
+__VERSION__ = "0.3"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = "4.8.5"
@@ -100,6 +100,9 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             
         self.connect(self.typeCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.changeInvoiceType)
+        
+        self.connect(self.customerCombobox, SIGNAL("currentIndexChanged(QString)"),
+                     self.returnFocus)
             
         self.connect(self.addButton, SIGNAL("clicked()"),
                      self.addPayload)
@@ -112,16 +115,18 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
+        
+        self.connect(self.valueEdit, SIGNAL("returnPressed()"),
+                     self.addPayload)
     
-        self.connect(self.actionExit, SIGNAL("triggered()"),
+        self.connect(self.actionQuit, SIGNAL("triggered()"),
                      self.close)
         
-        self.connect(self.actionInvoice, SIGNAL("triggered()"),
+        self.connect(self.actionPrintPreview, SIGNAL("triggered()"),
+                     self.printPreview)
+        
+        self.connect(self.actionAboutInvoice, SIGNAL("triggered()"),
                      self.showAbout)
-        
-        self.actionExit = QAction("&Exit", self)
-        
-        self.actionInvoice = QAction("&Invoice", self)
         
         self.changed()
         
@@ -133,6 +138,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.customers = customers[name]
         
         self.populateCustomerBox(self.customers)
+        
+        self.returnFocus()
+        
+    def returnFocus(self):
+        self.descriptionEdit.setFocus()
         
     def showAbout(self):
         QMessageBox.about(self, "About Invoice", "Version {}\n".format(__VERSION__)
@@ -264,7 +274,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                 
             self.clearPayloadTable()
             
-        self.descriptionEdit.setFocus()
+        self.returnFocus()
         
     def paintLetterHead(self, painter, pageRect):
         for num, (line, font) in enumerate(self.letterHead):
@@ -519,7 +529,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         for widget in self.validating:
             widget.clear()
         self.vatEdit.setText(value)
-        self.descriptionEdit.setFocus()
+        self.returnFocus()
         
     def clearPayloadTable(self):
         self.payloadTableWidget.reset()
