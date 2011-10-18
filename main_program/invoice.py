@@ -48,8 +48,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.letterHead = [("John Orchard and Company", self.fonts["companyFont"]),
                            ("Scrap Metal Merchants", self.fonts["merchantFont"]),
-                           ("Chosen View, United Road, St Day, TR16 5HT", self.fonts["addressFont"]),
-                           ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: 169171", self.fonts["numberLineFont"]),
+                           ("Chosen View, United Road, St Day, Redruth, TR16 5HT", self.fonts["addressFont"]),
+                           ("WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: CB/JM3986P2", self.fonts["numberLineFont"]),
                            ("VAT Registration number: 1319249 76", self.fonts["vatFont"])]
         
         self.invoiceLabels = ["Invoice number: ",
@@ -72,9 +72,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
         
-        self.populateCustomerBox(customers)
+        self.customers = customers["Purchase Invoice"]
         
-        self.populateTypeBox("Purchase", "Sales")
+        self.populateCustomerBox(self.customers)
+        
+        self.populateTypeBox("Purchase Invoice", "Sales Invoice")
         
         self.invoiceNumber = self.getInvoiceNumber()
         
@@ -95,6 +97,9 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         for widget in self.validating:
             self.connect(widget, SIGNAL("textChanged(QString)"),
                          self.changed)
+            
+        self.connect(self.typeCombobox, SIGNAL("currentIndexChanged(QString)"),
+                     self.changeInvoiceType)
             
         self.connect(self.addButton, SIGNAL("clicked()"),
                      self.addPayload)
@@ -122,6 +127,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.descriptionEdit.setFocus()
         
+    def changeInvoiceType(self, name):
+        self.customerCombobox.clear()
+        
+        self.customers = customers[name]
+        
+        self.populateCustomerBox(self.customers)
+        
     def showAbout(self):
         QMessageBox.about(self, "About Invoice", "Version {}\n".format(__VERSION__)
                           + "Copyright John Orchard & Company 2011")
@@ -142,7 +154,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     
     def populateTypeBox(self, *types):
         for index, name in enumerate(types):
-            self.typeCombobox.insertItem(index, name + " Invoice")
+            self.typeCombobox.insertItem(index, name)
         
     def populateCustomerBox(self, customers):
         for index, name in enumerate(customers.keys()):
@@ -360,8 +372,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         invoiceDetails = [invoiceNumber,
                           datetime.now().strftime("%d/%m/%Y"),
                           self.customerCombobox.currentText(),
-                          customers[self.customerCombobox.currentText()]["address"],
-                          customers[self.customerCombobox.currentText()]["vatReg"]]
+                          self.customers[self.customerCombobox.currentText()]["address"],
+                          self.customers[self.customerCombobox.currentText()]["vatReg"]]
             
         lengths = []
         labels = []
