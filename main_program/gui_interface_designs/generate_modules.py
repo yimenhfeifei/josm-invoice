@@ -43,7 +43,7 @@ for fileName in os.listdir(commandLineArgs["directory"]):
         prefix = fileName.partition(commandLineArgs["suffixToReplace"])[0]
         
         newFile = "{0}{1}{2}".format(prefix, commandLineArgs["newSuffix"], ".py")
-        if os.path.getmtime(fileName) > os.path.getmtime(newFile):
+        if not os.path.exists(newFile) or os.path.getmtime(fileName) > os.path.getmtime(newFile):
             subprocess.call([commandLineArgs["pyuicName"], "-o", 
                              "{0}{1}{2}".format(prefix, 
                                                 commandLineArgs["newSuffix"],
