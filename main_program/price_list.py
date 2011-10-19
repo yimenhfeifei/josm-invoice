@@ -65,6 +65,8 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
             edit.setAlignment(Qt.AlignHCenter)
         
             self.nonFerrousTable.setCellWidget(row, 1, edit)
+            
+        self.nonFerrousTable.selectRow(0)
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
