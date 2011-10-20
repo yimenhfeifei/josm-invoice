@@ -14,121 +14,207 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QGroupBox" name="nonFerrousBox">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>311</width>
-        <height>537</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Non Ferrous</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="PayloadTableWidget" name="nonFerrousTable">
-         <property name="toolTip">
-          <string>Current payloads.</string>
-         </property>
-         <property name="whatsThis">
-          <string>PayloadTable widget.</string>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="selectionBehavior">
-          <enum>QAbstractItemView::SelectRows</enum>
-         </property>
-         <property name="sortingEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="columnCount">
-          <number>2</number>
-         </property>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <column/>
-         <column/>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QGroupBox" name="nonFerrousBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>6565</width>
+          <height>537</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Non Ferrous</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="ExtendedTableWidget" name="nonFerrousTable">
+           <property name="minimumSize">
+            <size>
+             <width>351</width>
+             <height>441</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Extended table widget.</string>
+           </property>
+           <property name="whatsThis">
+            <string>Extended table widget.</string>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>85</number>
+           </attribute>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>85</number>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Material</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Current Price</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Price</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>28</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="ferrousBox">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>401</width>
+          <height>537</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Ferrous</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="ExtendedTableWidget" name="ferrousTable">
+           <property name="minimumSize">
+            <size>
+             <width>351</width>
+             <height>431</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Extended table widget.</string>
+           </property>
+           <property name="whatsThis">
+            <string>Extended table widget.</string>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="columnCount">
+            <number>4</number>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>85</number>
+           </attribute>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>85</number>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Material</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Current Price</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Price</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Delete</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>220</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QGroupBox" name="ferrousBox">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>401</width>
-        <height>537</height>
-       </size>
-      </property>
-      <property name="title">
-       <string>Ferrous</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="PayloadTableWidget" name="ferrousTable">
-         <property name="toolTip">
-          <string>Current payloads.</string>
-         </property>
-         <property name="whatsThis">
-          <string>PayloadTable widget.</string>
-         </property>
-         <property name="sortingEnabled">
-          <bool>false</bool>
-         </property>
-         <property name="columnCount">
-          <number>2</number>
-         </property>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <column/>
-         <column/>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>548</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QCommandLinkButton" name="updatePricesButton">
+        <property name="text">
+         <string>Update Materials</string>
+        </property>
+        <property name="description">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCommandLinkButton" name="commandLinkButton">
+        <property name="text">
+         <string>Print Price List</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -170,9 +256,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PayloadTableWidget</class>
+   <class>ExtendedTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>custom_widgets.payloadTableWidget</header>
+   <header>custom_widgets.extendedTableWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>

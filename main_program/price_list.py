@@ -4,8 +4,12 @@ try:
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
+    from PyQt4.QtSql import *
     
     from gui_interface_designs import price_list_window_generated
+    from shared_modules.sql_statements import createMaterialsTable
+    from shared_modules.sql_statements import insertMaterialsRecord
+    from shared_modules.sql_statements import selectPrices
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -33,40 +37,76 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
         
+        self.databaseName = "test.db"
+        
         
         self.prices = [("Gold", "90.00"),
                        ("Steel", "10.00"),
                        ("Copper", "60.00")]
         
-        self.populateNonFerrousTable()
+        self.openDatabase(self.databaseName)
         
-    def populateNonFerrousTable(self):
-        self.nonFerrousTable.setHorizontalHeaderLabels(["Current Price", "New Price"])
-        validator = QRegExpValidator(QRegExp("\d"), self)
+        self.query = QSqlQuery()
         
-        for material, price in self.prices:
-            self.nonFerrousTable.setCurrentToEmptyRow()
+        self.populateTable(self.nonFerrousTable, "false")
         
-            row = self.nonFerrousTable.currentRow()
+        self.query.prepare(createMaterialsTable)
         
-            self.nonFerrousTable.setVerticalHeaderItem(row, QTableWidgetItem(material))
+        self.query.exec_()
+        
+        self.query.prepare(insertMaterialsRecord)
+        
+        self.query.bindValue(":material", "Iron")
+        self.query.bindValue(":price", "2.00")
+        self.query.bindValue(":ferrous", "true")
+        
+        self.query.exec_()
+        
+        if not self.query.isActive():
+            QMessageBox.warning(None, "Failed insert", self.query.lastError().text())
+        
+        self.query.exec_("insert into materials values ('Copper', '15.00', 'false')")
+        
+    def openDatabase(self, name):
+        db = QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName(name)
+        if not db.open():
+            QMessageBox.warning(None, "Test", db.lastError().text())
+            sys.exit(1)
+        
+    def populateTable(self, table, ferrousBool):
+        priceValidator = QRegExpValidator(QRegExp(r"^\d{1,5}(\.\d{1,2})?$"), self)
+        
+        fields = ["material", "price"]
+        
+        self.query.prepare(selectPrices)
+        
+        self.query.bindValue(":ferrousBool", ferrousBool)
+        
+        self.query.exec_()
+        
+        if not self.query.isActive():
+            QMessageBox.warning(None, "Failed insert", self.query.lastError().text())
+        
+        table.clearContents()
+        
+        while self.query.next():
+            table.insertRow(table.rowCount())
+            table.setCurrentCell(table.rowCount()-1, 0)
             
-            item = QTableWidgetItem(price)
-            item.setFlags(item.flags() & ~Qt.ItemIsEditable)
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.nonFerrousTable.setItem(row, 0, item)
-        
-            edit = QLineEdit(self.nonFerrousTable.viewport())
-        
-            edit.setValidator(validator)
-        
-            edit.setFrame(False)
-        
-            edit.setAlignment(Qt.AlignHCenter)
-        
-            self.nonFerrousTable.setCellWidget(row, 1, edit)
+            row = table.currentRow()
             
-        self.nonFerrousTable.selectRow(0)
+            for field, value in enumerate(fields):
+                item = QTableWidgetItem(str(self.query.value(field)))
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+                table.setItem(row, field, item)
+                
+            table.setValidatedCell(row, table.getHeaderIndex("New Price"), priceValidator)
+            
+            table.addDeleteButton(row, table.getHeaderIndex("Delete"))
+            
+        table.selectRow(0)
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
