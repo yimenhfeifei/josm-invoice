@@ -38,6 +38,10 @@ class ExtendedTableWidget(QTableWidget):
     def changed(self, cellRow, cellColumn):
         pass
     
+    def addRow(self):
+        self.insertRow(self.rowCount())
+        self.setCurrentCell(self.rowCount()-1, 0)
+    
     def deleteRow(self, row):
         self.selectRow(row)
         self.removeRow(row)

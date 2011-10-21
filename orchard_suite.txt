@@ -1,3 +1,5 @@
+Mark tables as clean or dirty.
+Add radio buttons for displaying kg and tonnes.
 Move customer details to database.
 Add full customer details.
 Need full sales invoice switching options.

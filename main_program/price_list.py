@@ -20,6 +20,21 @@ __SIP__ = "4.12.4"
 __PYQT__ = "4.8.5"
 __PYTHON__ = "3.2.2"
 
+class SqlQueryErrorCheck(object):
+    def __init__(self, query):
+        self.query = query
+        
+    def __enter__(self):
+        return self.query
+    
+    def __exit__(self, eType, eValue, eTraceback):
+        if eType == None:
+            if not self.query.isActive():
+                QMessageBox.warning(None, "Failed query",
+                                    self.query.lastError().text())
+        else:
+            pass
+
 class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindow):
 
     def __init__(self, parent=None):
@@ -48,6 +63,9 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         self.query = QSqlQuery()
         
+        with SqlQueryErrorCheck(self.query) as query:
+            query.exec_("REPLACE INTO materials VALUES ('Wire', '6.00', 'false')")
+        
         self.populateTable(self.nonFerrousTable, "false")
         
         self.query.prepare(createMaterialsTable)
@@ -61,11 +79,6 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.query.bindValue(":ferrous", "true")
         
         self.query.exec_()
-        
-        if not self.query.isActive():
-            QMessageBox.warning(None, "Failed insert", self.query.lastError().text())
-        
-        self.query.exec_("insert into materials values ('Copper', '15.00', 'false')")
         
     def openDatabase(self, name):
         db = QSqlDatabase.addDatabase("QSQLITE")
@@ -86,13 +99,12 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.query.exec_()
         
         if not self.query.isActive():
-            QMessageBox.warning(None, "Failed insert", self.query.lastError().text())
+            QMessageBox.warning(None, "Failed select", self.query.lastError().text())
         
         table.clearContents()
         
         while self.query.next():
-            table.insertRow(table.rowCount())
-            table.setCurrentCell(table.rowCount()-1, 0)
+            table.addRow()
             
             row = table.currentRow()
             
