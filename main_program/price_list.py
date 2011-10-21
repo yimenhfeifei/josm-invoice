@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 try:
     import sys
+    from decimal import Decimal
     
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -97,15 +98,15 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         dialog = AddMaterialDialog()
         if dialog.exec_():
             if dialog.isValid():
-                self.addMaterial(dialog.ferrousBox.itemData(dialog.ferrousBox.currentIndex()),
-                                 dialog.materialEdit.text(), dialog.priceEdit.text())
+                self.addMaterial(dialog.ferrousBox.itemData(dialog.ferrousBox.currentIndex()), "new",
+                                 dialog.materialEdit.text(), "{:.2f}".format(Decimal(dialog.priceEdit.text())))
             else:
                 QMessageBox.warning(None, "Attention",
                                     "Form was not vaild.")
         else:
             pass
             
-    def addMaterial(self, ferrousFlag, *immutables):
+    def addMaterial(self, ferrousFlag, newFlag, *immutables):
         table = self.tables[ferrousFlag]
         
         table.addRow()
@@ -114,15 +115,20 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         for field, value in enumerate(immutables):
             item = QTableWidgetItem(value)
+            item.setData(Qt.UserRole, newFlag)
+            print(item.data(Qt.UserRole))
             item.setFlags(item.flags() & ~Qt.ItemIsEditable)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
             table.setItem(row, field, item)
         
-        table.setValidatedCell(row, table.getHeaderIndex("New Price"), regexObjects["qPrice"])
+        table.setValidatedCell(row, table.getHeaderIndex("New Price"),
+                               regexObjects["qPrice"])
             
         table.addDeleteButton(row, table.getHeaderIndex("Delete"))
         
         table.selectRow(0)
+        
+        self.nonFerrousTable.resizeColumnToContents(table.getHeaderIndex("Material"))
         
     def populateTable(self, ferrousFlag):
         table = self.tables[ferrousFlag]
@@ -143,7 +149,7 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
             for field, value in enumerate(fields):
                 values.append(str(self.query.value(field)))
                 
-            self.addMaterial(ferrousFlag, *values)
+            self.addMaterial(ferrousFlag, False, *values)
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
