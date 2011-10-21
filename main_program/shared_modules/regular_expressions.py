@@ -1,7 +1,9 @@
 try:
     import sys
     import re
-    
+   
+    from PyQt4.QtCore import *
+    from PyQt4.QtGui import *
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -34,4 +36,8 @@ regexObjects = {"name": re.compile(r"^[a-z]{1,20}$", re.I),
                 "spanTagContents": re.compile(r"([^>]*)(?=</span>)"),
                 
                 "post2001Reg": re.compile(r"^[a-hj-pr-y]{2}[0-9]{2}\s?[a-z]{3}$",
-                                          re.I)}
+                                          re.I),
+                
+                "qMaterial": QRegExpValidator(QRegExp(r"^(\w+(\s)?)+$"), None),
+                
+                "qPrice": QRegExpValidator(QRegExp(r"^\d{1,5}(\.\d{1,2})?$"), None)}

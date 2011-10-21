@@ -10,13 +10,17 @@ setPaidToTrue = "update {table} set paid = true where {field} = '{value}'"
 valueInDatabase = "select hash from {table} where {field} = '{value}'"
 
 
-insertMaterialsRecord = ("INSERT INTO materials (material, price, ferrous)"
-                         "VALUES (:material, :price, :ferrous)")
+insertMaterialsRecord = ("INSERT INTO materials (material, price, ferrousFlag)"
+                         "VALUES (:material, :price, :ferrousFlag)")
 
-selectPrices = ("SELECT material, price from materials where ferrous = :ferrousBool")
+
+replaceMaterialsRecord = ("REPLACE INTO materials (material, price, ferrousFlag)"
+                          "VALUES (:material, :price, :ferrousFlag)")
+
+selectPrices = ("SELECT material, price from materials where ferrousFlag = :ferrousFlag")
 
 # Creation statements.
 createMaterialsTable = ("CREATE TABLE materials ("
                         "material VARCHAR(40) PRIMARY KEY UNIQUE NOT NULL,"
                         "price FLOAT(16,2) NOT NULL,"
-                        "ferrous BOOL)")
+                        "ferrousFlag VARCHAR(20))")

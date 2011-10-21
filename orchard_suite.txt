@@ -1,3 +1,4 @@
+Need to test for existing database.
 Mark tables as clean or dirty.
 Add radio buttons for displaying kg and tonnes.
 Move customer details to database.

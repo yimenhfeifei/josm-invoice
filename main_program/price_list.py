@@ -10,6 +10,9 @@ try:
     from shared_modules.sql_statements import createMaterialsTable
     from shared_modules.sql_statements import insertMaterialsRecord
     from shared_modules.sql_statements import selectPrices
+    from shared_modules.sql_statements import replaceMaterialsRecord
+    from custom_widgets.addMaterialDialog import AddMaterialDialog
+    from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -52,33 +55,30 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
         
+        self.connect(self.newMaterialButton, SIGNAL("clicked()"),
+                     self.showAddMaterialDialog)
+        
+        self.tables = {"nonFerrous": self.nonFerrousTable,
+                       "ferrous": self.ferrousTable}
+        
         self.databaseName = "test.db"
-        
-        
-        self.prices = [("Gold", "90.00"),
-                       ("Steel", "10.00"),
-                       ("Copper", "60.00")]
         
         self.openDatabase(self.databaseName)
         
         self.query = QSqlQuery()
         
-        with SqlQueryErrorCheck(self.query) as query:
-            query.exec_("REPLACE INTO materials VALUES ('Wire', '6.00', 'false')")
-        
-        self.populateTable(self.nonFerrousTable, "false")
-        
-        self.query.prepare(createMaterialsTable)
-        
-        self.query.exec_()
-        
-        self.query.prepare(insertMaterialsRecord)
+        self.query.prepare(replaceMaterialsRecord)
         
         self.query.bindValue(":material", "Iron")
         self.query.bindValue(":price", "2.00")
-        self.query.bindValue(":ferrous", "true")
+        self.query.bindValue(":ferrousFlag", "ferrous")
         
-        self.query.exec_()
+        with SqlQueryErrorCheck(self.query) as query:
+            query.exec_()
+            
+        self.populateTable("nonFerrous")
+        
+        self.populateTable("ferrous")
         
     def openDatabase(self, name):
         db = QSqlDatabase.addDatabase("QSQLITE")
@@ -86,39 +86,66 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         if not db.open():
             QMessageBox.warning(None, "Test", db.lastError().text())
             sys.exit(1)
+            
+    def createDatabase(self):
+        self.query.prepare(createMaterialsTable)
         
-    def populateTable(self, table, ferrousBool):
+        with SqlQueryErrorCheck(self.query) as query:
+            query.exec_()
+            
+    def showAddMaterialDialog(self):
+        dialog = AddMaterialDialog()
+        if dialog.exec_():
+            if dialog.isValid():
+                self.addMaterial(dialog.ferrousBox.itemData(dialog.ferrousBox.currentIndex()),
+                                 dialog.materialEdit.text(), dialog.priceEdit.text())
+            else:
+                QMessageBox.warning(None, "Attention",
+                                    "Form was not vaild.")
+        else:
+            pass
+            
+    def addMaterial(self, ferrousFlag, *immutables):
+        table = self.tables[ferrousFlag]
+        
+        table.addRow()
+            
+        row = table.currentRow()
+        
+        for field, value in enumerate(immutables):
+            item = QTableWidgetItem(value)
+            item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            table.setItem(row, field, item)
+        
+        table.setValidatedCell(row, table.getHeaderIndex("New Price"), regexObjects["qPrice"])
+            
+        table.addDeleteButton(row, table.getHeaderIndex("Delete"))
+        
+        table.selectRow(0)
+        
+    def populateTable(self, ferrousFlag):
         priceValidator = QRegExpValidator(QRegExp(r"^\d{1,5}(\.\d{1,2})?$"), self)
+        
+        table = self.tables[ferrousFlag]
         
         fields = ["material", "price"]
         
         self.query.prepare(selectPrices)
         
-        self.query.bindValue(":ferrousBool", ferrousBool)
+        self.query.bindValue(":ferrousFlag", ferrousFlag)
         
-        self.query.exec_()
-        
-        if not self.query.isActive():
-            QMessageBox.warning(None, "Failed select", self.query.lastError().text())
+        with SqlQueryErrorCheck(self.query) as query:
+            query.exec_()
         
         table.clearContents()
         
         while self.query.next():
-            table.addRow()
-            
-            row = table.currentRow()
-            
+            values = []
             for field, value in enumerate(fields):
-                item = QTableWidgetItem(str(self.query.value(field)))
-                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
-                item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-                table.setItem(row, field, item)
+                values.append(str(self.query.value(field)))
                 
-            table.setValidatedCell(row, table.getHeaderIndex("New Price"), priceValidator)
-            
-            table.addDeleteButton(row, table.getHeaderIndex("Delete"))
-            
-        table.selectRow(0)
+            self.addMaterial(ferrousFlag, *values)
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
