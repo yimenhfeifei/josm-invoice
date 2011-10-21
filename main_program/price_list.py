@@ -125,8 +125,6 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         table.selectRow(0)
         
     def populateTable(self, ferrousFlag):
-        priceValidator = QRegExpValidator(QRegExp(r"^\d{1,5}(\.\d{1,2})?$"), self)
-        
         table = self.tables[ferrousFlag]
         
         fields = ["material", "price"]
