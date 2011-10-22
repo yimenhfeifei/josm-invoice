@@ -17,7 +17,7 @@ except ImportError as err:
 __VERSION__ = "0.5"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
-__PYQT__ = "4.8.5"
+__PYQT__ = PYQT_VERSION_STR
 __PYTHON__ = "3.2.2"
 
 class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):

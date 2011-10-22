@@ -59,14 +59,21 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.connect(self.newMaterialButton, SIGNAL("clicked()"),
                      self.showAddMaterialDialog)
         
+        self.connect(self.updateMaterialsButton, SIGNAL("clicked()"),
+                     self.updateDatabase)
+        
         self.tables = {"nonFerrous": self.nonFerrousTable,
                        "ferrous": self.ferrousTable}
+        
+        self.fields = ["material", "price"]
         
         self.databaseName = "test.db"
         
         self.openDatabase(self.databaseName)
         
         self.query = QSqlQuery()
+        
+        #self.createDatabase()
         
         self.query.prepare(replaceMaterialsRecord)
         
@@ -76,9 +83,11 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         with SqlQueryErrorCheck(self.query) as query:
             query.exec_()
-            
-        self.populateTable("nonFerrous")
         
+        self.populateTable("nonFerrous")
+    
+    def populateTables(self):
+        self.populateTable("nonFerrous")
         self.populateTable("ferrous")
         
     def openDatabase(self, name):
@@ -111,29 +120,33 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         table.addRow()
             
-        row = table.currentRow()
+        row = table.rowCount()-1
+        
+        table.setSortingEnabled(False)
         
         for field, value in enumerate(immutables):
             item = QTableWidgetItem(value)
             item.setData(Qt.UserRole, newFlag)
-            print(item.data(Qt.UserRole))
+            item.setData(33, ferrousFlag)
             item.setFlags(item.flags() & ~Qt.ItemIsEditable)
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            
             table.setItem(row, field, item)
         
         table.setValidatedCell(row, table.getHeaderIndex("New Price"),
                                regexObjects["qPrice"])
+        
+        if item.data(Qt.UserRole) == "new":
+            table.cellWidget(row, table.getHeaderIndex("New Price")).setText(item.text())
             
         table.addDeleteButton(row, table.getHeaderIndex("Delete"))
         
-        table.selectRow(0)
-        
         self.nonFerrousTable.resizeColumnToContents(table.getHeaderIndex("Material"))
+        
+        table.setSortingEnabled(True)
         
     def populateTable(self, ferrousFlag):
         table = self.tables[ferrousFlag]
-        
-        fields = ["material", "price"]
         
         self.query.prepare(selectPrices)
         
@@ -146,10 +159,34 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         while self.query.next():
             values = []
-            for field, value in enumerate(fields):
+            for field, value in enumerate(self.fields):
                 values.append(str(self.query.value(field)))
                 
             self.addMaterial(ferrousFlag, False, *values)
+            
+    def insertOrUpdate(self, material, price, ferrousFlag):
+        self.query.prepare(replaceMaterialsRecord)
+        
+        self.query.bindValue(":material", material)
+        self.query.bindValue(":price", price)
+        self.query.bindValue(":ferrousFlag", ferrousFlag)
+        
+        with SqlQueryErrorCheck(self.query) as query:
+            query.exec_()
+            
+    def updateDatabase(self):
+        # need to check both tables
+        table = self.tables["nonFerrous"]
+        for row in range(table.rowCount()):
+            widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
+            status = widget.validator().validate(widget.text(), 0)
+            print(status[0])
+            if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
+                self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
+                                    table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
+                                    table.item(row, 0).data(33))
+                
+        self.populateTable("nonFerrous")
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)

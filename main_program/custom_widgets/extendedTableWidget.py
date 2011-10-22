@@ -40,7 +40,6 @@ class ExtendedTableWidget(QTableWidget):
     
     def addRow(self):
         self.insertRow(self.rowCount())
-        self.setCurrentCell(self.rowCount()-1, 0)
     
     def deleteRow(self, row):
         self.selectRow(row)

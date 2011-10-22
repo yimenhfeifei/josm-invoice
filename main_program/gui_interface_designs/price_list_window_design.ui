@@ -249,7 +249,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QCommandLinkButton" name="updatePricesButton">
+       <widget class="QCommandLinkButton" name="updateMaterialsButton">
         <property name="text">
          <string>Update Materials</string>
         </property>
