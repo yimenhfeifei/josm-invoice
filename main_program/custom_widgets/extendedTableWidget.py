@@ -20,6 +20,24 @@ class ExtendedTableWidget(QTableWidget):
         self.connect(self, SIGNAL("cellClicked(int, int)"),
                      self.tableClicked)
         
+        self.setDirty(False)
+        
+    def setDirty(self, state):
+        self.dirty = state
+        
+    def isDirty(self):
+        return self.dirty
+        
+    def tableClicked(self, row, column):
+        if column == self.getHeaderIndex("Delete"):
+            self.deleteRow(row)
+        
+    def setColumnDirtyCheck(self, column, state):
+        self.columnsDirtyCheck[column] = state
+        
+    def cellWidgetChanged(self):
+        self.dirty = True
+        
     def addDeleteButton(self, row, column):
         deleteItem = QTableWidgetItem("Delete")
         deleteItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
@@ -40,14 +58,12 @@ class ExtendedTableWidget(QTableWidget):
     
     def addRow(self):
         self.insertRow(self.rowCount())
+        self.dirty = True
     
     def deleteRow(self, row):
         self.selectRow(row)
         self.removeRow(row)
-    
-    def tableClicked(self, row, column):
-        if column == self.getHeaderIndex("Delete"):
-            self.deleteRow(row)
+        self.dirty = True
             
     def setValidatedCell(self, row, column, validator):
         edit = QLineEdit(self.viewport())
@@ -59,6 +75,9 @@ class ExtendedTableWidget(QTableWidget):
         edit.setAlignment(Qt.AlignHCenter)
         
         self.setCellWidget(row, column, edit)
+        
+        self.connect(edit, SIGNAL("textEdited(QString)"),
+                     self.cellWidgetChanged)
         
     def setCurrentToEmptyRow(self):
         self.setCurrentCell(0, 0)

@@ -38,6 +38,19 @@ class SqlQueryErrorCheck(object):
                                     self.query.lastError().text())
         else:
             pass
+    
+class PopulateTableDirtyUpdate(object):
+    def __init__(self, table):
+        self.table = table
+        
+    def __enter__(self):
+        return self.table
+    
+    def __exit__(self, eType, eValue, eTraceback):
+        if eType == None:
+            
+        else:
+            pass
 
 class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindow):
 
@@ -85,6 +98,8 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
             query.exec_()
         
         self.populateTable("nonFerrous")
+        self.nonFerrousTable.dirty = False
+        print(self.nonFerrousTable.isDirty())
     
     def populateTables(self):
         self.populateTable("nonFerrous")
@@ -164,6 +179,9 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
                 
             self.addMaterial(ferrousFlag, False, *values)
             
+        self.nonFerrousTable.dirty = False
+        self.ferrousTable.dirty = False
+            
     def insertOrUpdate(self, material, price, ferrousFlag):
         self.query.prepare(replaceMaterialsRecord)
         
@@ -180,13 +198,13 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         for row in range(table.rowCount()):
             widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
             status = widget.validator().validate(widget.text(), 0)
-            print(status[0])
             if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
                 self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
                                     table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
                                     table.item(row, 0).data(33))
                 
         self.populateTable("nonFerrous")
+        self.nonFerrousTable.dirty = False
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
