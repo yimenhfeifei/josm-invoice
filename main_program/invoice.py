@@ -14,7 +14,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.6"
+__VERSION__ = "0.7"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -141,6 +141,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.invoiceNumber = self.getInvoiceNumber(name)
         
+        if name == "Sales Invoice":
+            self.valueEdit.setReadOnly(False)
+            
+            self.pricePerTonneEdit.setProperty("regexString", "description")
+        else:
+            self.valueEdit.setReadOnly(True)
+            
+            self.pricePerTonneEdit.setProperty("regexString", "value")
+        
         self.returnFocus()
         
     def returnFocus(self):
@@ -192,9 +201,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.valueEdit.clear()
     
     def calculateValue(self):
-        weight = Decimal(self.weightEdit.text()) / Decimal("1000.00")
-        pricePerUnit = Decimal(self.pricePerTonneEdit.text())
-        self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
+        if self.typeCombobox.currentText() == "Purchase Invoice":
+            weight = Decimal(self.weightEdit.text()) / Decimal("1000.00")
+            pricePerUnit = Decimal(self.pricePerTonneEdit.text())
+            self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
+        else:
+            pass
         
     def allValid(self):
         for widget in self.validating:
@@ -203,11 +215,16 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return True
         
     def addPayload(self):
+        if self.typeCombobox.currentText() == "Purchase Invoice":
+            pricePerTonne = "{:.2f}".format(Decimal(self.pricePerTonneEdit.text()))
+        else:
+            pricePerTonne = self.pricePerTonneEdit.text()
+            
         if self.allValid(): 
             self.addRow(self.descriptionEdit.text(),
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
-                        "{:.2f}".format(Decimal(self.pricePerTonneEdit.text())),
-                        self.valueEdit.text())
+                        pricePerTonne,
+                        "{:.2f}".format(Decimal(self.valueEdit.text())))
             self.resetForm()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")

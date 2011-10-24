@@ -97,6 +97,9 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
+               <property name="maxVisibleItems">
+                <number>20</number>
+               </property>
                <property name="maxCount">
                 <number>100</number>
                </property>
@@ -104,7 +107,7 @@
                 <enum>QComboBox::InsertAlphabetically</enum>
                </property>
                <property name="sizeAdjustPolicy">
-                <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                <enum>QComboBox::AdjustToContents</enum>
                </property>
               </widget>
              </item>
