@@ -76,6 +76,9 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         self.connect(self.updateMaterialsButton, SIGNAL("clicked()"),
                      self.updateDatabase)
         
+        self.connect(self.actionQuit, SIGNAL("triggered()"),
+                     self.close)
+        
         self.tables = {"nonFerrous": self.nonFerrousTable,
                        "ferrous": self.ferrousTable}
         
@@ -87,13 +90,17 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         self.query = QSqlQuery()
         
-        self.createDatabase()
+        #self.createDatabase()
         
         with PopulateTablesBlockDirty(self.tables["nonFerrous"],
                                       self.tables["ferrous"]):
             self.populateTables()
         
-        print(self.nonFerrousTable.isDirty())
+    def closeEvent(self, event):
+        for table in self.tables.values():
+            if table.isDirty():
+                QMessageBox.critical(self, "Warning", "Dirty!")
+                event.ignore()
     
     def populateTables(self):
         self.populateTable("nonFerrous")
@@ -183,18 +190,25 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         with SqlQueryErrorCheck(self.query) as query:
             query.exec_()
             
+    def processTable(self, table):
+        for row in range(table.rowCount()):
+                    widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
+                    status = widget.validator().validate(widget.text(), 0)
+                    if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
+                        self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
+                                            table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
+                                            table.item(row, 0).data(33))
+            
     def updateDatabase(self):
-        for table in self.tables:
-            for row in range(table.rowCount()):
-                widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
-                status = widget.validator().validate(widget.text(), 0)
-                if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
-                    self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
-                                        table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
-                                        table.item(row, 0).data(33))
-                
-        self.populateTable("nonFerrous")
-        self.nonFerrousTable.dirty = False
+        for table in self.tables.values():
+            if table.isDirty():
+                self.processTable(table)
+            else:
+                QMessageBox.warning(self, "Warning", "Nothing to do!")
+        
+        with PopulateTablesBlockDirty(self.tables["nonFerrous"],
+                                      self.tables["ferrous"]):
+                    self.populateTables()
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
