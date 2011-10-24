@@ -14,7 +14,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.7"
+__VERSION__ = "0.8"
 __QT__ = "4.7.0"
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -537,7 +537,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.paintVerticalSpace(painter.fontMetrics().height() * 2)
         
-        self.paintFooter(painter, pageRect)
+        if self.typeCombobox.currentText() == "Purchase Invoice":
+            self.paintFooter(painter, pageRect)
+        else:
+            pass
             
     def paintInvoice(self):
         painter = QPainter(self.printer)

@@ -39,16 +39,17 @@ class SqlQueryErrorCheck(object):
         else:
             pass
     
-class PopulateTableDirtyUpdate(object):
-    def __init__(self, table):
-        self.table = table
+class PopulateTablesBlockDirty(object):
+    def __init__(self, *tables):
+        self.tables = tables
         
     def __enter__(self):
-        return self.table
+        pass
     
     def __exit__(self, eType, eValue, eTraceback):
         if eType == None:
-            
+            for table in self.tables:
+                table.setDirty(False)
         else:
             pass
 
@@ -86,19 +87,12 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         self.query = QSqlQuery()
         
-        #self.createDatabase()
+        self.createDatabase()
         
-        self.query.prepare(replaceMaterialsRecord)
+        with PopulateTablesBlockDirty(self.tables["nonFerrous"],
+                                      self.tables["ferrous"]):
+            self.populateTables()
         
-        self.query.bindValue(":material", "Iron")
-        self.query.bindValue(":price", "2.00")
-        self.query.bindValue(":ferrousFlag", "ferrous")
-        
-        with SqlQueryErrorCheck(self.query) as query:
-            query.exec_()
-        
-        self.populateTable("nonFerrous")
-        self.nonFerrousTable.dirty = False
         print(self.nonFerrousTable.isDirty())
     
     def populateTables(self):
@@ -179,9 +173,6 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
                 
             self.addMaterial(ferrousFlag, False, *values)
             
-        self.nonFerrousTable.dirty = False
-        self.ferrousTable.dirty = False
-            
     def insertOrUpdate(self, material, price, ferrousFlag):
         self.query.prepare(replaceMaterialsRecord)
         
@@ -193,15 +184,14 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
             query.exec_()
             
     def updateDatabase(self):
-        # need to check both tables
-        table = self.tables["nonFerrous"]
-        for row in range(table.rowCount()):
-            widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
-            status = widget.validator().validate(widget.text(), 0)
-            if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
-                self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
-                                    table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
-                                    table.item(row, 0).data(33))
+        for table in self.tables:
+            for row in range(table.rowCount()):
+                widget = table.cellWidget(row, table.getHeaderIndex("New Price"))
+                status = widget.validator().validate(widget.text(), 0)
+                if table.item(row, 0).data(Qt.UserRole) == "new" or status[0] == 2:
+                    self.insertOrUpdate(table.item(row, table.getHeaderIndex("Material")).text(),
+                                        table.cellWidget(row, table.getHeaderIndex("New Price")).text(),
+                                        table.item(row, 0).data(33))
                 
         self.populateTable("nonFerrous")
         self.nonFerrousTable.dirty = False
