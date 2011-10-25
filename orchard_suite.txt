@@ -1,17 +1,12 @@
 Need to test for existing database.
-Mark tables as clean or dirty.
 Add radio buttons for displaying kg and tonnes.
 Move customer details to database.
-Add full customer details.
-Need full sales invoice switching options.
 Need to refine regular expressions.
 Need to print page total on each page.
-Keyboard shortcuts and focus.
 File menus.
 Unit tests.
 
 Add reg details to payload list
-automate tarsnap
 use pgp keys encoded as qrcodes to verify tickets?
 add customer information to qrcodes to allow rapid entry of customer details? (customer account cards)
 automate module generation before debug run

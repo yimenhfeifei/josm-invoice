@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 try:
     import sys
+    import platform
     import locale
     from decimal import Decimal
     from datetime import datetime
@@ -16,10 +17,10 @@ except ImportError as err:
     raise SystemExit(err)
 
 __VERSION__ = "0.85"
-__QT__ = "4.7.0"
+__QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
-__PYTHON__ = "3.2.2"
+__PYTHON__ = platform.python_version()
 
 class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
@@ -27,6 +28,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         super(InvoiceWindow, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Invoice")
+        self.unitFrame.setVisible(False)
         
         locale.setlocale(locale.LC_ALL, "")
         
@@ -85,7 +87,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
-                           self.pricePerTonneEdit,
+                           self.pricePerUnitEdit,
                            self.valueEdit,
                            self.vatEdit]
         
@@ -96,6 +98,28 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                                                            "Delete"])
         
         self.deleteColumn = 4
+        
+        self.weightGroup = QButtonGroup()
+        self.weightGroup.addButton(self.unitFrame.weightKgRadio)
+        self.weightGroup.addButton(self.unitFrame.weightTonnesRadio)
+        self.unitFrame.weightKgRadio.setChecked(True)
+        
+        self.priceGroup = QButtonGroup()
+        self.priceGroup.addButton(self.unitFrame.priceKgRadio)
+        self.priceGroup.addButton(self.unitFrame.priceTonnesRadio)
+        self.unitFrame.priceTonnesRadio.setChecked(True)
+        
+        self.kgString = self.unitFrame.weightKgRadio.text()
+        self.tonneString = self.unitFrame.weightTonnesRadio.text()
+        
+        self.unitConverter = {self.kgString: self.noop,
+                              self.tonneString: self.convertTonnesToKg}
+        
+        self.connect(self.weightGroup, SIGNAL("buttonClicked(int)"),
+                     self.changed)
+        
+        self.connect(self.priceGroup, SIGNAL("buttonClicked(int)"),
+                     self.changed)
         
         for widget in self.validating:
             self.connect(widget, SIGNAL("textChanged(QString)"),
@@ -116,7 +140,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.reviewButton, SIGNAL("clicked()"),
                      self.printPreview)
         
-        self.connect(self.pricePerTonneEdit, SIGNAL("returnPressed()"),
+        self.connect(self.pricePerUnitEdit, SIGNAL("returnPressed()"),
                      self.addPayload)
         
         self.connect(self.valueEdit, SIGNAL("returnPressed()"),
@@ -147,11 +171,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if name == "Sales Invoice":
             self.valueEdit.setReadOnly(False)
             
-            self.pricePerTonneEdit.setProperty("regexString", "description")
+            self.pricePerUnitEdit.setProperty("regexString", "description")
         else:
             self.valueEdit.setReadOnly(True)
             
-            self.pricePerTonneEdit.setProperty("regexString", "value")
+            self.pricePerUnitEdit.setProperty("regexString", "value")
         
         self.returnFocus()
         
@@ -198,18 +222,54 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         for widget in self.validating:
             widget.validate()
             
-        if self.weightEdit.isValid() and self.pricePerTonneEdit.isValid():
-            self.calculateValue()
+        if self.weightEdit.isValid() and self.pricePerUnitEdit.isValid():
+            self.calculatePayloadValue()
         else:
             self.valueEdit.clear()
+            
+        self.weightLabel.setText(self.weightGroup.checkedButton().text())
+        self.pricePerUnitLabel.setText(self.priceGroup.checkedButton().text())
+        
+        self.payloadHeaders[1] = ("Weight ({})".format(self.weightGroup.checkedButton().text()), 
+                                  self.payloadHeaders[1][1])
+        
+        self.payloadHeaders[2] = ("Price ({})".format(self.priceGroup.checkedButton().text()), 
+                                  self.payloadHeaders[2][1])
     
     def calculateValue(self):
         if self.typeCombobox.currentText() == "Purchase Invoice":
             weight = Decimal(self.weightEdit.text()) / Decimal("1000.00")
-            pricePerUnit = Decimal(self.pricePerTonneEdit.text())
+            pricePerUnit = Decimal(self.pricePerUnitEdit.text())
             self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
         else:
             pass
+        
+    def calculatePayloadValue(self):
+        if self.typeCombobox.currentText() == "Purchase Invoice":
+            weight = Decimal(self.weightEdit.text())
+            pricePerUnit = Decimal(self.pricePerUnitEdit.text())
+            
+            weightUnit = self.weightGroup.checkedButton().text()
+            priceUnit = self.priceGroup.checkedButton().text()
+            
+            if weightUnit == self.kgString and priceUnit == self.kgString:
+                pass
+            else:
+                weight = self.unitConverter[weightUnit](weight, "weight")
+                pricePerUnit = self.unitConverter[priceUnit](pricePerUnit, "price")
+            
+            self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
+        else:
+            pass
+    
+    def convertTonnesToKg(self, value, valueType):
+        if valueType == "weight":
+            return value * Decimal(1000)
+        else:
+            return value / Decimal(1000)
+    
+    def noop(self, value, valueType):
+        return value
         
     def allValid(self):
         for widget in self.validating:
@@ -218,15 +278,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return True
         
     def addPayload(self):
-        if self.typeCombobox.currentText() == "Purchase Invoice":
-            pricePerTonne = "{:.2f}".format(Decimal(self.pricePerTonneEdit.text()))
-        else:
-            pricePerTonne = self.pricePerTonneEdit.text()
+        if self.allValid():
+            if self.typeCombobox.currentText() == "Purchase Invoice":
+                pricePerTonne = "{:.2f}".format(Decimal(self.pricePerUnitEdit.text()))
+            else:
+                pricePerTonne = self.pricePerUnitEdit.text()
             
-        value = locale.currency(Decimal(self.valueEdit.text()), grouping=True,
-                        symbol=False)
+            value = locale.currency(Decimal(self.valueEdit.text()), grouping=True,
+                                    symbol=False)
             
-        if self.allValid(): 
             self.addRow(self.descriptionEdit.text(),
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
                         pricePerTonne,

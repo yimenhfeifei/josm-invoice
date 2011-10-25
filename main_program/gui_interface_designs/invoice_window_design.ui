@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>530</height>
+    <width>840</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -222,6 +222,23 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Show unit options</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="UnitFrame" name="unitFrame">
+             <property name="toolTip">
+              <string>Extended table widget.</string>
+             </property>
+             <property name="whatsThis">
+              <string>Extended table widget.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <layout class="QVBoxLayout" name="verticalLayout">
@@ -266,7 +283,7 @@ p, li { white-space: pre-wrap; }
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="weightLabel">
                  <property name="text">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -309,7 +326,7 @@ p, li { white-space: pre-wrap; }
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_3">
                <item>
-                <widget class="QLabel" name="label_3">
+                <widget class="QLabel" name="pricePerUnitLabel">
                  <property name="text">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -323,7 +340,7 @@ p, li { white-space: pre-wrap; }
                 </widget>
                </item>
                <item>
-                <widget class="ValidatingLineEdit" name="pricePerTonneEdit">
+                <widget class="ValidatingLineEdit" name="pricePerUnitEdit">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -402,6 +419,9 @@ p, li { white-space: pre-wrap; }
                </property>
                <property name="text">
                 <string>Add</string>
+               </property>
+               <property name="shortcut">
+                <string>Return</string>
                </property>
               </widget>
              </item>
@@ -554,7 +574,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>840</width>
      <height>23</height>
     </rect>
    </property>
@@ -607,6 +627,11 @@ p, li { white-space: pre-wrap; }
    <header>custom_widgets.payloadTableWidget</header>
   </customwidget>
   <customwidget>
+   <class>UnitFrame</class>
+   <extends>QFrame</extends>
+   <header>custom_widgets.unitFrame</header>
+  </customwidget>
+  <customwidget>
    <class>ValidatingLineEdit</class>
    <extends>QLineEdit</extends>
    <header>custom_widgets.validatingLineEdit</header>
@@ -615,7 +640,7 @@ p, li { white-space: pre-wrap; }
  <tabstops>
   <tabstop>descriptionEdit</tabstop>
   <tabstop>weightEdit</tabstop>
-  <tabstop>pricePerTonneEdit</tabstop>
+  <tabstop>pricePerUnitEdit</tabstop>
   <tabstop>valueEdit</tabstop>
   <tabstop>addButton</tabstop>
   <tabstop>payloadTableWidget</tabstop>
@@ -625,5 +650,22 @@ p, li { white-space: pre-wrap; }
   <tabstop>vatEdit</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>unitFrame</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>199</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>224</x>
+     <y>218</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
