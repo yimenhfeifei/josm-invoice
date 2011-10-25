@@ -21,9 +21,9 @@ regexObjects = {"name": re.compile(r"^[a-z]{1,20}$", re.I),
                 
                 "vehicleRegistration": re.compile(r"^[a-z][a-z0-9]{2,7}$", re.I),
                 
-                "weight": re.compile(r"^(\d{1,7}(\.\d{1,2})?|\.\d{1,2})$"),
+                "weight": re.compile(r"^(\d{1,8}(\.\d{1,2})?|\.\d{1,3})$"),
                 
-                "value": re.compile(r"^\d{1,7}(\.\d{1,2})?$"),
+                "value": re.compile(r"^\d{1,8}(\.\d{1,3})?$"),
                 
                 "integer": re.compile(r"^\d+$"),
                 

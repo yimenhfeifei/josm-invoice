@@ -3,6 +3,7 @@ try:
     import sys
     import platform
     import locale
+    import re
     from decimal import Decimal
     from datetime import datetime
     
@@ -12,6 +13,7 @@ try:
     from gui_interface_designs import invoice_window_generated
     from custom_widgets.invoice_number_dialog import InvoiceNumberDialog
     from business_customers import customers
+    from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -93,7 +95,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         
         self.payloadTableWidget.setHorizontalHeaderLabels(["Description",
                                                            "Weight",
-                                                           "Price Per Tonne",
+                                                           "Price Per Unit",
                                                            "Value",
                                                            "Delete"])
         
@@ -155,10 +157,39 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.actionAboutInvoice, SIGNAL("triggered()"),
                      self.showAbout)
         
+        self.connect(self.actionToggleAutoCalc, SIGNAL("triggered()"),
+                     self.toggleAutoCalculation)
+        
         self.changed()
         
         self.descriptionEdit.setFocus()
         
+        self.autoCalc = "On"
+        
+        self.autoCalcStatusLabel = QLabel("")
+        
+        self.changeInvoiceType("Purchase Invoice")
+        
+        self.statusBar().setStyleSheet("background: #FFECB3")
+        
+    def updateAutoCalcStatus(self):
+        self.statusBar().removeWidget(self.autoCalcStatusLabel)
+        self.autoCalcStatusLabel = QLabel("Auto Calc: {}".format(self.autoCalc))
+        self.statusBar().addWidget(self.autoCalcStatusLabel)
+
+    def toggleAutoCalculation(self):
+        if self.autoCalc == "On":
+            self.autoCalc = "Off"
+        elif self.autoCalc == "Off":
+            if not self.typeCombobox.currentText() == "Sales Invoice":
+                self.autoCalc = "On"
+            else:
+                QMessageBox.information(self, "Information", "Auto calculation prohibited for sales invoices.")
+            
+        self.updateAutoCalcStatus()
+            
+        self.changed()
+    
     def changeInvoiceType(self, name):
         self.customerCombobox.clear()
         
@@ -172,10 +203,16 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             self.valueEdit.setReadOnly(False)
             
             self.pricePerUnitEdit.setProperty("regexString", "description")
+            
+            self.autoCalc = "Off"
         else:
             self.valueEdit.setReadOnly(True)
             
             self.pricePerUnitEdit.setProperty("regexString", "value")
+            
+            self.autoCalc = "On"
+        
+        self.updateAutoCalcStatus()
         
         self.returnFocus()
         
@@ -220,50 +257,49 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if column == self.deleteColumn:
             self.payloadTableWidget.selectRow(row)
             self.payloadTableWidget.removeRow(row)
+            
+    def changeRichText(self, label, string):
+        return re.sub(regexObjects["spanTagContents"],
+                      string,
+                      label.text())
         
     def changed(self):
         for widget in self.validating:
             widget.validate()
             
         if self.weightEdit.isValid() and self.pricePerUnitEdit.isValid():
-            self.calculatePayloadValue()
+            if self.autoCalc == "On":
+                self.calculatePayloadValue()
+            else:
+                pass
         else:
             self.valueEdit.clear()
             
-        self.weightLabel.setText(self.weightGroup.checkedButton().text())
-        self.pricePerUnitLabel.setText(self.priceGroup.checkedButton().text())
+        newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
         
-        self.payloadHeaders[1] = ("Weight ({})".format(self.weightGroup.checkedButton().text()), 
-                                  self.payloadHeaders[1][1])
+        newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
         
-        self.payloadHeaders[2] = ("Price ({})".format(self.priceGroup.checkedButton().text()), 
-                                  self.payloadHeaders[2][1])
-    
-    def calculateValue(self):
-        if self.typeCombobox.currentText() == "Purchase Invoice":
-            weight = Decimal(self.weightEdit.text()) / Decimal("1000.00")
-            pricePerUnit = Decimal(self.pricePerUnitEdit.text())
-            self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
-        else:
-            pass
+        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
+        
+        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
+        
+        self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
+        self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
         
     def calculatePayloadValue(self):
-        if self.typeCombobox.currentText() == "Purchase Invoice":
-            weight = Decimal(self.weightEdit.text())
-            pricePerUnit = Decimal(self.pricePerUnitEdit.text())
-            
-            weightUnit = self.weightGroup.checkedButton().text()
-            priceUnit = self.priceGroup.checkedButton().text()
-            
-            if weightUnit == self.kgString and priceUnit == self.kgString:
-                pass
-            else:
-                weight = self.unitConverter[weightUnit](weight, "weight")
-                pricePerUnit = self.unitConverter[priceUnit](pricePerUnit, "price")
-            
-            self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
-        else:
+        weight = Decimal(self.weightEdit.text())
+        pricePerUnit = Decimal(self.pricePerUnitEdit.text())
+        
+        weightUnit = self.weightGroup.checkedButton().text()
+        priceUnit = self.priceGroup.checkedButton().text()
+        
+        if weightUnit == self.kgString and priceUnit == self.kgString:
             pass
+        else:
+            weight = self.unitConverter[weightUnit](weight, "weight")
+            pricePerUnit = self.unitConverter[priceUnit](pricePerUnit, "price")
+        
+        self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
     
     def convertTonnesToKg(self, value, valueType):
         if valueType == "weight":

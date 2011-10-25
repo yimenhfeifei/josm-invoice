@@ -90,7 +90,7 @@ class PriceListWindow(QMainWindow, price_list_window_generated.Ui_priceListWindo
         
         self.query = QSqlQuery()
         
-        #self.createDatabase()
+        self.createDatabase()
         
         with PopulateTablesBlockDirty(self.tables["nonFerrous"],
                                       self.tables["ferrous"]):
