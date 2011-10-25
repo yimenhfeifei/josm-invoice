@@ -16,7 +16,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.85"
+__VERSION__ = "0.88"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -183,7 +183,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.descriptionEdit.setFocus()
         
     def showAbout(self):
-        QMessageBox.about(self, "About Invoice", "Version {}\n".format(__VERSION__)
+        QMessageBox.about(self, "About Invoice", "Invoice version {}\n".format(__VERSION__)
+                          + "Python {}\n".format(__PYTHON__)
+                          + "QT {}\n".format(__QT__)
+                          + "PYQT {}\n".format(__PYQT__)
                           + "Copyright John Orchard & Company 2011")
         
     def getInvoiceNumber(self, invoiceType):

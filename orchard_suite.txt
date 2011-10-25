@@ -1,5 +1,5 @@
 Need to test for existing database.
-Add radio buttons for displaying kg and tonnes.
+Add status indicator and option for auto calculation.
 Move customer details to database.
 Need to refine regular expressions.
 Need to print page total on each page.
