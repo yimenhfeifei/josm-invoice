@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 try:
     import sys
+    import locale
     from decimal import Decimal
     from datetime import datetime
     
@@ -26,6 +27,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         super(InvoiceWindow, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle("Invoice")
+        
+        locale.setlocale(locale.LC_ALL, "")
         
         self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPaperSize(QPrinter.A4)
@@ -220,11 +223,14 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         else:
             pricePerTonne = self.pricePerTonneEdit.text()
             
+        value = locale.currency(Decimal(self.valueEdit.text()), grouping=True,
+                        symbol=False)
+            
         if self.allValid(): 
             self.addRow(self.descriptionEdit.text(),
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
                         pricePerTonne,
-                        "{:.2f}".format(Decimal(self.valueEdit.text())))
+                        value)
             self.resetForm()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
@@ -255,7 +261,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     def getPayloadTotal(self):
         values = []
         for row in range(self.payloadTableWidget.rowCount()):
-            values.append(Decimal(self.payloadTableWidget.item(row, self.deleteColumn-1).text()))
+            value = self.payloadTableWidget.item(row, self.deleteColumn-1).text().replace(",", "")
+            values.append(Decimal(value))
             
         return sum(values)
     
@@ -348,9 +355,18 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             painter.drawText(self.x, self.y, item)
     
     def paintTotals(self, painter, pageRect):
-        totalDetails = ["£ {:.2f}".format(self.getPayloadTotal()),
-                        "£ {:.2f}".format(self.getVatTotal(self.getPayloadTotal())),
-                        "£ {:.2f}".format(self.getGrandTotal())]
+        payloadTotal = locale.currency(self.getPayloadTotal(), grouping=True,
+                                       symbol=True)
+        
+        vatTotal = locale.currency(self.getVatTotal(self.getPayloadTotal()), grouping=True,
+                                   symbol=True)
+        
+        grandTotal = locale.currency(self.getGrandTotal(), grouping=True,
+                                     symbol=True)
+        
+        totalDetails = [payloadTotal,
+                        vatTotal,
+                        grandTotal]
         
         self.totalLabels[1] = "VAT ({}%): ".format(self.getInvoiceVatRate())
         
