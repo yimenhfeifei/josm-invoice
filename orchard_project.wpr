@@ -5,10 +5,7 @@
 ##################################################################
 [project attributes]
 proj.directory-list = [{'dirloc': loc('.'),
-                        'excludes': [u'main_program/print.pdf',
-                                     u'main_program/persist.py',
-                                     u'main_program/qrcode.png',
-                                     u'tests/test_new_ticket_widget.py'],
+                        'excludes': (),
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
