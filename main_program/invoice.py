@@ -180,9 +180,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     def toggleAutoCalculation(self):
         if self.autoCalc == "On":
             self.autoCalc = "Off"
+            self.valueEdit.setReadOnly(False)
         elif self.autoCalc == "Off":
             if not self.typeCombobox.currentText() == "Sales Invoice":
                 self.autoCalc = "On"
+                self.valueEdit.setReadOnly(True)
             else:
                 QMessageBox.information(self, "Information", "Auto calculation prohibited for sales invoices.")
             
