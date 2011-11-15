@@ -4,6 +4,7 @@ try:
     import platform
     import locale
     import re
+    from configparser import ConfigParser
     from decimal import Decimal
     from datetime import datetime
 
@@ -11,7 +12,6 @@ try:
     from PyQt4.QtGui import *
 
     from gui_interface_designs import invoice_window_generated
-    from custom_widgets.invoice_number_dialog import InvoiceNumberDialog
     from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
 except ImportError as err:
@@ -106,12 +106,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
 
         self.invoiceNumber = self.getInvoiceNumber("Purchase Invoice")
+        
+        self.numberEdit.setText(self.invoiceNumber)
 
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
                            self.pricePerUnitEdit,
                            self.valueEdit,
-                           self.vatEdit]
+                           self.vatEdit,
+                           self.numberEdit]
 
         self.payloadTableWidget.setHorizontalHeaderLabels(["Description",
                                                            "Weight",
@@ -220,6 +223,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.populateCustomerBox(self.customers)
 
         self.invoiceNumber = self.getInvoiceNumber(name)
+        
+        self.numberEdit.setText(self.invoiceNumber)
 
         if name == "Sales Invoice":
             self.valueEdit.setReadOnly(False)
@@ -249,20 +254,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                           + "Copyright John Orchard & Company 2011")
 
     def getInvoiceNumber(self, invoiceType):
+        cp = ConfigParser()
+        cp.read("settings.cfg")
+            
         if invoiceType == "Purchase Invoice":
-            self.numberFile = "purchase_number.txt"
+            return cp.get("invoice_numbers", "purchase")
         else:
-            self.numberFile = "sales_number.txt"
-
-        with open(self.numberFile, "r") as file:
-                contents = file.readline()
-
-        if contents:
-            return contents
-        else:
-            dialog = InvoiceNumberDialog()
-            if dialog.exec_():
-                return dialog.invoiceNumberEdit.text()
+            return cp.get("invoice_numbers", "sales")
 
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
@@ -307,6 +305,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
         self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
         self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
+        
+        self.invoiceNumber = self.numberEdit.text()
 
     def calculatePayloadValue(self):
         weight = Decimal(self.weightEdit.text())
@@ -421,8 +421,19 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if previewDialog.exec_():
 
             self.invoiceNumber = "{:03d}".format(int(self.invoiceNumber) + 1)
-            with open(self.numberFile, "w") as file:
-                file.write(self.invoiceNumber)
+            
+            if self.typeCombobox.currentText() == "Purchase Invoice":
+                configOption = "purchase"
+            else:
+                configOption = "sales"
+                
+            cp = ConfigParser()
+            cp.read("settings.cfg")
+            cp.set("invoice_numbers", configOption,
+                   self.invoiceNumber)
+                
+            with open("settings.cfg", "w") as file:
+                cp.write(file)
 
             self.clearPayloadTable()
 
@@ -689,10 +700,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         painter.end()
 
     def resetForm(self):
-        value = self.vatEdit.text()
+        vat = self.vatEdit.text()
+        number = self.numberEdit.text()
         for widget in self.validating:
             widget.clear()
-        self.vatEdit.setText(value)
+        self.vatEdit.setText(vat)
+        self.numberEdit.setText(number)
         self.returnFocus()
 
     def clearPayloadTable(self):
