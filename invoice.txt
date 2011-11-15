@@ -1,7 +1,8 @@
 Use qvalidator for validation.
 Switch to sqalchemy/sqlite backend.
-Need to test for existing database.
 Move customer details to database.
+Nicer about dialog.
+Eliminate use of designer code.
 Need to refine regular expressions.
 Need to print page total on each page.
 File menus.
