@@ -1,3 +1,6 @@
+Use qvalidator for validation.
+Use configparser to store sales and purchase invoice numbers.
+Switch to sqalchemy/sqlite backend.
 Need to test for existing database.
 Move customer details to database.
 Need to refine regular expressions.
