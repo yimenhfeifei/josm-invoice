@@ -18,7 +18,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.90"
+__VERSION__ = "0.91"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -106,7 +106,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
 
         self.invoiceNumber = self.getInvoiceNumber("Purchase Invoice")
-        
+
         self.numberEdit.setText(self.invoiceNumber)
 
         self.validating = [self.descriptionEdit,
@@ -223,7 +223,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.populateCustomerBox(self.customers)
 
         self.invoiceNumber = self.getInvoiceNumber(name)
-        
+
         self.numberEdit.setText(self.invoiceNumber)
 
         if name == "Sales Invoice":
@@ -256,7 +256,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
     def getInvoiceNumber(self, invoiceType):
         cp = ConfigParser()
         cp.read("settings.cfg")
-            
+
         if invoiceType == "Purchase Invoice":
             return cp.get("invoice_numbers", "purchase")
         else:
@@ -305,7 +305,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
         self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
         self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
-        
+
         self.invoiceNumber = self.numberEdit.text()
 
     def calculatePayloadValue(self):
@@ -421,17 +421,17 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if previewDialog.exec_():
 
             self.invoiceNumber = "{:03d}".format(int(self.invoiceNumber) + 1)
-            
+
             if self.typeCombobox.currentText() == "Purchase Invoice":
                 configOption = "purchase"
             else:
                 configOption = "sales"
-                
+
             cp = ConfigParser()
             cp.read("settings.cfg")
             cp.set("invoice_numbers", configOption,
                    self.invoiceNumber)
-                
+
             with open("settings.cfg", "w") as file:
                 cp.write(file)
 
