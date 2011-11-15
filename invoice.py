@@ -147,6 +147,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                      self.changed)
 
         for widget in self.validating:
+            widget.setValidator(regexObjects["qValue"])
+
+        self.descriptionEdit.setValidator(regexObjects["qMaterial"])
+
+        for widget in self.validating:
             self.connect(widget, SIGNAL("textChanged(QString)"),
                          self.changed)
 
@@ -229,13 +234,13 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         if name == "Sales Invoice":
             self.valueEdit.setReadOnly(False)
 
-            self.pricePerUnitEdit.setProperty("regexString", "description")
+            self.pricePerUnitEdit.setValidator(regexObjects["qMaterial"])
 
             self.autoCalc = "Off"
         else:
             self.valueEdit.setReadOnly(True)
 
-            self.pricePerUnitEdit.setProperty("regexString", "value")
+            self.pricePerUnitEdit.setValidator(regexObjects["qValue"])
 
             self.autoCalc = "On"
 
@@ -284,10 +289,10 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                       label.text())
 
     def changed(self):
-        for widget in self.validating:
-            widget.validate()
+        weightStatus = self.weightEdit.validator().validate(self.weightEdit.text(), 0)
+        ppuStatus = self.pricePerUnitEdit.validator().validate(self.pricePerUnitEdit.text(), 0)
 
-        if self.weightEdit.isValid() and self.pricePerUnitEdit.isValid():
+        if weightStatus[0] == 2 and ppuStatus[0] == 2:
             if self.autoCalc == "On":
                 self.calculatePayloadValue()
             else:
@@ -334,7 +339,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
     def allValid(self):
         for widget in self.validating:
-            if not widget.isValid():
+            if not widget.validator().validate(widget.text(), 0)[0] == 2:
                 return False
         return True
 

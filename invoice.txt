@@ -1,4 +1,6 @@
-Use qvalidator for validation.
+Validators do not switch when toggling auto calc.
+Statusbar messages for validation failures?
+Nicer colour scheme with styles sheets.
 Switch to sqalchemy/sqlite backend.
 Move customer details to database.
 Nicer about dialog.
