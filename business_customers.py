@@ -35,7 +35,7 @@ salesCustomers = {"Techemet": {"vatReg": "N/A",
                   "Sims Metal Management": {"vatReg": "655 132 744",
                                             "address": "Long Marston, Stratford Upon Avon, Warwickshire, CV37 8AQ"},
                   
-                  "GH Newbury and Son Ltd": {"vatReg": "N/A",
+                  "GH Newbery and Son Ltd": {"vatReg": "N/A",
                                              "address": "Ashton Road, Marsh Barton, Exeter, EX2 8LN"},
                   
                   "EMR Ltd": {"vatReg": "N/A",
