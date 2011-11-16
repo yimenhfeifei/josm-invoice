@@ -199,6 +199,9 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.changeInvoiceType("Purchase Invoice")
 
         self.statusBar().setStyleSheet("background: #FFECB3")
+    
+    def assign(self, pair):
+        variable, value = pair
 
     def updateAutoCalcStatus(self):
         self.statusBar().removeWidget(self.autoCalcStatusLabel)
