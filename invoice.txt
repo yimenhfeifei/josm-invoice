@@ -1,8 +1,11 @@
 Validators do not switch when toggling auto calc.
+Lambda for widget callbacks, so we only update the changed widget.
 Statusbar messages for validation failures?
 Nicer colour scheme with styles sheets.
 Switch to sqalchemy/sqlite backend.
 Move customer details to database.
+Move font and content strings to database.
+Separate header code and data to allow printing of letterheads.
 Nicer about dialog.
 Eliminate use of designer code.
 Need to refine regular expressions.
