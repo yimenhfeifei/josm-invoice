@@ -14,6 +14,7 @@ try:
     from gui_interface_designs import invoice_window_generated
     from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
+    from shared_modules.state import State
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -199,6 +200,11 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.changeInvoiceType("Purchase Invoice")
 
         self.statusBar().setStyleSheet("background: #FFECB3")
+        
+        self.salesState = State()
+        self.salesState.addVariable(self.valueEdit.setReadOnly, False)
+        self.salesState.addVariable(self.pricePerUnitEdit.setValidator, regexObjects["qMaterial"])
+        self.salesState.addVariable(self.autoCalc, "Off")
     
     def assign(self, pair):
         variable, value = pair
@@ -235,11 +241,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.numberEdit.setText(self.invoiceNumber)
 
         if name == "Sales Invoice":
-            self.valueEdit.setReadOnly(False)
+            #self.valueEdit.setReadOnly(False)
 
-            self.pricePerUnitEdit.setValidator(regexObjects["qMaterial"])
+            #self.pricePerUnitEdit.setValidator(regexObjects["qMaterial"])
 
-            self.autoCalc = "Off"
+            #self.autoCalc = "Off"
+            self.salesState.enable()
         else:
             self.valueEdit.setReadOnly(True)
 
