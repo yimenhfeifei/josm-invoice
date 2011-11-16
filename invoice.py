@@ -193,39 +193,34 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
         self.descriptionEdit.setFocus()
 
-        self.autoCalc = "On"
-
-        self.autoCalcStatusLabel = QLabel("")
-
-        self.changeInvoiceType("Purchase Invoice")
-
         self.statusBar().setStyleSheet("background: #FFECB3")
         
-        self.salesState = State()
-        self.salesState.addVariable(self.valueEdit.setReadOnly, False)
-        self.salesState.addVariable(self.pricePerUnitEdit.setValidator, regexObjects["qMaterial"])
-        self.salesState.addVariable(self.autoCalc, "Off")
-    
-    def assign(self, pair):
-        variable, value = pair
-
-    def updateAutoCalcStatus(self):
-        self.statusBar().removeWidget(self.autoCalcStatusLabel)
-        self.autoCalcStatusLabel = QLabel("Auto Calc: {}".format(self.autoCalc))
-        self.statusBar().addWidget(self.autoCalcStatusLabel)
+        self.autoCalcLabel = QLabel("Auto Calc:")
+        self.autoCalcStatus = QLabel("")
+        self.statusBar().addWidget(self.autoCalcLabel)
+        self.statusBar().addWidget(self.autoCalcStatus)
+        
+        self.autoCalcStateOn = State()
+        self.autoCalcStateOn.addVariable(self.autoCalcStatus.setText, "On")
+        self.autoCalcStateOn.addVariable(self.valueEdit.setReadOnly, True)
+        self.autoCalcStateOn.addVariable(self.pricePerUnitEdit.setValidator,
+                                         regexObjects["qValue"])
+        
+        self.autoCalcStateOff = State()
+        self.autoCalcStateOff.addVariable(self.autoCalcStatus.setText, "Off")
+        self.autoCalcStateOff.addVariable(self.valueEdit.setReadOnly, False)
+        self.autoCalcStateOff.addVariable(self.pricePerUnitEdit.setValidator,
+                                         regexObjects["qMaterial"])
+        
+        self.autoCalcStateOff.enable()
+        
+        self.changeInvoiceType("Purchase Invoice")
 
     def toggleAutoCalculation(self):
-        if self.autoCalc == "On":
-            self.autoCalc = "Off"
-            self.valueEdit.setReadOnly(False)
-        elif self.autoCalc == "Off":
-            if not self.typeCombobox.currentText() == "Sales Invoice":
-                self.autoCalc = "On"
-                self.valueEdit.setReadOnly(True)
-            else:
-                QMessageBox.information(self, "Information", "Auto calculation prohibited for sales invoices.")
-
-        self.updateAutoCalcStatus()
+        if self.autoCalcStatus.text() == "On":
+            self.autoCalcStateOff.enable()
+        elif self.autoCalcStatus.text() == "Off":
+            self.autoCalcStateOn.enable()
 
         self.changed()
 
@@ -239,22 +234,6 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.invoiceNumber = self.getInvoiceNumber(name)
 
         self.numberEdit.setText(self.invoiceNumber)
-
-        if name == "Sales Invoice":
-            #self.valueEdit.setReadOnly(False)
-
-            #self.pricePerUnitEdit.setValidator(regexObjects["qMaterial"])
-
-            #self.autoCalc = "Off"
-            self.salesState.enable()
-        else:
-            self.valueEdit.setReadOnly(True)
-
-            self.pricePerUnitEdit.setValidator(regexObjects["qValue"])
-
-            self.autoCalc = "On"
-
-        self.updateAutoCalcStatus()
 
         self.returnFocus()
 
@@ -303,7 +282,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         ppuStatus = self.pricePerUnitEdit.validator().validate(self.pricePerUnitEdit.text(), 0)
 
         if weightStatus[0] == 2 and ppuStatus[0] == 2:
-            if self.autoCalc == "On":
+            if self.autoCalcStatus.text() == "On":
                 self.calculatePayloadValue()
             else:
                 pass
@@ -355,18 +334,19 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
     def addPayload(self):
         if self.allValid():
-            if self.typeCombobox.currentText() == "Purchase Invoice":
-                pricePerTonne = "{:.2f}".format(Decimal(self.pricePerUnitEdit.text()))
+            if self.autoCalcStatus.text() == "On":
+                pricePerUnit = "{:.2f}".format(Decimal(self.pricePerUnitEdit.text()))
             else:
-                pricePerTonne = self.pricePerUnitEdit.text()
+                pricePerUnit = self.pricePerUnitEdit.text()
 
             value = locale.currency(Decimal(self.valueEdit.text()), grouping=True,
                                     symbol=False)
 
             self.addRow(self.descriptionEdit.text(),
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
-                        pricePerTonne,
+                        pricePerUnit,
                         value)
+            
             self.resetForm()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
