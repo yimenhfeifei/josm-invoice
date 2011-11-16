@@ -577,7 +577,6 @@ p, li { white-space: pre-wrap; }
      <string>&amp;File</string>
     </property>
     <addaction name="actionPrintPreview"/>
-    <addaction name="actionToggleAutoCalc"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -586,7 +585,14 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionAboutInvoice"/>
    </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionToggleAutoCalc"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
