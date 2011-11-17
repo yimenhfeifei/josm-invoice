@@ -11,7 +11,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
 
-    from gui_interface_designs import invoice_window_generated
+    from gui import Ui_invoiceWindow
     from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
     from shared_modules.state import State
@@ -26,11 +26,10 @@ __PYQT__ = PYQT_VERSION_STR
 __PYTHON__ = platform.python_version()
 
 
-class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
+class InvoiceWindow(Ui_invoiceWindow):
 
     def __init__(self, parent=None):
         super(InvoiceWindow, self).__init__(parent)
-        self.setupUi(self)
         self.setWindowTitle("Invoice")
         self.unitFrame.setVisible(False)
 
@@ -117,7 +116,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
                            self.vatEdit,
                            self.numberEdit]
 
-        self.payloadTableWidget.setHorizontalHeaderLabels(["Description",
+        self.invoiceTable.setHorizontalHeaderLabels(["Description",
                                                            "Weight",
                                                            "Price Per Unit",
                                                            "Value",
@@ -165,7 +164,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.connect(self.addButton, SIGNAL("clicked()"),
                      self.addPayload)
 
-        self.connect(self.payloadTableWidget, SIGNAL("cellClicked(int, int)"),
+        self.connect(self.invoiceTable, SIGNAL("cellClicked(int, int)"),
                      self.payloadTableClicked)
 
         self.connect(self.reviewButton, SIGNAL("clicked()"),
@@ -269,8 +268,8 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
     def payloadTableClicked(self, row, column):
         if column == self.deleteColumn:
-            self.payloadTableWidget.selectRow(row)
-            self.payloadTableWidget.removeRow(row)
+            self.invoiceTable.selectRow(row)
+            self.invoiceTable.removeRow(row)
 
     def changeRichText(self, label, string):
         return re.sub(regexObjects["spanTagContents"],
@@ -352,16 +351,15 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
 
     def addRow(self, *args):
-        self.payloadTableWidget.setCurrentToEmptyRow()
-
-        row = self.payloadTableWidget.currentRow()
-
+        self.invoiceTable.appendRow()
+        row = self.invoiceTable.rowCount() - 1
+        
         for column, value in enumerate(args):
             item = QTableWidgetItem(value)
 
             item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
 
-            self.payloadTableWidget.setItem(row, column, item)
+            self.invoiceTable.setItem(row, column, item)
 
         self.addDeleteButton(row)
 
@@ -372,12 +370,12 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         deleteItem.setTextColor(Qt.red)
         deleteItem.setFont(QFont("Monospace", weight=QFont.Bold))
 
-        self.payloadTableWidget.setItem(row, self.deleteColumn, deleteItem)
+        self.invoiceTable.setItem(row, self.deleteColumn, deleteItem)
 
     def getPayloadTotal(self):
         values = []
-        for row in range(self.payloadTableWidget.rowCount()):
-            value = self.payloadTableWidget.item(row, self.deleteColumn - 1).text().replace(",", "")
+        for row in range(self.invoiceTable.rowCount()):
+            value = self.invoiceTable.item(row, self.deleteColumn - 1).text().replace(",", "")
             values.append(Decimal(value))
 
         return sum(values)
@@ -390,7 +388,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
 
     def getPayloads(self):
         payloads = {}
-        table = self.payloadTableWidget
+        table = self.invoiceTable
 
         for row in range(table.rowCount()):
             fields = []
@@ -404,7 +402,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         return payloads
 
     def printPreview(self):
-        if not self.payloadTableWidget.isValid():
+        if not self.invoiceTable.isValid():
             QMessageBox.warning(self, "Attention", "No payloads to review!")
             return
 
@@ -704,7 +702,7 @@ class InvoiceWindow(QMainWindow, invoice_window_generated.Ui_invoiceWindow):
         self.returnFocus()
 
     def clearPayloadTable(self):
-        self.payloadTableWidget.reset()
+        self.invoiceTable.removeAllRows()
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)

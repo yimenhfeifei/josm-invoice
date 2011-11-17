@@ -1,3 +1,4 @@
+Number not automatically bumping unless switching invoice type.
 Use extended table widget, and move getPayloads into it.
 Lambda for widget callbacks, so we only update the changed widget.
 Use full width of page for formatting payloads.
