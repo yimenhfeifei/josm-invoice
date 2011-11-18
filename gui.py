@@ -2,8 +2,7 @@
 try:
     import traceback
     import sys
-    
-    
+
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
 
@@ -13,52 +12,81 @@ except ImportError as err:
     print("{0} -> {1}".format(fileName, err))
     raise SystemExit(err)
 
+
 class Ui_unitFrame(QFrame):
-    
     def __init__(self, parent=None):
         super(Ui_unitFrame, self).__init__(parent)
-
         self.resize(281, 129)
         self.setFrameShape(QFrame.StyledPanel)
         self.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self)
         self.weightUnitBox = QGroupBox(self)
-        self.weightUnitBox.setTitle(QApplication.translate("unitFrame", "Weight unit", None, QApplication.UnicodeUTF8))
+
+        self.weightUnitBox.setTitle(QApplication.translate("unitFrame",
+                                                           "Weight unit",
+                                                           None,
+                                                           QApplication.UnicodeUTF8))
+
         self.weightUnitBox.setAlignment(Qt.AlignCenter)
         self.verticalLayout = QVBoxLayout(self.weightUnitBox)
         self.weightKgRadio = QRadioButton(self.weightUnitBox)
-        self.weightKgRadio.setText(QApplication.translate("unitFrame", "Kg", None, QApplication.UnicodeUTF8))
+
+        self.weightKgRadio.setText(QApplication.translate("unitFrame",
+                                                          "Kg",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
         self.weightKgRadio.setAutoExclusive(True)
         self.verticalLayout.addWidget(self.weightKgRadio)
         self.weightTonnesRadio = QRadioButton(self.weightUnitBox)
-        self.weightTonnesRadio.setText(QApplication.translate("unitFrame", "Tonnes", None, QApplication.UnicodeUTF8))
+
+        self.weightTonnesRadio.setText(QApplication.translate("unitFrame",
+                                                              "Tonnes",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))
+
         self.weightTonnesRadio.setAutoExclusive(True)
         self.verticalLayout.addWidget(self.weightTonnesRadio)
         self.horizontalLayout.addWidget(self.weightUnitBox)
         self.priceUnitBox = QGroupBox(self)
-        self.priceUnitBox.setTitle(QApplication.translate("unitFrame", "Price unit", None, QApplication.UnicodeUTF8))
+
+        self.priceUnitBox.setTitle(QApplication.translate("unitFrame",
+                                                          "Price unit",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
         self.priceUnitBox.setAlignment(Qt.AlignCenter)
         self.verticalLayout_2 = QVBoxLayout(self.priceUnitBox)
         self.priceKgRadio = QRadioButton(self.priceUnitBox)
-        self.priceKgRadio.setText(QApplication.translate("unitFrame", "Kg", None, QApplication.UnicodeUTF8))
+
+        self.priceKgRadio.setText(QApplication.translate("unitFrame",
+                                                         "Kg",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+
         self.priceKgRadio.setAutoExclusive(True)
         self.verticalLayout_2.addWidget(self.priceKgRadio)
         self.priceTonnesRadio = QRadioButton(self.priceUnitBox)
-        self.priceTonnesRadio.setText(QApplication.translate("unitFrame", "Tonnes", None, QApplication.UnicodeUTF8))
+
+        self.priceTonnesRadio.setText(QApplication.translate("unitFrame",
+                                                             "Tonnes",
+                                                             None,
+                                                             QApplication.UnicodeUTF8))
+
         self.priceTonnesRadio.setAutoExclusive(True)
         self.verticalLayout_2.addWidget(self.priceTonnesRadio)
         self.horizontalLayout.addWidget(self.priceUnitBox)
 
-        
         QMetaObject.connectSlotsByName(self)
+
 
 def retranslateUi(self, unitFrame):
     pass
 
+
 class Ui_invoiceWindow(QMainWindow):
-    
     def __init__(self, parent=None):
-        super(Ui_invoiceWindow, self).__init__(parent)      
+        super(Ui_invoiceWindow, self).__init__(parent)
         self.resize(840, 670)
         self.setWindowTitle("Invoice")
         self.centralwidget = QWidget(self)
@@ -68,7 +96,12 @@ class Ui_invoiceWindow(QMainWindow):
         spacerItem = QSpacerItem(58, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
         self.dataEntryBox = QGroupBox(self.centralwidget)
-        self.dataEntryBox.setTitle(QApplication.translate("invoiceWindow", "Data entry", None, QApplication.UnicodeUTF8))
+
+        self.dataEntryBox.setTitle(QApplication.translate("invoiceWindow",
+                                                          "Data entry",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
         self.dataEntryBox.setAlignment(Qt.AlignCenter)
         self.verticalLayout_5 = QVBoxLayout(self.dataEntryBox)
         self.horizontalLayout_7 = QHBoxLayout()
@@ -113,7 +146,12 @@ class Ui_invoiceWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.vatEdit.sizePolicy().hasHeightForWidth())
         self.vatEdit.setSizePolicy(sizePolicy)
         self.vatEdit.setMaximumSize(QSize(50, 16777215))
-        self.vatEdit.setText(QApplication.translate("invoiceWindow", "20", None, QApplication.UnicodeUTF8))
+
+        self.vatEdit.setText(QApplication.translate("invoiceWindow",
+                                                    "20",
+                                                    None,
+                                                    QApplication.UnicodeUTF8))
+
         self.horizontalLayout_6.addWidget(self.vatEdit)
         spacerItem6 = QSpacerItem(245, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem6)

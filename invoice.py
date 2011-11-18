@@ -19,7 +19,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.92"
+__VERSION__ = "0.93"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -105,9 +105,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
 
-        self.invoiceNumber = self.getInvoiceNumber("Purchase Invoice")
-
-        self.numberEdit.setText(self.invoiceNumber)
+        self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
 
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -115,7 +113,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                            self.valueEdit,
                            self.vatEdit,
                            self.numberEdit]
-        
+
         self.descriptionText = "Description"
         self.weightText = "Weight"
         self.ppuText = "Price Per Unit"
@@ -145,10 +143,10 @@ class InvoiceWindow(Ui_invoiceWindow):
                               self.tonneString: self.convertTonnesToKg}
 
         self.connect(self.weightGroup, SIGNAL("buttonClicked(int)"),
-                     self.changed)
+                     self.updateWeightHeader)
 
         self.connect(self.priceGroup, SIGNAL("buttonClicked(int)"),
-                     self.changed)
+                     self.updatePriceHeader)
 
         for widget in self.validating:
             widget.setValidator(regexObjects["qValue"])
@@ -197,27 +195,30 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.descriptionEdit.setFocus()
 
         self.statusBar().setStyleSheet("background: #FFECB3")
-        
+
         self.autoCalcLabel = QLabel("Auto Calc:")
         self.autoCalcStatus = QLabel("")
         self.statusBar().addWidget(self.autoCalcLabel)
         self.statusBar().addWidget(self.autoCalcStatus)
-        
+
         self.autoCalcStateOn = State()
         self.autoCalcStateOn.addVariable(self.autoCalcStatus.setText, "On")
         self.autoCalcStateOn.addVariable(self.valueEdit.setReadOnly, True)
         self.autoCalcStateOn.addVariable(self.pricePerUnitEdit.setValidator,
                                          regexObjects["qValue"])
-        
+
         self.autoCalcStateOff = State()
         self.autoCalcStateOff.addVariable(self.autoCalcStatus.setText, "Off")
         self.autoCalcStateOff.addVariable(self.valueEdit.setReadOnly, False)
         self.autoCalcStateOff.addVariable(self.pricePerUnitEdit.setValidator,
                                          regexObjects["qMaterial"])
-        
+
         self.autoCalcStateOff.enable()
-        
+
         self.changeInvoiceType("Purchase Invoice")
+
+        self.updatePriceHeader()
+        self.updateWeightHeader()
 
     def toggleAutoCalculation(self):
         if self.autoCalcStatus.text() == "On":
@@ -234,11 +235,12 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.populateCustomerBox(self.customers)
 
-        self.invoiceNumber = self.getInvoiceNumber(name)
-
-        self.numberEdit.setText(self.invoiceNumber)
+        self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
 
         self.returnFocus()
+
+    def setInvoiceNumber(self, value):
+        self.numberEdit.setText(value)
 
     def returnFocus(self):
         self.descriptionEdit.setFocus()
@@ -250,7 +252,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                           + "PYQT {}\n".format(__PYQT__)
                           + "Copyright John Orchard & Company 2011")
 
-    def getInvoiceNumber(self, invoiceType):
+    def getInvoiceNumberFromFile(self, invoiceType):
         cp = ConfigParser()
         cp.read("settings.cfg")
 
@@ -280,6 +282,20 @@ class InvoiceWindow(Ui_invoiceWindow):
                       string,
                       label.text())
 
+    def updatePriceHeader(self):
+        newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
+
+        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
+
+        self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
+
+    def updateWeightHeader(self):
+        newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
+
+        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
+
+        self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
+
     def changed(self):
         weightStatus = self.weightEdit.validator().validate(self.weightEdit.text(), 0)
         ppuStatus = self.pricePerUnitEdit.validator().validate(self.pricePerUnitEdit.text(), 0)
@@ -291,19 +307,6 @@ class InvoiceWindow(Ui_invoiceWindow):
                 pass
         else:
             self.valueEdit.clear()
-
-        newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
-
-        newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
-
-        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
-
-        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
-
-        self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
-        self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
-
-        self.invoiceNumber = self.numberEdit.text()
 
     def calculatePayloadValue(self):
         weight = Decimal(self.weightEdit.text())
@@ -349,7 +352,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                         "{:.2f}".format(Decimal(self.weightEdit.text())),
                         pricePerUnit,
                         value)
-            
+
             self.resetForm()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
@@ -357,7 +360,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def addRow(self, *args):
         self.invoiceTable.appendRow()
         row = self.invoiceTable.rowCount() - 1
-        
+
         for column, value in enumerate(args):
             item = QTableWidgetItem(value)
 
@@ -384,19 +387,10 @@ class InvoiceWindow(Ui_invoiceWindow):
         return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
 
     def getPayloads(self):
-        print(self.invoiceTable.getContents())
-        payloads = {}
-        table = self.invoiceTable
+        payloads = self.invoiceTable.getContents()
+        for group in payloads.values():
+            del group[self.deleteText]
 
-        for row in range(table.rowCount()):
-            fields = []
-            for column in range(table.columnCount() - 1):
-                fields.append(table.item(row, column).text())
-
-            payloads["payload {}".format(row)] = {"description": fields[0],
-                                                  "weight": fields[1],
-                                                  "ppu": fields[2],
-                                                  "value": fields[3]}
         return payloads
 
     def printPreview(self):
@@ -411,7 +405,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         if previewDialog.exec_():
 
-            self.invoiceNumber = "{:03d}".format(int(self.invoiceNumber) + 1)
+            self.setInvoiceNumber("{:03d}".format(int(self.numberEdit.text()) + 1))
 
             if self.typeCombobox.currentText() == "Purchase Invoice":
                 configOption = "purchase"
@@ -421,7 +415,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             cp = ConfigParser()
             cp.read("settings.cfg")
             cp.set("invoice_numbers", configOption,
-                   self.invoiceNumber)
+                   self.numberEdit.text())
 
             with open("settings.cfg", "w") as file:
                 cp.write(file)
@@ -467,8 +461,8 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintPayload(self, painter, pageRect, payload):
         painter.setFont(self.fonts["payloadFont"])
-        values = [payload["description"], payload["weight"],
-                  payload["ppu"], payload["value"]]
+        values = [payload[self.descriptionText], payload[self.weightText],
+                  payload[self.ppuText], payload[self.valueText]]
 
         for num, item in enumerate(values):
             pair = self.headerPos[num]
@@ -645,7 +639,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         return pageRect.height() - usedSpace
 
     def paintLooper(self, painter, pageRect):
-        self.paintTop(painter, pageRect, self.invoiceNumber, 1)
+        self.paintTop(painter, pageRect, self.numberEdit.text(), 1)
 
         payloadSpace = self.calculatePayloadSpace(painter, pageRect)
 
@@ -660,7 +654,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                 self.paintVerticalSpace(painter.fontMetrics().height() * 2)
                 self.paintNewPageMessage(painter, pageRect, pageNumber)
                 self.printer.newPage()
-                self.paintTop(painter, pageRect, self.invoiceNumber, pageNumber)
+                self.paintTop(painter, pageRect, self.numberEdit.text(), pageNumber)
 
             self.paintPayload(painter, pageRect, payload)
             self.paintVerticalSpace(painter.fontMetrics().height())
