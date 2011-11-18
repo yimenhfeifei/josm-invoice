@@ -1,5 +1,3 @@
-Number not automatically bumping unless switching invoice type.
-Use extended table widget, and move getPayloads into it.
 Lambda for widget callbacks, so we only update the changed widget.
 Use full width of page for formatting payloads.
 Statusbar messages for validation failures?
@@ -9,7 +7,6 @@ Move customer details to database.
 Move font and content strings to database.
 Separate header code and data to allow printing of letterheads.
 Nicer about dialog.
-Eliminate use of designer code.
 Need to refine regular expressions.
 Need to print page total on each page.
 File menus.
