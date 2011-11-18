@@ -1,8 +1,8 @@
 purchaseCustomers = {"GM Philpott": {"vatReg": "501 4917 75",
                                      "address": "Gweek, Near Helston"},
              
-                     "Maple Recycling": {"vatReg": "Unknown",
-                                         "address": "Unknown"},
+                     "Maple Recycling": {"vatReg": "N/A",
+                                         "address": "N/A"},
               
                      "Nigel Andrews": {"vatReg": "787 651 868",
                                        "address": "The grove, Wheal Busy, Chacewater, Truro"},
@@ -11,26 +11,26 @@ purchaseCustomers = {"GM Philpott": {"vatReg": "501 4917 75",
                                       "address": "3, The Chalet, Carne Cross, St Blazey, PL24 2SX"},
                      
                      "Willsher Plant": {"vatReg": "356 7008 48",
-                                      "address": "Higher Trewince House, Newquay, TR8 4HR"},
+                                        "address": "Higher Trewince House, Newquay, TR8 4HR"},
                      
                      "Tonkin Recovery Ltd": {"vatReg": "902 055 761",
-                                      "address": "Somercourt, Newquay"},
+                                             "address": "Somercourt, Newquay"},
                      
                      "P Perryman and Sons": {"vatReg": "823 951 226",
-                                      "address": "Polisken Farm, Trispen"},
+                                             "address": "Polisken Farm, Trispen"},
                      
                      "Nick Ferris": {"vatReg": "464 979 583",
-                                      "address": "Trewarton Road, Penryn"},
+                                     "address": "Trewarton Road, Penryn"},
                      
                      "D J Morford": {"vatReg": "557 4698 87",
                                       "address": "Carharrack, Redruth"},
                      
                      "CAW Ltd": {"vatReg": "679 5934 62",
-                                      "address": "Threemilestone, Truro"}
+                                 "address": "Threemilestone, Truro"}
                      }
              
 salesCustomers = {"Techemet": {"vatReg": "N/A",
-                                "address": "Unit 12, Greendale Bus Park, Woodbury, Exeter, EX5 1EW"},
+                               "address": "Unit 12, Greendale Bus Park, Woodbury, Exeter, EX5 1EW"},
                   
                   "Sims Metal Management": {"vatReg": "655 132 744",
                                             "address": "Long Marston, Stratford Upon Avon, Warwickshire, CV37 8AQ"},
