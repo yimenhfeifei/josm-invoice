@@ -120,7 +120,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.weightText = "Weight"
         self.ppuText = "Price Per Unit"
         self.valueText = "Value"
-        self.deleteText = "Wanker"
+        self.deleteText = "Delete"
 
         self.invoiceTable.setHorizontalHeaderLabels([self.descriptionText,
                                                      self.weightText,
@@ -384,6 +384,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
 
     def getPayloads(self):
+        print(self.invoiceTable.getContents())
         payloads = {}
         table = self.invoiceTable
 
