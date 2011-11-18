@@ -341,4 +341,4 @@ class Ui_invoiceWindow(QMainWindow):
     def retranslateUi(self, invoiceWindow):
         pass
 
-from custom_widgets.invoiceTable import InvoiceTable
+from view.invoiceTable import InvoiceTable
