@@ -115,14 +115,18 @@ class InvoiceWindow(Ui_invoiceWindow):
                            self.valueEdit,
                            self.vatEdit,
                            self.numberEdit]
+        
+        self.descriptionText = "Description"
+        self.weightText = "Weight"
+        self.ppuText = "Price Per Unit"
+        self.valueText = "Value"
+        self.deleteText = "Wanker"
 
-        self.invoiceTable.setHorizontalHeaderLabels(["Description",
-                                                           "Weight",
-                                                           "Price Per Unit",
-                                                           "Value",
-                                                           "Delete"])
-
-        self.deleteColumn = 4
+        self.invoiceTable.setHorizontalHeaderLabels([self.descriptionText,
+                                                     self.weightText,
+                                                     self.ppuText,
+                                                     self.valueText,
+                                                     self.deleteText])
 
         self.weightGroup = QButtonGroup()
         self.weightGroup.addButton(self.unitFrame.weightKgRadio)
@@ -267,7 +271,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             self.customerCombobox.insertItem(index, name)
 
     def payloadTableClicked(self, row, column):
-        if column == self.deleteColumn:
+        if column == self.invoiceTable.getHeaderIndex(self.deleteText):
             self.invoiceTable.selectRow(row)
             self.invoiceTable.removeRow(row)
 
@@ -361,21 +365,14 @@ class InvoiceWindow(Ui_invoiceWindow):
 
             self.invoiceTable.setItem(row, column, item)
 
-        self.addDeleteButton(row)
-
-    def addDeleteButton(self, row):
-        deleteItem = QTableWidgetItem("Delete")
-        deleteItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-
-        deleteItem.setTextColor(Qt.red)
-        deleteItem.setFont(QFont("Monospace", weight=QFont.Bold))
-
-        self.invoiceTable.setItem(row, self.deleteColumn, deleteItem)
+        self.invoiceTable.addDeleteCell(row,
+                                        self.invoiceTable.getHeaderIndex(self.deleteText),
+                                        text=self.deleteText)
 
     def getPayloadTotal(self):
         values = []
         for row in range(self.invoiceTable.rowCount()):
-            value = self.invoiceTable.item(row, self.deleteColumn - 1).text().replace(",", "")
+            value = self.invoiceTable.item(row, self.invoiceTable.getHeaderIndex(self.valueText)).text().replace(",", "")
             values.append(Decimal(value))
 
         return sum(values)
@@ -428,7 +425,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             with open("settings.cfg", "w") as file:
                 cp.write(file)
 
-            self.clearPayloadTable()
+            self.invoiceTable.removeAllRows()
 
         self.returnFocus()
 
@@ -700,9 +697,6 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.vatEdit.setText(vat)
         self.numberEdit.setText(number)
         self.returnFocus()
-
-    def clearPayloadTable(self):
-        self.invoiceTable.removeAllRows()
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
