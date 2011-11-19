@@ -13,77 +13,6 @@ except ImportError as err:
     raise SystemExit(err)
 
 
-class Ui_unitFrame(QFrame):
-    def __init__(self, parent=None):
-        super(Ui_unitFrame, self).__init__(parent)
-        self.resize(281, 129)
-        self.setFrameShape(QFrame.StyledPanel)
-        self.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self)
-        self.weightUnitBox = QGroupBox(self)
-
-        self.weightUnitBox.setTitle(QApplication.translate("unitFrame",
-                                                           "Weight unit",
-                                                           None,
-                                                           QApplication.UnicodeUTF8))
-
-        self.weightUnitBox.setAlignment(Qt.AlignCenter)
-        self.verticalLayout = QVBoxLayout(self.weightUnitBox)
-        self.weightKgRadio = QRadioButton(self.weightUnitBox)
-
-        self.weightKgRadio.setText(QApplication.translate("unitFrame",
-                                                          "Kg",
-                                                          None,
-                                                          QApplication.UnicodeUTF8))
-
-        self.weightKgRadio.setAutoExclusive(True)
-        self.verticalLayout.addWidget(self.weightKgRadio)
-        self.weightTonnesRadio = QRadioButton(self.weightUnitBox)
-
-        self.weightTonnesRadio.setText(QApplication.translate("unitFrame",
-                                                              "Tonnes",
-                                                              None,
-                                                              QApplication.UnicodeUTF8))
-
-        self.weightTonnesRadio.setAutoExclusive(True)
-        self.verticalLayout.addWidget(self.weightTonnesRadio)
-        self.horizontalLayout.addWidget(self.weightUnitBox)
-        self.priceUnitBox = QGroupBox(self)
-
-        self.priceUnitBox.setTitle(QApplication.translate("unitFrame",
-                                                          "Price unit",
-                                                          None,
-                                                          QApplication.UnicodeUTF8))
-
-        self.priceUnitBox.setAlignment(Qt.AlignCenter)
-        self.verticalLayout_2 = QVBoxLayout(self.priceUnitBox)
-        self.priceKgRadio = QRadioButton(self.priceUnitBox)
-
-        self.priceKgRadio.setText(QApplication.translate("unitFrame",
-                                                         "Kg",
-                                                         None,
-                                                         QApplication.UnicodeUTF8))
-
-        self.priceKgRadio.setAutoExclusive(True)
-        self.verticalLayout_2.addWidget(self.priceKgRadio)
-        self.priceTonnesRadio = QRadioButton(self.priceUnitBox)
-
-        self.priceTonnesRadio.setText(QApplication.translate("unitFrame",
-                                                             "Tonnes",
-                                                             None,
-                                                             QApplication.UnicodeUTF8))
-
-        self.priceTonnesRadio.setAutoExclusive(True)
-        self.verticalLayout_2.addWidget(self.priceTonnesRadio)
-        self.horizontalLayout.addWidget(self.priceUnitBox)
-
-        QMetaObject.connectSlotsByName(self)
-
-
-def retranslateUi(self, unitFrame):
-    pass
-
-
 class Ui_invoiceWindow(QMainWindow):
     def __init__(self, parent=None):
         super(Ui_invoiceWindow, self).__init__(parent)
@@ -93,7 +22,8 @@ class Ui_invoiceWindow(QMainWindow):
         self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_6 = QVBoxLayout()
         self.horizontalLayout_3 = QHBoxLayout()
-        spacerItem = QSpacerItem(58, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        spacerItem = QSpacerItem(58, 20, QSizePolicy.Expanding,
+                                 QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
         self.dataEntryBox = QGroupBox(self.centralwidget)
 
@@ -186,10 +116,72 @@ class Ui_invoiceWindow(QMainWindow):
         self.checkBox = QCheckBox(self.dataEntryBox)
         self.checkBox.setText(QApplication.translate("invoiceWindow", "Show unit options", None, QApplication.UnicodeUTF8))
         self.verticalLayout_5.addWidget(self.checkBox)
-        self.unitFrame = Ui_unitFrame(self.dataEntryBox)
+
+        #self.unitFrame = Ui_unitFrame(self.dataEntryBox)
+        self.unitFrame = QFrame(self.dataEntryBox)
+        self.unitFrame.resize(281, 129)
+        self.unitFrame.setFrameShape(QFrame.StyledPanel)
+        self.unitFrame.setFrameShadow(QFrame.Raised)
+        self.unitFrame.horizontalLayout = QHBoxLayout(self.unitFrame)
+        self.unitFrame.weightUnitBox = QGroupBox(self.unitFrame)
+        self.unitFrame.weightUnitBox.setTitle(QApplication.translate("unitFrame",
+                                                           "Weight unit",
+                                                           None,
+                                                           QApplication.UnicodeUTF8))
+
+        self.unitFrame.weightUnitBox.setAlignment(Qt.AlignCenter)
+        self.unitFrame.verticalLayout = QVBoxLayout(self.unitFrame.weightUnitBox)
+        self.unitFrame.weightKgRadio = QRadioButton(self.unitFrame.weightUnitBox)
+
+        self.unitFrame.weightKgRadio.setText(QApplication.translate("unitFrame",
+                                                          "Kg",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
+        self.unitFrame.weightKgRadio.setAutoExclusive(True)
+        self.unitFrame.verticalLayout.addWidget(self.unitFrame.weightKgRadio)
+        self.unitFrame.weightTonnesRadio = QRadioButton(self.unitFrame.weightUnitBox)
+
+        self.unitFrame.weightTonnesRadio.setText(QApplication.translate("unitFrame",
+                                                              "Tonnes",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))
+
+        self.unitFrame.weightTonnesRadio.setAutoExclusive(True)
+        self.unitFrame.verticalLayout.addWidget(self.unitFrame.weightTonnesRadio)
+        self.unitFrame.horizontalLayout.addWidget(self.unitFrame.weightUnitBox)
+        self.unitFrame.priceUnitBox = QGroupBox(self.unitFrame)
+
+        self.unitFrame.priceUnitBox.setTitle(QApplication.translate("unitFrame",
+                                                          "Price unit",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
+        self.unitFrame.priceUnitBox.setAlignment(Qt.AlignCenter)
+        self.unitFrame.verticalLayout_2 = QVBoxLayout(self.unitFrame.priceUnitBox)
+        self.unitFrame.priceKgRadio = QRadioButton(self.unitFrame.priceUnitBox)
+
+        self.unitFrame.priceKgRadio.setText(QApplication.translate("unitFrame",
+                                                         "Kg",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+
+        self.unitFrame.priceKgRadio.setAutoExclusive(True)
+        self.unitFrame.verticalLayout_2.addWidget(self.unitFrame.priceKgRadio)
+        self.unitFrame.priceTonnesRadio = QRadioButton(self.unitFrame.priceUnitBox)
+
+        self.unitFrame.priceTonnesRadio.setText(QApplication.translate("unitFrame",
+                                                             "Tonnes",
+                                                             None,
+                                                             QApplication.UnicodeUTF8))
+
+        self.unitFrame.priceTonnesRadio.setAutoExclusive(True)
+        self.unitFrame.verticalLayout_2.addWidget(self.unitFrame.priceTonnesRadio)
+        self.unitFrame.horizontalLayout.addWidget(self.unitFrame.priceUnitBox)
         self.unitFrame.setToolTip(QApplication.translate("invoiceWindow", "Extended table widget.", None, QApplication.UnicodeUTF8))
         self.unitFrame.setWhatsThis(QApplication.translate("invoiceWindow", "Extended table widget.", None, QApplication.UnicodeUTF8))
         self.verticalLayout_5.addWidget(self.unitFrame)
+
         self.horizontalLayout = QHBoxLayout()
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setSpacing(6)
@@ -330,7 +322,6 @@ class Ui_invoiceWindow(QMainWindow):
         self.menubar.addAction(self.menuOptions.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
-        self.retranslateUi(self)
         QObject.connect(self.checkBox, SIGNAL("toggled(bool)"), self.unitFrame.setVisible)
         QMetaObject.connectSlotsByName(self)
         self.setTabOrder(self.addButton, self.invoiceTable)
@@ -338,7 +329,5 @@ class Ui_invoiceWindow(QMainWindow):
         self.setTabOrder(self.reviewButton, self.typeCombobox)
         self.setTabOrder(self.typeCombobox, self.customerCombobox)
 
-    def retranslateUi(self, invoiceWindow):
-        pass
 
 from view.invoiceTable import InvoiceTable
