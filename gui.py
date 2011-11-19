@@ -22,8 +22,10 @@ class Ui_invoiceWindow(QMainWindow):
         self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_6 = QVBoxLayout()
         self.horizontalLayout_3 = QHBoxLayout()
+
         spacerItem = QSpacerItem(58, 20, QSizePolicy.Expanding,
                                  QSizePolicy.Minimum)
+
         self.horizontalLayout_3.addItem(spacerItem)
         self.dataEntryBox = QGroupBox(self.centralwidget)
 
@@ -50,11 +52,13 @@ class Ui_invoiceWindow(QMainWindow):
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.customerCombobox.sizePolicy().hasHeightForWidth())
+
         self.customerCombobox.setSizePolicy(sizePolicy)
         self.customerCombobox.setMaxVisibleItems(20)
         self.customerCombobox.setMaxCount(100)
         self.customerCombobox.setInsertPolicy(QComboBox.InsertAlphabetically)
         self.customerCombobox.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+
         self.horizontalLayout_2.addWidget(self.customerCombobox)
         spacerItem4 = QSpacerItem(218, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem4)
@@ -63,17 +67,20 @@ class Ui_invoiceWindow(QMainWindow):
         spacerItem5 = QSpacerItem(190, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem5)
         self.label_5 = QLabel(self.dataEntryBox)
+
         self.label_5.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">VAT %</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.horizontalLayout_6.addWidget(self.label_5)
         self.vatEdit = QLineEdit(self.dataEntryBox)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.vatEdit.sizePolicy().hasHeightForWidth())
+
         self.vatEdit.setSizePolicy(sizePolicy)
         self.vatEdit.setMaximumSize(QSize(50, 16777215))
 
@@ -83,6 +90,7 @@ class Ui_invoiceWindow(QMainWindow):
                                                     QApplication.UnicodeUTF8))
 
         self.horizontalLayout_6.addWidget(self.vatEdit)
+
         spacerItem6 = QSpacerItem(245, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem6)
         self.verticalLayout_5.addLayout(self.horizontalLayout_6)
@@ -90,19 +98,23 @@ class Ui_invoiceWindow(QMainWindow):
         spacerItem7 = QSpacerItem(190, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem7)
         self.numberLabel = QLabel(self.dataEntryBox)
+
         self.numberLabel.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Number</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.horizontalLayout_8.addWidget(self.numberLabel)
         self.numberEdit = QLineEdit(self.dataEntryBox)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.numberEdit.sizePolicy().hasHeightForWidth())
+
         self.numberEdit.setSizePolicy(sizePolicy)
         self.numberEdit.setMaximumSize(QSize(50, 16777215))
+
         self.horizontalLayout_8.addWidget(self.numberEdit)
         spacerItem8 = QSpacerItem(245, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem8)
@@ -114,10 +126,12 @@ class Ui_invoiceWindow(QMainWindow):
         self.line.setFrameShadow(QFrame.Sunken)
         self.verticalLayout_5.addWidget(self.line)
         self.checkBox = QCheckBox(self.dataEntryBox)
-        self.checkBox.setText(QApplication.translate("invoiceWindow", "Show unit options", None, QApplication.UnicodeUTF8))
+        self.checkBox.setText(QApplication.translate("invoiceWindow",
+                                                     "Show unit options",
+                                                     None,
+                                                     QApplication.UnicodeUTF8))
         self.verticalLayout_5.addWidget(self.checkBox)
 
-        #self.unitFrame = Ui_unitFrame(self.dataEntryBox)
         self.unitFrame = QFrame(self.dataEntryBox)
         self.unitFrame.resize(281, 129)
         self.unitFrame.setFrameShape(QFrame.StyledPanel)
@@ -178,8 +192,17 @@ class Ui_invoiceWindow(QMainWindow):
         self.unitFrame.priceTonnesRadio.setAutoExclusive(True)
         self.unitFrame.verticalLayout_2.addWidget(self.unitFrame.priceTonnesRadio)
         self.unitFrame.horizontalLayout.addWidget(self.unitFrame.priceUnitBox)
-        self.unitFrame.setToolTip(QApplication.translate("invoiceWindow", "Extended table widget.", None, QApplication.UnicodeUTF8))
-        self.unitFrame.setWhatsThis(QApplication.translate("invoiceWindow", "Extended table widget.", None, QApplication.UnicodeUTF8))
+
+        self.unitFrame.setToolTip(QApplication.translate("invoiceWindow",
+                                                         "Extended table widget.",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+
+        self.unitFrame.setWhatsThis(QApplication.translate("invoiceWindow",
+                                                           "Extended table widget.",
+                                                           None,
+                                                           QApplication.UnicodeUTF8))
+
         self.verticalLayout_5.addWidget(self.unitFrame)
 
         self.horizontalLayout = QHBoxLayout()
@@ -187,11 +210,13 @@ class Ui_invoiceWindow(QMainWindow):
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setContentsMargins(-1, -1, 0, -1)
         self.label = QLabel(self.dataEntryBox)
+
         self.label.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Description</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.label.setAlignment(Qt.AlignCenter)
         self.verticalLayout.addWidget(self.label)
         self.descriptionEdit = QLineEdit(self.dataEntryBox)
@@ -200,11 +225,13 @@ class Ui_invoiceWindow(QMainWindow):
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.verticalLayout_4 = QVBoxLayout()
         self.weightLabel = QLabel(self.dataEntryBox)
+
         self.weightLabel.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Weight (Tonnes)</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.weightLabel.setAlignment(Qt.AlignCenter)
         self.verticalLayout_4.addWidget(self.weightLabel)
         self.weightEdit = QLineEdit(self.dataEntryBox)
@@ -213,11 +240,13 @@ class Ui_invoiceWindow(QMainWindow):
         self.horizontalLayout.addLayout(self.verticalLayout_4)
         self.verticalLayout_3 = QVBoxLayout()
         self.pricePerUnitLabel = QLabel(self.dataEntryBox)
+
         self.pricePerUnitLabel.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Price (Tonnes)</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.pricePerUnitLabel.setAlignment(Qt.AlignCenter)
         self.verticalLayout_3.addWidget(self.pricePerUnitLabel)
         self.pricePerUnitEdit = QLineEdit(self.dataEntryBox)
@@ -226,11 +255,13 @@ class Ui_invoiceWindow(QMainWindow):
         self.horizontalLayout.addLayout(self.verticalLayout_3)
         self.verticalLayout_2 = QVBoxLayout()
         self.label_4 = QLabel(self.dataEntryBox)
+
         self.label_4.setText(QApplication.translate("invoiceWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Value</span></p></body></html>", None, QApplication.UnicodeUTF8))
+
         self.label_4.setAlignment(Qt.AlignCenter)
         self.verticalLayout_2.addWidget(self.label_4)
         self.valueEdit = QLineEdit(self.dataEntryBox)
@@ -243,8 +274,17 @@ class Ui_invoiceWindow(QMainWindow):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.addButton.sizePolicy().hasHeightForWidth())
         self.addButton.setSizePolicy(sizePolicy)
-        self.addButton.setText(QApplication.translate("invoiceWindow", "Add", None, QApplication.UnicodeUTF8))
-        self.addButton.setShortcut(QApplication.translate("invoiceWindow", "Return", None, QApplication.UnicodeUTF8))
+
+        self.addButton.setText(QApplication.translate("invoiceWindow",
+                                                      "Add",
+                                                      None,
+                                                      QApplication.UnicodeUTF8))
+
+        self.addButton.setShortcut(QApplication.translate("invoiceWindow",
+                                                          "Return",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+
         self.horizontalLayout.addWidget(self.addButton)
         self.verticalLayout_5.addLayout(self.horizontalLayout)
         self.horizontalLayout_3.addWidget(self.dataEntryBox)
@@ -260,8 +300,17 @@ class Ui_invoiceWindow(QMainWindow):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.invoiceTable.sizePolicy().hasHeightForWidth())
         self.invoiceTable.setSizePolicy(sizePolicy)
-        self.invoiceTable.setToolTip(QApplication.translate("invoiceWindow", "Current payloads.", None, QApplication.UnicodeUTF8))
-        self.invoiceTable.setWhatsThis(QApplication.translate("invoiceWindow", "PayloadTable widget.", None, QApplication.UnicodeUTF8))
+
+        self.invoiceTable.setToolTip(QApplication.translate("invoiceWindow",
+                                                            "Current payloads.",
+                                                            None,
+                                                            QApplication.UnicodeUTF8))
+
+        self.invoiceTable.setWhatsThis(QApplication.translate("invoiceWindow",
+                                                              "PayloadTable widget.",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))
+
         self.invoiceTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.invoiceTable.setAlternatingRowColors(True)
         self.invoiceTable.setShowGrid(False)
@@ -273,6 +322,7 @@ class Ui_invoiceWindow(QMainWindow):
         self.invoiceTable.horizontalHeader().setSortIndicatorShown(False)
         self.invoiceTable.horizontalHeader().setStretchLastSection(True)
         self.horizontalLayout_4.addWidget(self.invoiceTable)
+
         spacerItem12 = QSpacerItem(78, 20, QSizePolicy.Maximum, QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem12)
         self.verticalLayout_6.addLayout(self.horizontalLayout_4)
@@ -285,35 +335,85 @@ class Ui_invoiceWindow(QMainWindow):
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.reviewButton.sizePolicy().hasHeightForWidth())
+
         self.reviewButton.setSizePolicy(sizePolicy)
         self.reviewButton.setMaximumSize(QSize(168, 41))
-        self.reviewButton.setText(QApplication.translate("invoiceWindow", "Review invoice", None, QApplication.UnicodeUTF8))
+        self.reviewButton.setText(QApplication.translate("invoiceWindow",
+                                                         "Review invoice",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+
         self.horizontalLayout_5.addWidget(self.reviewButton)
         self.verticalLayout_7.addLayout(self.horizontalLayout_5)
         self.setCentralWidget(self.centralwidget)
+
         self.menubar = QMenuBar(self)
         self.menubar.setGeometry(QRect(0, 0, 840, 23))
         self.menuFile = QMenu(self.menubar)
-        self.menuFile.setTitle(QApplication.translate("invoiceWindow", "&File", None, QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QApplication.translate("invoiceWindow",
+                                                      "&File",
+                                                      None,
+                                                      QApplication.UnicodeUTF8))
+
         self.menuHelp = QMenu(self.menubar)
-        self.menuHelp.setTitle(QApplication.translate("invoiceWindow", "&Help", None, QApplication.UnicodeUTF8))
+        self.menuHelp.setTitle(QApplication.translate("invoiceWindow",
+                                                      "&Help",
+                                                      None,
+                                                      QApplication.UnicodeUTF8))
+
         self.menuOptions = QMenu(self.menubar)
-        self.menuOptions.setTitle(QApplication.translate("invoiceWindow", "Options", None, QApplication.UnicodeUTF8))
+        self.menuOptions.setTitle(QApplication.translate("invoiceWindow",
+                                                         "Options",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+
         self.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(self)
         self.setStatusBar(self.statusbar)
         self.actionQuit = QAction(self)
-        self.actionQuit.setText(QApplication.translate("invoiceWindow", "&Quit", None, QApplication.UnicodeUTF8))
-        self.actionQuit.setShortcut(QApplication.translate("invoiceWindow", "Ctrl+Q", None, QApplication.UnicodeUTF8))
+        self.actionQuit.setText(QApplication.translate("invoiceWindow",
+                                                       "&Quit",
+                                                       None,
+                                                       QApplication.UnicodeUTF8))
+
+        self.actionQuit.setShortcut(QApplication.translate("invoiceWindow",
+                                                           "Ctrl+Q",
+                                                           None,
+                                                           QApplication.UnicodeUTF8))
+
         self.actionAboutInvoice = QAction(self)
-        self.actionAboutInvoice.setText(QApplication.translate("invoiceWindow", "About &Invoice", None, QApplication.UnicodeUTF8))
-        self.actionAboutInvoice.setShortcut(QApplication.translate("invoiceWindow", "Ctrl+I", None, QApplication.UnicodeUTF8))
+        self.actionAboutInvoice.setText(QApplication.translate("invoiceWindow",
+                                                               "About &Invoice",
+                                                               None,
+                                                               QApplication.UnicodeUTF8))
+
+        self.actionAboutInvoice.setShortcut(QApplication.translate("invoiceWindow",
+                                                                   "Ctrl+I",
+                                                                   None,
+                                                                   QApplication.UnicodeUTF8))
+
         self.actionPrintPreview = QAction(self)
-        self.actionPrintPreview.setText(QApplication.translate("invoiceWindow", "&Print Preview", None, QApplication.UnicodeUTF8))
-        self.actionPrintPreview.setShortcut(QApplication.translate("invoiceWindow", "Ctrl+P", None, QApplication.UnicodeUTF8))
+        self.actionPrintPreview.setText(QApplication.translate("invoiceWindow",
+                                                               "&Print Preview",
+                                                               None,
+                                                               QApplication.UnicodeUTF8))
+
+        self.actionPrintPreview.setShortcut(QApplication.translate("invoiceWindow",
+                                                                   "Ctrl+P",
+                                                                   None,
+                                                                   QApplication.UnicodeUTF8))
+
         self.actionToggleAutoCalc = QAction(self)
-        self.actionToggleAutoCalc.setText(QApplication.translate("invoiceWindow", "&Toggle Auto Calc", None, QApplication.UnicodeUTF8))
-        self.actionToggleAutoCalc.setShortcut(QApplication.translate("invoiceWindow", "Ctrl+T", None, QApplication.UnicodeUTF8))
+        self.actionToggleAutoCalc.setText(QApplication.translate("invoiceWindow",
+                                                                 "&Toggle Auto Calc",
+                                                                 None,
+                                                                 QApplication.UnicodeUTF8))
+
+        self.actionToggleAutoCalc.setShortcut(QApplication.translate("invoiceWindow",
+                                                                     "Ctrl+T",
+                                                                     None,
+                                                                     QApplication.UnicodeUTF8))
+
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
         self.menuHelp.addAction(self.actionAboutInvoice)
@@ -323,11 +423,9 @@ class Ui_invoiceWindow(QMainWindow):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         QObject.connect(self.checkBox, SIGNAL("toggled(bool)"), self.unitFrame.setVisible)
-        QMetaObject.connectSlotsByName(self)
         self.setTabOrder(self.addButton, self.invoiceTable)
         self.setTabOrder(self.invoiceTable, self.reviewButton)
         self.setTabOrder(self.reviewButton, self.typeCombobox)
         self.setTabOrder(self.typeCombobox, self.customerCombobox)
-
 
 from view.invoiceTable import InvoiceTable
