@@ -106,6 +106,8 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
 
         self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
+        
+        self.vatEdit.setText(self.getVatRateFromFile())
 
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -260,6 +262,12 @@ class InvoiceWindow(Ui_invoiceWindow):
             return cp.get("invoice_numbers", "purchase")
         else:
             return cp.get("invoice_numbers", "sales")
+        
+    def getVatRateFromFile(self):
+        cp = ConfigParser()
+        cp.read("settings.cfg")
+
+        return cp.get("vat", "rate")
 
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
