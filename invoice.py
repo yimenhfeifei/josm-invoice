@@ -11,7 +11,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
 
-    from gui import Ui_invoiceWindow
+    from view.gui import Ui_invoiceWindow
     from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
     from shared_modules.state import State
