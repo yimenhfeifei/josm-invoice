@@ -433,25 +433,6 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.returnFocus()
 
-    def paintLetterHead(self, painter, pageRect):
-        for num, (line, font) in enumerate(self.letterHead):
-                painter.setFont(font)
-                if num == 3:
-                    self.x = 0
-                    space = (pageRect.width() - painter.fontMetrics().width(line))
-                    space /= 3
-                    for pair in list(zip(line.split()[::2], line.split()[1::2])):
-                        painter.drawText(self.x, self.y, pair[0] + " " + pair[1])
-                        self.x += (painter.fontMetrics().width(pair[0] + pair[1]) + space)
-
-                    self.y += painter.fontMetrics().height()
-                else:
-                    self.x = (pageRect.width() - painter.fontMetrics().width(line)) / 2
-                    painter.drawText(self.x, self.y, line)
-                    self.y += painter.fontMetrics().height()
-
-        return (self.x, self.y)
-
     def paintPayloadHeaders(self, painter, pageRect):
         length = 0
         painter.setFont(self.fonts["payloadHeadersFont"])
