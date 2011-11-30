@@ -15,11 +15,12 @@ try:
     from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
     from shared_modules.state import State
+    from shared_modules.letterhead import LetterHead
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.93"
+__VERSION__ = "0.94"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -602,7 +603,8 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.paintPageNumber(painter, pageRect, pageNumber)
 
-        self.paintLetterHead(painter, pageRect)
+        letterHead = LetterHead(painter, pageRect)
+        self.x, self.y = letterHead.paint(self.x, self.y)
 
         self.paintVerticalSpace(40)
 
