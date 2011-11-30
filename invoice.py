@@ -56,29 +56,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                                                   QFont.Bold),
                       "invoiceTypeFont": QFont("Helvetica", 12,
                                                QFont.Bold),
-                      "companyFont": QFont("Helvetica", 16,
-                                           weight=QFont.Bold),
-                      "merchantFont": QFont("Helvetica", 10,
-                                            weight=QFont.Bold),
-                      "addressFont": QFont("Helvetica", 12,
-                                           weight=QFont.Bold),
-                      "numberLineFont": QFont("Helvetica", 10,
-                                              weight=QFont.Bold),
                       "vatFont": QFont("Helvetica", 10)}
-
-        merchant = "Chosen View, United Road, St Day, Redruth, TR16 5HT"
-        numbers = "WML: 20659 TEL.: (01209)820313 FAX: (01209)822512 WCL: CB/JM3986P2"
-
-        self.letterHead = [("John Orchard and Company",
-                            self.fonts["companyFont"]),
-                           ("Scrap Metal Merchants",
-                            self.fonts["merchantFont"]),
-                           (merchant,
-                            self.fonts["addressFont"]),
-                           (numbers,
-                            self.fonts["numberLineFont"]),
-                           ("VAT Registration number: 1319249 76",
-                            self.fonts["vatFont"])]
 
         self.invoiceLabels = ["Invoice number: ",
                               "Date: ",

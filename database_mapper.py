@@ -17,6 +17,13 @@ base = declarative_base()
 
 class ProgramStrings(base):
     
+    __tablename__ = "program_strings"
+    name = Column(String)
+    text = Column(String)
+    fontName = Column(String)
+    fontSize = Column(Integer)
+    fontFlagz = Column(Integer)
+    
     def __init__(self):
         pass
 
@@ -30,8 +37,10 @@ class PurchaseCustomer(base):
     address = Column(String)
     vatReg = Column(String)
     
-    def __init__(self):
-        pass
+    def __init__(self, name, address, vatReg):
+        self.name = name
+        self.address = address
+        self.vatReg = vatReg
 
 
 class SalesCustomer(base):
@@ -43,5 +52,7 @@ class SalesCustomer(base):
     address = Column(String)
     vatReg = Column(String)    
     
-    def __init__(self):
-        pass
+    def __init__(self, name, address, vatReg):
+        self.name = name
+        self.address = address
+        self.vatReg = vatReg
