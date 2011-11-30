@@ -22,7 +22,7 @@ class ProgramStrings(base):
     text = Column(String)
     fontName = Column(String)
     fontSize = Column(Integer)
-    fontFlagz = Column(Integer)
+    fontFlags = Column(Integer)
     
     def __init__(self):
         pass
