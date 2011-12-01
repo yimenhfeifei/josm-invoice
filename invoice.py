@@ -12,15 +12,15 @@ try:
     from PyQt4.QtGui import *
 
     from view.gui import Ui_invoiceWindow
-    from business_customers import customers
     from shared_modules.regular_expressions import regexObjects
     from shared_modules.state import State
     from shared_modules.letterhead import LetterHead
+    from database_mapper import Database
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.94"
+__VERSION__ = "0.95"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -77,8 +77,10 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
+        
+        self.database = Database("invoice_data.db")
 
-        self.customers = customers["Purchase Invoice"]
+        self.customers = self.database.getPurchaseCustomersDict()
 
         self.populateCustomerBox(self.customers)
 
@@ -211,8 +213,11 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def changeInvoiceType(self, name):
         self.customerCombobox.clear()
-
-        self.customers = customers[name]
+        
+        if name == "Purchase Invoice":
+            self.customers = self.database.getPurchaseCustomersDict()
+        else:
+            self.customers = self.database.getSalesCustomersDict()
 
         self.populateCustomerBox(self.customers)
 

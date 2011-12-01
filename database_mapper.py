@@ -53,6 +53,22 @@ class Database(object):
 
     def persist(self):
         self.session.commit()
+        
+    def getPurchaseCustomersDict(self):
+        records = {}
+        for customer in self.session.query(PurchaseCustomer).all():
+            records[customer.name] = {"address": customer.address,
+                                      "vatReg": customer.vatReg}
+        
+        return records
+    
+    def getSalesCustomersDict(self):
+        records = {}
+        for customer in self.session.query(SalesCustomer).all():
+            records[customer.name] = {"address": customer.address,
+                                      "vatReg": customer.vatReg}
+            
+        return records    
    
 
 class ProgramString(base):
@@ -119,12 +135,3 @@ class SalesCustomer(base):
                                                          self.name,
                                                          self.address,
                                                          self.vatReg)
-
-
-d = Database("testing_db.db")
-#d.addSalesCustomer("Fanny", "Whore House", "69")
-#d.addProgramString("compkany", "John Orchard & Company", "Helvetica", 12, 75)
-#d.persist()
-print(d.session.query(PurchaseCustomer).all())
-print(d.session.query(SalesCustomer).all())
-print(d.session.query(ProgramString).all())
