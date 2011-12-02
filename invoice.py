@@ -335,6 +335,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def addRow(self, *args):
         self.invoiceTable.appendRow()
         row = self.invoiceTable.rowCount() - 1
+        self.invoiceTable.setCurrentCell(row, 0)
 
         for column, value in enumerate(args):
             item = QTableWidgetItem(value)
