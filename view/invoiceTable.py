@@ -31,6 +31,14 @@ class InvoiceTable(ExtendedTableWidget):
         
         getcontext().rounding = ROUND_HALF_UP
         
+        self.setColumnCount(5)
+        
+        self.setHorizontalHeaderLabels(["Description",
+                                        "Weight",
+                                        "Price Per Unit",
+                                        "Value",
+                                        "Delete"])
+        
     def getTotal(self):
         cellValues = [Decimal(self.item(row, self.valueColumn).text()) 
                       for row in range(self.rowCount())]

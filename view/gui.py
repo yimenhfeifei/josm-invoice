@@ -314,7 +314,6 @@ class Ui_invoiceWindow(QMainWindow):
         self.invoiceTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.invoiceTable.setAlternatingRowColors(True)
         self.invoiceTable.setShowGrid(False)
-        self.invoiceTable.setColumnCount(5)
         self.invoiceTable.setRowCount(0)
         self.invoiceTable.horizontalHeader().setDefaultSectionSize(120)
         self.invoiceTable.horizontalHeader().setHighlightSections(False)

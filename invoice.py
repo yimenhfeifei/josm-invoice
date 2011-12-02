@@ -20,7 +20,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.95"
+__VERSION__ = "0.96"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -79,14 +79,10 @@ class InvoiceWindow(Ui_invoiceWindow):
                   (self.screenRect.height() - self.height()) / 2)
         
         self.database = Database("invoice_data.db")
-
-        self.customers = self.database.getPurchaseCustomersDict()
-
-        self.populateCustomerBox(self.customers)
-
+        
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
-
-        self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
+        
+        self.changeInvoiceType(self.typeCombobox.currentText())
         
         self.vatEdit.setText(self.getVatRateFromFile())
 
@@ -96,18 +92,9 @@ class InvoiceWindow(Ui_invoiceWindow):
                            self.valueEdit,
                            self.vatEdit,
                            self.numberEdit]
-
-        self.descriptionText = "Description"
-        self.weightText = "Weight"
-        self.ppuText = "Price Per Unit"
-        self.valueText = "Value"
-        self.deleteText = "Delete"
-
-        self.invoiceTable.setHorizontalHeaderLabels([self.descriptionText,
-                                                     self.weightText,
-                                                     self.ppuText,
-                                                     self.valueText,
-                                                     self.deleteText])
+        
+        self.valueText = self.invoiceTable.getHeaderName(3)
+        self.deleteText = self.invoiceTable.getHeaderName(4)
 
         self.weightGroup = QButtonGroup()
         self.weightGroup.addButton(self.unitFrame.weightKgRadio)
@@ -175,8 +162,6 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.changed()
 
-        self.descriptionEdit.setFocus()
-
         self.statusBar().setStyleSheet("background: #FFECB3")
 
         self.autoCalcLabel = QLabel("Auto Calc:")
@@ -194,11 +179,9 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.autoCalcStateOff.addVariable(self.autoCalcStatus.setText, "Off")
         self.autoCalcStateOff.addVariable(self.valueEdit.setReadOnly, False)
         self.autoCalcStateOff.addVariable(self.pricePerUnitEdit.setValidator,
-                                         regexObjects["qMaterial"])
+                                          regexObjects["qMaterial"])
 
         self.autoCalcStateOff.enable()
-
-        self.changeInvoiceType("Purchase Invoice")
 
         self.updatePriceHeader()
         self.updateWeightHeader()
@@ -434,8 +417,9 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintPayload(self, painter, pageRect, payload):
         painter.setFont(self.fonts["payloadFont"])
-        values = [payload[self.descriptionText], payload[self.weightText],
-                  payload[self.ppuText], payload[self.valueText]]
+
+        values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
+                  for i in range(self.invoiceTable.columnCount() - 1)]
 
         for num, item in enumerate(values):
             pair = self.headerPos[num]
@@ -591,7 +575,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def paintNewPageMessage(self, painter, pageRect, pageNum):
         message = "Continued on page {} -------->".format(pageNum)
 
-        painter.setFont(self.fonts["merchantFont"])
+        painter.setFont(self.fonts["invoiceDetailsFont"])
         mWidth = painter.fontMetrics().width(message)
         self.x = (pageRect.width() - mWidth) / 2
         painter.drawText(self.x, self.y, message)
