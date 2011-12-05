@@ -78,7 +78,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
         
-        self.database = Database("invoice_data.db")
+        self.database = Database("invoice_data.db", "sqlite")
         
         self.populateTypeBox("Purchase Invoice", "Sales Invoice")
         

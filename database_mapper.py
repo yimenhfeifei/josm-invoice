@@ -18,24 +18,14 @@ base = declarative_base()
 
 class Database(object):
     
-    def __init__(self, fileName):
-        self.engine = create_engine("sqlite:///{}".format(fileName),
+    def __init__(self, fileName, driver):
+        self.engine = create_engine("{}:///{}".format(driver, fileName),
                                     echo=False)
         base.metadata.create_all(self.engine)
         self.sessionMaker = sessionmaker(bind=self.engine)
         self.session = self.sessionMaker()
-        self.programStrings = []
         self.purchaseCustomers = []
         self.salesCustomers = []
-        
-    def addProgramString(self, name, text, fontName, fontSize, fontFlags):
-        self.programStrings.append(ProgramString(name,
-                                                 text,
-                                                 fontName,
-                                                 fontSize,
-                                                 fontFlags))
-        
-        self.session.add(self.programStrings[-1])
         
     def addPurchaseCustomer(self, name, address, vatReg):
         self.purchaseCustomers.append(PurchaseCustomer(name,
@@ -68,31 +58,7 @@ class Database(object):
             records[customer.name] = {"address": customer.address,
                                       "vatReg": customer.vatReg}
             
-        return records    
-   
-
-class ProgramString(base):
-    
-    __tablename__ = "program_strings"
-    name = Column(String, primary_key=True)
-    text = Column(String)
-    fontName = Column(String)
-    fontSize = Column(Integer)
-    fontFlags = Column(Integer)
-    
-    def __init__(self, name, text, fontName, fontSize, fontFlags):
-        self.name = name
-        self.text = text
-        self.fontName = fontName
-        self.fontSize = fontSize
-        self.fontFlags = fontFlags
-
-    def __repr__(self):
-        return "<ProgramString ({}, {}, {}, {}, {})>".format(self.name,
-                                                             self.text,
-                                                             self.fontName,
-                                                             self.fontSize,
-                                                             self.fontFlags)
+        return records
 
 
 class PurchaseCustomer(base):
