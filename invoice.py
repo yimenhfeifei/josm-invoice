@@ -16,6 +16,7 @@ try:
     from shared_modules.state import State
     from shared_modules.letterhead import LetterHead
     from database_mapper import Database
+    from view.database_dialog import DatabaseDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -183,6 +184,9 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.autoCalcStateOff.enable()
 
+        self.connect(self.actionDatabaseDialog, SIGNAL("triggered()"),
+                     self.showDatabaseDialog)        
+
         self.updatePriceHeader()
         self.updateWeightHeader()
 
@@ -220,6 +224,10 @@ class InvoiceWindow(Ui_invoiceWindow):
                           + "QT {}\n".format(__QT__)
                           + "PYQT {}\n".format(__PYQT__)
                           + "Copyright John Orchard & Company 2011")
+        
+    def showDatabaseDialog(self):
+        dialog = DatabaseDialog()
+        dialog.exec_()
 
     def getInvoiceNumberFromFile(self, invoiceType):
         cp = ConfigParser()

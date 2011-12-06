@@ -412,11 +412,23 @@ class Ui_invoiceWindow(QMainWindow):
                                                                      "Ctrl+T",
                                                                      None,
                                                                      QApplication.UnicodeUTF8))
+        
+        self.actionDatabaseDialog = QAction(self)
+        self.actionDatabaseDialog.setText(QApplication.translate("Edit Database",
+                                                                 "Edit &Database",
+                                                                 None,
+                                                                 QApplication.UnicodeUTF8))
+        
+        self.actionDatabaseDialog.setShortcut(QApplication.translate("Edit Database",
+                                                                     "Ctrl+D",
+                                                                     None,
+                                                                     QApplication.UnicodeUTF8))        
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
+        self.menuOptions.addAction(self.actionDatabaseDialog)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
