@@ -47,7 +47,8 @@ class Database(object):
     def getPurchaseCustomersDict(self):
         records = {}
         for customer in self.session.query(PurchaseCustomer).all():
-            records[customer.name] = {"address": customer.address,
+            records[customer.name] = {"name": customer.name,
+                                      "address": customer.address,
                                       "vatReg": customer.vatReg}
         
         return records
@@ -55,7 +56,8 @@ class Database(object):
     def getSalesCustomersDict(self):
         records = {}
         for customer in self.session.query(SalesCustomer).all():
-            records[customer.name] = {"address": customer.address,
+            records[customer.name] = {"name": customer.name,
+                                      "address": customer.address,
                                       "vatReg": customer.vatReg}
             
         return records

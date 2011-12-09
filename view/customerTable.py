@@ -18,10 +18,11 @@ class CustomerTable(ExtendedTableWidget):
     def __init__(self, parent=None):
         super(ExtendedTableWidget, self).__init__(parent)
         
-        self.setColumnCount(3)
+        self.dirty = False
+        
+        self.setColumnCount(4)
                 
         self.setHorizontalHeaderLabels(["Name",
                                         "Address",
-                                        "Vat Reg"])
-        
-        self.appendRow()
+                                        "Vat Reg",
+                                        "Delete"])
