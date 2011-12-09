@@ -5,6 +5,8 @@ try:
 
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
+    
+    from shared_modules.extendedCombobox import ExtendedComboBox
 
 except ImportError as err:
     eType, eValue, eTb = sys.exc_info()
@@ -39,7 +41,7 @@ class Ui_invoiceWindow(QMainWindow):
         self.horizontalLayout_7 = QHBoxLayout()
         spacerItem1 = QSpacerItem(238, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem1)
-        self.typeCombobox = QComboBox(self.dataEntryBox)
+        self.typeCombobox = ExtendedComboBox(self.dataEntryBox)
         self.horizontalLayout_7.addWidget(self.typeCombobox)
         spacerItem2 = QSpacerItem(218, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_7.addItem(spacerItem2)
@@ -47,7 +49,7 @@ class Ui_invoiceWindow(QMainWindow):
         self.horizontalLayout_2 = QHBoxLayout()
         spacerItem3 = QSpacerItem(238, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem3)
-        self.customerCombobox = QComboBox(self.dataEntryBox)
+        self.customerCombobox = ExtendedComboBox(self.dataEntryBox)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

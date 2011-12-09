@@ -81,7 +81,8 @@ class InvoiceWindow(Ui_invoiceWindow):
         
         self.database = Database("invoice_data.db", "sqlite")
         
-        self.populateTypeBox("Purchase Invoice", "Sales Invoice")
+        self.typeCombobox.populate(["Purchase Invoice",
+                                    "Sales Invoice"])
         
         self.changeInvoiceType(self.typeCombobox.currentText())
         
@@ -206,7 +207,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         else:
             self.customers = self.database.getSalesCustomersDict()
 
-        self.populateCustomerBox(self.customers)
+        self.customerCombobox.populate(list(self.customers.keys()))
 
         self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
 
@@ -226,7 +227,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                           + "Copyright John Orchard & Company 2011")
         
     def showDatabaseDialog(self):
-        dialog = DatabaseDialog()
+        dialog = DatabaseDialog(self)
         dialog.exec_()
 
     def getInvoiceNumberFromFile(self, invoiceType):
@@ -246,14 +247,6 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
-
-    def populateTypeBox(self, *types):
-        for index, name in enumerate(types):
-            self.typeCombobox.insertItem(index, name)
-
-    def populateCustomerBox(self, customers):
-        for index, name in enumerate(customers.keys()):
-            self.customerCombobox.insertItem(index, name)
 
     def payloadTableClicked(self, row, column):
         if column == self.invoiceTable.getHeaderIndex(self.deleteText):
