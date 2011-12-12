@@ -22,7 +22,7 @@ class DatabaseDialog(QDialog):
     def __init__(self, parent=None):
         super(DatabaseDialog, self).__init__(parent)
         
-        self.resize(600, 700)
+        self.resize(550, 500)
         
         self.table = CustomerTable()
         self.table.setSortingEnabled(True)
@@ -30,7 +30,9 @@ class DatabaseDialog(QDialog):
         self.table.horizontalHeader().setHighlightSections(False)
         self.table.horizontalHeader().setSortIndicatorShown(True)
         self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.verticalHeader().setMinimumSectionSize(45)
+        self.table.horizontalHeader().setDefaultSectionSize(120)
+        self.table.horizontalHeader().setMinimumSectionSize(100)
+        self.table.verticalHeader().setMinimumSectionSize(50)
         
         self.database = Database("invoice_data.db", "sqlite")
         
@@ -55,7 +57,7 @@ class DatabaseDialog(QDialog):
         
         self.populateTable()
         
-        self.table.resizeColumnsToContents()
+        self.table.resizeRowsToContents()
         
         self.connect(self.customerCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.populateTable)
