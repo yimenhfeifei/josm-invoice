@@ -26,11 +26,3 @@ class CustomerTable(ExtendedTableWidget):
                                         "Address",
                                         "Vat Reg",
                                         "Delete"])
-        
-        self.connect(self, SIGNAL("cellClicked(int, int)"),
-                     self.onCellClicked)
-        
-    def onCellClicked(self, row, column):
-        if column == self.getHeaderIndex("Delete"):
-            self.removeRow(row)
-
