@@ -27,10 +27,10 @@ class DatabaseDialog(QDialog):
         self.resize(550, 500)
         
         self.table = CustomerTable()
-        self.table.setSortingEnabled(True)
+        self.table.setSortingEnabled(False)
         self.table.setWordWrap(True)
         self.table.horizontalHeader().setHighlightSections(False)
-        self.table.horizontalHeader().setSortIndicatorShown(True)
+        self.table.horizontalHeader().setSortIndicatorShown(False)
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.horizontalHeader().setDefaultSectionSize(120)
         self.table.horizontalHeader().setMinimumSectionSize(100)
@@ -40,13 +40,10 @@ class DatabaseDialog(QDialog):
         
         self.customerCombobox = ExtendedComboBox(self)
         
-        self.customerTypes = {"Purchase Customers":  self.database.session.query(PurchaseCustomer).all,
-                              "Sales Customers":  self.database.session.query(SalesCustomer).all}
+        self.recordTypes = {"Purchase Customers": PurchaseCustomer,
+                            "Sales Customers": SalesCustomer}
         
-        self.mapping = {"Purchase Customers": PurchaseCustomer,
-                        "Sales Customers": SalesCustomer}
-        
-        self.customerCombobox.populate(list(self.customerTypes.keys()))
+        self.customerCombobox.populate(list(self.recordTypes.keys()))
         
         self.mainLayout = QVBoxLayout()
         
@@ -62,10 +59,6 @@ class DatabaseDialog(QDialog):
         
         self.populateTable()
         
-        self.table.resizeRowsToContents()
-        
-       
-        
         self.connect(self.customerCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.populateTable)
         
@@ -76,19 +69,23 @@ class DatabaseDialog(QDialog):
                      self.onCellChanged)
         
         self.connect(self.table, SIGNAL("cellClicked(int, int)"),
-                     self.onCellClicked)        
+                     self.onCellClicked)
+        
+    def getRowId(self, row):
+        return self.table.item(row, 0).data(Qt.UserRole)
 
     def onCellClicked(self, row, column):
         if column == self.table.getHeaderIndex("Delete"):
-            self.table.removeRow(row)         
+            rowId = self.getRowId(row)
+            self.table.removeRow(row)
        
     def onCellChanged(self, row, column):
-        cId = self.table.item(row, 0).data(Qt.UserRole)
+        cId = self.getRowId(row)
         
         if cId == None:
             return
         
-        cType = self.mapping[self.customerCombobox.currentText()]
+        cType = self.recordTypes[self.customerCombobox.currentText()]
         customer = self.database.session.query(cType).filter_by(id=cId).first()
         
         if column == self.table.getHeaderIndex("Name"):
@@ -99,8 +96,6 @@ class DatabaseDialog(QDialog):
             customer.vatReg = self.table.item(row, column).text()
         
         print(self.database.session.dirty)
-        self.table.setSortingEnabled(True)
-
 
     def promptToSave(self):
         messageBox = QMessageBox()
@@ -110,24 +105,26 @@ class DatabaseDialog(QDialog):
         messageBox.setStandardButtons(QMessageBox.Save | QMessageBox.Discard)
                     
         if messageBox.exec_() == QMessageBox.Save:
-            return True
+            self.database.persist()
         else:
-            return False      
+            for obj in self.database.session.dirty:
+                self.database.session.expire(obj)
+        
+    def reject(self):
+        if self.table.isDirty():
+            self.promptToSave()
+
+        self.accept()
 
     def populateTable(self):
         if self.table.isDirty():
-            if self.promptToSave():
-                print("saving")
-                self.database.persist()
-            else:
-                print("discarding")
-
-        # Sorting is disabled temporarily to avoid row mixups when sorting.
-        self.table.setSortingEnabled(False)       
+            self.promptToSave()
         
         self.table.removeAllRows()
         
-        customers = self.customerTypes[self.customerCombobox.currentText()]()
+        currentType = self.customerCombobox.currentText()
+        
+        customers = self.database.session.query(self.recordTypes[currentType]).all()
         
         for customer in customers:
             self.table.appendRow()
@@ -138,6 +135,6 @@ class DatabaseDialog(QDialog):
             self.table.setItem(row, 2, QTableWidgetItem(customer.vatReg))
                         
             self.table.addDeleteCell(row, 3)
-        
-        self.table.setSortingEnabled(True)       
-        self.table.setClean()     
+
+        self.table.resizeRowsToContents()
+        self.table.setClean()
