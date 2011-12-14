@@ -79,10 +79,12 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
         
-        self.database = Database("invoice_data.db", "sqlite")
-        
         self.typeCombobox.populate(["Purchase Invoice",
                                     "Sales Invoice"])
+        
+        self.database = Database("customers.csv")
+        
+        self.populateCustomerComboBox()
         
         self.changeInvoiceType(self.typeCombobox.currentText())
         
@@ -190,6 +192,11 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.updatePriceHeader()
         self.updateWeightHeader()
+        
+    def populateCustomerComboBox(self):
+        self.customerCombobox.clear()
+        self.customerCombobox.populate([record[0]
+                                        for record in self.database.loadRecords()])
 
     def toggleAutoCalculation(self):
         if self.autoCalcStatus.text() == "On":
@@ -200,15 +207,6 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.changed()
 
     def changeInvoiceType(self, name):
-        self.customerCombobox.clear()
-        
-        if name == "Purchase Invoice":
-            self.customers = self.database.getPurchaseCustomersDict()
-        else:
-            self.customers = self.database.getSalesCustomersDict()
-
-        self.customerCombobox.populate(list(self.customers.keys()))
-
         self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
 
         self.returnFocus()
@@ -229,6 +227,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def showDatabaseDialog(self):
         dialog = DatabaseDialog(self)
         dialog.exec_()
+        self.populateCustomerComboBox()
 
     def getInvoiceNumberFromFile(self, invoiceType):
         cp = ConfigParser()
@@ -496,10 +495,10 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintDetails(self, painter, pageRect, invoiceNumber):
         invoiceDetails = [invoiceNumber,
-                          datetime.now().strftime("%d/%m/%Y"),
-                          self.customerCombobox.currentText(),
-                          self.customers[self.customerCombobox.currentText()]["address"],
-                          self.customers[self.customerCombobox.currentText()]["vatReg"]]
+                          datetime.now().strftime("%d/%m/%Y")]
+        
+        invoiceDetails = invoiceDetails[:2] + self.database.loadRecordByName(self.customerCombobox.currentText())
+        print(invoiceDetails)
 
         lengths = []
         labels = []

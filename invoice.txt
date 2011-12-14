@@ -1,10 +1,9 @@
 Lambda for widget callbacks, so we only update the changed widget.
 Allow inline editing of cells using widgets.
-Database editing dialog.
+Handle print failure.
 Use full width of page for formatting payloads.
 Statusbar messages for validation failures?
 Nicer colour scheme with styles sheets.
-Move font and content strings to database.
 Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
