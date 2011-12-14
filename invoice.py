@@ -21,7 +21,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.96"
+__VERSION__ = "0.97"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
