@@ -355,6 +355,12 @@ class Ui_invoiceWindow(QMainWindow):
                                                       "&File",
                                                       None,
                                                       QApplication.UnicodeUTF8))
+        
+        self.menuEdit = QMenu(self.menubar)
+        self.menuEdit.setTitle(QApplication.translate("invoiceWindow",
+                                                      "&Edit",
+                                                      None,
+                                                      QApplication.UnicodeUTF8))        
 
         self.menuHelp = QMenu(self.menubar)
         self.menuHelp.setTitle(QApplication.translate("invoiceWindow",
@@ -424,14 +430,39 @@ class Ui_invoiceWindow(QMainWindow):
         self.actionDatabaseDialog.setShortcut(QApplication.translate("Edit Database",
                                                                      "Ctrl+D",
                                                                      None,
-                                                                     QApplication.UnicodeUTF8))        
+                                                                     QApplication.UnicodeUTF8))
+        
+        self.actionRevert = QAction(self)
+        self.actionRevert.setText(QApplication.translate("Revert",
+                                                         "&Revert",
+                                                         None,
+                                                         QApplication.UnicodeUTF8))
+            
+        self.actionRevert.setShortcut(QApplication.translate("Revert",
+                                                             "Ctrl+R",
+                                                             None,
+                                                             QApplication.UnicodeUTF8))
+        
+        self.actionClear = QAction(self)
+        self.actionClear.setText(QApplication.translate("Clear Form",
+                                                        "C&lear Form",
+                                                        None,
+                                                        QApplication.UnicodeUTF8))
+                    
+        self.actionClear.setShortcut(QApplication.translate("Clear Form",
+                                                            "Ctrl+L",
+                                                            None,
+                                                            QApplication.UnicodeUTF8))        
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
+        self.menuEdit.addAction(self.actionDatabaseDialog)
+        self.menuEdit.addAction(self.actionRevert)
+        self.menuEdit.addAction(self.actionClear)        
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
-        self.menuOptions.addAction(self.actionDatabaseDialog)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 

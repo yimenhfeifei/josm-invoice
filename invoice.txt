@@ -1,11 +1,10 @@
 Lambda for widget callbacks, so we only update the changed widget.
 Allow inline editing of cells using widgets.
-Handle print failure.
+Look into translation features.
+getcontents remove in future?
 Use full width of page for formatting payloads.
-Statusbar messages for validation failures?
 Nicer colour scheme with styles sheets.
 Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
-File menus.
 Unit tests.

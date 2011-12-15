@@ -21,7 +21,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.97"
+__VERSION__ = "0.98"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -88,7 +88,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         
         self.changeInvoiceType(self.typeCombobox.currentText())
         
-        self.vatEdit.setText(self.getVatRateFromFile())
+        self.setVatRate(self.getVatRateFromFile())
 
         self.validating = [self.descriptionEdit,
                            self.weightEdit,
@@ -188,10 +188,90 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.autoCalcStateOff.enable()
 
         self.connect(self.actionDatabaseDialog, SIGNAL("triggered()"),
-                     self.showDatabaseDialog)        
+                     self.showDatabaseDialog)      
+        
+        self.connect(self.actionRevert, SIGNAL("triggered()"),
+                     self.revert)
+        
+        self.connect(self.actionClear, SIGNAL("triggered()"),
+                     self.onClear)           
 
         self.updatePriceHeader()
         self.updateWeightHeader()
+        
+        self.lastPrintedInvoice = None
+        
+    def onClear(self):
+        messageBox = QMessageBox()
+        messageBox.setIcon(QMessageBox.Question)
+        messageBox.setWindowTitle("Reset Form")
+        messageBox.setText("Do you really want to reset?")
+        messageBox.setStandardButtons(QMessageBox.Ok |
+                                      QMessageBox.Cancel)
+        
+        if messageBox.exec_() == QMessageBox.Ok:
+            self.resetForm()
+        else:
+            return
+        
+    def setVatRate(self, value):
+        self.vatEdit.setText(value)
+        
+    def resetForm(self):
+        self.typeCombobox.setCurrentIndex(0)
+        self.customerCombobox.setCurrentIndex(0)
+        self.setVatRate(self.getVatRateFromFile())
+        self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
+        
+        self.unitFrame.weightKgRadio.setChecked(True)
+        self.unitFrame.priceTonnesRadio.setChecked(True)
+        self.updateWeightHeader()
+        self.updatePriceHeader()
+        self.clearInputWidgets()
+        
+        self.invoiceTable.removeAllRows()
+        
+        self.autoCalcStateOff.enable()
+        
+    def gatherInvoice(self):
+        self.lastPrintedInvoice= {"type": self.typeCombobox.currentText(),
+                                  "customer": self.customerCombobox.currentText(),
+                                  "vatRate": self.vatEdit.text(),
+                                  "number": self.numberEdit.text(),
+                                  "weightHeader": self.weightGroup.checkedButton(),
+                                  "ppuHeader": self.priceGroup.checkedButton(),
+                                  "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
+                                  "autoCalc": self.autoCalcStatus.text()}
+
+    def revert(self):
+        if self.lastPrintedInvoice != None:
+            self.resetForm()
+
+            typeIndex = self.typeCombobox.findText(self.lastPrintedInvoice["type"])
+            self.typeCombobox.setCurrentIndex(typeIndex)
+            
+            customerIndex = self.customerCombobox.findText(self.lastPrintedInvoice["customer"])
+            self.customerCombobox.setCurrentIndex(customerIndex)
+            
+            self.vatEdit.setText(self.lastPrintedInvoice["vatRate"])
+            self.numberEdit.setText(self.lastPrintedInvoice["number"])
+            
+            self.lastPrintedInvoice["weightHeader"].setChecked(True)
+            self.lastPrintedInvoice["ppuHeader"].setChecked(True)
+            self.updateWeightHeader()
+            self.updatePriceHeader()
+            
+            for row in self.lastPrintedInvoice["payloads"]:
+                self.addRow(*row)
+            
+            print(self.lastPrintedInvoice["autoCalc"])
+            if self.lastPrintedInvoice["autoCalc"] == "On":
+                self.autoCalcStateOn.enable()
+            else:
+                self.autoCalcStateOff.enable()
+        else:
+            QMessageBox.information(self, "Cannot revert at this time",
+                                    "There is no previous invoice for this session.")
         
     def closeEvent(self, event):
         messageBox = QMessageBox()
@@ -341,7 +421,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                         pricePerUnit,
                         value)
 
-            self.resetForm()
+            self.clearInputWidgets()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
 
@@ -393,6 +473,8 @@ class InvoiceWindow(Ui_invoiceWindow):
                      self.paintInvoice)
 
         if previewDialog.exec_():
+            
+            self.gatherInvoice()
 
             self.setInvoiceNumber("{:03d}".format(int(self.numberEdit.text()) + 1))
 
@@ -511,7 +593,6 @@ class InvoiceWindow(Ui_invoiceWindow):
                           datetime.now().strftime("%d/%m/%Y")]
         
         invoiceDetails = invoiceDetails[:2] + self.database.loadRecordByName(self.customerCombobox.currentText())
-        print(invoiceDetails)
 
         lengths = []
         labels = []
@@ -656,13 +737,12 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         painter.end()
 
-    def resetForm(self):
-        vat = self.vatEdit.text()
-        number = self.numberEdit.text()
-        for widget in self.validating:
-            widget.clear()
-        self.vatEdit.setText(vat)
-        self.numberEdit.setText(number)
+    def clearInputWidgets(self):
+        self.descriptionEdit.clear()
+        self.weightEdit.clear()
+        self.pricePerUnitEdit.clear()
+        self.valueEdit.clear()
+
         self.returnFocus()
 
 if __name__ == "__main__":
