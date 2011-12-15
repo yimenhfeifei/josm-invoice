@@ -398,6 +398,17 @@ class Ui_invoiceWindow(QMainWindow):
                                                                    "Ctrl+I",
                                                                    None,
                                                                    QApplication.UnicodeUTF8))
+        
+        self.actionAboutQt = QAction(self)
+        self.actionAboutQt.setText(QApplication.translate("invoiceWindow",
+                                                          "About &Qt",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))
+       
+        self.actionAboutQt.setShortcut(QApplication.translate("invoiceWindow",
+                                                              "Ctrl+K",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))        
 
         self.actionPrintPreview = QAction(self)
         self.actionPrintPreview.setText(QApplication.translate("invoiceWindow",
@@ -460,6 +471,7 @@ class Ui_invoiceWindow(QMainWindow):
         self.menuEdit.addAction(self.actionRevert)
         self.menuEdit.addAction(self.actionClear)        
         self.menuHelp.addAction(self.actionAboutInvoice)
+        self.menuHelp.addAction(self.actionAboutQt)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())

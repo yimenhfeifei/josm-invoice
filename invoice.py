@@ -159,7 +159,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                      self.printPreview)
 
         self.connect(self.actionAboutInvoice, SIGNAL("triggered()"),
-                     self.showAbout)
+                     self.showAboutInvoice)
 
         self.connect(self.actionToggleAutoCalc, SIGNAL("triggered()"),
                      self.toggleAutoCalculation)
@@ -188,18 +188,24 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.autoCalcStateOff.enable()
 
         self.connect(self.actionDatabaseDialog, SIGNAL("triggered()"),
-                     self.showDatabaseDialog)      
+                     self.showDatabaseDialog)
         
         self.connect(self.actionRevert, SIGNAL("triggered()"),
                      self.revert)
         
         self.connect(self.actionClear, SIGNAL("triggered()"),
-                     self.onClear)           
+                     self.onClear)
+        
+        self.connect(self.actionAboutQt, SIGNAL("triggered()"),
+                     self.showAboutQt)
 
         self.updatePriceHeader()
         self.updateWeightHeader()
         
         self.lastPrintedInvoice = None
+        
+    def showAboutQt(self):
+        QMessageBox.aboutQt(self, "About Qt")
         
     def onClear(self):
         messageBox = QMessageBox()
@@ -310,12 +316,12 @@ class InvoiceWindow(Ui_invoiceWindow):
     def returnFocus(self):
         self.descriptionEdit.setFocus()
 
-    def showAbout(self):
+    def showAboutInvoice(self):
         QMessageBox.about(self, "About Invoice", "Invoice version {}\n".format(__VERSION__)
                           + "Python {}\n".format(__PYTHON__)
                           + "QT {}\n".format(__QT__)
                           + "PYQT {}\n".format(__PYQT__)
-                          + "Copyright John Orchard & Company 2011")
+                          + "Copyright \N{COPYRIGHT SIGN} John Orchard & Company 2011")
         
     def showDatabaseDialog(self):
         dialog = DatabaseDialog(self)
