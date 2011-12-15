@@ -193,6 +193,19 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.updatePriceHeader()
         self.updateWeightHeader()
         
+    def closeEvent(self, event):
+        messageBox = QMessageBox()
+        messageBox.setIcon(QMessageBox.Question)
+        messageBox.setWindowTitle("Quitting")
+        messageBox.setText("Do you really want to quit?")
+        messageBox.setStandardButtons(QMessageBox.Ok |
+                                      QMessageBox.Cancel)
+        
+        if messageBox.exec_() == QMessageBox.Ok:
+            event.accept()
+        else:
+            event.ignore()
+        
     def populateCustomerComboBox(self):
         self.customerCombobox.clear()
         self.customerCombobox.populate([record[0]

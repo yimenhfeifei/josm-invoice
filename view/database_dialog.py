@@ -8,7 +8,6 @@ try:
 
     from view.customerTable import CustomerTable
     from database_mapper import Database
-    from shared_modules.extendedCombobox import ExtendedComboBox
 
 except ImportError as err:
     eType, eValue, eTb = sys.exc_info()
