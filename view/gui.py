@@ -387,6 +387,8 @@ class Ui_invoiceWindow(QMainWindow):
                                                            "Ctrl+Q",
                                                            None,
                                                            QApplication.UnicodeUTF8))
+        
+        self.actionQuit.setStatusTip("Quits the program.")
 
         self.actionAboutInvoice = QAction(self)
         self.actionAboutInvoice.setText(QApplication.translate("invoiceWindow",
@@ -399,6 +401,8 @@ class Ui_invoiceWindow(QMainWindow):
                                                                    None,
                                                                    QApplication.UnicodeUTF8))
         
+        self.actionAboutInvoice.setStatusTip("Shows a dialog which displays program information.")
+        
         self.actionAboutQt = QAction(self)
         self.actionAboutQt.setText(QApplication.translate("invoiceWindow",
                                                           "About &Qt",
@@ -408,7 +412,9 @@ class Ui_invoiceWindow(QMainWindow):
         self.actionAboutQt.setShortcut(QApplication.translate("invoiceWindow",
                                                               "Ctrl+K",
                                                               None,
-                                                              QApplication.UnicodeUTF8))        
+                                                              QApplication.UnicodeUTF8))
+        
+        self.actionAboutQt.setStatusTip("Shows a dialog which displays information about Qt.")
 
         self.actionPrintPreview = QAction(self)
         self.actionPrintPreview.setText(QApplication.translate("invoiceWindow",
@@ -420,6 +426,8 @@ class Ui_invoiceWindow(QMainWindow):
                                                                    "Ctrl+P",
                                                                    None,
                                                                    QApplication.UnicodeUTF8))
+        
+        self.actionPrintPreview.setStatusTip("Allows printing and previewing of final output.")
 
         self.actionToggleAutoCalc = QAction(self)
         self.actionToggleAutoCalc.setText(QApplication.translate("invoiceWindow",
@@ -432,6 +440,8 @@ class Ui_invoiceWindow(QMainWindow):
                                                                      None,
                                                                      QApplication.UnicodeUTF8))
         
+        self.actionToggleAutoCalc.setStatusTip("Toggles whether or not payload values are automatically calculated.")
+        
         self.actionDatabaseDialog = QAction(self)
         self.actionDatabaseDialog.setText(QApplication.translate("Edit Database",
                                                                  "Edit &Database",
@@ -443,33 +453,39 @@ class Ui_invoiceWindow(QMainWindow):
                                                                      None,
                                                                      QApplication.UnicodeUTF8))
         
+        self.actionDatabaseDialog.setStatusTip("Allows editing of customer information.")
+        
         self.actionRevert = QAction(self)
         self.actionRevert.setText(QApplication.translate("Revert",
-                                                         "&Revert",
+                                                         "R&evert",
                                                          None,
                                                          QApplication.UnicodeUTF8))
             
         self.actionRevert.setShortcut(QApplication.translate("Revert",
-                                                             "Ctrl+R",
+                                                             "Ctrl+E",
                                                              None,
                                                              QApplication.UnicodeUTF8))
         
-        self.actionClear = QAction(self)
-        self.actionClear.setText(QApplication.translate("Clear Form",
-                                                        "C&lear Form",
-                                                        None,
-                                                        QApplication.UnicodeUTF8))
-                    
-        self.actionClear.setShortcut(QApplication.translate("Clear Form",
-                                                            "Ctrl+L",
+        self.actionRevert.setStatusTip("Reverts the form to the last invoice that was printed in this session.")
+        
+        self.actionResetForm = QAction(self)
+        self.actionResetForm.setText(QApplication.translate("Reset Form",
+                                                            "&Reset Form",
                                                             None,
-                                                            QApplication.UnicodeUTF8))        
+                                                            QApplication.UnicodeUTF8))
+                    
+        self.actionResetForm.setShortcut(QApplication.translate("Reset Form",
+                                                                "Ctrl+R",
+                                                                None,
+                                                                QApplication.UnicodeUTF8))
+        
+        self.actionResetForm.setStatusTip("Resets the program to its default state.")
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionDatabaseDialog)
         self.menuEdit.addAction(self.actionRevert)
-        self.menuEdit.addAction(self.actionClear)        
+        self.menuEdit.addAction(self.actionResetForm)        
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuHelp.addAction(self.actionAboutQt)
         self.menuOptions.addAction(self.actionToggleAutoCalc)

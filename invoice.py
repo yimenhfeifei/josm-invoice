@@ -193,7 +193,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.connect(self.actionRevert, SIGNAL("triggered()"),
                      self.revert)
         
-        self.connect(self.actionClear, SIGNAL("triggered()"),
+        self.connect(self.actionResetForm, SIGNAL("triggered()"),
                      self.onClear)
         
         self.connect(self.actionAboutQt, SIGNAL("triggered()"),

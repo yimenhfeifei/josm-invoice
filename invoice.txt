@@ -1,5 +1,6 @@
 Lambda for widget callbacks, so we only update the changed widget.
 Allow inline editing of cells using widgets.
+Fix print preview zoom.
 Look into translation features.
 getcontents remove in future?
 Use full width of page for formatting payloads.
