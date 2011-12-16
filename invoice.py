@@ -21,7 +21,7 @@ except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.98"
+__VERSION__ = "0.985"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -78,16 +78,16 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.move((self.screenRect.width() - self.width()) / 2,
                   (self.screenRect.height() - self.height()) / 2)
-        
+
         self.typeCombobox.populate(["Purchase Invoice",
                                     "Sales Invoice"])
-        
+
         self.database = Database("customers.csv")
-        
+
         self.populateCustomerComboBox()
-        
+
         self.changeInvoiceType(self.typeCombobox.currentText())
-        
+
         self.setVatRate(self.getVatRateFromFile())
 
         self.validating = [self.descriptionEdit,
@@ -96,7 +96,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                            self.valueEdit,
                            self.vatEdit,
                            self.numberEdit]
-        
+
         self.valueText = self.invoiceTable.getHeaderName(3)
         self.deleteText = self.invoiceTable.getHeaderName(4)
 
@@ -134,7 +134,8 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.connect(self.typeCombobox, SIGNAL("currentIndexChanged(QString)"),
                      self.changeInvoiceType)
 
-        self.connect(self.customerCombobox, SIGNAL("currentIndexChanged(QString)"),
+        self.connect(self.customerCombobox,
+                     SIGNAL("currentIndexChanged(QString)"),
                      self.returnFocus)
 
         self.connect(self.addButton, SIGNAL("clicked()"),
@@ -189,13 +190,13 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.connect(self.actionDatabaseDialog, SIGNAL("triggered()"),
                      self.showDatabaseDialog)
-        
+
         self.connect(self.actionRevert, SIGNAL("triggered()"),
                      self.revert)
-        
+
         self.connect(self.actionResetForm, SIGNAL("triggered()"),
-                     self.onClear)
-        
+                     self.onResetForm)
+
         self.connect(self.actionAboutQt, SIGNAL("triggered()"),
                      self.showAboutQt)
 
@@ -204,229 +205,10 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.updatePriceHeader()
         self.updateWeightHeader()
-        
+
         self.lastPrintedInvoice = None
-        
+
         self.settingsFile = "settings.cfg"
-        
-    def showAboutQt(self):
-        QMessageBox.aboutQt(self, "About Qt")
-        
-    def saveVat(self):
-        cp = ConfigParser()
-        cp.read(self.settingsFile)
-        cp.set("vat", "rate",
-               self.vatEdit.text())
-
-        with open(self.settingsFile, "w") as file:
-                cp.write(file)      
-            
-        self.statusBar().showMessage("VAT rate successfully saved to file.")
-        
-    def onClear(self):
-        messageBox = QMessageBox()
-        messageBox.setIcon(QMessageBox.Question)
-        messageBox.setWindowTitle("Reset Form")
-        messageBox.setText("Do you really want to reset?")
-        messageBox.setStandardButtons(QMessageBox.Ok |
-                                      QMessageBox.Cancel)
-        
-        if messageBox.exec_() == QMessageBox.Ok:
-            self.resetForm()
-        else:
-            return
-        
-    def setVatRate(self, value):
-        self.vatEdit.setText(value)
-        
-    def resetForm(self):
-        self.typeCombobox.setCurrentIndex(0)
-        self.customerCombobox.setCurrentIndex(0)
-        self.setVatRate(self.getVatRateFromFile())
-        self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
-        
-        self.unitFrame.weightKgRadio.setChecked(True)
-        self.unitFrame.priceTonnesRadio.setChecked(True)
-        self.updateWeightHeader()
-        self.updatePriceHeader()
-        self.clearInputWidgets()
-        
-        self.invoiceTable.removeAllRows()
-        
-        self.autoCalcStateOff.enable()
-        
-    def gatherInvoice(self):
-        self.lastPrintedInvoice= {"type": self.typeCombobox.currentText(),
-                                  "customer": self.customerCombobox.currentText(),
-                                  "vatRate": self.vatEdit.text(),
-                                  "number": self.numberEdit.text(),
-                                  "weightHeader": self.weightGroup.checkedButton(),
-                                  "ppuHeader": self.priceGroup.checkedButton(),
-                                  "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
-                                  "autoCalc": self.autoCalcStatus.text()}
-
-    def revert(self):
-        if self.lastPrintedInvoice != None:
-            self.resetForm()
-
-            typeIndex = self.typeCombobox.findText(self.lastPrintedInvoice["type"])
-            self.typeCombobox.setCurrentIndex(typeIndex)
-            
-            customerIndex = self.customerCombobox.findText(self.lastPrintedInvoice["customer"])
-            self.customerCombobox.setCurrentIndex(customerIndex)
-            
-            self.vatEdit.setText(self.lastPrintedInvoice["vatRate"])
-            self.numberEdit.setText(self.lastPrintedInvoice["number"])
-            
-            self.lastPrintedInvoice["weightHeader"].setChecked(True)
-            self.lastPrintedInvoice["ppuHeader"].setChecked(True)
-            self.updateWeightHeader()
-            self.updatePriceHeader()
-            
-            for row in self.lastPrintedInvoice["payloads"]:
-                self.addRow(*row)
-            
-            print(self.lastPrintedInvoice["autoCalc"])
-            if self.lastPrintedInvoice["autoCalc"] == "On":
-                self.autoCalcStateOn.enable()
-            else:
-                self.autoCalcStateOff.enable()
-        else:
-            QMessageBox.information(self, "Cannot revert at this time",
-                                    "There is no previous invoice for this session.")
-        
-    def closeEvent(self, event):
-        messageBox = QMessageBox()
-        messageBox.setIcon(QMessageBox.Question)
-        messageBox.setWindowTitle("Quitting")
-        messageBox.setText("Do you really want to quit?")
-        messageBox.setStandardButtons(QMessageBox.Ok |
-                                      QMessageBox.Cancel)
-        
-        if messageBox.exec_() == QMessageBox.Ok:
-            event.accept()
-        else:
-            event.ignore()
-        
-    def populateCustomerComboBox(self):
-        self.customerCombobox.clear()
-        self.customerCombobox.populate([record[0]
-                                        for record in self.database.loadRecords()])
-
-    def toggleAutoCalculation(self):
-        if self.autoCalcStatus.text() == "On":
-            self.autoCalcStateOff.enable()
-        elif self.autoCalcStatus.text() == "Off":
-            self.autoCalcStateOn.enable()
-
-        self.changed()
-
-    def changeInvoiceType(self, name):
-        self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
-
-        self.returnFocus()
-
-    def setInvoiceNumber(self, value):
-        self.numberEdit.setText(value)
-
-    def returnFocus(self):
-        self.descriptionEdit.setFocus()
-
-    def showAboutInvoice(self):
-        QMessageBox.about(self, "About Invoice", "Invoice version {}\n".format(__VERSION__)
-                          + "Python {}\n".format(__PYTHON__)
-                          + "QT {}\n".format(__QT__)
-                          + "PYQT {}\n".format(__PYQT__)
-                          + "Copyright \N{COPYRIGHT SIGN} John Orchard & Company 2011")
-        
-    def showDatabaseDialog(self):
-        dialog = DatabaseDialog(self)
-        dialog.exec_()
-        self.populateCustomerComboBox()
-
-    def getInvoiceNumberFromFile(self, invoiceType):
-        cp = ConfigParser()
-        cp.read("settings.cfg")
-
-        if invoiceType == "Purchase Invoice":
-            return cp.get("invoice_numbers", "purchase")
-        else:
-            return cp.get("invoice_numbers", "sales")
-        
-    def getVatRateFromFile(self):
-        cp = ConfigParser()
-        cp.read("settings.cfg")
-
-        return cp.get("vat", "rate")
-
-    def getInvoiceVatRate(self):
-        return self.vatEdit.text()
-
-    def payloadTableClicked(self, row, column):
-        if column == self.invoiceTable.getHeaderIndex(self.deleteText):
-            self.invoiceTable.selectRow(row)
-            self.invoiceTable.removeRow(row)
-
-    def changeRichText(self, label, string):
-        return re.sub(regexObjects["spanTagContents"],
-                      string,
-                      label.text())
-
-    def updatePriceHeader(self):
-        newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
-
-        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
-
-        self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
-
-    def updateWeightHeader(self):
-        newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
-
-        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
-
-        self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
-
-    def changed(self):
-        weightStatus = self.weightEdit.validator().validate(self.weightEdit.text(), 0)
-        ppuStatus = self.pricePerUnitEdit.validator().validate(self.pricePerUnitEdit.text(), 0)
-
-        if weightStatus[0] == 2 and ppuStatus[0] == 2:
-            if self.autoCalcStatus.text() == "On":
-                self.calculatePayloadValue()
-            else:
-                pass
-        else:
-            self.valueEdit.clear()
-
-    def calculatePayloadValue(self):
-        weight = Decimal(self.weightEdit.text())
-        pricePerUnit = Decimal(self.pricePerUnitEdit.text())
-
-        weightUnit = self.weightGroup.checkedButton().text()
-        priceUnit = self.priceGroup.checkedButton().text()
-
-        if weightUnit == self.kgString and priceUnit == self.kgString:
-            pass
-        else:
-            weight = self.unitConverter[weightUnit](weight, "weight")
-            pricePerUnit = self.unitConverter[priceUnit](pricePerUnit, "price")
-
-        self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
-
-    def convertTonnesToKg(self, value, valueType):
-        if valueType == "weight":
-            return value * Decimal(1000)
-        else:
-            return value / Decimal(1000)
-
-    def noop(self, value, valueType):
-        return value
-
-    def allValid(self):
-        for widget in self.validating:
-            if not widget.validator().validate(widget.text(), 0)[0] == 2:
-                return False
-        return True
 
     def addPayload(self):
         if self.allValid():
@@ -463,19 +245,121 @@ class InvoiceWindow(Ui_invoiceWindow):
                                         self.invoiceTable.getHeaderIndex(self.deleteText),
                                         text=self.deleteText)
 
-    def getPayloadTotal(self):
-        values = []
-        for row in range(self.invoiceTable.rowCount()):
-            value = self.invoiceTable.item(row, self.invoiceTable.getHeaderIndex(self.valueText)).text().replace(",", "")
-            values.append(Decimal(value))
+    def allValid(self):
+        for widget in self.validating:
+            if not widget.validator().validate(widget.text(), 0)[0] == 2:
+                return False
+        return True
 
-        return sum(values)
+    def calculatePayloadSpace(self, painter, pageRect):
+        painter.setFont(self.fonts["totalsLabelFont"])
+        totalsHeight = painter.fontMetrics().height() * len(self.totalLabels)
 
-    def getVatTotal(self, amount):
-        return amount * (Decimal(self.getInvoiceVatRate()) / 100)
+        painter.setFont(self.fonts["footerFont"])
+        footerHeight = painter.fontMetrics().height() * 2
+
+        painter.setFont(self.fonts["payloadFont"])
+        spaceHeight = painter.fontMetrics().height() * 5
+
+        bottomHeight = totalsHeight + footerHeight + spaceHeight
+
+        usedSpace = self.y + bottomHeight
+
+        return pageRect.height() - usedSpace
+
+    def calculatePayloadValue(self):
+        weight = Decimal(self.weightEdit.text())
+        pricePerUnit = Decimal(self.pricePerUnitEdit.text())
+
+        weightUnit = self.weightGroup.checkedButton().text()
+        priceUnit = self.priceGroup.checkedButton().text()
+
+        if weightUnit == self.kgString and priceUnit == self.kgString:
+            pass
+        else:
+            weight = self.unitConverter[weightUnit](weight, "weight")
+            pricePerUnit = self.unitConverter[priceUnit](pricePerUnit, "price")
+
+        self.valueEdit.setText("{:.2f}".format(weight * pricePerUnit))
+
+    def changed(self):
+        weightStatus = self.weightEdit.validator().validate(self.weightEdit.text(), 0)
+        ppuStatus = self.pricePerUnitEdit.validator().validate(self.pricePerUnitEdit.text(), 0)
+
+        if weightStatus[0] == 2 and ppuStatus[0] == 2:
+            if self.autoCalcStatus.text() == "On":
+                self.calculatePayloadValue()
+            else:
+                pass
+        else:
+            self.valueEdit.clear()
+
+    def changeInvoiceType(self, name):
+        self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
+
+        self.returnFocus()
+
+    def changeRichText(self, label, string):
+        return re.sub(regexObjects["spanTagContents"],
+                      string,
+                      label.text())
+
+    def clearInputWidgets(self):
+        self.descriptionEdit.clear()
+        self.weightEdit.clear()
+        self.pricePerUnitEdit.clear()
+        self.valueEdit.clear()
+
+        self.returnFocus()
+
+    def closeEvent(self, event):
+        messageBox = self.createMessageBox("Quitting",
+                                           "Do you really want to quit?")
+
+        if messageBox.exec_() == QMessageBox.Ok:
+            event.accept()
+        else:
+            event.ignore()
+
+    def convertTonnesToKg(self, value, valueType):
+        if valueType == "weight":
+            return value * Decimal(1000)
+        else:
+            return value / Decimal(1000)
+
+    def createMessageBox(self, title, text):
+        messageBox = QMessageBox(self)
+        messageBox.setIcon(QMessageBox.Question)
+        messageBox.setWindowTitle(title)
+        messageBox.setText(text)
+        messageBox.setStandardButtons(QMessageBox.Ok |
+                                      QMessageBox.Cancel)
+        return messageBox
+
+    def gatherInvoice(self):
+        self.lastPrintedInvoice = {"type": self.typeCombobox.currentText(),
+                                  "customer": self.customerCombobox.currentText(),
+                                  "vatRate": self.vatEdit.text(),
+                                  "number": self.numberEdit.text(),
+                                  "weightHeader": self.weightGroup.checkedButton(),
+                                  "ppuHeader": self.priceGroup.checkedButton(),
+                                  "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
+                                  "autoCalc": self.autoCalcStatus.text()}
 
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
+
+    def getInvoiceNumberFromFile(self, invoiceType):
+        cp = ConfigParser()
+        cp.read("settings.cfg")
+
+        if invoiceType == "Purchase Invoice":
+            return cp.get("invoice_numbers", "purchase")
+        else:
+            return cp.get("invoice_numbers", "sales")
+
+    def getInvoiceVatRate(self):
+        return self.vatEdit.text()
 
     def getPayloads(self):
         payloads = self.invoiceTable.getContents()
@@ -484,38 +368,171 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         return payloads
 
-    def printPreview(self):
-        if not self.invoiceTable.isValid():
-            QMessageBox.warning(self, "Attention", "No payloads to review!")
+    def getPayloadTotal(self):
+        values = []
+        for row in range(self.invoiceTable.rowCount()):
+            value = self.invoiceTable.item(row, self.invoiceTable.getHeaderIndex(self.valueText)).text().replace(",", "")
+            values.append(Decimal(value))
+
+        return sum(values)
+
+    def getVatRateFromFile(self):
+        cp = ConfigParser()
+        cp.read("settings.cfg")
+
+        return cp.get("vat", "rate")
+
+    def getVatTotal(self, amount):
+        return amount * (Decimal(self.getInvoiceVatRate()) / 100)
+
+    def noop(self, value, valueType):
+        return value
+
+    def onResetForm(self):
+        messageBox = self.createMessageBox("Resetting form",
+                                           "Do you really want to reset the form?")
+
+        if messageBox.exec_() == QMessageBox.Ok:
+            self.resetForm()
+        else:
             return
 
-        previewDialog = QPrintPreviewDialog(self.printer, self)
+    def paintBottom(self, painter, pageRect):
+        self.paintPageLine(painter, pageRect)
 
-        self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
-                     self.paintInvoice)
+        self.paintVerticalSpace(painter.fontMetrics().height() * 3)
 
-        if previewDialog.exec_():
-            
-            self.gatherInvoice()
+        self.paintTotals(painter, pageRect)
 
-            self.setInvoiceNumber("{:03d}".format(int(self.numberEdit.text()) + 1))
+        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
 
-            if self.typeCombobox.currentText() == "Purchase Invoice":
-                configOption = "purchase"
-            else:
-                configOption = "sales"
+        if self.typeCombobox.currentText() == "Purchase Invoice":
+            self.paintFooter(painter, pageRect)
+        else:
+            pass
 
-            cp = ConfigParser()
-            cp.read(self.settingsFile)
-            cp.set("invoice_numbers", configOption,
-                   self.numberEdit.text())
+    def paintDetails(self, painter, pageRect, invoiceNumber):
+        invoiceDetails = [invoiceNumber,
+                          datetime.now().strftime("%d/%m/%Y")]
 
-            with open(self.settingsFile, "w") as file:
-                cp.write(file)
+        invoiceDetails = invoiceDetails[:2] + self.database.loadRecordByName(self.customerCombobox.currentText())
 
-            self.invoiceTable.removeAllRows()
+        lengths = []
+        labels = []
+        for pair in zip(self.invoiceLabels, invoiceDetails):
+            painter.setFont(self.fonts["invoiceLabelsFont"])
+            labelWidth = painter.fontMetrics().width(pair[0])
 
-        self.returnFocus()
+            painter.setFont(self.fonts["invoiceDetailsFont"])
+            valueWidth = painter.fontMetrics().width(pair[1])
+
+            lengths.append(labelWidth + valueWidth)
+            labels.append(painter.fontMetrics().width(pair[0]))
+
+        longestLine = max(lengths)
+        longestLabel = max(labels)
+
+        self.x = 0
+        self.x += (pageRect.width() - longestLine) / 2
+        for pair in zip(self.invoiceLabels, invoiceDetails):
+            painter.setFont(self.fonts["invoiceLabelsFont"])
+            painter.drawText(self.x, self.y, pair[0])
+
+            painter.setFont(self.fonts["invoiceDetailsFont"])
+            painter.drawText(self.x + longestLabel, self.y, pair[1])
+
+            self.y += painter.fontMetrics().height()
+
+    def paintFooter(self, painter, pageRect):
+        footer = "N.B.: The VAT shown on this document is your output tax, and must be accounted for accordingly."
+        painter.setFont(self.fonts["footerFont"])
+        footerWidth = painter.fontMetrics().width(footer)
+
+        if footerWidth > pageRect.width():
+            splitNumber = footerWidth // pageRect.width()
+
+            strings = footer.split(",", splitNumber)
+        else:
+            strings = [footer]
+
+        self.x = 0
+        offset = 0
+        self.x += (pageRect.width() - painter.fontMetrics().width(strings[0])) / 2
+        for num, string in enumerate(strings):
+            if num > 0:
+                offset = painter.fontMetrics().width(strings[0][:6])
+            painter.drawText(self.x + offset, self.y, string)
+            self.paintVerticalSpace(painter.fontMetrics().height())
+
+    def paintInvoice(self):
+        painter = QPainter(self.printer)
+
+        pageRect = self.printer.pageRect()
+
+        self.paintLooper(painter, pageRect)
+
+        painter.end()
+
+    def paintInvoiceType(self, painter, pageRect):
+        invoiceType = self.typeCombobox.currentText()
+
+        painter.setFont(self.fonts["invoiceTypeFont"])
+
+        self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
+        painter.drawText(self.x, self.y, invoiceType)
+
+    def paintLooper(self, painter, pageRect):
+        self.paintTop(painter, pageRect, self.numberEdit.text(), 1)
+
+        payloadSpace = self.calculatePayloadSpace(painter, pageRect)
+
+        payloadStart = self.y
+
+        pageNumber = 1
+
+        for num, payload in enumerate(self.getPayloads().values()):
+            if self.y > (payloadStart + payloadSpace):
+                pageNumber += 1
+                self.paintPageLine(painter, pageRect)
+                self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+                self.paintNewPageMessage(painter, pageRect, pageNumber)
+                self.printer.newPage()
+                self.paintTop(painter, pageRect, self.numberEdit.text(), pageNumber)
+
+            self.paintPayload(painter, pageRect, payload)
+            self.paintVerticalSpace(painter.fontMetrics().height())
+
+        self.paintBottom(painter, pageRect)
+
+    def paintNewPageMessage(self, painter, pageRect, pageNum):
+        message = "Continued on page {} -------->".format(pageNum)
+
+        painter.setFont(self.fonts["invoiceDetailsFont"])
+        mWidth = painter.fontMetrics().width(message)
+        self.x = (pageRect.width() - mWidth) / 2
+        painter.drawText(self.x, self.y, message)
+
+    def paintPageLine(self, painter, pageRect):
+        painter.drawLine(0, self.y, pageRect.width(), self.y)
+
+    def paintPageNumber(self, painter, pageRect, pageNumber):
+        painter.setFont(self.fonts["payloadFont"])
+        pageString = "Page {}".format(pageNumber)
+        width = painter.fontMetrics().width(pageString)
+        painter.drawText(pageRect.width() - width, self.y, pageString)
+
+    def paintPayload(self, painter, pageRect, payload):
+        painter.setFont(self.fonts["payloadFont"])
+
+        values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
+                  for i in range(self.invoiceTable.columnCount() - 1)]
+
+        for num, item in enumerate(values):
+            pair = self.headerPos[num]
+            self.x = pair[0]
+            self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
+
+            painter.drawText(self.x, self.y, item)
 
     def paintPayloadHeaders(self, painter, pageRect):
         length = 0
@@ -533,18 +550,32 @@ class InvoiceWindow(Ui_invoiceWindow):
             painter.drawText(self.x + offset, self.y, item)
             self.x += headerLength
 
-    def paintPayload(self, painter, pageRect, payload):
-        painter.setFont(self.fonts["payloadFont"])
+    def paintTop(self, painter, pageRect, invoiceNumber, pageNumber):
+        self.x = 0
+        self.y = pageRect.y()
 
-        values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
-                  for i in range(self.invoiceTable.columnCount() - 1)]
+        self.paintPageNumber(painter, pageRect, pageNumber)
 
-        for num, item in enumerate(values):
-            pair = self.headerPos[num]
-            self.x = pair[0]
-            self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
+        letterHead = LetterHead(painter, pageRect)
+        self.x, self.y = letterHead.paint(self.x, self.y)
 
-            painter.drawText(self.x, self.y, item)
+        self.paintVerticalSpace(40)
+
+        self.paintInvoiceType(painter, pageRect)
+
+        self.paintVerticalSpace(painter.fontMetrics().height())
+
+        self.paintDetails(painter, pageRect, invoiceNumber)
+
+        self.paintVerticalSpace(painter.fontMetrics().height())
+
+        self.paintPageLine(painter, pageRect)
+
+        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
+
+        self.paintPayloadHeaders(painter, pageRect)
+
+        self.paintVerticalSpace(painter.fontMetrics().height())
 
     def paintTotals(self, painter, pageRect):
         payloadTotal = locale.currency(self.getPayloadTotal(), grouping=True,
@@ -589,183 +620,163 @@ class InvoiceWindow(Ui_invoiceWindow):
 
             self.y += painter.fontMetrics().height()
 
-    def paintFooter(self, painter, pageRect):
-        footer = "N.B.: The VAT shown on this document is your output tax, and must be accounted for accordingly."
-        painter.setFont(self.fonts["footerFont"])
-        footerWidth = painter.fontMetrics().width(footer)
-
-        if footerWidth > pageRect.width():
-            splitNumber = footerWidth // pageRect.width()
-
-            strings = footer.split(",", splitNumber)
-        else:
-            strings = [footer]
-
-        self.x = 0
-        offset = 0
-        self.x += (pageRect.width() - painter.fontMetrics().width(strings[0])) / 2
-        for num, string in enumerate(strings):
-            if num > 0:
-                offset = painter.fontMetrics().width(strings[0][:6])
-            painter.drawText(self.x + offset, self.y, string)
-            self.paintVerticalSpace(painter.fontMetrics().height())
-
-    def paintDetails(self, painter, pageRect, invoiceNumber):
-        invoiceDetails = [invoiceNumber,
-                          datetime.now().strftime("%d/%m/%Y")]
-        
-        invoiceDetails = invoiceDetails[:2] + self.database.loadRecordByName(self.customerCombobox.currentText())
-
-        lengths = []
-        labels = []
-        for pair in zip(self.invoiceLabels, invoiceDetails):
-            painter.setFont(self.fonts["invoiceLabelsFont"])
-            labelWidth = painter.fontMetrics().width(pair[0])
-
-            painter.setFont(self.fonts["invoiceDetailsFont"])
-            valueWidth = painter.fontMetrics().width(pair[1])
-
-            lengths.append(labelWidth + valueWidth)
-            labels.append(painter.fontMetrics().width(pair[0]))
-
-        longestLine = max(lengths)
-        longestLabel = max(labels)
-
-        self.x = 0
-        self.x += (pageRect.width() - longestLine) / 2
-        for pair in zip(self.invoiceLabels, invoiceDetails):
-            painter.setFont(self.fonts["invoiceLabelsFont"])
-            painter.drawText(self.x, self.y, pair[0])
-
-            painter.setFont(self.fonts["invoiceDetailsFont"])
-            painter.drawText(self.x + longestLabel, self.y, pair[1])
-
-            self.y += painter.fontMetrics().height()
-
     def paintVerticalSpace(self, size):
         self.y += size
 
-    def paintPageLine(self, painter, pageRect):
-        painter.drawLine(0, self.y, pageRect.width(), self.y)
+    def payloadTableClicked(self, row, column):
+        if column == self.invoiceTable.getHeaderIndex(self.deleteText):
+            self.invoiceTable.selectRow(row)
+            self.invoiceTable.removeRow(row)
 
-    def paintInvoiceType(self, painter, pageRect):
-        invoiceType = self.typeCombobox.currentText()
+    def populateCustomerComboBox(self):
+        self.customerCombobox.clear()
+        self.customerCombobox.populate([record[0]
+                                        for record in self.database.loadRecords()])
 
-        painter.setFont(self.fonts["invoiceTypeFont"])
+    def printPreview(self):
+        if not self.invoiceTable.isValid():
+            QMessageBox.warning(self, "Attention", "No payloads to review!")
+            return
 
-        self.x = (pageRect.width() - painter.fontMetrics().width(invoiceType)) / 2
-        painter.drawText(self.x, self.y, invoiceType)
+        previewDialog = QPrintPreviewDialog(self.printer, self)
 
-    def paintPageNumber(self, painter, pageRect, pageNumber):
-        painter.setFont(self.fonts["payloadFont"])
-        pageString = "Page {}".format(pageNumber)
-        width = painter.fontMetrics().width(pageString)
-        painter.drawText(pageRect.width() - width, self.y, pageString)
+        self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
+                     self.paintInvoice)
 
-    def paintTop(self, painter, pageRect, invoiceNumber, pageNumber):
-        self.x = 0
-        self.y = pageRect.y()
+        if previewDialog.exec_():
 
-        self.paintPageNumber(painter, pageRect, pageNumber)
+            self.gatherInvoice()
 
-        letterHead = LetterHead(painter, pageRect)
-        self.x, self.y = letterHead.paint(self.x, self.y)
+            self.setInvoiceNumber("{:03d}".format(int(self.numberEdit.text()) + 1))
 
-        self.paintVerticalSpace(40)
+            if self.typeCombobox.currentText() == "Purchase Invoice":
+                configOption = "purchase"
+            else:
+                configOption = "sales"
 
-        self.paintInvoiceType(painter, pageRect)
+            cp = ConfigParser()
+            cp.read(self.settingsFile)
+            cp.set("invoice_numbers", configOption,
+                   self.numberEdit.text())
 
-        self.paintVerticalSpace(painter.fontMetrics().height())
+            with open(self.settingsFile, "w") as file:
+                cp.write(file)
 
-        self.paintDetails(painter, pageRect, invoiceNumber)
-
-        self.paintVerticalSpace(painter.fontMetrics().height())
-
-        self.paintPageLine(painter, pageRect)
-
-        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
-
-        self.paintPayloadHeaders(painter, pageRect)
-
-        self.paintVerticalSpace(painter.fontMetrics().height())
-
-    def paintNewPageMessage(self, painter, pageRect, pageNum):
-        message = "Continued on page {} -------->".format(pageNum)
-
-        painter.setFont(self.fonts["invoiceDetailsFont"])
-        mWidth = painter.fontMetrics().width(message)
-        self.x = (pageRect.width() - mWidth) / 2
-        painter.drawText(self.x, self.y, message)
-
-    def calculatePayloadSpace(self, painter, pageRect):
-        painter.setFont(self.fonts["totalsLabelFont"])
-        totalsHeight = painter.fontMetrics().height() * len(self.totalLabels)
-
-        painter.setFont(self.fonts["footerFont"])
-        footerHeight = painter.fontMetrics().height() * 2
-
-        painter.setFont(self.fonts["payloadFont"])
-        spaceHeight = painter.fontMetrics().height() * 5
-
-        bottomHeight = totalsHeight + footerHeight + spaceHeight
-
-        usedSpace = self.y + bottomHeight
-
-        return pageRect.height() - usedSpace
-
-    def paintLooper(self, painter, pageRect):
-        self.paintTop(painter, pageRect, self.numberEdit.text(), 1)
-
-        payloadSpace = self.calculatePayloadSpace(painter, pageRect)
-
-        payloadStart = self.y
-
-        pageNumber = 1
-
-        for num, payload in enumerate(self.getPayloads().values()):
-            if self.y > (payloadStart + payloadSpace):
-                pageNumber += 1
-                self.paintPageLine(painter, pageRect)
-                self.paintVerticalSpace(painter.fontMetrics().height() * 2)
-                self.paintNewPageMessage(painter, pageRect, pageNumber)
-                self.printer.newPage()
-                self.paintTop(painter, pageRect, self.numberEdit.text(), pageNumber)
-
-            self.paintPayload(painter, pageRect, payload)
-            self.paintVerticalSpace(painter.fontMetrics().height())
-
-        self.paintBottom(painter, pageRect)
-
-    def paintBottom(self, painter, pageRect):
-        self.paintPageLine(painter, pageRect)
-
-        self.paintVerticalSpace(painter.fontMetrics().height() * 3)
-
-        self.paintTotals(painter, pageRect)
-
-        self.paintVerticalSpace(painter.fontMetrics().height() * 2)
-
-        if self.typeCombobox.currentText() == "Purchase Invoice":
-            self.paintFooter(painter, pageRect)
-        else:
-            pass
-
-    def paintInvoice(self):
-        painter = QPainter(self.printer)
-
-        pageRect = self.printer.pageRect()
-
-        self.paintLooper(painter, pageRect)
-
-        painter.end()
-
-    def clearInputWidgets(self):
-        self.descriptionEdit.clear()
-        self.weightEdit.clear()
-        self.pricePerUnitEdit.clear()
-        self.valueEdit.clear()
+            self.invoiceTable.removeAllRows()
 
         self.returnFocus()
+
+    def resetForm(self):
+        self.typeCombobox.setCurrentIndex(0)
+        self.customerCombobox.setCurrentIndex(0)
+        self.setVatRate(self.getVatRateFromFile())
+        self.setInvoiceNumber(self.getInvoiceNumberFromFile("Purchase Invoice"))
+
+        self.unitFrame.weightKgRadio.setChecked(True)
+        self.unitFrame.priceTonnesRadio.setChecked(True)
+        self.updateWeightHeader()
+        self.updatePriceHeader()
+        self.clearInputWidgets()
+
+        self.invoiceTable.removeAllRows()
+
+        self.autoCalcStateOff.enable()
+
+        self.statusBar().showMessage("Successfully reset form.")
+
+    def returnFocus(self):
+        self.descriptionEdit.setFocus()
+
+    def revert(self):
+        messageBox = self.createMessageBox("Reverting to the last printed invoice",
+                                           "Do you really want to revert?")
+
+        if messageBox.exec_() == QMessageBox.Cancel:
+            return
+
+        if self.lastPrintedInvoice != None:
+            self.resetForm()
+
+            typeIndex = self.typeCombobox.findText(self.lastPrintedInvoice["type"])
+            self.typeCombobox.setCurrentIndex(typeIndex)
+
+            customerIndex = self.customerCombobox.findText(self.lastPrintedInvoice["customer"])
+            self.customerCombobox.setCurrentIndex(customerIndex)
+
+            self.vatEdit.setText(self.lastPrintedInvoice["vatRate"])
+            self.numberEdit.setText(self.lastPrintedInvoice["number"])
+
+            self.lastPrintedInvoice["weightHeader"].setChecked(True)
+            self.lastPrintedInvoice["ppuHeader"].setChecked(True)
+            self.updateWeightHeader()
+            self.updatePriceHeader()
+
+            for row in self.lastPrintedInvoice["payloads"]:
+                self.addRow(*row)
+
+            if self.lastPrintedInvoice["autoCalc"] == "On":
+                self.autoCalcStateOn.enable()
+            else:
+                self.autoCalcStateOff.enable()
+
+            self.statusBar().showMessage("Successfully reverted to last printed invoice.")
+        else:
+            QMessageBox.information(self, "Cannot revert at this time",
+                                    "There is no previous invoice for this session.")
+
+    def saveVat(self):
+        cp = ConfigParser()
+        cp.read(self.settingsFile)
+        cp.set("vat", "rate",
+               self.vatEdit.text())
+
+        with open(self.settingsFile, "w") as file:
+                cp.write(file)
+
+        self.statusBar().showMessage("VAT rate successfully saved to file.")
+
+    def setInvoiceNumber(self, value):
+        self.numberEdit.setText(value)
+
+    def setVatRate(self, value):
+        self.vatEdit.setText(value)
+
+    def showAboutInvoice(self):
+        QMessageBox.about(self, "About Invoice", "Invoice version {}\n".format(__VERSION__)
+                          + "Python {}\n".format(__PYTHON__)
+                          + "QT {}\n".format(__QT__)
+                          + "PYQT {}\n".format(__PYQT__)
+                          + "Copyright \N{COPYRIGHT SIGN} John Orchard & Company 2011")
+
+    def showAboutQt(self):
+        QMessageBox.aboutQt(self, "About Qt")
+
+    def showDatabaseDialog(self):
+        dialog = DatabaseDialog(self)
+        dialog.exec_()
+        self.populateCustomerComboBox()
+
+    def toggleAutoCalculation(self):
+        if self.autoCalcStatus.text() == "On":
+            self.autoCalcStateOff.enable()
+        elif self.autoCalcStatus.text() == "Off":
+            self.autoCalcStateOn.enable()
+
+        self.changed()
+
+    def updatePriceHeader(self):
+        newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
+
+        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
+
+        self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
+
+    def updateWeightHeader(self):
+        newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
+
+        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
+
+        self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
 
 if __name__ == "__main__":
     application = QApplication(sys.argv)
