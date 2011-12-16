@@ -199,13 +199,29 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.connect(self.actionAboutQt, SIGNAL("triggered()"),
                      self.showAboutQt)
 
+        self.connect(self.actionSaveVat, SIGNAL("triggered()"),
+                     self.saveVat)
+
         self.updatePriceHeader()
         self.updateWeightHeader()
         
         self.lastPrintedInvoice = None
         
+        self.settingsFile = "settings.cfg"
+        
     def showAboutQt(self):
         QMessageBox.aboutQt(self, "About Qt")
+        
+    def saveVat(self):
+        cp = ConfigParser()
+        cp.read(self.settingsFile)
+        cp.set("vat", "rate",
+               self.vatEdit.text())
+
+        with open(self.settingsFile, "w") as file:
+                cp.write(file)      
+            
+        self.statusBar().showMessage("VAT rate successfully saved to file.")
         
     def onClear(self):
         messageBox = QMessageBox()
@@ -490,11 +506,11 @@ class InvoiceWindow(Ui_invoiceWindow):
                 configOption = "sales"
 
             cp = ConfigParser()
-            cp.read("settings.cfg")
+            cp.read(self.settingsFile)
             cp.set("invoice_numbers", configOption,
                    self.numberEdit.text())
 
-            with open("settings.cfg", "w") as file:
+            with open(self.settingsFile, "w") as file:
                 cp.write(file)
 
             self.invoiceTable.removeAllRows()

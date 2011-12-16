@@ -480,12 +480,26 @@ class Ui_invoiceWindow(QMainWindow):
                                                                 QApplication.UnicodeUTF8))
         
         self.actionResetForm.setStatusTip("Resets the program to its default state.")
+        
+        self.actionSaveVat = QAction(self)
+        self.actionSaveVat.setText(QApplication.translate("Save VAT",
+                                                          "&Save VAT",
+                                                          None,
+                                                          QApplication.UnicodeUTF8))        
+        
+        self.actionSaveVat.setShortcut(QApplication.translate("Save VAT",
+                                                              "Ctrl+S",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))
+                
+        self.actionSaveVat.setStatusTip("Saves the current VAT rate to file, making it the default for the program.")        
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionDatabaseDialog)
         self.menuEdit.addAction(self.actionRevert)
-        self.menuEdit.addAction(self.actionResetForm)        
+        self.menuEdit.addAction(self.actionResetForm)  
+        self.menuEdit.addAction(self.actionSaveVat) 
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuHelp.addAction(self.actionAboutQt)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
