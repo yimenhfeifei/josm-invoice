@@ -8,4 +8,3 @@ Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
-Change self.y + height to paintline/newline call.

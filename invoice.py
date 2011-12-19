@@ -65,10 +65,10 @@ class InvoiceWindow(Ui_invoiceWindow):
                               "Address: ",
                               "Vat Reg. Number: "]
 
-        self.payloadHeaders = [("Description", 500),
-                               ("Weight (Kg)", 50),
-                               ("Price Per Tonne", 50),
-                               ("Value (GBP)", 50)]
+        self.payloadHeaders = [("Description", 40),
+                               ("Weight (Kg)", 20),
+                               ("Price Per Tonne", 20),
+                               ("Value (GBP)", 20)]
 
         self.totalLabels = ["Total: ",
                             "VAT ({}%): ".format(self.getInvoiceVatRate()),
@@ -535,20 +535,18 @@ class InvoiceWindow(Ui_invoiceWindow):
             painter.drawText(self.x, self.y, item)
 
     def paintPayloadHeaders(self, painter, pageRect):
-        length = 0
         painter.setFont(self.fonts["payloadHeadersFont"])
-        for item, space in self.payloadHeaders:
-            length += painter.fontMetrics().width(item) + space
-
-        self.x = (pageRect.width() - length) / 2
-
+        
+        self.x = 0
+        
         self.headerPos = []
         for item, space in self.payloadHeaders:
-            headerLength = (painter.fontMetrics().width(item) + space)
-            offset = (headerLength - painter.fontMetrics().width(item)) / 2
-            self.headerPos.append((self.x + offset, painter.fontMetrics().width(item)))
+            textLength = painter.fontMetrics().width(item)
+            sectionLength = (space / 100) * pageRect.width()
+            offset = (sectionLength - textLength) / 2
+            self.headerPos.append((self.x + offset, textLength))
             painter.drawText(self.x + offset, self.y, item)
-            self.x += headerLength
+            self.x += sectionLength
 
     def paintTop(self, painter, pageRect, invoiceNumber, pageNumber):
         self.x = 0
