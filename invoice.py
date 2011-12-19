@@ -68,7 +68,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.totalLabels = ["Total: ",
                             "VAT ({}%): ".format(self.getInvoiceVatRate()),
                             "Invoice total: "]
-        
+
         self.sectionPercentages = [40, 20, 20, 20]
 
         self.screenRect = QDesktopWidget().geometry()
@@ -494,7 +494,8 @@ class InvoiceWindow(Ui_invoiceWindow):
                 self.paintVerticalSpace(painter.fontMetrics().height() * 2)
                 self.paintNewPageMessage(painter, pageRect, pageNumber)
                 self.printer.newPage()
-                self.paintTop(painter, pageRect, self.numberEdit.text(), pageNumber)
+                self.paintTop(painter, pageRect, self.numberEdit.text(),
+                              pageNumber)
 
             self.paintPayload(painter, pageRect, payload)
             self.paintVerticalSpace(painter.fontMetrics().height())
@@ -523,24 +524,24 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
                   for i in range(self.invoiceTable.columnCount() - 1)]
-        
+
         self.paintSection(painter, pageRect, values,
                           self.sectionPercentages)
 
     def paintPayloadHeaders(self, painter, pageRect):
         painter.setFont(self.fonts["payloadHeadersFont"])
-        
+
         payloadHeaders = ["Description",
                           "Weight (Kg)",
                           "Price Per Tonne",
-                          "Value (GBP)"]     
-        
+                          "Value (GBP)"]
+
         self.paintSection(painter, pageRect, payloadHeaders,
                           self.sectionPercentages)
 
     def paintSection(self, painter, pageRect, strings, sectionSizes):
         self.x = 0
-        
+
         for string, sectionPercentage in zip(strings, sectionSizes):
             textLength = painter.fontMetrics().width(string)
             sectionLength = (sectionPercentage / 100) * pageRect.width()
@@ -581,7 +582,8 @@ class InvoiceWindow(Ui_invoiceWindow):
         payloadTotal = locale.currency(self.getPayloadTotal(), grouping=True,
                                        symbol=True)
 
-        vatTotal = locale.currency(self.getVatTotal(self.getPayloadTotal()), grouping=True,
+        vatTotal = locale.currency(self.getVatTotal(self.getPayloadTotal()),
+                                   grouping=True,
                                    symbol=True)
 
         grandTotal = locale.currency(self.getGrandTotal(), grouping=True,
@@ -637,8 +639,18 @@ class InvoiceWindow(Ui_invoiceWindow):
         if not self.invoiceTable.isValid():
             QMessageBox.warning(self, "Attention", "No payloads to review!")
             return
-
+        
         previewDialog = QPrintPreviewDialog(self.printer, self)
+        
+        #previewDialog = QDialog(self)
+        #previewDialog.pp = QPrintPreviewWidget(self.printer, self)
+        #previewDialog.pp.setZoomFactor(1.0)
+        #previewDialog.pp.setZoomMode(1)
+        
+        #previewDialog.resize(800, 900)
+        #previewDialog.mainLayout = QHBoxLayout()
+        #previewDialog.mainLayout.addWidget(previewDialog.pp)
+        #previewDialog.setLayout(previewDialog.mainLayout)
 
         self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
                      self.paintInvoice)
