@@ -441,7 +441,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             painter.setFont(self.fonts["invoiceDetailsFont"])
             painter.drawText(self.x + longestLabel, self.y, pair[1])
 
-            self.y += painter.fontMetrics().height()
+            self.paintVerticalSpace(painter.fontMetrics().height())
 
     def paintFooter(self, painter, pageRect):
         footer = "N.B.: The VAT shown on this document is your output tax, and must be accounted for accordingly."
@@ -618,7 +618,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             painter.setFont(self.fonts["totalsDetailFont"])
             painter.drawText(self.x + longestLabel, self.y, detail)
 
-            self.y += painter.fontMetrics().height()
+            self.paintVerticalSpace(painter.fontMetrics().height())
 
     def paintVerticalSpace(self, size):
         self.y += size
