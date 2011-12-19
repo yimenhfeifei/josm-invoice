@@ -65,14 +65,11 @@ class InvoiceWindow(Ui_invoiceWindow):
                               "Address: ",
                               "Vat Reg. Number: "]
 
-        self.payloadHeaders = [("Description", 40),
-                               ("Weight (Kg)", 20),
-                               ("Price Per Tonne", 20),
-                               ("Value (GBP)", 20)]
-
         self.totalLabels = ["Total: ",
                             "VAT ({}%): ".format(self.getInvoiceVatRate()),
                             "Invoice total: "]
+        
+        self.sectionPercentages = [40, 20, 20, 20]
 
         self.screenRect = QDesktopWidget().geometry()
 
@@ -526,26 +523,31 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
                   for i in range(self.invoiceTable.columnCount() - 1)]
-
-        for num, item in enumerate(values):
-            pair = self.headerPos[num]
-            self.x = pair[0]
-            self.x += ((pair[1] - painter.fontMetrics().width(item)) / 2)
-
-            painter.drawText(self.x, self.y, item)
+        
+        self.paintSection(painter, pageRect, values,
+                          self.sectionPercentages)
 
     def paintPayloadHeaders(self, painter, pageRect):
         painter.setFont(self.fonts["payloadHeadersFont"])
         
+        payloadHeaders = ["Description",
+                          "Weight (Kg)",
+                          "Price Per Tonne",
+                          "Value (GBP)"]     
+        
+        self.paintSection(painter, pageRect, payloadHeaders,
+                          self.sectionPercentages)
+
+    def paintSection(self, painter, pageRect, strings, sectionSizes):
         self.x = 0
         
-        self.headerPos = []
-        for item, space in self.payloadHeaders:
-            textLength = painter.fontMetrics().width(item)
-            sectionLength = (space / 100) * pageRect.width()
+        for string, sectionPercentage in zip(strings, sectionSizes):
+            textLength = painter.fontMetrics().width(string)
+            sectionLength = (sectionPercentage / 100) * pageRect.width()
             offset = (sectionLength - textLength) / 2
-            self.headerPos.append((self.x + offset, textLength))
-            painter.drawText(self.x + offset, self.y, item)
+            if textLength > sectionLength:
+                print("'{}' is too long for the section!".format(string))
+            painter.drawText(self.x + offset, self.y, string)
             self.x += sectionLength
 
     def paintTop(self, painter, pageRect, invoiceNumber, pageNumber):
@@ -765,14 +767,10 @@ class InvoiceWindow(Ui_invoiceWindow):
     def updatePriceHeader(self):
         newPrice = "Price ({})".format(self.priceGroup.checkedButton().text())
 
-        self.payloadHeaders[2] = (newPrice, self.payloadHeaders[2][1])
-
         self.pricePerUnitLabel.setText(self.changeRichText(self.pricePerUnitLabel, newPrice))
 
     def updateWeightHeader(self):
         newWeight = "Weight ({})".format(self.weightGroup.checkedButton().text())
-
-        self.payloadHeaders[1] = (newWeight, self.payloadHeaders[1][1])
 
         self.weightLabel.setText(self.changeRichText(self.weightLabel, newWeight))
 
