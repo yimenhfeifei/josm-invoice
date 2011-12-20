@@ -1,8 +1,8 @@
 Allow inline editing of cells using widgets.
-Fix print preview zoom.
 getcontents remove in future?
 Nicer colour scheme with styles sheets.
 Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
+Tighten formatting of values in printed output. 89.00, 1,300 etc.
