@@ -370,7 +370,7 @@ class Ui_invoiceWindow(QMainWindow):
 
         self.menuOptions = QMenu(self.menubar)
         self.menuOptions.setTitle(QApplication.translate("invoiceWindow",
-                                                         "Options",
+                                                         "&Options",
                                                          None,
                                                          QApplication.UnicodeUTF8))
 
@@ -444,7 +444,7 @@ class Ui_invoiceWindow(QMainWindow):
         
         self.actionPopulateWithDummyData = QAction(self)
         self.actionPopulateWithDummyData.setText(QApplication.translate("invoiceWindow",
-                                                                        "&P&opulate With Dummy Data",
+                                                                        "P&opulate With Dummy Data",
                                                                         None,
                                                                         QApplication.UnicodeUTF8))
 
