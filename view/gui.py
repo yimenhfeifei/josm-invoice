@@ -492,7 +492,7 @@ class Ui_invoiceWindow(QMainWindow):
                                                               None,
                                                               QApplication.UnicodeUTF8))
                 
-        self.actionSaveVat.setStatusTip("Saves the current VAT rate to file, making it the default for the program.")        
+        self.actionSaveVat.setStatusTip("Saves the current VAT rate to file, making it the default for the program.")
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)

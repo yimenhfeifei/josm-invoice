@@ -641,16 +641,6 @@ class InvoiceWindow(Ui_invoiceWindow):
             return
         
         previewDialog = QPrintPreviewDialog(self.printer, self)
-        
-        #previewDialog = QDialog(self)
-        #previewDialog.pp = QPrintPreviewWidget(self.printer, self)
-        #previewDialog.pp.setZoomFactor(1.0)
-        #previewDialog.pp.setZoomMode(1)
-        
-        #previewDialog.resize(800, 900)
-        #previewDialog.mainLayout = QHBoxLayout()
-        #previewDialog.mainLayout.addWidget(previewDialog.pp)
-        #previewDialog.setLayout(previewDialog.mainLayout)
 
         self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
                      self.paintInvoice)
