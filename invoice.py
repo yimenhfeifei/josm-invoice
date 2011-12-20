@@ -7,6 +7,7 @@ try:
     from configparser import ConfigParser
     from decimal import Decimal
     from datetime import datetime
+    from random import choice
 
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
@@ -17,11 +18,12 @@ try:
     from shared_modules.letterhead import LetterHead
     from database_mapper import Database
     from view.database_dialog import DatabaseDialog
+    from view.print_preview_dialog import PrintPreviewDialogExtended
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
 
-__VERSION__ = "0.985"
+__VERSION__ = "0.99"
 __QT__ = QT_VERSION_STR
 __SIP__ = "4.12.4"
 __PYQT__ = PYQT_VERSION_STR
@@ -40,7 +42,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPaperSize(QPrinter.A4)
         self.printer.setResolution(300)
-        self.printer.setPageMargins(10.0, 10.0, 10.0, 10.0,
+        self.printer.setPageMargins(5.0, 5.0, 5.0, 5.0,
                                     QPrinter.Millimeter)
 
         self.fonts = {"payloadFont": QFont("Helvetica", 10),
@@ -199,6 +201,9 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.connect(self.actionSaveVat, SIGNAL("triggered()"),
                      self.saveVat)
+
+        self.connect(self.actionPopulateWithDummyData, SIGNAL("triggered()"),
+                     self.populateWithDummyData)
 
         self.updatePriceHeader()
         self.updateWeightHeader()
@@ -635,15 +640,32 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.customerCombobox.populate([record[0]
                                         for record in self.database.loadRecords()])
 
+    def populateWithDummyData(self):
+        materials = ["Iron",
+                     "Copper",
+                     "Gold",
+                     "Cars",
+                     "Titanium"]
+
+        for i in range(145):
+            material = choice(materials)
+            weight = choice(range(1, 3560))
+            ppu = choice(range(200, 5000))
+            value = choice(range(1, 6000))
+
+            self.addRow(material,
+                        str(weight),
+                        str(ppu),
+                        str(value))
+
     def printPreview(self):
         if not self.invoiceTable.isValid():
             QMessageBox.warning(self, "Attention", "No payloads to review!")
             return
-        
-        previewDialog = QPrintPreviewDialog(self.printer, self)
 
-        self.connect(previewDialog, SIGNAL("paintRequested(QPrinter*)"),
-                     self.paintInvoice)
+        previewDialog = PrintPreviewDialogExtended(self.printer,
+                                                   self.paintInvoice,
+                                                   self)
 
         if previewDialog.exec_():
 

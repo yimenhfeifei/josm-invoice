@@ -442,6 +442,19 @@ class Ui_invoiceWindow(QMainWindow):
         
         self.actionToggleAutoCalc.setStatusTip("Toggles whether or not payload values are automatically calculated.")
         
+        self.actionPopulateWithDummyData = QAction(self)
+        self.actionPopulateWithDummyData.setText(QApplication.translate("invoiceWindow",
+                                                                        "&P&opulate With Dummy Data",
+                                                                        None,
+                                                                        QApplication.UnicodeUTF8))
+
+        self.actionPopulateWithDummyData.setShortcut(QApplication.translate("invoiceWindow",
+                                                                            "Ctrl+O",
+                                                                            None,
+                                                                            QApplication.UnicodeUTF8))
+        
+        self.actionPopulateWithDummyData.setStatusTip("Populates table with dummy data for testing.")        
+
         self.actionDatabaseDialog = QAction(self)
         self.actionDatabaseDialog.setText(QApplication.translate("Edit Database",
                                                                  "Edit &Database",
@@ -503,6 +516,7 @@ class Ui_invoiceWindow(QMainWindow):
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuHelp.addAction(self.actionAboutQt)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
+        self.menuOptions.addAction(self.actionPopulateWithDummyData)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
