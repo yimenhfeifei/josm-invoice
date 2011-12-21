@@ -339,14 +339,14 @@ class InvoiceWindow(Ui_invoiceWindow):
         return messageBox
 
     def gatherInvoice(self):
-        self.lastPrintedInvoice = {"type": self.typeCombobox.currentText(),
-                                  "customer": self.customerCombobox.currentText(),
-                                  "vatRate": self.vatEdit.text(),
-                                  "number": self.numberEdit.text(),
-                                  "weightHeader": self.weightGroup.checkedButton(),
-                                  "ppuHeader": self.priceGroup.checkedButton(),
-                                  "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
-                                  "autoCalc": self.autoCalcStatus.text()}
+        return {"type": self.typeCombobox.currentText(),
+                "customer": self.customerCombobox.currentText(),
+                "vatRate": self.vatEdit.text(),
+                "number": self.numberEdit.text(),
+                "weightHeader": self.weightGroup.checkedButton(),
+                "ppuHeader": self.priceGroup.checkedButton(),
+                "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
+                "autoCalc": self.autoCalcStatus.text()}
 
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
@@ -669,7 +669,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         if previewDialog.exec_():
 
-            self.gatherInvoice()
+            self.lastPrintedInvoice = self.gatherInvoice()
 
             self.setInvoiceNumber("{:03d}".format(int(self.numberEdit.text()) + 1))
 
