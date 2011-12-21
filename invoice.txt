@@ -5,4 +5,3 @@ Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
-weight and ppu headers need updating in printed output

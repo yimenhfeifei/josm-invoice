@@ -532,10 +532,16 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintPayloadHeaders(self, painter, pageRect):
         painter.setFont(self.fonts["payloadHeadersFont"])
+        
+        weight = re.search(regexObjects["spanTagContents"],
+                  self.weightLabel.text()).group(0)
+        
+        ppu = re.search(regexObjects["spanTagContents"],
+                  self.pricePerUnitLabel.text()).group(0)        
 
         payloadHeaders = ["Description",
-                          "Weight (Kg)",
-                          "Price Per Tonne",
+                          weight,
+                          ppu,
                           "Value (GBP)"]
 
         self.paintSection(painter, pageRect, payloadHeaders,
