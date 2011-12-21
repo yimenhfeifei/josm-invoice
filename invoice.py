@@ -6,6 +6,7 @@ try:
     import re
     from configparser import ConfigParser
     from decimal import Decimal
+    from decimal import InvalidOperation
     from datetime import datetime
     from random import choice
 
@@ -214,16 +215,14 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def addPayload(self):
         if self.allValid():
-            if self.autoCalcStatus.text() == "On":
-                pricePerUnit = "{:.2f}".format(Decimal(self.pricePerUnitEdit.text()))
-            else:
-                pricePerUnit = self.pricePerUnitEdit.text()
+            weight = self.formatNumber(self.weightEdit.text())
+                
+            pricePerUnit = self.formatNumber(self.pricePerUnitEdit.text())
 
-            value = locale.currency(Decimal(self.valueEdit.text()), grouping=True,
-                                    symbol=False)
+            value = self.formatNumber(self.valueEdit.text())
 
             self.addRow(self.descriptionEdit.text(),
-                        "{:.2f}".format(Decimal(self.weightEdit.text())),
+                        weight,
                         pricePerUnit,
                         value)
 
@@ -337,6 +336,14 @@ class InvoiceWindow(Ui_invoiceWindow):
         messageBox.setStandardButtons(QMessageBox.Ok |
                                       QMessageBox.Cancel)
         return messageBox
+    
+    def formatNumber(self, value, grouping=True, symbol=False):
+        try:
+            decimalValue = Decimal(value)
+            return locale.currency(decimalValue, grouping=grouping,
+                                   symbol=symbol) 
+        except InvalidOperation:
+            return value
 
     def gatherInvoice(self):
         return {"type": self.typeCombobox.currentText(),
@@ -362,13 +369,6 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def getInvoiceVatRate(self):
         return self.vatEdit.text()
-
-    def getPayloads(self):
-        payloads = self.invoiceTable.getContents()
-        for group in payloads.values():
-            del group[self.deleteText]
-
-        return payloads
 
     def getPayloadTotal(self):
         values = []
@@ -492,7 +492,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         pageNumber = 1
 
-        for num, payload in enumerate(self.getPayloads().values()):
+        for num, payload in enumerate(self.gatherInvoice()["payloads"]):
             if self.y > (payloadStart + payloadSpace):
                 pageNumber += 1
                 self.paintPageLine(painter, pageRect)
@@ -527,10 +527,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def paintPayload(self, painter, pageRect, payload):
         painter.setFont(self.fonts["payloadFont"])
 
-        values = [payload[self.invoiceTable.horizontalHeaderItem(i).text()]
-                  for i in range(self.invoiceTable.columnCount() - 1)]
-
-        self.paintSection(painter, pageRect, values,
+        self.paintSection(painter, pageRect, payload,
                           self.sectionPercentages)
 
     def paintPayloadHeaders(self, painter, pageRect):

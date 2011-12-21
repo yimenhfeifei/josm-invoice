@@ -6,3 +6,5 @@ Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
 Tighten formatting of values in printed output. 89.00, 1,300 etc.
+Make dummy data use widgets
+weight and ppu headers need updating in printed output
