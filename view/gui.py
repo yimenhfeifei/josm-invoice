@@ -18,7 +18,14 @@ except ImportError as err:
 class Ui_invoiceWindow(QMainWindow):
     def __init__(self, parent=None):
         super(Ui_invoiceWindow, self).__init__(parent)
-        self.resize(840, 670)
+        self.screenRect = QDesktopWidget().availableGeometry()
+ 
+        self.move((self.screenRect.width() - self.width()) / 2,
+                  (self.screenRect.height() - self.height()) / 2)
+
+        self.resize(self.screenRect.width() * 0.50,
+                    self.screenRect.height() * 0.80)
+
         self.setWindowTitle("Invoice")
         self.centralwidget = QWidget(self)
         self.verticalLayout_7 = QVBoxLayout(self.centralwidget)
