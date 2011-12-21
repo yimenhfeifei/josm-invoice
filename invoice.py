@@ -649,11 +649,13 @@ class InvoiceWindow(Ui_invoiceWindow):
             weight = choice(range(1, 3560))
             ppu = choice(range(200, 5000))
             value = choice(range(1, 6000))
+            
+            self.descriptionEdit.setText(material)
+            self.weightEdit.setText(str(weight))
+            self.pricePerUnitEdit.setText(str(ppu))
+            self.valueEdit.setText(str(value))
 
-            self.addRow(material,
-                        str(weight),
-                        str(ppu),
-                        str(value))
+            self.addPayload()
 
     def printPreview(self):
         if not self.invoiceTable.isValid():
