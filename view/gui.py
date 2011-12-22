@@ -304,7 +304,7 @@ class Ui_invoiceWindow(QMainWindow):
         spacerItem11 = QSpacerItem(78, 20, QSizePolicy.Maximum, QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem11)
         self.invoiceTable = InvoiceTable(self.centralwidget)
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.MinimumExpanding)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.invoiceTable.sizePolicy().hasHeightForWidth())
@@ -329,7 +329,23 @@ class Ui_invoiceWindow(QMainWindow):
         self.invoiceTable.horizontalHeader().setMinimumSectionSize(120)
         self.invoiceTable.horizontalHeader().setSortIndicatorShown(False)
         self.invoiceTable.horizontalHeader().setStretchLastSection(True)
-        self.horizontalLayout_4.addWidget(self.invoiceTable)
+        #self.horizontalLayout_4.addWidget(self.invoiceTable)
+        
+        self.tableLayout = QHBoxLayout()
+        self.tableLayout.addWidget(self.invoiceTable)
+        
+        self.buttonLayout = QVBoxLayout()
+        self.newAddButton = QPushButton("Add")
+        self.deleteButton = QPushButton("Delete")
+        self.updateBUtton = QPushButton("Update")
+        
+        self.buttonLayout.addWidget(self.newAddButton)
+        self.buttonLayout.addWidget(self.deleteButton)
+        self.buttonLayout.addWidget(self.updateBUtton)
+        
+        self.tableLayout.addLayout(self.buttonLayout)
+        
+        self.verticalLayout_5.addLayout(self.tableLayout)
 
         spacerItem12 = QSpacerItem(78, 20, QSizePolicy.Maximum, QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem12)

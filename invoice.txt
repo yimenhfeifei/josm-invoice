@@ -1,7 +1,7 @@
 Allow inline editing of cells using widgets.
-getcontents remove in future?
 Nicer colour scheme with styles sheets.
 Nicer about dialog.
 Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
+Switch to model/view design.

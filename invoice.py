@@ -242,10 +242,6 @@ class InvoiceWindow(Ui_invoiceWindow):
 
             self.invoiceTable.setItem(row, column, item)
 
-        self.invoiceTable.addDeleteCell(row,
-                                        self.invoiceTable.getHeaderIndex(self.deleteText),
-                                        text=self.deleteText)
-
     def allValid(self):
         for widget in self.validating:
             if not widget.validator().validate(widget.text(), 0)[0] == 2:
@@ -352,7 +348,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                 "number": self.numberEdit.text(),
                 "weightHeader": self.weightGroup.checkedButton(),
                 "ppuHeader": self.priceGroup.checkedButton(),
-                "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount() - 1),
+                "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount()),
                 "autoCalc": self.autoCalcStatus.text()}
 
     def getGrandTotal(self):
