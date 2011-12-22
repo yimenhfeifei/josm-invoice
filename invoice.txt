@@ -5,3 +5,4 @@ Need to refine regular expressions.
 Need to print page total on each page.
 Unit tests.
 Switch to model/view design.
+use qtablewidget removerow? and getData?

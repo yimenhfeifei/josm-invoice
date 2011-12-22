@@ -39,6 +39,8 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.unitFrame.setVisible(False)
 
         locale.setlocale(locale.LC_ALL, "")
+        
+        self.setWindowIcon(QIcon("penguin.png"))
 
         self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPaperSize(QPrinter.A4)
@@ -98,7 +100,6 @@ class InvoiceWindow(Ui_invoiceWindow):
                            self.numberEdit]
 
         self.valueText = self.invoiceTable.getHeaderName(3)
-        self.deleteText = self.invoiceTable.getHeaderName(4)
 
         self.weightGroup = QButtonGroup()
         self.weightGroup.addButton(self.unitFrame.weightKgRadio)
@@ -138,11 +139,8 @@ class InvoiceWindow(Ui_invoiceWindow):
                      SIGNAL("currentIndexChanged(QString)"),
                      self.returnFocus)
 
-        self.connect(self.addButton, SIGNAL("clicked()"),
-                     self.addPayload)
-
         self.connect(self.invoiceTable, SIGNAL("cellClicked(int, int)"),
-                     self.payloadTableClicked)
+                     self.on_invoiceTable_clicked)
 
         self.connect(self.reviewButton, SIGNAL("clicked()"),
                      self.printPreview)
@@ -171,8 +169,8 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.autoCalcLabel = QLabel("Auto Calc:")
         self.autoCalcStatus = QLabel("")
-        self.statusBar().addWidget(self.autoCalcLabel)
-        self.statusBar().addWidget(self.autoCalcStatus)
+        self.statusBar().addPermanentWidget(self.autoCalcLabel)
+        self.statusBar().addPermanentWidget(self.autoCalcStatus)
 
         self.autoCalcStateOn = State()
         self.autoCalcStateOn.addVariable(self.autoCalcStatus.setText, "On")
@@ -206,6 +204,15 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.connect(self.actionPopulateWithDummyData, SIGNAL("triggered()"),
                      self.populateWithDummyData)
 
+        self.connect(self.addButton, SIGNAL("clicked()"),
+                     self.addPayload)
+
+        self.connect(self.deleteButton, SIGNAL("clicked()"),
+                     self.on_deleteButton_clicked)
+
+        self.connect(self.updateButton, SIGNAL("clicked()"),
+                     self.on_updateButton_clicked)
+
         self.updatePriceHeader()
         self.updateWeightHeader()
 
@@ -216,7 +223,7 @@ class InvoiceWindow(Ui_invoiceWindow):
     def addPayload(self):
         if self.allValid():
             weight = self.formatNumber(self.weightEdit.text())
-                
+
             pricePerUnit = self.formatNumber(self.pricePerUnitEdit.text())
 
             value = self.formatNumber(self.valueEdit.text())
@@ -227,6 +234,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                         value)
 
             self.clearInputWidgets()
+            self.invoiceTable.resizeRowsToContents()
         else:
             QMessageBox.warning(self, "Attention", "All fields must be valid!")
 
@@ -289,7 +297,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             else:
                 pass
         else:
-            self.valueEdit.clear()
+            pass
 
     def changeInvoiceType(self, name):
         self.setInvoiceNumber(self.getInvoiceNumberFromFile(name))
@@ -332,12 +340,12 @@ class InvoiceWindow(Ui_invoiceWindow):
         messageBox.setStandardButtons(QMessageBox.Ok |
                                       QMessageBox.Cancel)
         return messageBox
-    
+
     def formatNumber(self, value, grouping=True, symbol=False):
         try:
             decimalValue = Decimal(value)
             return locale.currency(decimalValue, grouping=grouping,
-                                   symbol=symbol) 
+                                   symbol=symbol)
         except InvalidOperation:
             return value
 
@@ -385,6 +393,35 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def noop(self, value, valueType):
         return value
+
+    def on_deleteButton_clicked(self):
+        row = self.invoiceTable.currentRow()
+        self.invoiceTable.removeRow(row)
+
+    def on_invoiceTable_clicked(self, row, column):
+        values = [self.stripCommas(self.invoiceTable.item(row, column).text())
+                  for column in range(self.invoiceTable.columnCount())]
+
+        self.descriptionEdit.setText(values[0])
+        self.weightEdit.setText(values[1])
+        self.pricePerUnitEdit.setText(values[2])
+        self.valueEdit.setText(values[3])
+
+    def on_updateButton_clicked(self):
+        if self.allValid():
+            row = self.invoiceTable.currentRow()
+          
+            for column, string in enumerate([self.descriptionEdit.text(),
+                                              self.weightEdit.text(),
+                                              self.pricePerUnitEdit.text(),
+                                              self.valueEdit.text()]):
+                
+                item = QTableWidgetItem(self.formatNumber(string))
+                item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            
+                self.invoiceTable.setItem(row, column, item)
+                
+            self.invoiceTable.resizeRowsToContents()
 
     def onResetForm(self):
         messageBox = self.createMessageBox("Resetting form",
@@ -528,12 +565,12 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintPayloadHeaders(self, painter, pageRect):
         painter.setFont(self.fonts["payloadHeadersFont"])
-        
+
         weight = re.search(regexObjects["spanTagContents"],
                   self.weightLabel.text()).group(0)
-        
+
         ppu = re.search(regexObjects["spanTagContents"],
-                  self.pricePerUnitLabel.text()).group(0)        
+                  self.pricePerUnitLabel.text()).group(0)
 
         payloadHeaders = ["Description",
                           weight,
@@ -629,11 +666,6 @@ class InvoiceWindow(Ui_invoiceWindow):
     def paintVerticalSpace(self, size):
         self.y += size
 
-    def payloadTableClicked(self, row, column):
-        if column == self.invoiceTable.getHeaderIndex(self.deleteText):
-            self.invoiceTable.selectRow(row)
-            self.invoiceTable.removeRow(row)
-
     def populateCustomerComboBox(self):
         self.customerCombobox.clear()
         self.customerCombobox.populate([record[0]
@@ -651,13 +683,15 @@ class InvoiceWindow(Ui_invoiceWindow):
             weight = choice(range(1, 3560))
             ppu = choice(range(200, 5000))
             value = choice(range(1, 6000))
-            
+
             self.descriptionEdit.setText(material)
             self.weightEdit.setText(str(weight))
             self.pricePerUnitEdit.setText(str(ppu))
             self.valueEdit.setText(str(value))
 
             self.addPayload()
+            
+        self.invoiceTable.resizeRowsToContents()
 
     def printPreview(self):
         if not self.invoiceTable.isValid():
@@ -780,6 +814,9 @@ class InvoiceWindow(Ui_invoiceWindow):
         dialog = DatabaseDialog(self)
         dialog.exec_()
         self.populateCustomerComboBox()
+
+    def stripCommas(self, string):
+        return string.replace(",", "")
 
     def toggleAutoCalculation(self):
         if self.autoCalcStatus.text() == "On":

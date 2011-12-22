@@ -277,24 +277,10 @@ class Ui_invoiceWindow(QMainWindow):
         self.valueEdit.setMaximumSize(QSize(111, 16777215))
         self.verticalLayout_2.addWidget(self.valueEdit)
         self.horizontalLayout.addLayout(self.verticalLayout_2)
-        self.addButton = QPushButton(self.dataEntryBox)
         sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.addButton.sizePolicy().hasHeightForWidth())
-        self.addButton.setSizePolicy(sizePolicy)
 
-        self.addButton.setText(QApplication.translate("invoiceWindow",
-                                                      "Add",
-                                                      None,
-                                                      QApplication.UnicodeUTF8))
-
-        self.addButton.setShortcut(QApplication.translate("invoiceWindow",
-                                                          "Return",
-                                                          None,
-                                                          QApplication.UnicodeUTF8))
-
-        self.horizontalLayout.addWidget(self.addButton)
         self.verticalLayout_5.addLayout(self.horizontalLayout)
         self.horizontalLayout_3.addWidget(self.dataEntryBox)
         spacerItem10 = QSpacerItem(58, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -329,19 +315,28 @@ class Ui_invoiceWindow(QMainWindow):
         self.invoiceTable.horizontalHeader().setMinimumSectionSize(120)
         self.invoiceTable.horizontalHeader().setSortIndicatorShown(False)
         self.invoiceTable.horizontalHeader().setStretchLastSection(True)
-        #self.horizontalLayout_4.addWidget(self.invoiceTable)
         
         self.tableLayout = QHBoxLayout()
         self.tableLayout.addWidget(self.invoiceTable)
         
         self.buttonLayout = QVBoxLayout()
-        self.newAddButton = QPushButton("Add")
-        self.deleteButton = QPushButton("Delete")
-        self.updateBUtton = QPushButton("Update")
         
-        self.buttonLayout.addWidget(self.newAddButton)
+        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        
+        self.addButton = QPushButton("Add")
+        self.deleteButton = QPushButton("Delete")
+        self.updateButton = QPushButton("Update")
+        
+        self.addButton.setSizePolicy(sizePolicy)
+        self.deleteButton.setSizePolicy(sizePolicy)
+        self.updateButton.setSizePolicy(sizePolicy)
+        self.updateButton.setShortcut("Ctrl+U")
+        
+        self.buttonLayout.addWidget(self.addButton)
         self.buttonLayout.addWidget(self.deleteButton)
-        self.buttonLayout.addWidget(self.updateBUtton)
+        self.buttonLayout.addWidget(self.updateButton)
         
         self.tableLayout.addLayout(self.buttonLayout)
         
@@ -546,7 +541,6 @@ class Ui_invoiceWindow(QMainWindow):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         QObject.connect(self.checkBox, SIGNAL("toggled(bool)"), self.unitFrame.setVisible)
-        self.setTabOrder(self.addButton, self.invoiceTable)
         self.setTabOrder(self.invoiceTable, self.reviewButton)
         self.setTabOrder(self.reviewButton, self.typeCombobox)
         self.setTabOrder(self.typeCombobox, self.customerCombobox)
