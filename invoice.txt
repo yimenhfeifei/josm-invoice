@@ -1,9 +1,8 @@
 Nicer colour scheme with styles sheets.
 Nicer about dialog.
 Need to refine regular expressions.
-Need to print page total on each page.
 Unit tests.
-Proper formatting o letterhead.
+Proper formatting of letterhead.
 Word-wrap support for long lines in printed columns.
 Accurate space calculations for printer output, including up-front pagination.
 Consistent, cross-platform font.
@@ -11,5 +10,6 @@ Switch to model/view design.
 Need to print page total on each page.
 New GUI, coded from scratch, with shortcuts, tooltips, whatsthis, statustips and translation support.
 SQL database backend using QtSqlModel features.
-Saving of last invoice to database for across-session reversions.
+Saving of all printed invoices to database for reviewing/reprinting.
 Custom application icon.
+Navigating the table with the keyboard should update the editing widgets.

@@ -14,9 +14,9 @@ try:
     from PyQt4.QtGui import *
 
     from view.gui import Ui_invoiceWindow
-    from shared_modules.regular_expressions import regexObjects
-    from shared_modules.state import State
-    from shared_modules.letterhead import LetterHead
+    from regular_expressions import regexObjects
+    from state import State
+    from view.letterhead import LetterHead
     from database_mapper import Database
     from view.database_dialog import DatabaseDialog
     from view.print_preview_dialog import PrintPreviewDialogExtended
@@ -40,7 +40,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         locale.setlocale(locale.LC_ALL, "")
         
-        self.setWindowIcon(QIcon("penguin.png"))
+        self.setWindowIcon(QIcon("resources/images/penguin.png"))
 
         self.printer = QPrinter(QPrinter.HighResolution)
         self.printer.setPaperSize(QPrinter.A4)

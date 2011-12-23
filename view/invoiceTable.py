@@ -9,7 +9,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
 
-    from shared_modules.extendedTableWidget import ExtendedTableWidget
+    from view.extendedTableWidget import ExtendedTableWidget
 except ImportError as err:
     eType, eValue, eTb = sys.exc_info()
     fileName, lineNum, funcName, text = traceback.extract_tb(eTb)[-1]

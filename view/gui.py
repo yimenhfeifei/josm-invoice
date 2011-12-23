@@ -6,7 +6,7 @@ try:
     from PyQt4.QtCore import *
     from PyQt4.QtGui import *
     
-    from shared_modules.extendedCombobox import ExtendedComboBox
+    from view.extendedCombobox import ExtendedComboBox
 
 except ImportError as err:
     eType, eValue, eTb = sys.exc_info()
