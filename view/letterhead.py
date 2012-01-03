@@ -21,7 +21,7 @@ class LetterHead(object):
 
         self.fonts = {"companyFont": QFont("Helvetica", 16,
                                            weight=QFont.Bold),
-                      "merchantFont": QFont("Helvetica", 10,
+                      "businessFont": QFont("Helvetica", 14,
                                             weight=QFont.Bold),
                       "addressFont": QFont("Helvetica", 12,
                                            weight=QFont.Bold),
@@ -42,7 +42,7 @@ class LetterHead(object):
                             self.fonts["companyFont"]),
                            
                            (self.business,
-                            self.fonts["merchantFont"]),
+                            self.fonts["businessFont"]),
                            
                            (self.address,
                             self.fonts["addressFont"]),
@@ -64,21 +64,29 @@ class LetterHead(object):
 
     def paint(self, x, y):
         for num, line in enumerate(self.letterHead):
+                # Handles horizontal spacing of elements on a single line.
                 if isinstance(line, list):
                     length = 0
                     
                     for item in line:
+                        self.painter.setFont(item[1])
                         length += self.painter.fontMetrics().width(item[0])
                     
-                    space = (self.pageRect.width() - length)
-                    x = space / 2
-                    space /= len(line)
+                    availableSpace = (self.pageRect.width() - length)
+                    numOfSpaces = len(line) - 1
+                    
+                    widthOfSpace = availableSpace / numOfSpaces
+                    totalSpaceWidth = widthOfSpace * numOfSpaces
+                    
+                    lineLength = length + totalSpaceWidth
+                    x = (self.pageRect.width() - lineLength) / 2
                     
                     for item in line:
                         self.painter.setFont(item[1])
                         self.painter.drawText(x, y, item[0])
-                        x += (self.painter.fontMetrics().width(item[0]) + space)
+                        x += (self.painter.fontMetrics().width(item[0]) + widthOfSpace)
                 else:
+                    # This prints a single element on a line.
                     self.painter.setFont(line[1])
                     x = (self.pageRect.width() - self.painter.fontMetrics().width(line[0])) / 2
                     self.painter.drawText(x, y, line[0])
