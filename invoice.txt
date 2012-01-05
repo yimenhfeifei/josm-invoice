@@ -1,7 +1,7 @@
-Nicer colour scheme with styles sheets.
-Nicer about dialog.
 Need to refine regular expressions.
 Unit tests.
+
+Version 1:
 Word-wrap support for long lines in printed columns.
 Accurate space calculations for printer output, including up-front pagination.
 Consistent, cross-platform font.
