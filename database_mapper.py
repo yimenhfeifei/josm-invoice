@@ -30,15 +30,15 @@ class Database(object):
         return writer
 
     def loadRecords(self):
-        with open(self.name, "r") as file:
+        with open(self.name, "r", newline="") as file:
             reader = self._getReader(file, self._getDialect(file))
             return [row for row in reader]
 
     def saveRecords(self, records):
-        with open(self.name, "r") as file:
+        with open(self.name, "r", newline="") as file:
             dialect = self._getDialect(file)
 
-        with open(self.name, "w") as file:
+        with open(self.name, "w", newline="") as file:
             writer = self._getWriter(file, dialect)
             writer.writerows(records)
 
