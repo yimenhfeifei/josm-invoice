@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/bin/env python3
+
 try:
     import sys
     import platform
