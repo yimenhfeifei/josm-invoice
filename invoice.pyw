@@ -21,6 +21,7 @@ try:
     from database_mapper import Database
     from view.database_dialog import DatabaseDialog
     from view.print_preview_dialog import PrintPreviewDialogExtended
+    from view.backdate_dialog import backdateDialog
 except ImportError as err:
     print("Couldn't load module: {0}".format(err))
     raise SystemExit(err)
@@ -204,6 +205,9 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.connect(self.actionPopulateWithDummyData, SIGNAL("triggered()"),
                      self.populateWithDummyData)
+        
+        self.connect(self.actionBackdate, SIGNAL("triggered()"),
+                     self.showBackdateDialog)        
 
         self.connect(self.addButton, SIGNAL("clicked()"),
                      self.addPayload)
@@ -220,6 +224,10 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.lastPrintedInvoice = None
 
         self.settingsFile = "settings.cfg"
+        
+        self.date = None
+        
+        self.backdate = False
 
     def addPayload(self):
         if self.allValid():
@@ -359,6 +367,12 @@ class InvoiceWindow(Ui_invoiceWindow):
                 "ppuHeader": self.priceGroup.checkedButton(),
                 "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount()),
                 "autoCalc": self.autoCalcStatus.text()}
+    
+    def getDate(self):
+        if self.backdate:
+            return self.date
+        else:
+            return datetime.now().strftime("%d/%m/%Y")
 
     def getGrandTotal(self):
         return self.getPayloadTotal() + self.getVatTotal(self.getPayloadTotal())
@@ -449,7 +463,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def paintDetails(self, painter, pageRect, invoiceNumber):
         invoiceDetails = [invoiceNumber,
-                          datetime.now().strftime("%d/%m/%Y")]
+                          self.getDate()]
 
         invoiceDetails = invoiceDetails[:2] + self.database.loadRecordByName(self.customerCombobox.currentText())
 
@@ -794,6 +808,9 @@ class InvoiceWindow(Ui_invoiceWindow):
                 cp.write(file)
 
         self.statusBar().showMessage("VAT rate successfully saved to file.")
+        
+    def setDate(self, date):
+        self.date = date
 
     def setInvoiceNumber(self, value):
         self.numberEdit.setText(value)
@@ -810,6 +827,17 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def showAboutQt(self):
         QMessageBox.aboutQt(self, "About Qt")
+        
+    def showBackdateDialog(self):
+        dialog = backdateDialog(self)
+        if dialog.exec_():
+            self.backdate = True
+            date = dialog.dateWidget.date()
+            self.date = "{:0>2}/{:0>2}/{}".format(date.day(),
+                                                  date.month(),
+                                                  date.year())
+        else:
+            pass
 
     def showDatabaseDialog(self):
         dialog = DatabaseDialog(self)

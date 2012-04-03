@@ -524,13 +524,27 @@ class Ui_invoiceWindow(QMainWindow):
                                                               QApplication.UnicodeUTF8))
                 
         self.actionSaveVat.setStatusTip("Saves the current VAT rate to file, making it the default for the program.")
+        
+        self.actionBackdate = QAction(self)
+        self.actionBackdate.setText(QApplication.translate("Backdate Invoice",
+                                                           "&Backdate Invoice",
+                                                           None,
+                                                           QApplication.UnicodeUTF8))        
+                
+        self.actionBackdate.setShortcut(QApplication.translate("Backdate Invoice",
+                                                              "Ctrl+B",
+                                                              None,
+                                                              QApplication.UnicodeUTF8))
+                        
+        self.actionBackdate.setStatusTip("Allows manual changing of invoice date for backdating purposes.")        
 
         self.menuFile.addAction(self.actionPrintPreview)
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionDatabaseDialog)
         self.menuEdit.addAction(self.actionRevert)
         self.menuEdit.addAction(self.actionResetForm)  
-        self.menuEdit.addAction(self.actionSaveVat) 
+        self.menuEdit.addAction(self.actionSaveVat)
+        self.menuEdit.addAction(self.actionBackdate)
         self.menuHelp.addAction(self.actionAboutInvoice)
         self.menuHelp.addAction(self.actionAboutQt)
         self.menuOptions.addAction(self.actionToggleAutoCalc)
