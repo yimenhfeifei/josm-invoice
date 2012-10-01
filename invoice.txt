@@ -12,3 +12,4 @@ SQL database backend using QtSqlModel features.
 Saving of all printed invoices to database for reviewing/reprinting.
 Custom application icon.
 Navigating the table with the keyboard should update the editing widgets.
+Test.
