@@ -13,3 +13,4 @@ Saving of all printed invoices to database for reviewing/reprinting.
 Custom application icon.
 Navigating the table with the keyboard should update the editing widgets.
 tested
+again
