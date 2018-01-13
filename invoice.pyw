@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 
 try:
     import sys
@@ -41,7 +41,7 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.unitFrame.setVisible(False)
 
         locale.setlocale(locale.LC_ALL, "")
-        
+
         self.setWindowIcon(QIcon("resources/images/penguin.png"))
 
         self.printer = QPrinter(QPrinter.HighResolution)
@@ -205,9 +205,9 @@ class InvoiceWindow(Ui_invoiceWindow):
 
         self.connect(self.actionPopulateWithDummyData, SIGNAL("triggered()"),
                      self.populateWithDummyData)
-        
+
         self.connect(self.actionBackdate, SIGNAL("triggered()"),
-                     self.showBackdateDialog)        
+                     self.showBackdateDialog)
 
         self.connect(self.addButton, SIGNAL("clicked()"),
                      self.addPayload)
@@ -224,9 +224,9 @@ class InvoiceWindow(Ui_invoiceWindow):
         self.lastPrintedInvoice = None
 
         self.settingsFile = "settings.cfg"
-        
+
         self.date = None
-        
+
         self.backdate = False
 
     def addPayload(self):
@@ -367,7 +367,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                 "ppuHeader": self.priceGroup.checkedButton(),
                 "payloads": self.invoiceTable.getRows(self.invoiceTable.columnCount()),
                 "autoCalc": self.autoCalcStatus.text()}
-    
+
     def getDate(self):
         if self.backdate:
             return self.date
@@ -425,17 +425,17 @@ class InvoiceWindow(Ui_invoiceWindow):
     def on_updateButton_clicked(self):
         if self.allValid():
             row = self.invoiceTable.currentRow()
-          
+
             for column, string in enumerate([self.descriptionEdit.text(),
                                               self.weightEdit.text(),
                                               self.pricePerUnitEdit.text(),
                                               self.valueEdit.text()]):
-                
+
                 item = QTableWidgetItem(self.formatNumber(string))
                 item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            
+
                 self.invoiceTable.setItem(row, column, item)
-                
+
             self.invoiceTable.resizeRowsToContents()
 
     def onResetForm(self):
@@ -705,7 +705,7 @@ class InvoiceWindow(Ui_invoiceWindow):
             self.valueEdit.setText(str(value))
 
             self.addPayload()
-            
+
         self.invoiceTable.resizeRowsToContents()
 
     def printPreview(self):
@@ -808,7 +808,7 @@ class InvoiceWindow(Ui_invoiceWindow):
                 cp.write(file)
 
         self.statusBar().showMessage("VAT rate successfully saved to file.")
-        
+
     def setDate(self, date):
         self.date = date
 
@@ -827,7 +827,7 @@ class InvoiceWindow(Ui_invoiceWindow):
 
     def showAboutQt(self):
         QMessageBox.aboutQt(self, "About Qt")
-        
+
     def showBackdateDialog(self):
         dialog = backdateDialog(self)
         if dialog.exec_():
