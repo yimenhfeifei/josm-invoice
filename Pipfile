@@ -7,6 +7,7 @@ name = "pypi"
 
 [packages]
 
+"9d19b11" = {path = "C:/Users/jorchard/Downloads/PyQt4-4.11.4-cp36-cp36m-win_amd64.whl"}
 
 
 [dev-packages]
