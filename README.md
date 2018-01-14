@@ -5,6 +5,6 @@
 
 Created in 2011 for John Orchard and Company.
 
-![Screenshot](resources/images/invoice.png)
+![Main Window](resources/images/invoice.png)
 
-![Screenshot](resources/images/print_preview.png)
+![Print Preview](resources/images/print_preview.png)
